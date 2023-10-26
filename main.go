@@ -9,6 +9,7 @@ import (
 
 var SelectedCommand string
 var TableOutput *tview.TextView
+var profileName = "profile-name-here"
 
 func ChooseOption(option string, optionIndex int) {
 	if optionIndex != 0 {
@@ -23,7 +24,7 @@ func ChooseOption(option string, optionIndex int) {
 
 func ListOption() {
 	command := "aws"
-	args := []string{"dynamodb", "list-tables", "--no-paginate", "--output", "json", "--profile", "profileName"}
+	args := []string{"dynamodb", "list-tables", "--no-paginate", "--output", "json", "--profile", profileName}
 	out := cmd.ExecCommand(command, args)
 	fmt.Fprintf(TableOutput, "%s ", out)
 }

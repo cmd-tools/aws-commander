@@ -79,9 +79,9 @@ func (resource *Resource) GetCommand(name string) Command {
 	panic(fmt.Sprintf("Requested command %s does not exists in %s resouce", name, resource.Name))
 }
 
-func (command *Command) Run(resource string) string {
+func (command *Command) Run(resource string, profile string) string {
 	binaryName := "aws"
-	args := []string{resource, command.Name}
+	args := []string{resource, command.Name, "--profile", profile}
 	args = append(args, command.Arguments...)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()

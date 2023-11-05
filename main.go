@@ -28,7 +28,7 @@ func ChooseCommand(option string, optionIndex int) {
 		resource := cmd.Resources[Resource]
 		command := resource.GetCommand(CommandName)
 		TableOutput.Clear()
-		fmt.Fprintf(TableOutput, "%s", command.Run(resource.Name))
+		fmt.Fprintf(TableOutput, "%s", command.Run(resource.Name, ProfileName))
 	}
 }
 

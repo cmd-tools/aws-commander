@@ -1,0 +1,7 @@
+name: "s3"
+commands:
+  - name: "ls"
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"

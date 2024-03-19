@@ -1,16 +1,18 @@
 package executor
 
 import (
-	"log"
+	"fmt"
 	"os/exec"
+
+	"github.com/cmd-tools/aws-commander/logger"
 )
 
 func Exec(command []string) string {
 
-	out, err := exec.Command(command[0], command[1:]...).Output()
+	out, err := exec.Command(command[0], command[1:]...).CombinedOutput()
 
 	if err != nil {
-		log.Fatal(err)
+		logger.Logger.Err(err).Msg(fmt.Sprintf("Failed to run Exec: %s", out))
 	}
 
 	return string(out)
@@ -18,10 +20,10 @@ func Exec(command []string) string {
 
 func ExecCommand(command string, args []string) string {
 
-	out, err := exec.Command(command, args...).Output()
+	out, err := exec.Command(command, args...).CombinedOutput()
 
 	if err != nil {
-		log.Fatal(err)
+		logger.Logger.Err(err).Msg(fmt.Sprintf("Failed to run ExecCommand: %s", out))
 	}
 
 	return string(out)

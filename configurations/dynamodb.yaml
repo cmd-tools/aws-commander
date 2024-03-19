@@ -1,0 +1,7 @@
+name: "dynamodb"
+commands:
+  - name: "list-tables"
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"

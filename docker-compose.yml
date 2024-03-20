@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  localstack:
+    container_name: "localstack"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - DEBUG=1
+      - SERVICES=sqs,sns,lambda,dynamodb,s3
+      - AWS_DEFAULT_REGION=eu-west-1
+      - EDGE_PORT=4566
+    volumes:
+      - "./docker/localstack/init:/etc/localstack/init/ready.d"
+      - "./volume:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"

@@ -5,3 +5,7 @@ commands:
       - "--no-paginate"
       - "--output"
       - "json"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"

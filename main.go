@@ -9,6 +9,7 @@ import (
 	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/gdamore/tcell/v2"
+	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
 
@@ -40,86 +41,9 @@ func main() {
 
 	profiles := profile.GetList()
 
-	Body = ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title: fmt.Sprintf(" Profiles [%d] ", len(profiles)),
-		Columns: []ui.Column{
-			{Name: "NAME", Width: 0},
-			{Name: "REGION", Width: 0},
-			{Name: "SSO_REGION", Width: 0},
-			{Name: "SSO_ROLE_NAME", Width: 0},
-			{Name: "SSO_ACCOUNT_ID", Width: 0},
-			{Name: "SSO_START_URL", Width: 0},
-		},
-		Rows: profiles.AsMatrix(),
-		Handler: func(selectedProfileName string) {
-			helpers.SetSelectedProfile(selectedProfileName)
+	Body = CreateBody(profiles)
 
-			resources := cmd.GetAvailableResourceNames()
-
-			Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
-				Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
-				Options: resources,
-				Handler: func(selectedResourceName string) {
-					helpers.SetSelectedResource(selectedResourceName)
-
-					commands := cmd.Resources[selectedResourceName]
-
-					l := commands.GetCommandNames()
-
-					Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
-						Title:   fmt.Sprintf(" Commands [%d] ", len(l)),
-						Options: l,
-						Handler: func(selectedCommandName string) {
-							helpers.SetSelectedCommand(selectedCommandName)
-							command := commands.GetCommand(selectedCommandName)
-							Body = tview.NewTextView().
-								SetText(command.Run(selectedResourceName, selectedProfileName))
-
-							view := tview.
-								NewFlex().
-								SetDirection(tview.FlexRow).
-								AddItem(CreateHeader(), 4, 2, false).
-								AddItem(Search, 3, 2, false).
-								AddItem(Body, 0, 1, true).
-								AddItem(CreateFooter([]string{constants.Profiles, selectedProfileName, selectedResourceName, "output"}), 2, 2, false)
-
-							App.SetRoot(view, true)
-
-						},
-					})
-
-					view := tview.
-						NewFlex().
-						SetDirection(tview.FlexRow).
-						AddItem(CreateHeader(), 4, 2, false).
-						AddItem(Search, 3, 2, false).
-						AddItem(Body, 0, 1, true).
-						AddItem(CreateFooter([]string{constants.Profiles, selectedProfileName, selectedResourceName}), 2, 2, false)
-
-					App.SetRoot(view, true)
-
-				},
-			})
-
-			view := tview.
-				NewFlex().
-				SetDirection(tview.FlexRow).
-				AddItem(CreateHeader(), 4, 2, false).
-				AddItem(Search, 3, 2, false).
-				AddItem(Body, 0, 1, true).
-				AddItem(CreateFooter([]string{constants.Profiles, selectedProfileName}), 2, 2, false)
-
-			App.SetRoot(view, true)
-		},
-	})
-
-	mainFlexPanel := tview.NewFlex()
-	mainFlexPanel.
-		SetDirection(tview.FlexRow).
-		AddItem(CreateHeader(), 4, 2, false).
-		AddItem(Search, 3, 2, false).
-		AddItem(Body, 0, 1, true).
-		AddItem(CreateFooter([]string{constants.Profiles}), 2, 2, false)
+	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
 
 	SetSearchBarListener(mainFlexPanel)
 
@@ -172,6 +96,65 @@ func CreateFooter(sections []string) *tview.Table {
 
 	header.SetBorderPadding(0, 1, 1, 1)
 	return header
+}
+
+func CreateBody(profiles profile.Profiles) *tview.Table {
+	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
+		Title: fmt.Sprintf(" Profiles [%d] ", len(profiles)),
+		Columns: []ui.Column{
+			{Name: "NAME", Width: 0},
+			{Name: "REGION", Width: 0},
+			{Name: "SSO_REGION", Width: 0},
+			{Name: "SSO_ROLE_NAME", Width: 0},
+			{Name: "SSO_ACCOUNT_ID", Width: 0},
+			{Name: "SSO_START_URL", Width: 0},
+		},
+		Rows: profiles.AsMatrix(),
+		Handler: func(selectedProfileName string) {
+			helpers.SetSelectedProfile(selectedProfileName)
+
+			resources := cmd.GetAvailableResourceNames()
+
+			Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
+				Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
+				Options: resources,
+				Handler: func(selectedResourceName string) {
+					helpers.SetSelectedResource(selectedResourceName)
+
+					commands := cmd.Resources[selectedResourceName]
+
+					commandNames := commands.GetCommandNames()
+
+					Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
+						Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
+						Options: commandNames,
+						Handler: func(selectedCommandName string) {
+							helpers.SetSelectedCommand(selectedCommandName)
+							command := commands.GetCommand(selectedCommandName)
+							Body = tview.NewTextView().
+								SetText(command.Run(selectedResourceName, selectedProfileName))
+
+							UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName, constants.OutPut})
+						},
+					})
+					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName})
+				},
+			})
+			UpdateRootView([]string{constants.Profiles, selectedProfileName})
+		},
+	})
+}
+
+func UpdateRootView(navigationStrings []string) *tview.Flex {
+	view := tview.
+		NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(CreateHeader(), 4, 2, false).
+		AddItem(Search, 3, 2, false).
+		AddItem(Body, 0, 1, true).
+		AddItem(CreateFooter(navigationStrings), 2, 2, false)
+	App.SetRoot(view, true)
+	return view
 }
 
 func SetSearchBarListener(mainFlex *tview.Flex) {

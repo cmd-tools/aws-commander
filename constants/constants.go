@@ -11,6 +11,8 @@ var EmptyRune rune
 
 // CONSTANTS USED FOR FOOTER NAVIGATION
 const (
-	Profiles = "profiles"
-	OutPut   = "output"
+	Profiles  = "profiles"
+	Resources = "resources"
+	Commands  = "commands"
+	OutPut    = "output"
 )

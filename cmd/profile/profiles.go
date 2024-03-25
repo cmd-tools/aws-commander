@@ -114,6 +114,16 @@ func (profiles Profiles) AsMatrix() [][]string {
 	return matrix
 }
 
+func (profiles Profiles) GetProfileNames() []string {
+	var list []string
+
+	for _, profile := range profiles {
+		list = append(list, profile.Name)
+	}
+
+	return list
+}
+
 func getProfileDetailsByProperty(profileName string, property string, ch chan<- string) {
 	command := "aws"
 	args := []string{"configure", "get", property, "--profile", profileName}

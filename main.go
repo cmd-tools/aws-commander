@@ -11,6 +11,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"strings"
 )
 
 var App *tview.Application
@@ -18,6 +19,8 @@ var App *tview.Application
 var Header tview.Box
 var Search *tview.InputField
 var Body tview.Primitive
+var AutoCompletionWordList []string
+var ProfileList profile.Profiles
 var Footer tview.Box
 
 func main() {
@@ -32,16 +35,11 @@ func main() {
 
 	App = tview.NewApplication()
 
-	Search = tview.NewInputField()
-	Search.SetLabel("️🔍 > ").
-		SetFieldWidth(0).
-		SetFieldBackgroundColor(tcell.ColorDefault).
-		SetBorder(true).
-		SetBackgroundColor(tcell.ColorDefault)
+	Search = CreateSearchBar()
 
-	profiles := profile.GetList()
+	ProfileList = profile.GetList()
 
-	Body = CreateBody(profiles)
+	Body = CreateBody()
 
 	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
 
@@ -98,9 +96,9 @@ func CreateFooter(sections []string) *tview.Table {
 	return header
 }
 
-func CreateBody(profiles profile.Profiles) *tview.Table {
+func CreateBody() *tview.Table {
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title: fmt.Sprintf(" Profiles [%d] ", len(profiles)),
+		Title: fmt.Sprintf(" Profiles [%d] ", len(ProfileList)),
 		Columns: []ui.Column{
 			{Name: "NAME", Width: 0},
 			{Name: "REGION", Width: 0},
@@ -109,11 +107,13 @@ func CreateBody(profiles profile.Profiles) *tview.Table {
 			{Name: "SSO_ACCOUNT_ID", Width: 0},
 			{Name: "SSO_START_URL", Width: 0},
 		},
-		Rows: profiles.AsMatrix(),
+		Rows: ProfileList.AsMatrix(),
 		Handler: func(selectedProfileName string) {
 			helpers.SetSelectedProfile(selectedProfileName)
 
 			resources := cmd.GetAvailableResourceNames()
+
+			AutoCompletionWordList = []string{constants.Profiles}
 
 			Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
 				Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
@@ -121,16 +121,21 @@ func CreateBody(profiles profile.Profiles) *tview.Table {
 				Handler: func(selectedResourceName string) {
 					helpers.SetSelectedResource(selectedResourceName)
 
-					commands := cmd.Resources[selectedResourceName]
+					resource := cmd.Resources[selectedResourceName]
 
-					commandNames := commands.GetCommandNames()
+					commandNames := resource.GetCommandNames()
+
+					AutoCompletionWordList = append(resources, constants.Profiles)
 
 					Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
 						Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
 						Options: commandNames,
 						Handler: func(selectedCommandName string) {
 							helpers.SetSelectedCommand(selectedCommandName)
-							command := commands.GetCommand(selectedCommandName)
+							command := resource.GetCommand(selectedCommandName)
+
+							AutoCompletionWordList = append(commandNames, constants.Profiles)
+
 							Body = tview.NewTextView().
 								SetText(command.Run(selectedResourceName, selectedProfileName))
 
@@ -143,6 +148,36 @@ func CreateBody(profiles profile.Profiles) *tview.Table {
 			UpdateRootView([]string{constants.Profiles, selectedProfileName})
 		},
 	})
+}
+
+func CreateSearchBar() *tview.InputField {
+	searchBar := tview.NewInputField()
+	searchBar.SetLabel("️🔍 > ").
+		SetFieldWidth(0).
+		SetFieldBackgroundColor(tcell.ColorDefault).
+		SetBorder(true).
+		SetBackgroundColor(tcell.ColorDefault)
+
+	searchBar.SetAutocompleteFunc(func(currentText string) (entries []string) {
+		if len(currentText) == 0 {
+			return
+		}
+		for _, word := range AutoCompletionWordList {
+			if strings.HasPrefix(strings.ToLower(word), strings.ToLower(currentText)) {
+				entries = append(entries, word)
+			}
+		}
+		return
+	})
+
+	searchBar.SetAutocompletedFunc(func(text string, index, source int) bool {
+		if source != tview.AutocompletedNavigate {
+			Search.SetText(text)
+		}
+		return source == tview.AutocompletedEnter || source == tview.AutocompletedClick
+	})
+
+	return searchBar
 }
 
 func UpdateRootView(navigationStrings []string) *tview.Flex {
@@ -158,6 +193,7 @@ func UpdateRootView(navigationStrings []string) *tview.Flex {
 }
 
 func SetSearchBarListener(mainFlex *tview.Flex) {
+
 	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Rune() == ':' {
 			logger.Logger.Debug().Msg(fmt.Sprintf("Entered text: %s", Search.GetText()))
@@ -177,24 +213,13 @@ func SetSearchBarListener(mainFlex *tview.Flex) {
 
 		if event.Key() == tcell.KeyEnter && Search.HasFocus() {
 			logger.Logger.Debug().Msg("ENTER")
-			modal := ui.CreateModal(ui.ModalProperties{
-				Title: fmt.Sprintf("I thought I could search `%s` too, but it's not implemented 😔", Search.GetText()),
-				LeftChoice: ui.ModalChoice{
-					Name: "Ok",
-					Handler: func(previousFlex *tview.Flex) {
-						App.Stop()
-					},
-				},
-				RightChoice: ui.ModalChoice{
-					Name: "Cancel",
-					Handler: func(previousFlex *tview.Flex) {
-						// TODO: go back to mainFlex
-						App.Stop()
-					},
-				},
-			}, mainFlex)
+
+			if Search.GetText() == constants.Profiles {
+				Body = CreateBody()
+				UpdateRootView([]string{constants.Profiles})
+			}
+
 			Search.SetText(constants.EmptyString)
-			App.SetRoot(modal, false)
 
 			return nil
 		}

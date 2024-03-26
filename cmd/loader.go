@@ -22,6 +22,13 @@ var Resources = map[string]Resource{}
 type Command struct {
 	Name      string   `yaml:"name"`
 	Arguments []string `yaml:"arguments"`
+	View      string   `yaml:"view"`
+	Parse     Parse    `yaml:"parse"`
+}
+
+type Parse struct {
+	Type          string `yaml:"type"`
+	AttributeName string `yaml:"attributeName"`
 }
 
 type Resource struct {
@@ -87,6 +94,7 @@ func (command *Command) Run(resource string, profile string) string {
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Execution time %s", time.Since(start)))
+
 	return output
 }
 

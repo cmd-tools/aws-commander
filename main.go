@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/constants"
 	"github.com/cmd-tools/aws-commander/helpers"
 	"github.com/cmd-tools/aws-commander/logger"
+	commandParser "github.com/cmd-tools/aws-commander/parser"
 	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/gdamore/tcell/v2"
 	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
-	"strings"
 )
 
 var App *tview.Application
@@ -136,8 +138,8 @@ func CreateBody() *tview.Table {
 
 							AutoCompletionWordList = append(commandNames, constants.Profiles)
 
-							Body = tview.NewTextView().
-								SetText(command.Run(selectedResourceName, selectedProfileName))
+							var commandParsed = commandParser.ParseCommand(command, command.Run(selectedResourceName, selectedProfileName))
+							Body = commandParser.ParseToObject(command.View, commandParsed)
 
 							UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName, constants.OutPut})
 						},

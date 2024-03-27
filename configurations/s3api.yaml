@@ -14,7 +14,10 @@ commands:
       type: "object"
       attributeName: "Buckets"
   - name: "list-objects-v2"
+    depends_on: "list-buckets"
     arguments:
+      - "--bucket"
+      - "$BUCKET"
       - "--no-paginate"
       - "--output"
       - "json"
@@ -22,3 +25,7 @@ commands:
       - "2"
       - "--cli-connect-timeout"
       - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Contents"

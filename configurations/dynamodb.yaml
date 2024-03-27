@@ -9,3 +9,7 @@ commands:
       - "2"
       - "--cli-connect-timeout"
       - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "TableNames"

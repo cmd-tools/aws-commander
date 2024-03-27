@@ -2,52 +2,26 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
+	"github.com/cmd-tools/aws-commander/constants"
 	"github.com/cmd-tools/aws-commander/helpers"
 	"github.com/cmd-tools/aws-commander/logger"
-	"github.com/common-nighthawk/go-figure"
+	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/gdamore/tcell/v2"
+	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"strings"
 )
 
-var SelectedCommand string
-var TableOutput *tview.TextView
-var ProfileList *tview.List
-var Form *tview.Form
-var CommandList []string
-var CommandName = ""
-var ProfileName = ""
-var Resource = "dynamodb"
 var App *tview.Application
 
-func ChooseCommand(option string, optionIndex int) {
-	if len(CommandList) != 0 {
-		CommandName = option
-		resource := cmd.Resources[Resource]
-		command := resource.GetCommand(CommandName)
-		TableOutput.Clear()
-		fmt.Fprintf(TableOutput, "%s", command.Run(resource.Name, ProfileName))
-	}
-}
-
-func ChooseProfile(option string, optionIndex int) {
-	ProfileName = option
-	logger.Logger.Debug().Msg(fmt.Sprintf("Selected profile: %s", option))
-}
-
-func ChooseResource(option string, optionIndex int) {
-	Resource = option
-	resource := cmd.Resources[Resource]
-	CommandList = resource.GetCommandNames()
-	if Form != nil {
-		dropDown := Form.GetFormItemByLabel("Command").(*tview.DropDown)
-		dropDown.SetOptions(CommandList, nil)
-		dropDown.SetSelectedFunc(ChooseCommand)
-	}
-	logger.Logger.Debug().Msg(fmt.Sprintf("Selected resource: %s", option))
-}
+var Header tview.Box
+var Search *tview.InputField
+var Body tview.Primitive
+var AutoCompletionWordList []string
+var ProfileList profile.Profiles
+var Footer tview.Box
 
 func main() {
 
@@ -59,43 +33,196 @@ func main() {
 
 	cmd.Init()
 
-	figure := figure.NewFigure("AWS Commander", "puffy", false)
-
 	App = tview.NewApplication()
 
-	asciiTitle := figure.String()
-	title := tview.NewTextView().SetText(asciiTitle[:len(asciiTitle)-1] + " v0.0.1").SetDynamicColors(true).SetTextAlign(tview.AlignLeft).SetTextColor(tcell.Color100)
+	Search = CreateSearchBar()
 
-	TableOutput = tview.NewTextView().
-		SetDynamicColors(true).
-		SetRegions(true).
-		SetWordWrap(true).
-		SetChangedFunc(func() {
-			App.Draw()
-		})
+	ProfileList = profile.GetList()
 
-	TableOutput.SetTitle("Command Result").SetBorder(true)
+	Body = CreateBody()
 
-	Form = tview.NewForm().
-		AddDropDown("Profile", profile.GetList(), 0, ChooseProfile).
-		AddDropDown("Resource", cmd.GetAvailableResourceNames(), 0, ChooseResource).
-		AddDropDown("Command", CommandList, 0, ChooseCommand)
-	Form.SetBorder(true).SetTitle(fmt.Sprintf("Choose your option (aws cli: %s)", helpers.GetAWSClientVersion())).SetTitleAlign(tview.AlignLeft)
-	Form.SetFocus(0)
+	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
 
-	mainFlexPanel := tview.NewFlex().SetDirection(tview.FlexRow)
+	SetSearchBarListener(mainFlexPanel)
 
-	columns := tview.NewFlex().SetDirection(tview.FlexColumn)
-
-	mainFlexPanel.AddItem(title, 0, 1, false)
-
-	columns.
-		AddItem(Form, 0, 1, true).
-		AddItem(TableOutput, 0, 1, false)
-
-	mainFlexPanel.AddItem(columns, 0, 3, false)
-
-	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
+	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(false).Run(); err != nil {
 		panic(err)
 	}
+}
+
+func CreateHeader() *tview.Table {
+	header := tview.NewTable().
+		SetBorders(false).
+		SetSelectable(false, false)
+
+	header.SetCell(0, 0, tview.NewTableCell("Aws CLI Rev:").SetTextColor(tcell.ColorGold))
+	header.SetCell(0, 1, tview.NewTableCell(helpers.GetAWSClientVersion()).SetTextColor(tcell.ColorWhite))
+	header.SetCell(1, 0, tview.NewTableCell("Aws Commander Rev:").SetTextColor(tcell.ColorGold))
+	// TODO: get AWS commander version from somewhere else?
+	header.SetCell(1, 1, tview.NewTableCell("v0.0.1").SetTextColor(tcell.ColorWhite))
+
+	header.SetBorderPadding(1, 1, 1, 1)
+	return header
+}
+
+func CreateFooter(sections []string) *tview.Table {
+
+	sectionBackgroundColorTags := []tcell.Color{
+		tcell.ColorGold,
+		tcell.ColorDarkMagenta,
+		tcell.ColorAquaMarine,
+		tcell.ColorWhite,
+	}
+
+	sectionForegroundColorTags := []tcell.Color{
+		tcell.ColorBlack,
+		tcell.ColorWhite,
+		tcell.ColorBlack,
+		tcell.ColorBlack,
+	}
+
+	header := tview.NewTable().
+		SetBorders(false).
+		SetSelectable(false, false)
+
+	for i, section := range sections {
+		header.SetCell(0, i*2, tview.NewTableCell(fmt.Sprintf(" <%s>", section)).
+			SetBackgroundColor(sectionBackgroundColorTags[i]).
+			SetTextColor(sectionForegroundColorTags[i]).
+			SetAlign(tview.AlignCenter))
+	}
+
+	header.SetBorderPadding(0, 1, 1, 1)
+	return header
+}
+
+func CreateBody() *tview.Table {
+	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
+		Title: fmt.Sprintf(" Profiles [%d] ", len(ProfileList)),
+		Columns: []ui.Column{
+			{Name: "NAME", Width: 0},
+			{Name: "REGION", Width: 0},
+			{Name: "SSO_REGION", Width: 0},
+			{Name: "SSO_ROLE_NAME", Width: 0},
+			{Name: "SSO_ACCOUNT_ID", Width: 0},
+			{Name: "SSO_START_URL", Width: 0},
+		},
+		Rows: ProfileList.AsMatrix(),
+		Handler: func(selectedProfileName string) {
+			helpers.SetSelectedProfile(selectedProfileName)
+
+			resources := cmd.GetAvailableResourceNames()
+
+			AutoCompletionWordList = []string{constants.Profiles}
+
+			Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
+				Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
+				Options: resources,
+				Handler: func(selectedResourceName string) {
+					helpers.SetSelectedResource(selectedResourceName)
+
+					resource := cmd.Resources[selectedResourceName]
+
+					commandNames := resource.GetCommandNames()
+
+					AutoCompletionWordList = append(resources, constants.Profiles)
+
+					Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
+						Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
+						Options: commandNames,
+						Handler: func(selectedCommandName string) {
+							helpers.SetSelectedCommand(selectedCommandName)
+							command := resource.GetCommand(selectedCommandName)
+
+							AutoCompletionWordList = append(commandNames, constants.Profiles)
+
+							Body = tview.NewTextView().
+								SetText(command.Run(selectedResourceName, selectedProfileName))
+
+							UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName, constants.OutPut})
+						},
+					})
+					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName})
+				},
+			})
+			UpdateRootView([]string{constants.Profiles, selectedProfileName})
+		},
+	})
+}
+
+func CreateSearchBar() *tview.InputField {
+	searchBar := tview.NewInputField()
+	searchBar.SetLabel("️🔍 > ").
+		SetFieldWidth(0).
+		SetFieldBackgroundColor(tcell.ColorDefault).
+		SetBorder(true).
+		SetBackgroundColor(tcell.ColorDefault)
+
+	searchBar.SetAutocompleteFunc(func(currentText string) (entries []string) {
+		if len(currentText) == 0 {
+			return
+		}
+		for _, word := range AutoCompletionWordList {
+			if strings.HasPrefix(strings.ToLower(word), strings.ToLower(currentText)) {
+				entries = append(entries, word)
+			}
+		}
+		return
+	})
+
+	searchBar.SetAutocompletedFunc(func(text string, index, source int) bool {
+		if source != tview.AutocompletedNavigate {
+			Search.SetText(text)
+		}
+		return source == tview.AutocompletedEnter || source == tview.AutocompletedClick
+	})
+
+	return searchBar
+}
+
+func UpdateRootView(navigationStrings []string) *tview.Flex {
+	view := tview.
+		NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(CreateHeader(), 4, 2, false).
+		AddItem(Search, 3, 2, false).
+		AddItem(Body, 0, 1, true).
+		AddItem(CreateFooter(navigationStrings), 2, 2, false)
+	App.SetRoot(view, true)
+	return view
+}
+
+func SetSearchBarListener(mainFlex *tview.Flex) {
+
+	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Rune() == ':' {
+			logger.Logger.Debug().Msg(fmt.Sprintf("Entered text: %s", Search.GetText()))
+			// TODO: search bar should appear if user press ':'
+			App.SetFocus(Search)
+			return nil
+		}
+
+		if event.Key() == tcell.KeyESC {
+			Search.SetText(constants.EmptyString)
+			logger.Logger.Debug().Msg("ESC")
+			// TODO: enable once found a way to add the search bar dynamically
+			//mainFlex.RemoveItem(Search)
+			App.SetFocus(Body)
+			return nil
+		}
+
+		if event.Key() == tcell.KeyEnter && Search.HasFocus() {
+			logger.Logger.Debug().Msg("ENTER")
+
+			if Search.GetText() == constants.Profiles {
+				Body = CreateBody()
+				UpdateRootView([]string{constants.Profiles})
+			}
+
+			Search.SetText(constants.EmptyString)
+
+			return nil
+		}
+		return event
+	})
 }

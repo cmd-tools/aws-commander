@@ -111,39 +111,19 @@ func CreateBody() *tview.Table {
 		},
 		Rows: ProfileList.AsMatrix(),
 		Handler: func(selectedProfileName string) {
-			helpers.SetSelectedProfile(selectedProfileName)
-
+			cmd.UiState.Profile = selectedProfileName
 			resources := cmd.GetAvailableResourceNames()
-
 			AutoCompletionWordList = []string{constants.Profiles}
 
 			Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
 				Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
 				Options: resources,
 				Handler: func(selectedResourceName string) {
-					helpers.SetSelectedResource(selectedResourceName)
 
-					resource := cmd.Resources[selectedResourceName]
-
-					commandNames := resource.GetCommandNames()
-
+					cmd.UiState.Resource = cmd.Resources[selectedResourceName]
 					AutoCompletionWordList = append(resources, constants.Profiles)
+					Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 
-					Body = ui.CreateCustomListView(ui.ListViewBoxProperties{
-						Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
-						Options: commandNames,
-						Handler: func(selectedCommandName string) {
-							helpers.SetSelectedCommand(selectedCommandName)
-							command := resource.GetCommand(selectedCommandName)
-
-							AutoCompletionWordList = append(commandNames, constants.Profiles)
-
-							var commandParsed = commandParser.ParseCommand(command, command.Run(selectedResourceName, selectedProfileName))
-							Body = commandParser.ParseToObject(command.View, commandParsed)
-
-							UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName, constants.OutPut})
-						},
-					})
 					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName})
 				},
 			})
@@ -227,4 +207,30 @@ func SetSearchBarListener(mainFlex *tview.Flex) {
 		}
 		return event
 	})
+}
+
+func createCommandView(commandNames []string) tview.Primitive {
+	return ui.CreateCustomListView(ui.ListViewBoxProperties{
+		Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
+		Options: commandNames,
+		Handler: func(selectedCommandName string) {
+			cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
+			AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+
+			var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
+			Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
+
+			UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
+		},
+	})
+}
+
+func ItemHandler(selectedItemName string) {
+	resourceName := "$" + strings.ToUpper(cmd.UiState.Command.ResourceName)
+	cmd.UiState.SelectedItems[resourceName] = selectedItemName
+
+	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+	Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
+
+	UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
 }

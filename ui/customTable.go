@@ -2,6 +2,7 @@ package ui
 
 import (
 	"fmt"
+
 	"github.com/cmd-tools/aws-commander/helpers"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
@@ -53,6 +54,7 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 		for colIndex, cellData := range rowData {
 			table.SetCell(rowIndex+1, colIndex, tview.
 				NewTableCell(cellData).
+				SetExpansion(1).
 				SetAlign(tview.AlignLeft).
 				SetSelectable(true))
 		}

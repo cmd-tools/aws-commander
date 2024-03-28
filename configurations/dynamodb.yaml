@@ -1,6 +1,7 @@
 name: "dynamodb"
 commands:
   - name: "list-tables"
+    resourceName: tableName
     arguments:
       - "--no-paginate"
       - "--output"
@@ -13,3 +14,17 @@ commands:
     parse:
       type: "list"
       attributeName: "TableNames"
+  - name: "scan"
+    arguments:
+      - "--table-name"
+      - "$TABLENAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Items"

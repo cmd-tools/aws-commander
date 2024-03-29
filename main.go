@@ -112,6 +112,7 @@ func CreateBody() *tview.Table {
 		Rows: ProfileList.AsMatrix(),
 		Handler: func(selectedProfileName string) {
 			cmd.UiState.Profile = selectedProfileName
+			cmd.UiState.SelectedItems = make(map[string]string)
 			resources := cmd.GetAvailableResourceNames()
 			AutoCompletionWordList = []string{constants.Profiles}
 
@@ -121,6 +122,7 @@ func CreateBody() *tview.Table {
 				Handler: func(selectedResourceName string) {
 
 					cmd.UiState.Resource = cmd.Resources[selectedResourceName]
+					cmd.UiState.SelectedItems = make(map[string]string)
 					AutoCompletionWordList = append(resources, constants.Profiles)
 					Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 

@@ -45,14 +45,17 @@ func main() {
 
 	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
 
-	SetSearchBarListener(mainFlexPanel)
+	SetSearchBarListener()
 
 	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(false).Run(); err != nil {
 		panic(err)
 	}
 }
 
-func CreateHeader() *tview.Table {
+func CreateHeader() *tview.Flex {
+
+	flex := tview.NewFlex()
+
 	header := tview.NewTable().
 		SetBorders(false).
 		SetSelectable(false, false)
@@ -63,8 +66,30 @@ func CreateHeader() *tview.Table {
 	// TODO: get AWS commander version from somewhere else?
 	header.SetCell(1, 1, tview.NewTableCell("v0.0.1").SetTextColor(tcell.ColorWhite))
 
-	header.SetBorderPadding(1, 1, 1, 1)
-	return header
+	header.SetBorderPadding(0, 1, 1, 1)
+
+	shortcuts := ui.CreateCustomShortCutsView(ui.CustomShortCutProperties{
+		Keys: []ui.CustomShortCut{
+			{
+				KeyComb: "esc",
+				Name:    "Back",
+			},
+			{
+				KeyComb: ":",
+				Name:    "Search",
+			},
+			{
+				KeyComb: "?",
+				Name:    "Help",
+			},
+		},
+	})
+
+	flex.AddItem(header, 0, 2, false).
+		AddItem(shortcuts, 0, 4, false).
+		AddItem(CreateLogo(), 0, 2, false)
+
+	return flex
 }
 
 func CreateFooter(sections []string) *tview.Table {
@@ -164,11 +189,26 @@ func CreateSearchBar() *tview.InputField {
 	return searchBar
 }
 
+func CreateLogo() *tview.TextView {
+	l := `
+	 _____  _ _ _  _____
+	|  _  || | | ||   __|
+	|     || | | ||__   |
+	|__|__||_____||_____|
+	  C O M M A N D E R
+	`
+	t1 := tview.NewTextView()
+	t1.SetBorder(false).SetBorderPadding(0, 1, 1, 1)
+	t1.SetText(l).SetTextAlign(tview.AlignRight).SetTextColor(tcell.ColorGold)
+
+	return t1
+}
+
 func UpdateRootView(navigationStrings []string) *tview.Flex {
 	view := tview.
 		NewFlex().
 		SetDirection(tview.FlexRow).
-		AddItem(CreateHeader(), 4, 2, false).
+		AddItem(CreateHeader(), 7, 2, false).
 		AddItem(Search, 3, 2, false).
 		AddItem(Body, 0, 1, true).
 		AddItem(CreateFooter(navigationStrings), 2, 2, false)
@@ -176,7 +216,7 @@ func UpdateRootView(navigationStrings []string) *tview.Flex {
 	return view
 }
 
-func SetSearchBarListener(mainFlex *tview.Flex) {
+func SetSearchBarListener() {
 
 	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Rune() == ':' {

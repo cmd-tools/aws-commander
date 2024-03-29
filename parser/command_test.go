@@ -40,6 +40,22 @@ var awsCommandResult2 = `{
   }  
 `
 
+var awsCommandResult3 = `{
+	"Items": [
+	  {
+		"id": {
+		  "S": "foo4"
+		}
+	  },
+	  {
+		"id": {
+		  "S": "foo1"
+		}
+	  }
+  	]
+}
+`
+
 func Test_ParseCommand_Object(t *testing.T) {
 	var commandTest = cmd.Command{
 		Parse: cmd.Parse{
@@ -58,6 +74,15 @@ func Test_ParseCommand_Object(t *testing.T) {
 		},
 	}
 	jsonResult1 = ParseCommand(commandTest, awsCommandResult)
+	fmt.Println(jsonResult1)
+
+	commandTest = cmd.Command{
+		Parse: cmd.Parse{
+			Type:          "object",
+			AttributeName: "Items",
+		},
+	}
+	jsonResult1 = ParseCommand(commandTest, awsCommandResult3)
 	fmt.Println(jsonResult1)
 }
 

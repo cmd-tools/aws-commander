@@ -1,6 +1,7 @@
 name: "s3api"
 commands:
   - name: "list-buckets"
+    resourceName: bucket
     arguments:
       - "--no-paginate"
       - "--output"
@@ -15,6 +16,7 @@ commands:
       attributeName: "Buckets"
   - name: "list-objects-v2"
     depends_on: "list-buckets"
+    resourceName: object
     arguments:
       - "--bucket"
       - "$BUCKET"

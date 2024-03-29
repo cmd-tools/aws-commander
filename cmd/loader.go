@@ -20,10 +20,11 @@ var ConfigurationsRelativeFileExtension = ".yaml"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name      string   `yaml:"name"`
-	Arguments []string `yaml:"arguments"`
-	View      string   `yaml:"view"`
-	Parse     Parse    `yaml:"parse"`
+	Name         string   `yaml:"name"`
+	ResourceName string   `yaml:"resourceName"`
+	Arguments    []string `yaml:"arguments"`
+	View         string   `yaml:"view"`
+	Parse        Parse    `yaml:"parse"`
 }
 
 type Parse struct {
@@ -89,7 +90,7 @@ func (resource *Resource) GetCommand(name string) Command {
 func (command *Command) Run(resource string, profile string) string {
 	binaryName := "aws"
 	args := []string{resource, command.Name, "--profile", profile}
-	args = append(args, command.Arguments...)
+	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
@@ -114,4 +115,16 @@ func processConfigurationFile(channel chan Resource, filename string) {
 	logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Loaded resource: %s, which contains %d commands", resource.Name, len(resource.Commands)))
 
 	channel <- resource
+}
+
+func replaceVariablesOnCommandArguments(arguments []string) []string {
+	for index, item := range arguments {
+		if strings.HasPrefix(item, "$") {
+			value, exists := UiState.SelectedItems[item]
+			if exists {
+				arguments[index] = value
+			}
+		}
+	}
+	return arguments
 }

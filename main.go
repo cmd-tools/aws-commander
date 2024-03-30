@@ -43,7 +43,7 @@ func main() {
 
 	Body = CreateBody()
 
-	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
+	mainFlexPanel := UpdateRootView([]string{constants.Profiles}, nil)
 
 	SetSearchBarListener()
 
@@ -52,7 +52,7 @@ func main() {
 	}
 }
 
-func CreateHeader() *tview.Flex {
+func CreateHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
 
 	flex := tview.NewFlex()
 
@@ -69,20 +69,7 @@ func CreateHeader() *tview.Flex {
 	header.SetBorderPadding(0, 1, 1, 1)
 
 	shortcuts := ui.CreateCustomShortCutsView(ui.CustomShortCutProperties{
-		Keys: []ui.CustomShortCut{
-			{
-				KeyComb: "esc",
-				Name:    "Back",
-			},
-			{
-				KeyComb: ":",
-				Name:    "Search",
-			},
-			{
-				KeyComb: "?",
-				Name:    "Help",
-			},
-		},
+		Keys: append(keyCombs, DefaultKeyCombinations()...),
 	})
 
 	flex.AddItem(header, 0, 2, false).
@@ -151,10 +138,10 @@ func CreateBody() *tview.Table {
 					AutoCompletionWordList = append(resources, constants.Profiles)
 					Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 
-					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName})
+					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName}, nil)
 				},
 			})
-			UpdateRootView([]string{constants.Profiles, selectedProfileName})
+			UpdateRootView([]string{constants.Profiles, selectedProfileName}, nil)
 		},
 	})
 }
@@ -204,11 +191,11 @@ func CreateLogo() *tview.TextView {
 	return t1
 }
 
-func UpdateRootView(navigationStrings []string) *tview.Flex {
+func UpdateRootView(navigationStrings []string, shortcuts []ui.CustomShortCut) *tview.Flex {
 	view := tview.
 		NewFlex().
 		SetDirection(tview.FlexRow).
-		AddItem(CreateHeader(), 7, 2, false).
+		AddItem(CreateHeader(shortcuts), 7, 2, false).
 		AddItem(Search, 3, 2, false).
 		AddItem(Body, 0, 1, true).
 		AddItem(CreateFooter(navigationStrings), 2, 2, false)
@@ -240,7 +227,7 @@ func SetSearchBarListener() {
 
 			if Search.GetText() == constants.Profiles {
 				Body = CreateBody()
-				UpdateRootView([]string{constants.Profiles})
+				UpdateRootView([]string{constants.Profiles}, nil)
 			}
 
 			Search.SetText(constants.EmptyString)
@@ -262,7 +249,7 @@ func createCommandView(commandNames []string) tview.Primitive {
 			var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
 			Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
 
-			UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
+			UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut}, nil)
 		},
 	})
 }
@@ -274,5 +261,22 @@ func ItemHandler(selectedItemName string) {
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 	Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 
-	UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
+	UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut}, nil)
+}
+
+func DefaultKeyCombinations() []ui.CustomShortCut {
+	return []ui.CustomShortCut{
+		{
+			Name:        "esc",
+			Description: "Back",
+		},
+		{
+			Name:        ":",
+			Description: "Search",
+		},
+		{
+			Name:        "?",
+			Description: "Help",
+		},
+	}
 }

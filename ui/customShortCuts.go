@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"sort"
 )
 
 type CustomShortCut struct {
-	KeyComb string
-	Name    string
+	Name        string
+	Description string
 }
 
 type CustomShortCutProperties struct {
@@ -16,6 +17,9 @@ type CustomShortCutProperties struct {
 }
 
 func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table {
+
+	sort.Sort(properties)
+
 	table := tview.NewTable()
 
 	table.
@@ -36,13 +40,13 @@ func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table
 		for i := 0; i < maxColumn; i++ {
 			key := properties.Keys[k]
 
-			cellForKeyComb := tview.NewTableCell(fmt.Sprintf("<%s>", key.KeyComb)).
+			cellForKeyComb := tview.NewTableCell(fmt.Sprintf("<%s>", key.Name)).
 				SetAlign(tview.AlignLeft).
 				SetMaxWidth(0).
 				SetTextColor(tcell.ColorGold).
 				SetSelectable(false)
 
-			cellForName := tview.NewTableCell(key.Name).
+			cellForName := tview.NewTableCell(key.Description).
 				SetAlign(tview.AlignLeft).
 				SetMaxWidth(0).
 				SetTextColor(tcell.ColorGray).
@@ -59,4 +63,12 @@ func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table
 	}
 
 	return table
+}
+
+func (c CustomShortCutProperties) Len() int { return len(c.Keys) }
+func (c CustomShortCutProperties) Swap(i, j int) {
+	c.Keys[i], c.Keys[j] = c.Keys[j], c.Keys[i]
+}
+func (c CustomShortCutProperties) Less(i, j int) bool {
+	return c.Keys[i].Name < c.Keys[j].Name
 }

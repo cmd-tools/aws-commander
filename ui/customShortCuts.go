@@ -2,6 +2,8 @@ package ui
 
 import (
 	"fmt"
+	"github.com/cmd-tools/aws-commander/helpers"
+	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 	"sort"
@@ -10,13 +12,16 @@ import (
 type CustomShortCut struct {
 	Name        string
 	Description string
+	Rune        rune
+	Key         tcell.Key
+	Handle      func(event *tcell.EventKey) *tcell.EventKey
 }
 
 type CustomShortCutProperties struct {
-	Keys []CustomShortCut
+	Shortcuts []CustomShortCut
 }
 
-func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table {
+func CreateCustomShortCutsView(App *tview.Application, properties CustomShortCutProperties) *tview.Table {
 
 	sort.Sort(properties)
 
@@ -34,13 +39,21 @@ func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table
 	maxRows := 6
 	maxColumn := 6
 
-	itemListCount := len(properties.Keys)
+	itemListCount := len(properties.Shortcuts)
 
-	for j := 0; j < maxRows; j = j + 2 {
-		for i := 0; i < maxColumn; i++ {
-			key := properties.Keys[k]
+	j := 0
+	for j < maxRows && k < itemListCount {
+		i := 0
+		for i < maxColumn && k < itemListCount {
+			key := properties.Shortcuts[k]
 
-			cellForKeyComb := tview.NewTableCell(fmt.Sprintf("<%s>", key.Name)).
+			name := key.Name
+
+			if helpers.IsStringEmpty(name) {
+				name = string(key.Rune)
+			}
+
+			cellForKeyComb := tview.NewTableCell(fmt.Sprintf("<%s>", name)).
 				SetAlign(tview.AlignLeft).
 				SetMaxWidth(0).
 				SetTextColor(tcell.ColorGold).
@@ -53,22 +66,38 @@ func CreateCustomShortCutsView(properties CustomShortCutProperties) *tview.Table
 				SetSelectable(false)
 
 			table.SetCell(i, j, cellForKeyComb)
-			table.SetCell(i, j+1, cellForName).SetBorderPadding(0, 1, 1, 1)
+			table.SetCell(i, j+1, cellForName).
+				SetBorderPadding(0, 1, 1, 1)
 
 			k++
-			if k >= itemListCount {
-				return table
+			i++
+		}
+		j += 2
+	}
+
+	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		for _, shortcut := range properties.Shortcuts {
+			if event.Rune() == shortcut.Rune {
+				logger.Logger.Debug().Msg(fmt.Sprintf("Got rune event: %s", shortcut.Description))
+				return shortcut.Handle(event)
+			}
+
+			if event.Key() == shortcut.Key {
+				logger.Logger.Debug().Msg(fmt.Sprintf("Got key event: %s", shortcut.Description))
+				return shortcut.Handle(event)
 			}
 		}
-	}
+
+		return event
+	})
 
 	return table
 }
 
-func (c CustomShortCutProperties) Len() int { return len(c.Keys) }
+func (c CustomShortCutProperties) Len() int { return len(c.Shortcuts) }
 func (c CustomShortCutProperties) Swap(i, j int) {
-	c.Keys[i], c.Keys[j] = c.Keys[j], c.Keys[i]
+	c.Shortcuts[i], c.Shortcuts[j] = c.Shortcuts[j], c.Shortcuts[i]
 }
 func (c CustomShortCutProperties) Less(i, j int) bool {
-	return c.Keys[i].Name < c.Keys[j].Name
+	return c.Shortcuts[i].Name < c.Shortcuts[j].Name
 }

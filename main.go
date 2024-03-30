@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
-
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/constants"
@@ -14,6 +12,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"strings"
 )
 
 var App *tview.Application
@@ -45,8 +44,6 @@ func main() {
 
 	mainFlexPanel := UpdateRootView([]string{constants.Profiles}, nil)
 
-	SetSearchBarListener()
-
 	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(false).Run(); err != nil {
 		panic(err)
 	}
@@ -68,8 +65,8 @@ func CreateHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
 
 	header.SetBorderPadding(0, 1, 1, 1)
 
-	shortcuts := ui.CreateCustomShortCutsView(ui.CustomShortCutProperties{
-		Keys: append(keyCombs, DefaultKeyCombinations()...),
+	shortcuts := ui.CreateCustomShortCutsView(App, ui.CustomShortCutProperties{
+		Shortcuts: append(keyCombs, DefaultKeyCombinations()...),
 	})
 
 	flex.AddItem(header, 0, 2, false).
@@ -203,41 +200,6 @@ func UpdateRootView(navigationStrings []string, shortcuts []ui.CustomShortCut) *
 	return view
 }
 
-func SetSearchBarListener() {
-
-	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Rune() == ':' {
-			logger.Logger.Debug().Msg(fmt.Sprintf("Entered text: %s", Search.GetText()))
-			// TODO: search bar should appear if user press ':'
-			App.SetFocus(Search)
-			return nil
-		}
-
-		if event.Key() == tcell.KeyESC {
-			Search.SetText(constants.EmptyString)
-			logger.Logger.Debug().Msg("ESC")
-			// TODO: enable once found a way to add the search bar dynamically
-			//mainFlex.RemoveItem(Search)
-			App.SetFocus(Body)
-			return nil
-		}
-
-		if event.Key() == tcell.KeyEnter && Search.HasFocus() {
-			logger.Logger.Debug().Msg("ENTER")
-
-			if Search.GetText() == constants.Profiles {
-				Body = CreateBody()
-				UpdateRootView([]string{constants.Profiles}, nil)
-			}
-
-			Search.SetText(constants.EmptyString)
-
-			return nil
-		}
-		return event
-	})
-}
-
 func createCommandView(commandNames []string) tview.Primitive {
 	return ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
@@ -268,15 +230,30 @@ func DefaultKeyCombinations() []ui.CustomShortCut {
 	return []ui.CustomShortCut{
 		{
 			Name:        "esc",
+			Key:         tcell.KeyEsc,
 			Description: "Back",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				Search.SetText(constants.EmptyString)
+				// TODO: enable once found a way to add the search bar dynamically
+				App.SetFocus(Body)
+				return nil
+			},
 		},
 		{
-			Name:        ":",
+			Rune:        ':',
 			Description: "Search",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// TODO: search bar should appear if user press ':'
+				App.SetFocus(Search)
+				return nil
+			},
 		},
 		{
-			Name:        "?",
+			Rune:        '?',
 			Description: "Help",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				return nil
+			},
 		},
 	}
 }

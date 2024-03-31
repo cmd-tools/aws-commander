@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
-
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/constants"
@@ -14,6 +12,7 @@ import (
 	"github.com/gdamore/tcell/v2"
 	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"strings"
 )
 
 var App *tview.Application
@@ -43,16 +42,17 @@ func main() {
 
 	Body = CreateBody()
 
-	mainFlexPanel := UpdateRootView([]string{constants.Profiles})
-
-	SetSearchBarListener(mainFlexPanel)
+	mainFlexPanel := UpdateRootView([]string{constants.Profiles}, nil)
 
 	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(false).Run(); err != nil {
 		panic(err)
 	}
 }
 
-func CreateHeader() *tview.Table {
+func CreateHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
+
+	flex := tview.NewFlex()
+
 	header := tview.NewTable().
 		SetBorders(false).
 		SetSelectable(false, false)
@@ -63,8 +63,17 @@ func CreateHeader() *tview.Table {
 	// TODO: get AWS commander version from somewhere else?
 	header.SetCell(1, 1, tview.NewTableCell("v0.0.1").SetTextColor(tcell.ColorWhite))
 
-	header.SetBorderPadding(1, 1, 1, 1)
-	return header
+	header.SetBorderPadding(0, 1, 1, 1)
+
+	shortcuts := ui.CreateCustomShortCutsView(App, ui.CustomShortCutProperties{
+		Shortcuts: append(keyCombs, DefaultKeyCombinations()...),
+	})
+
+	flex.AddItem(header, 0, 2, false).
+		AddItem(shortcuts, 0, 4, false).
+		AddItem(CreateLogo(), 0, 2, false)
+
+	return flex
 }
 
 func CreateFooter(sections []string) *tview.Table {
@@ -126,10 +135,10 @@ func CreateBody() *tview.Table {
 					AutoCompletionWordList = append(resources, constants.Profiles)
 					Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 
-					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName})
+					UpdateRootView([]string{constants.Profiles, selectedProfileName, selectedResourceName}, nil)
 				},
 			})
-			UpdateRootView([]string{constants.Profiles, selectedProfileName})
+			UpdateRootView([]string{constants.Profiles, selectedProfileName}, nil)
 		},
 	})
 }
@@ -164,51 +173,31 @@ func CreateSearchBar() *tview.InputField {
 	return searchBar
 }
 
-func UpdateRootView(navigationStrings []string) *tview.Flex {
+func CreateLogo() *tview.TextView {
+	l := `
+	 _____  _ _ _  _____
+	|  _  || | | ||   __|
+	|     || | | ||__   |
+	|__|__||_____||_____|
+	  C O M M A N D E R
+	`
+	t1 := tview.NewTextView()
+	t1.SetBorder(false).SetBorderPadding(0, 1, 1, 1)
+	t1.SetText(l).SetTextAlign(tview.AlignRight).SetTextColor(tcell.ColorGold)
+
+	return t1
+}
+
+func UpdateRootView(navigationStrings []string, shortcuts []ui.CustomShortCut) *tview.Flex {
 	view := tview.
 		NewFlex().
 		SetDirection(tview.FlexRow).
-		AddItem(CreateHeader(), 4, 2, false).
+		AddItem(CreateHeader(shortcuts), 7, 2, false).
 		AddItem(Search, 3, 2, false).
 		AddItem(Body, 0, 1, true).
 		AddItem(CreateFooter(navigationStrings), 2, 2, false)
 	App.SetRoot(view, true)
 	return view
-}
-
-func SetSearchBarListener(mainFlex *tview.Flex) {
-
-	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Rune() == ':' {
-			logger.Logger.Debug().Msg(fmt.Sprintf("Entered text: %s", Search.GetText()))
-			// TODO: search bar should appear if user press ':'
-			App.SetFocus(Search)
-			return nil
-		}
-
-		if event.Key() == tcell.KeyESC {
-			Search.SetText(constants.EmptyString)
-			logger.Logger.Debug().Msg("ESC")
-			// TODO: enable once found a way to add the search bar dynamically
-			//mainFlex.RemoveItem(Search)
-			App.SetFocus(Body)
-			return nil
-		}
-
-		if event.Key() == tcell.KeyEnter && Search.HasFocus() {
-			logger.Logger.Debug().Msg("ENTER")
-
-			if Search.GetText() == constants.Profiles {
-				Body = CreateBody()
-				UpdateRootView([]string{constants.Profiles})
-			}
-
-			Search.SetText(constants.EmptyString)
-
-			return nil
-		}
-		return event
-	})
 }
 
 func createCommandView(commandNames []string) tview.Primitive {
@@ -222,7 +211,7 @@ func createCommandView(commandNames []string) tview.Primitive {
 			var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
 			Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
 
-			UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
+			UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut}, nil)
 		},
 	})
 }
@@ -234,5 +223,37 @@ func ItemHandler(selectedItemName string) {
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 	Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 
-	UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut})
+	UpdateRootView([]string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, constants.OutPut}, nil)
+}
+
+func DefaultKeyCombinations() []ui.CustomShortCut {
+	return []ui.CustomShortCut{
+		{
+			Name:        "esc",
+			Key:         tcell.KeyEsc,
+			Description: "Back",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				Search.SetText(constants.EmptyString)
+				// TODO: enable once found a way to add the search bar dynamically
+				App.SetFocus(Body)
+				return nil
+			},
+		},
+		{
+			Rune:        ':',
+			Description: "Search",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// TODO: search bar should appear if user press ':'
+				App.SetFocus(Search)
+				return nil
+			},
+		},
+		{
+			Rune:        '?',
+			Description: "Help",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				return nil
+			},
+		},
+	}
 }

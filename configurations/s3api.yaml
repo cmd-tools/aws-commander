@@ -1,6 +1,8 @@
 name: "s3api"
+defaultCommand: "list-buckets"
 commands:
   - name: "list-buckets"
+    defaultCommand: list-objects-v2
     resourceName: bucket
     arguments:
       - "--no-paginate"

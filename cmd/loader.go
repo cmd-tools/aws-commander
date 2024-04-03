@@ -20,11 +20,12 @@ var ConfigurationsRelativeFileExtension = ".yaml"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name         string   `yaml:"name"`
-	ResourceName string   `yaml:"resourceName"`
-	Arguments    []string `yaml:"arguments"`
-	View         string   `yaml:"view"`
-	Parse        Parse    `yaml:"parse"`
+	Name           string   `yaml:"name"`
+	ResourceName   string   `yaml:"resourceName"`
+	DefaultCommand string   `yaml:"defaultCommand"`
+	Arguments      []string `yaml:"arguments"`
+	View           string   `yaml:"view"`
+	Parse          Parse    `yaml:"parse"`
 }
 
 type Parse struct {
@@ -33,8 +34,9 @@ type Parse struct {
 }
 
 type Resource struct {
-	Name     string    `yaml:"name"`
-	Commands []Command `yaml:"commands"`
+	Name           string    `yaml:"name"`
+	DefaultCommand string    `yaml:"defaultCommand"`
+	Commands       []Command `yaml:"commands"`
 }
 
 func Init() {

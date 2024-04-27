@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
+	"flag"
 	"fmt"
-	"strings"
-
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/constants"
@@ -14,20 +14,31 @@ import (
 	"github.com/gdamore/tcell/v2"
 	_ "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"strings"
 )
 
 var App *tview.Application
 
-var Header tview.Box
 var Search *tview.InputField
 var Body tview.Primitive
 var AutoCompletionWordList []string
 var ProfileList profile.Profiles
-var Footer tview.Box
+var LogView *tview.TextView
+var LogViewTextBuffer bytes.Buffer
+
+var IsLogViewEnabled bool
 
 func main() {
+	flag.BoolVar(&IsLogViewEnabled, "logview", false, "Enable log view while using the tool.")
+	flag.Parse()
 
-	logger.InitLog()
+	print(IsLogViewEnabled)
+
+	logger.InitLog(IsLogViewEnabled)
+
+	if IsLogViewEnabled {
+		go startLogViewListener()
+	}
 
 	logger.Logger.Info().Msg("Starting aws-commander")
 
@@ -37,20 +48,20 @@ func main() {
 
 	App = tview.NewApplication()
 
-	Search = CreateSearchBar()
+	Search = createSearchBar()
 
 	ProfileList = profile.GetList()
 
-	Body = CreateBody()
+	Body = createBody()
 
-	mainFlexPanel := UpdateRootView(nil)
+	mainFlexPanel := updateRootView(nil)
 
-	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(false).Run(); err != nil {
+	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 }
 
-func CreateHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
+func createHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
 
 	flex := tview.NewFlex()
 
@@ -67,17 +78,17 @@ func CreateHeader(keyCombs []ui.CustomShortCut) *tview.Flex {
 	header.SetBorderPadding(0, 1, 1, 1)
 
 	shortcuts := ui.CreateCustomShortCutsView(App, ui.CustomShortCutProperties{
-		Shortcuts: append(keyCombs, DefaultKeyCombinations()...),
+		Shortcuts: append(keyCombs, defaultKeyCombinations()...),
 	})
 
 	flex.AddItem(header, 0, 2, false).
 		AddItem(shortcuts, 0, 4, false).
-		AddItem(CreateLogo(), 0, 2, false)
+		AddItem(createLogo(), 0, 2, false)
 
 	return flex
 }
 
-func CreateFooter(sections []string) *tview.Table {
+func createFooter(sections []string) *tview.Table {
 
 	sectionBackgroundColorTags := []tcell.Color{
 		tcell.ColorGold,
@@ -113,7 +124,7 @@ func CreateFooter(sections []string) *tview.Table {
 	return header
 }
 
-func CreateBody() *tview.Table {
+func createBody() *tview.Table {
 	cmd.UiState.Breadcrumbs = []string{}
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
 		Title: fmt.Sprintf(" Profiles [%d] ", len(ProfileList)),
@@ -134,12 +145,12 @@ func CreateBody() *tview.Table {
 			Body = createResources(resources)
 
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, selectedProfileName}
-			UpdateRootView(nil)
+			updateRootView(nil)
 		},
 	})
 }
 
-func CreateSearchBar() *tview.InputField {
+func createSearchBar() *tview.InputField {
 	searchBar := tview.NewInputField()
 	searchBar.SetLabel("️🔍 > ").
 		SetFieldWidth(0).
@@ -168,24 +179,25 @@ func CreateSearchBar() *tview.InputField {
 
 	searchBar.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyEsc && Search.HasFocus() {
-			logger.Logger.Debug().Msg("ESC")
+			logger.Logger.Debug().Msg("[Search section] Got ESC")
 			cmd.UiState.CommandBarVisible = false
 			Search.SetText(constants.EmptyString)
-			UpdateRootView(nil)
+			updateRootView(nil)
 			return nil
 		}
 
 		if event.Key() == tcell.KeyEnter && Search.HasFocus() {
-			logger.Logger.Debug().Msg("ENTER")
-
-			switch Search.GetText() {
+			logger.Logger.Debug().Msg("[Search section] Got ENTER")
+			text := Search.GetText()
+			logger.Logger.Debug().Msg(fmt.Sprintf("[Search section] Got text: %s", Search.GetText()))
+			switch text {
 			case constants.Profiles:
-				Body = CreateBody()
+				Body = createBody()
 			case constants.Resources:
 				Body = createResources(cmd.GetAvailableResourceNames())
 			}
-
-			UpdateRootView(nil)
+			cmd.UiState.CommandBarVisible = false
+			updateRootView(nil)
 			Search.SetText(constants.EmptyString)
 			return nil
 		}
@@ -195,7 +207,7 @@ func CreateSearchBar() *tview.InputField {
 	return searchBar
 }
 
-func CreateLogo() *tview.TextView {
+func createLogo() *tview.TextView {
 	l := `
 	 _____  _ _ _  _____
 	|  _  || | | ||   __|
@@ -210,20 +222,29 @@ func CreateLogo() *tview.TextView {
 	return t1
 }
 
-func UpdateRootView(shortcuts []ui.CustomShortCut) *tview.Flex {
+func updateRootView(shortcuts []ui.CustomShortCut) *tview.Flex {
 	view := tview.
 		NewFlex().
 		SetDirection(tview.FlexRow).
-		AddItem(CreateHeader(shortcuts), 7, 2, false)
+		AddItem(createHeader(shortcuts), 7, 2, false)
 
 	if cmd.UiState.CommandBarVisible {
 		view.AddItem(Search, 3, 2, false)
 	}
 
 	view.AddItem(Body, 0, 1, true).
-		AddItem(CreateFooter(cmd.UiState.Breadcrumbs), 2, 2, false)
+		AddItem(createFooter(cmd.UiState.Breadcrumbs), 2, 2, false)
+
+	if IsLogViewEnabled {
+		if nil == LogView {
+			LogView = createLogView()
+		}
+
+		view.AddItem(LogView, 8, 3, false)
+	}
 
 	App.SetRoot(view, true)
+
 	return view
 }
 
@@ -244,10 +265,10 @@ func createResources(resources []string) tview.Primitive {
 				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
 				cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, cmd.UiState.Command.Name}
 				var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-				Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
+				Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 			}
 
-			UpdateRootView(nil)
+			updateRootView(nil)
 		},
 	})
 }
@@ -265,30 +286,42 @@ func createExecuteCommandView(selectedCommandName string) {
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 
 	var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-	Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
+	Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 
 	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
-	UpdateRootView(nil)
+	updateRootView(nil)
 }
 
-func ItemHandler(selectedItemName string) {
+func createLogView() *tview.TextView {
+	logview := tview.NewTextView()
+	logview.SetTitle(" Logs ")
+	logview.
+		ScrollToEnd().
+		SetScrollable(true).
+		SetBorder(true).
+		SetBorderPadding(0, 0, 1, 1)
+
+	return logview
+}
+
+func itemHandler(selectedItemName string) {
 	resourceName := "$" + strings.ToUpper(cmd.UiState.Command.ResourceName)
 	cmd.UiState.SelectedItems[resourceName] = selectedItemName
 
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
-	if cmd.UiState.Command.DefaultCommand == "" {
+	if cmd.UiState.Command.DefaultCommand == constants.EmptyString {
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 	} else {
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Command.DefaultCommand)
 		cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
 		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, ItemHandler)
+		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 	}
 
-	UpdateRootView(nil)
+	updateRootView(nil)
 }
 
-func DefaultKeyCombinations() []ui.CustomShortCut {
+func defaultKeyCombinations() []ui.CustomShortCut {
 	return []ui.CustomShortCut{
 		{
 			Name:        "esc",
@@ -299,17 +332,17 @@ func DefaultKeyCombinations() []ui.CustomShortCut {
 				if Search.HasFocus() {
 					return event
 				}
-
-				switch len(cmd.UiState.Breadcrumbs) {
+				breadcrumbsLen := len(cmd.UiState.Breadcrumbs)
+				switch breadcrumbsLen {
 				case 0, 1, 2:
-					Body = CreateBody()
+					Body = createBody()
 				case 3, 4:
 					Body = createResources(cmd.GetAvailableResourceNames())
 				default:
-					createExecuteCommandView(cmd.UiState.Breadcrumbs[len(cmd.UiState.Breadcrumbs)-2])
-					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:len(cmd.UiState.Breadcrumbs)-2]
+					createExecuteCommandView(cmd.UiState.Breadcrumbs[breadcrumbsLen-2])
+					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-2]
 				}
-				UpdateRootView(nil)
+				updateRootView(nil)
 				App.SetFocus(Body)
 				return nil
 			},
@@ -319,7 +352,7 @@ func DefaultKeyCombinations() []ui.CustomShortCut {
 			Description: "Search",
 			Handle: func(event *tcell.EventKey) *tcell.EventKey {
 				cmd.UiState.CommandBarVisible = true
-				UpdateRootView(nil)
+				updateRootView(nil)
 				App.SetFocus(Search)
 				return nil
 			},
@@ -331,5 +364,21 @@ func DefaultKeyCombinations() []ui.CustomShortCut {
 				return nil
 			},
 		},
+	}
+}
+
+func startLogViewListener() {
+	for {
+		select {
+		case logMessage := <-logger.LogChannel:
+			LogViewTextBuffer.WriteString(logMessage)
+			if nil != LogView {
+				App.QueueUpdateDraw(func() {
+					if nil != LogView {
+						LogView.SetText(LogViewTextBuffer.String())
+					}
+				})
+			}
+		}
 	}
 }

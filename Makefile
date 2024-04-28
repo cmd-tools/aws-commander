@@ -6,6 +6,9 @@ init:
 
 docker-compose-up:
 	@docker-compose up -d
+	@echo "#########################################################################"
+	@echo "Wait couple of seconds to let "init-*.sh" files to be done with the seed."
+	@echo "#########################################################################"
 
 docker-compose-down:
 	@docker-compose down

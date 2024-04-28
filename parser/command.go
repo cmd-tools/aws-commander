@@ -19,7 +19,10 @@ type ParseCommandResult struct {
 
 func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult {
 	jsonResult := orderedmap.New()
-	json.Unmarshal([]byte(commandOutput), &jsonResult)
+	err := json.Unmarshal([]byte(commandOutput), &jsonResult)
+	if err != nil {
+		panic(fmt.Sprintf("Unable to unmarshal json for command: %s", command))
+	}
 
 	var parseCommandResult = ParseCommandResult{Command: command.Name}
 	baseAttribute, _ := jsonResult.Get(command.Parse.AttributeName)
@@ -78,16 +81,16 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 func ParseToObject(viewType string, parsedResult ParseCommandResult, commandHandler func(selectedProfileName string)) tview.Primitive {
 	switch viewType {
 	case "tableView":
-		logger.Logger.Debug().Msg("Parse to TableView")
+		logger.Logger.Debug().Msg(fmt.Sprintf("Parse to %s", viewType))
 		return parseToTableView(parsedResult, commandHandler)
 	default:
-		logger.Logger.Debug().Msg("View type not found")
+		logger.Logger.Debug().Msg(fmt.Sprintf("View type '%s' not found", viewType))
 		return nil
 	}
 }
 
 func mapCommandHeaderToColumn(headers []string) []ui.Column {
-	var uiColumn = []ui.Column{}
+	var uiColumn []ui.Column
 	for _, header := range headers {
 		uiColumn = append(uiColumn, ui.Column{Name: header, Width: 0})
 	}
@@ -96,7 +99,7 @@ func mapCommandHeaderToColumn(headers []string) []ui.Column {
 
 func parseToTableView(parsedResult ParseCommandResult, commandHandler func(selectedProfileName string)) tview.Primitive {
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title:   parsedResult.Command,
+		Title:   fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(parsedResult.Values)),
 		Columns: mapCommandHeaderToColumn(parsedResult.Header),
 		Rows:    parsedResult.Values,
 		Handler: commandHandler,

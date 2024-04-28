@@ -32,13 +32,7 @@ func main() {
 	flag.BoolVar(&IsLogViewEnabled, "logview", false, "Enable log view while using the tool.")
 	flag.Parse()
 
-	print(IsLogViewEnabled)
-
 	logger.InitLog(IsLogViewEnabled)
-
-	if IsLogViewEnabled {
-		go startLogViewListener()
-	}
 
 	logger.Logger.Info().Msg("Starting aws-commander")
 
@@ -55,6 +49,10 @@ func main() {
 	Body = createBody()
 
 	mainFlexPanel := updateRootView(nil)
+
+	if IsLogViewEnabled {
+		go startLogViewListener()
+	}
 
 	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
@@ -259,7 +257,7 @@ func createResources(resources []string) tview.Primitive {
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, selectedResourceName}
 			cmd.UiState.SelectedItems = make(map[string]string)
 			AutoCompletionWordList = append(resources, constants.Profiles)
-			if cmd.UiState.Resource.DefaultCommand == "" {
+			if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
 				Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 			} else {
 				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
@@ -305,7 +303,7 @@ func createLogView() *tview.TextView {
 }
 
 func itemHandler(selectedItemName string) {
-	resourceName := "$" + strings.ToUpper(cmd.UiState.Command.ResourceName)
+	resourceName := cmd.VariablePlaceHolderPrefix + strings.ToUpper(cmd.UiState.Command.ResourceName)
 	cmd.UiState.SelectedItems[resourceName] = selectedItemName
 
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)

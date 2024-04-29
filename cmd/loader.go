@@ -17,6 +17,8 @@ import (
 var ConfigurationsRelativeFilePath = "./configurations"
 var ConfigurationsRelativeFileExtension = ".yaml"
 
+const VariablePlaceHolderPrefix = "$"
+
 var Resources = map[string]Resource{}
 
 type Command struct {
@@ -91,11 +93,15 @@ func (resource *Resource) GetCommand(name string) Command {
 
 func (command *Command) Run(resource string, profile string) string {
 	binaryName := "aws"
+	var argumentsCopy = make([]string, len(command.Arguments))
+	copy(argumentsCopy, command.Arguments)
 	args := []string{resource, command.Name, "--profile", profile}
 	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
+	// set again original args which contains placeholders
+	copy(command.Arguments, argumentsCopy)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Execution time %s", time.Since(start)))
 
 	return output
@@ -121,7 +127,7 @@ func processConfigurationFile(channel chan Resource, filename string) {
 
 func replaceVariablesOnCommandArguments(arguments []string) []string {
 	for index, item := range arguments {
-		if strings.HasPrefix(item, "$") {
+		if strings.HasPrefix(item, VariablePlaceHolderPrefix) {
 			value, exists := UiState.SelectedItems[item]
 			if exists {
 				arguments[index] = value

@@ -1,10 +1,10 @@
 # AWS Commander
 
 ## Table of contents
-1. [Deployment](#deployment)
-   2. [Prerequisites](#prerequisites)
+1. [Development](#development)
+   1. [Prerequisites](#prerequisites)
    1. [Getting Started](#getting-started)
-3. [Versioning](#versioning)
+2. [Versioning](#versioning)
 
 ## Development
 

@@ -3,7 +3,6 @@ package parser
 import (
 	"encoding/json"
 	"fmt"
-
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/cmd-tools/aws-commander/ui"
@@ -12,9 +11,11 @@ import (
 )
 
 type ParseCommandResult struct {
-	Command string
-	Header  []string
-	Values  [][]string
+	Command   string
+	Header    []string
+	Values    [][]string
+	Count     uint64
+	NextToken string
 }
 
 func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult {
@@ -26,22 +27,34 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 
 	var parseCommandResult = ParseCommandResult{Command: command.Name}
 	baseAttribute, _ := jsonResult.Get(command.Parse.AttributeName)
+
+	if count, ok := jsonResult.Get("Count"); ok && count != nil {
+		parseCommandResult.Count = uint64(int(count.(float64)))
+	}
+
+	if nextToken, isPaginating := jsonResult.Get("NextToken"); isPaginating && nextToken != nil {
+		parseCommandResult.NextToken = nextToken.(string)
+	}
+
 	switch baseAttribute.(type) {
 	case []interface{}:
 		logger.Logger.Debug().Msg("Parse command list")
 		for i, s := range baseAttribute.([]interface{}) {
 			var values []string
-			if command.Parse.Type == "object" {
+			switch command.Parse.Type {
+			case "object":
 				item := s.(orderedmap.OrderedMap)
 				for _, key := range item.Keys() {
 					if i == 0 {
 						parseCommandResult.Header = append(parseCommandResult.Header, key)
 					}
 					value, exists := item.Get(key)
+
 					if exists {
 						switch value.(type) {
 						case string:
 							values = append(values, fmt.Sprintf("%v", value))
+							break
 						default:
 							bytes, _ := json.Marshal(value)
 							values = append(values, fmt.Sprintf("%v", string(bytes)))
@@ -49,14 +62,16 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 					}
 				}
 				parseCommandResult.Values = append(parseCommandResult.Values, values)
-			} else if command.Parse.Type == "list" {
+				break
+			case "list":
 				if i == 0 {
 					parseCommandResult.Header = append(parseCommandResult.Header, "Item")
 				}
 				if s != nil {
 					parseCommandResult.Values = append(parseCommandResult.Values, append(values, s.(string)))
 				}
-			} else {
+				break
+			default:
 				logger.Logger.Debug().Msg("Wrong type. Accepted types [Object, List]")
 			}
 		}

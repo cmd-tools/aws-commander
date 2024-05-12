@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/cmd-tools/aws-commander/constants"
+	"github.com/cmd-tools/aws-commander/helpers"
 	"log"
 	"os"
 	"path/filepath"
@@ -22,17 +24,22 @@ const VariablePlaceHolderPrefix = "$"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name           string   `yaml:"name"`
-	ResourceName   string   `yaml:"resourceName"`
-	DefaultCommand string   `yaml:"defaultCommand"`
-	Arguments      []string `yaml:"arguments"`
-	View           string   `yaml:"view"`
-	Parse          Parse    `yaml:"parse"`
+	Name           string    `yaml:"name"`
+	ResourceName   string    `yaml:"resourceName"`
+	DefaultCommand string    `yaml:"defaultCommand"`
+	Arguments      []string  `yaml:"arguments"`
+	View           string    `yaml:"view"`
+	Parse          Parse     `yaml:"parse"`
+	Paginate       *Paginate `yaml:"paginate"`
 }
 
 type Parse struct {
 	Type          string `yaml:"type"`
 	AttributeName string `yaml:"attributeName"`
+}
+
+type Paginate struct {
+	Max *uint8 `yaml:"max"`
 }
 
 type Resource struct {
@@ -91,12 +98,14 @@ func (resource *Resource) GetCommand(name string) Command {
 	panic(fmt.Sprintf("Requested command %s does not exists in %s resouce", name, resource.Name))
 }
 
-func (command *Command) Run(resource string, profile string) string {
+func (command *Command) Run(resource string, profile string, nextToken string) string {
 	binaryName := "aws"
 	var argumentsCopy = make([]string, len(command.Arguments))
 	copy(argumentsCopy, command.Arguments)
 	args := []string{resource, command.Name, "--profile", profile}
 	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
+	args = addPaginationArgs(args, nextToken, *command)
+
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
@@ -135,4 +144,23 @@ func replaceVariablesOnCommandArguments(arguments []string) []string {
 		}
 	}
 	return arguments
+}
+
+func addPaginationArgs(args []string, nextToken string, command Command) []string {
+	// TODO: sanitize args by removing existing --max-items and the value if any
+	helpers.RemoveItem(args, "--no-pagination")
+	var defaultPaginationValue = constants.DefaultPaginationValue
+	if command.Paginate != nil && command.Paginate.Max != nil && *command.Paginate.Max != 0 {
+		defaultPaginationValue = int(*command.Paginate.Max)
+		logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Found pagination override to: %d", defaultPaginationValue))
+	}
+
+	logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Using pagination value: %d", defaultPaginationValue))
+	args = append(args, "--max-items", fmt.Sprintf("%d", defaultPaginationValue))
+
+	if !helpers.IsStringEmpty(nextToken) {
+		args = append(args, "--starting-token", nextToken)
+	}
+
+	return args
 }

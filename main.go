@@ -262,7 +262,7 @@ func createResources(resources []string) tview.Primitive {
 			} else {
 				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
 				cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, cmd.UiState.Resource.Name, cmd.UiState.Command.Name}
-				var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
+				var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile, constants.EmptyString))
 				Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 			}
 
@@ -283,7 +283,7 @@ func createExecuteCommandView(selectedCommandName string) {
 	cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 
-	var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
+	var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile, constants.EmptyString))
 	Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 
 	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
@@ -312,7 +312,7 @@ func itemHandler(selectedItemName string) {
 	} else {
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Command.DefaultCommand)
 		cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
-		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
+		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile, constants.EmptyString))
 		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 	}
 

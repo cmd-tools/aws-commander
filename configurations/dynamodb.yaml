@@ -3,7 +3,6 @@ commands:
   - name: "list-tables"
     resourceName: tableName
     arguments:
-      - "--no-paginate"
       - "--output"
       - "json"
       - "--cli-read-timeout"
@@ -25,6 +24,8 @@ commands:
       - "--cli-connect-timeout"
       - "5"
     view: tableView
+    paginate:
+      max: 50
     parse:
       type: "object"
       attributeName: "Items"

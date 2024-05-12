@@ -15,3 +15,17 @@ func RemoveEmptyStrings(strings []string) []string {
 	}
 	return result
 }
+
+func RemoveItem(slice []string, item string) []string {
+	index := -1
+	for i, s := range slice {
+		if s == item {
+			index = i
+			break
+		}
+	}
+	if index != -1 {
+		return append(slice[:index], slice[index+1:]...)
+	}
+	return slice
+}

@@ -1,7 +1,8 @@
 package constants
 
 const (
-	EmptyString = ""
+	EmptyString            = ""
+	DefaultPaginationValue = 100
 )
 
 var EmptyRune rune

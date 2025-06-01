@@ -2,7 +2,7 @@ name: "s3api"
 defaultCommand: "list-buckets"
 commands:
   - name: "list-buckets"
-    defaultCommand: list-objects-v2
+    defaultCommand: "list-objects-v2"
     resourceName: bucket
     arguments:
       - "--no-paginate"
@@ -18,6 +18,12 @@ commands:
         attributeName: "Buckets"
   - name: "list-objects-v2"
     depends_on: "list-buckets"
+    defaultCommand: "list-objects-v2"
+    overrides:
+      - when:
+          - type: 'regex'
+            value: '^([^/]+/)*[^/\s]+\.[a-zA-Z0-9]+$'
+            then: "get-object"
     resourceName: object
     arguments:
       - "--bucket"

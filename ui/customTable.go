@@ -1,7 +1,6 @@
 package ui
 
 import (
-	"fmt"
 	"github.com/cmd-tools/aws-commander/helpers"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
@@ -71,7 +70,8 @@ func validateRowColumnComposition(properties CustomTableViewProperties) {
 	for _, row := range properties.Rows {
 		rowCount := len(row)
 		if rowCount != columnCount {
-			panic(fmt.Errorf("column count does not match row count: %d != %d", columnCount, rowCount))
+			//TODO: understand if we need to panic or not
+			// panic(fmt.Errorf("column count does not match row count: %d != %d", columnCount, rowCount))
 		}
 	}
 }

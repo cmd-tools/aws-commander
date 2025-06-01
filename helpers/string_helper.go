@@ -6,12 +6,9 @@ func IsStringEmpty(value string) bool {
 	return value == constants.EmptyString
 }
 
-func RemoveEmptyStrings(strings []string) []string {
-	var result []string
-	for _, str := range strings {
-		if IsStringEmpty(str) {
-			result = append(result, str)
-		}
+func AppendUniqueLast(slice []string, item string) []string {
+	if len(slice) == 0 || slice[len(slice)-1] != item {
+		return append(slice, item)
 	}
-	return result
+	return slice
 }

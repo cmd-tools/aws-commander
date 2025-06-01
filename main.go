@@ -162,7 +162,7 @@ func createSearchBar() *tview.InputField {
 		}
 		for _, word := range AutoCompletionWordList {
 			if strings.HasPrefix(strings.ToLower(word), strings.ToLower(currentText)) {
-				entries = append(entries, word)
+				entries = helpers.AppendUniqueLast(entries, word)
 			}
 		}
 		return
@@ -256,8 +256,8 @@ func createResources(resources []string) tview.Primitive {
 			cmd.UiState.Resource = cmd.Resources[selectedResourceName]
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, selectedResourceName}
 			cmd.UiState.SelectedItems = make(map[string]string)
-			AutoCompletionWordList = append(resources, constants.Profiles)
-			if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
+			AutoCompletionWordList = helpers.AppendUniqueLast(resources, constants.Profiles)
+			if helpers.IsStringEmpty(cmd.UiState.Resource.DefaultCommand) {
 				Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 			} else {
 				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
@@ -281,12 +281,12 @@ func createCommandView(commandNames []string) tview.Primitive {
 
 func createExecuteCommandView(selectedCommandName string) {
 	cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
-	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+	AutoCompletionWordList = helpers.AppendUniqueLast(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 
 	var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
 	Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 
-	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
+	cmd.UiState.Breadcrumbs = helpers.AppendUniqueLast(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
 	updateRootView(nil)
 }
 
@@ -308,12 +308,13 @@ func itemHandler(selectedItemName string) {
 
 	logger.Logger.Debug().Msg(fmt.Sprintf("[Item handler] Got: %v", cmd.UiState.SelectedItems))
 
-	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
-	if cmd.UiState.Command.DefaultCommand == constants.EmptyString {
+	AutoCompletionWordList = helpers.AppendUniqueLast(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+	commandForSelectedItem := cmd.UiState.Command.GetCommandForSelectedItem(selectedItemName)
+	if helpers.IsStringEmpty(commandForSelectedItem) {
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 	} else {
-		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Command.DefaultCommand)
-		cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
+		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(commandForSelectedItem)
+		cmd.UiState.Breadcrumbs = helpers.AppendUniqueLast(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
 		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
 		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, itemHandler)
 	}
@@ -339,8 +340,10 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 				case 3, 4:
 					Body = createResources(cmd.GetAvailableResourceNames())
 				default:
-					createExecuteCommandView(cmd.UiState.Breadcrumbs[breadcrumbsLen-2])
-					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-2]
+					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-1]
+					breadcrumbsLen := len(cmd.UiState.Breadcrumbs)
+					cmd.UiState.SelectedItems["$OBJECT"] = constants.EmptyString //TODO: find better and generic way to clean up when going back
+					createExecuteCommandView(cmd.UiState.Breadcrumbs[breadcrumbsLen-1])
 				}
 				updateRootView(nil)
 				App.SetFocus(Body)

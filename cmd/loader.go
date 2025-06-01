@@ -2,9 +2,11 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/cmd-tools/aws-commander/constants"
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"time"
 
@@ -22,12 +24,23 @@ const VariablePlaceHolderPrefix = "$"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name           string   `yaml:"name"`
-	ResourceName   string   `yaml:"resourceName"`
-	DefaultCommand string   `yaml:"defaultCommand"`
-	Arguments      []string `yaml:"arguments"`
-	View           string   `yaml:"view"`
-	Parse          []Parse  `yaml:"parse"`
+	Name           string      `yaml:"name"`
+	ResourceName   string      `yaml:"resourceName"`
+	DefaultCommand string      `yaml:"defaultCommand"`
+	Arguments      []string    `yaml:"arguments"`
+	View           string      `yaml:"view"`
+	Parse          []Parse     `yaml:"parse"`
+	Overrides      []Overrides `yaml:"overrides"`
+}
+
+type Overrides struct {
+	When []When `yaml:"when"`
+}
+
+type When struct {
+	Type  string `yaml:"type"`
+	Value string `yaml:"value"`
+	Then  string `yaml:"then"`
 }
 
 type Parse struct {
@@ -82,13 +95,32 @@ func (resource *Resource) GetCommandNames() []string {
 	return commandNames
 }
 
+func (command *Command) GetCommandForSelectedItem(selectedItem string) string {
+	for _, overrides := range command.Overrides {
+		for _, when := range overrides.When {
+			switch when.Type {
+			case "regex":
+				re := regexp.MustCompile(when.Value)
+				if re.MatchString(selectedItem) {
+					return when.Then
+				}
+				break
+			default:
+				panic(fmt.Sprintf("Requested type %s does not exists", when.Type))
+			}
+		}
+	}
+
+	return command.DefaultCommand
+}
+
 func (resource *Resource) GetCommand(name string) Command {
 	for _, command := range resource.Commands {
 		if command.Name == name {
 			return command
 		}
 	}
-	panic(fmt.Sprintf("Requested command %s does not exists in %s resouce", name, resource.Name))
+	panic(fmt.Sprintf("Requested command %s does not exists in %s resource", name, resource.Name))
 }
 
 func (command *Command) Run(resource string, profile string) string {
@@ -132,7 +164,7 @@ func replaceVariablesOnCommandArguments(arguments []string) []string {
 			if exists {
 				arguments[index] = value
 			} else {
-				arguments[index] = "test" //TODO: change
+				arguments[index] = constants.EmptyString
 			}
 		}
 	}

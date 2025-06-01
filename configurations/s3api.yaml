@@ -2,7 +2,7 @@ name: "s3api"
 defaultCommand: "list-buckets"
 commands:
   - name: "list-buckets"
-    defaultCommand: list-objects-v2
+    defaultCommand: "list-objects-v2"
     resourceName: bucket
     arguments:
       - "--no-paginate"
@@ -14,10 +14,16 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Buckets"
+      - type: "object"
+        attributeName: "Buckets"
   - name: "list-objects-v2"
     depends_on: "list-buckets"
+    defaultCommand: "list-objects-v2"
+    overrides:
+      - when:
+          - type: 'regex'
+            value: '^([^/]+/)*[^/\s]+\.[a-zA-Z0-9]+$'
+            then: "get-object"
     resourceName: object
     arguments:
       - "--bucket"
@@ -25,11 +31,36 @@ commands:
       - "--no-paginate"
       - "--output"
       - "json"
+      - "--delimiter"
+      - "/"
+      - "--prefix"
+      - "$OBJECT"
       - "--cli-read-timeout"
       - "2"
       - "--cli-connect-timeout"
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Contents"
+      - type: "object"
+        attributeName: "Contents"
+      - type: "object"
+        attributeName: "CommonPrefixes"
+  - name: "get-object"
+    depends_on: "list-buckets"
+    resourceName: object
+    arguments:
+      - "--bucket"
+      - "$BUCKET"
+      - "--key"
+      - "$OBJECT"
+      - "--query"
+      - "'Metadata'"
+      - "--output"
+      - "text"
+      - "/dev/stdout"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"
+    view: plainContent
+

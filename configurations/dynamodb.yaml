@@ -1,7 +1,9 @@
 name: "dynamodb"
+defaultCommand: "list-tables"
 commands:
   - name: "list-tables"
     resourceName: tableName
+    defaultCommand: "scan"
     arguments:
       - "--no-paginate"
       - "--output"
@@ -12,8 +14,8 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "list"
-      attributeName: "TableNames"
+      - type: "list"
+        attributeName: "TableNames"
   - name: "scan"
     arguments:
       - "--table-name"
@@ -26,5 +28,5 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Items"
+      - type: "object"
+        attributeName: "Items"

@@ -2,7 +2,6 @@ package ui
 
 import (
 	"fmt"
-
 	"github.com/cmd-tools/aws-commander/helpers"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"

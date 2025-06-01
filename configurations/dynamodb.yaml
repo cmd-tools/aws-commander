@@ -12,8 +12,8 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "list"
-      attributeName: "TableNames"
+      - type: "list"
+        attributeName: "TableNames"
   - name: "scan"
     arguments:
       - "--table-name"
@@ -26,5 +26,5 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Items"
+      - type: "object"
+        attributeName: "Items"

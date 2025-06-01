@@ -27,7 +27,7 @@ type Command struct {
 	DefaultCommand string   `yaml:"defaultCommand"`
 	Arguments      []string `yaml:"arguments"`
 	View           string   `yaml:"view"`
-	Parse          Parse    `yaml:"parse"`
+	Parse          []Parse  `yaml:"parse"`
 }
 
 type Parse struct {
@@ -95,7 +95,7 @@ func (command *Command) Run(resource string, profile string) string {
 	binaryName := "aws"
 	var argumentsCopy = make([]string, len(command.Arguments))
 	copy(argumentsCopy, command.Arguments)
-	args := []string{resource, command.Name, "--profile", profile}
+	args := []string{resource, command.Name, "--profile", profile, "--no-cli-pager"}
 	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()
@@ -131,6 +131,8 @@ func replaceVariablesOnCommandArguments(arguments []string) []string {
 			value, exists := UiState.SelectedItems[item]
 			if exists {
 				arguments[index] = value
+			} else {
+				arguments[index] = "test" //TODO: change
 			}
 		}
 	}

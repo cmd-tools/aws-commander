@@ -306,6 +306,8 @@ func itemHandler(selectedItemName string) {
 	resourceName := cmd.VariablePlaceHolderPrefix + strings.ToUpper(cmd.UiState.Command.ResourceName)
 	cmd.UiState.SelectedItems[resourceName] = selectedItemName
 
+	logger.Logger.Debug().Msg(fmt.Sprintf("[Item handler] Got: %v", cmd.UiState.SelectedItems))
+
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 	if cmd.UiState.Command.DefaultCommand == constants.EmptyString {
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())

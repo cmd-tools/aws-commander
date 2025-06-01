@@ -14,8 +14,8 @@ commands:
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Buckets"
+      - type: "object"
+        attributeName: "Buckets"
   - name: "list-objects-v2"
     depends_on: "list-buckets"
     resourceName: object
@@ -25,11 +25,36 @@ commands:
       - "--no-paginate"
       - "--output"
       - "json"
+      - "--delimiter"
+      - "/"
+      - "--prefix"
+      - "$OBJECT"
       - "--cli-read-timeout"
       - "2"
       - "--cli-connect-timeout"
       - "5"
     view: tableView
     parse:
-      type: "object"
-      attributeName: "Contents"
+      - type: "object"
+        attributeName: "Contents"
+      - type: "object"
+        attributeName: "CommonPrefixes"
+  - name: "get-object"
+    depends_on: "list-buckets"
+    resourceName: object
+    arguments:
+      - "--bucket"
+      - "$BUCKET"
+      - "--key"
+      - "$OBJECT"
+      - "--query"
+      - "'Metadata'"
+      - "--output"
+      - "text"
+      - "/dev/stdout"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"
+    view: plainContent
+

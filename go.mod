@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	github.com/gdamore/tcell/v2 v2.8.1
 	github.com/iancoleman/orderedmap v0.3.0
-	github.com/rivo/tview v0.0.0-20240426173458-c766eefb3803
+	github.com/rivo/tview v0.42.0
 	github.com/rs/zerolog v1.34.0
 	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f
 	gopkg.in/yaml.v2 v2.4.0

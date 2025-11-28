@@ -164,7 +164,14 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 			}
 		}
 	case interface{}:
-		logger.Logger.Debug().Msg("Parse command objet")
+		logger.Logger.Debug().Msg("Parse command object")
+
+		// Special handling for "keys" type - extract partition and sort keys from DynamoDB table description
+		if command.Parse.Type == "keys" {
+			parseCommandResult = parseTableKeys(baseAttribute)
+			return parseCommandResult
+		}
+
 		var values []string
 
 		// Type assertion with error handling
@@ -193,6 +200,160 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 		logger.Logger.Debug().Msg("Fail to Parse. Command result is not an Map or List")
 	}
 	return parseCommandResult
+}
+
+// parseTableKeys extracts partition keys, sort keys, and GSI/LSI from DynamoDB describe-table output
+// Returns indexes as selectable items instead of individual keys
+func parseTableKeys(tableAttribute interface{}) ParseCommandResult {
+	result := ParseCommandResult{
+		Command: "describe-table",
+		Header:  []string{"Index Name", "Index Type", "Keys", "Key Details"},
+		Values:  [][]string{},
+	}
+
+	tableMap, ok := tableAttribute.(orderedmap.OrderedMap)
+	if !ok {
+		logger.Logger.Error().Msg("Failed to parse table description as orderedmap")
+		return ParseCommandResult{
+			Command: "describe-table",
+			Header:  []string{"Error"},
+			Values:  [][]string{{"Failed to parse table description"}},
+		}
+	}
+
+	// Get KeySchema for primary key
+	keySchemaAttr, exists := tableMap.Get("KeySchema")
+	if !exists {
+		logger.Logger.Error().Msg("KeySchema not found in table description")
+		return result
+	}
+
+	// Get AttributeDefinitions to map attribute types
+	attributeDefsAttr, _ := tableMap.Get("AttributeDefinitions")
+	attributeTypes := make(map[string]string)
+	if attributeDefs, ok := attributeDefsAttr.([]interface{}); ok {
+		for _, attr := range attributeDefs {
+			if attrMap, ok := attr.(orderedmap.OrderedMap); ok {
+				name, _ := attrMap.Get("AttributeName")
+				attrType, _ := attrMap.Get("AttributeType")
+				if name != nil && attrType != nil {
+					attributeTypes[name.(string)] = attrType.(string)
+				}
+			}
+		}
+	}
+
+	// Parse primary key (HASH and RANGE)
+	var primaryKeys []string
+	if keySchema, ok := keySchemaAttr.([]interface{}); ok {
+		for _, key := range keySchema {
+			if keyMap, ok := key.(orderedmap.OrderedMap); ok {
+				keyName, _ := keyMap.Get("AttributeName")
+				keyType, _ := keyMap.Get("KeyType")
+				if keyName != nil && keyType != nil {
+					attrType := attributeTypes[keyName.(string)]
+					displayKeyType := "PK"
+					if keyType.(string) == "RANGE" {
+						displayKeyType = "SK"
+					}
+					primaryKeys = append(primaryKeys, fmt.Sprintf("%s (%s:%s)", keyName.(string), displayKeyType, attrType))
+				}
+			}
+		}
+	}
+
+	if len(primaryKeys) > 0 {
+		result.Values = append(result.Values, []string{
+			"Primary",
+			"Primary Index",
+			fmt.Sprintf("%d", len(primaryKeys)),
+			strings.Join(primaryKeys, ", "),
+		})
+	}
+
+	// Parse Global Secondary Indexes (GSI)
+	if gsiAttr, exists := tableMap.Get("GlobalSecondaryIndexes"); exists {
+		if gsiList, ok := gsiAttr.([]interface{}); ok {
+			for _, gsi := range gsiList {
+				if gsiMap, ok := gsi.(orderedmap.OrderedMap); ok {
+					indexName, _ := gsiMap.Get("IndexName")
+					keySchema, _ := gsiMap.Get("KeySchema")
+
+					var gsiKeys []string
+					if keySchemaList, ok := keySchema.([]interface{}); ok {
+						for _, key := range keySchemaList {
+							if keyMap, ok := key.(orderedmap.OrderedMap); ok {
+								keyName, _ := keyMap.Get("AttributeName")
+								keyType, _ := keyMap.Get("KeyType")
+								if keyName != nil && keyType != nil {
+									attrType := attributeTypes[keyName.(string)]
+									displayKeyType := "PK"
+									if keyType.(string) == "RANGE" {
+										displayKeyType = "SK"
+									}
+									gsiKeys = append(gsiKeys, fmt.Sprintf("%s (%s:%s)", keyName.(string), displayKeyType, attrType))
+								}
+							}
+						}
+					}
+
+					if len(gsiKeys) > 0 {
+						result.Values = append(result.Values, []string{
+							indexName.(string),
+							"Global Secondary Index",
+							fmt.Sprintf("%d", len(gsiKeys)),
+							strings.Join(gsiKeys, ", "),
+						})
+					}
+				}
+			}
+		}
+	}
+
+	// Parse Local Secondary Indexes (LSI)
+	if lsiAttr, exists := tableMap.Get("LocalSecondaryIndexes"); exists {
+		if lsiList, ok := lsiAttr.([]interface{}); ok {
+			for _, lsi := range lsiList {
+				if lsiMap, ok := lsi.(orderedmap.OrderedMap); ok {
+					indexName, _ := lsiMap.Get("IndexName")
+					keySchema, _ := lsiMap.Get("KeySchema")
+
+					var lsiKeys []string
+					if keySchemaList, ok := keySchema.([]interface{}); ok {
+						for _, key := range keySchemaList {
+							if keyMap, ok := key.(orderedmap.OrderedMap); ok {
+								keyName, _ := keyMap.Get("AttributeName")
+								keyType, _ := keyMap.Get("KeyType")
+								if keyName != nil && keyType != nil {
+									attrType := attributeTypes[keyName.(string)]
+									displayKeyType := "PK"
+									if keyType.(string) == "RANGE" {
+										displayKeyType = "SK"
+									}
+									lsiKeys = append(lsiKeys, fmt.Sprintf("%s (%s:%s)", keyName.(string), displayKeyType, attrType))
+								}
+							}
+						}
+					}
+
+					if len(lsiKeys) > 0 {
+						result.Values = append(result.Values, []string{
+							indexName.(string),
+							"Local Secondary Index",
+							fmt.Sprintf("%d", len(lsiKeys)),
+							strings.Join(lsiKeys, ", "),
+						})
+					}
+				}
+			}
+		}
+	}
+
+	if len(result.Values) == 0 {
+		result.Values = [][]string{{"No indexes found", "", "", ""}}
+	}
+
+	return result
 }
 
 func ParseToObject(viewType string, parsedResult ParseCommandResult, command cmd.Command, commandHandler func(selectedProfileName string), app *tview.Application, restoreRootView func(), createHeader func() *tview.Flex, createFooter func([]string) *tview.Table, logView *tview.TextView, isLogEnabled bool) tview.Primitive {

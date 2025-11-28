@@ -40,9 +40,27 @@ commands:
       enabled: true
       nextTokenParam: "--exclusive-start-key"
       nextTokenJsonPath: "LastEvaluatedKey"
-  - name: "query"
+  - name: "describe-table"
     depends_on: "list-tables"
     rerunOnBack: false
+    resourceName: indexName
+    arguments:
+      - "--table-name"
+      - "$TABLENAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "keys"
+      attributeName: "Table"
+  - name: "query"
+    depends_on: "describe-table"
+    rerunOnBack: false
+    requiresKeyInput: true
     arguments:
       - "--table-name"
       - "$TABLENAME"

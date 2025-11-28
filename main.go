@@ -288,7 +288,19 @@ func createSearchBar() *tview.InputField {
 			logger.Logger.Debug().Msg("[Search section] Got ESC")
 			cmd.UiState.CommandBarVisible = false
 			Search.SetText(constants.EmptyString)
+			// Clear original table data cache
+			cmd.UiState.OriginalTableData = nil
 			updateRootView(nil)
+			return nil
+		}
+
+		// Move focus to table/list on Enter or arrow keys
+		if Search.HasFocus() && (event.Key() == tcell.KeyEnter ||
+			event.Key() == tcell.KeyDown || event.Key() == tcell.KeyUp ||
+			event.Key() == tcell.KeyLeft || event.Key() == tcell.KeyRight) {
+
+			logger.Logger.Debug().Msg("[Search section] Moving focus to body")
+			App.SetFocus(Body)
 			return nil
 		}
 
@@ -314,57 +326,121 @@ func createSearchBar() *tview.InputField {
 }
 
 func filterTableRows(table *tview.Table, filter string) {
+	if cmd.UiState.OriginalTableData == nil {
+		// Save original data first time
+		saveOriginalTableData(table)
+	}
+
 	filter = strings.ToLower(filter)
-	rowCount := table.GetRowCount()
 
-	// Start from row 1 to skip the header
-	for row := 1; row < rowCount; row++ {
-		// Check all cells in the row
+	// Clear the table (except header)
+	table.Clear()
+
+	// Re-add header row
+	for colIndex, headerText := range cmd.UiState.OriginalTableData.Headers {
+		table.SetCell(0, colIndex, tview.NewTableCell(headerText).
+			SetAlign(tview.AlignLeft).
+			SetMaxWidth(0).
+			SetSelectable(false))
+	}
+
+	// Add only matching rows
+	displayRow := 1
+	for _, rowData := range cmd.UiState.OriginalTableData.Rows {
+		// Check if any cell in the row matches the filter
 		rowMatches := false
-		colCount := table.GetColumnCount()
-
-		for col := 0; col < colCount; col++ {
-			cell := table.GetCell(row, col)
-			if cell != nil {
-				cellText := strings.ToLower(cell.Text)
-				if strings.Contains(cellText, filter) {
-					rowMatches = true
-					break
-				}
+		for _, cellData := range rowData {
+			if strings.Contains(strings.ToLower(cellData), filter) {
+				rowMatches = true
+				break
 			}
 		}
 
-		// Show or hide the row based on match
-		// Note: tview doesn't support hiding rows, so we'll use a workaround
-		// by setting the row's cells to selectable/non-selectable
-		for col := 0; col < colCount; col++ {
-			cell := table.GetCell(row, col)
-			if cell != nil {
-				if rowMatches {
-					cell.SetTextColor(tcell.ColorWhite)
-					cell.SetSelectable(true)
-				} else {
-					cell.SetTextColor(tcell.ColorGray)
-					cell.SetSelectable(false)
-				}
+		if rowMatches {
+			for colIndex, cellData := range rowData {
+				table.SetCell(displayRow, colIndex, tview.
+					NewTableCell(cellData).
+					SetExpansion(1).
+					SetAlign(tview.AlignLeft).
+					SetSelectable(true))
 			}
+			displayRow++
 		}
+	}
+
+	// Update title to show filtered count
+	if cmd.UiState.OriginalTableData.Title != "" {
+		matchCount := displayRow - 1 // Subtract header row
+		totalCount := len(cmd.UiState.OriginalTableData.Rows)
+		table.SetTitle(fmt.Sprintf("%s (showing %d of %d)",
+			strings.Split(cmd.UiState.OriginalTableData.Title, " (")[0], // Remove any existing count
+			matchCount, totalCount))
 	}
 }
 
-func restoreTableRows(table *tview.Table) {
+func saveOriginalTableData(table *tview.Table) {
 	rowCount := table.GetRowCount()
+	colCount := table.GetColumnCount()
 
-	// Restore all rows to visible/selectable (skip header row 0)
+	data := &cmd.TableData{
+		Title:   table.GetTitle(),
+		Headers: make([]string, colCount),
+		Rows:    make([][]string, 0, rowCount-1),
+	}
+
+	// Save headers (row 0)
+	for col := 0; col < colCount; col++ {
+		cell := table.GetCell(0, col)
+		if cell != nil {
+			data.Headers[col] = cell.Text
+		}
+	}
+
+	// Save data rows (skip row 0)
 	for row := 1; row < rowCount; row++ {
-		colCount := table.GetColumnCount()
+		rowData := make([]string, colCount)
 		for col := 0; col < colCount; col++ {
 			cell := table.GetCell(row, col)
 			if cell != nil {
-				cell.SetTextColor(tcell.ColorWhite)
-				cell.SetSelectable(true)
+				rowData[col] = cell.Text
 			}
 		}
+		data.Rows = append(data.Rows, rowData)
+	}
+
+	cmd.UiState.OriginalTableData = data
+}
+
+func restoreTableRows(table *tview.Table) {
+	if cmd.UiState.OriginalTableData == nil {
+		return
+	}
+
+	// Clear the table
+	table.Clear()
+
+	// Restore header row
+	for colIndex, headerText := range cmd.UiState.OriginalTableData.Headers {
+		table.SetCell(0, colIndex, tview.NewTableCell(headerText).
+			SetAlign(tview.AlignLeft).
+			SetMaxWidth(0).
+			SetSelectable(false))
+	}
+
+	// Restore all rows
+	for rowIndex, rowData := range cmd.UiState.OriginalTableData.Rows {
+		for colIndex, cellData := range rowData {
+			table.SetCell(rowIndex+1, colIndex, tview.
+				NewTableCell(cellData).
+				SetExpansion(1).
+				SetAlign(tview.AlignLeft).
+				SetSelectable(true))
+		}
+	}
+
+	// Restore original title
+	if cmd.UiState.OriginalTableData.Title != "" {
+		table.SetTitle(cmd.UiState.OriginalTableData.Title)
 	}
 }
 
@@ -465,6 +541,12 @@ func executeDependentCommand(selectedCommandName string) {
 
 	pushNavigation(cmd.BreadcrumbDependentCmd, cmd.UiState.Command.Name)
 
+	// Check if command requires key input (e.g., DynamoDB query)
+	if cmd.UiState.Command.RequiresKeyInput {
+		showKeyInputForm()
+		return
+	}
+
 	_, body := executeCommand(cmd.UiState.Command)
 	Body = body
 
@@ -499,6 +581,205 @@ func createLogView() *tview.TextView {
 	return logview
 }
 
+func showKeyInputForm() {
+	// Get the selected index name from the previous navigation (describe-table result)
+	var selectedIndexName string
+
+	// Look through the navigation stack to find the selected item from describe-table
+	for i := len(cmd.UiState.NavigationStack) - 1; i >= 0; i-- {
+		state := cmd.UiState.NavigationStack[i]
+		if state.Type == cmd.BreadcrumbSelectedItem {
+			selectedIndexName = state.Value
+			break
+		}
+	}
+
+	// If we couldn't find it in navigation, try the describe-table's resourceName
+	if selectedIndexName == "" {
+		for _, c := range cmd.UiState.Resource.Commands {
+			if c.Name == "describe-table" && c.ResourceName != "" {
+				resourceKey := cmd.VariablePlaceHolderPrefix + strings.ToUpper(c.ResourceName)
+				selectedIndexName = cmd.UiState.SelectedItems[resourceKey]
+				break
+			}
+		}
+	}
+
+	logger.Logger.Debug().Str("selectedIndexName", selectedIndexName).Msg("Index name for query input")
+
+	// Extract index details from the describe-table result
+	// We need to find the cached table body from the describe-table command
+	type KeyInfo struct {
+		Name     string
+		Type     string // PK or SK
+		AttrType string // S, N, B
+	}
+	var indexKeys []KeyInfo
+	var indexType string // Primary, GSI, LSI
+
+	// Find the describe-table navigation state
+	for i := len(cmd.UiState.NavigationStack) - 1; i >= 0; i-- {
+		state := cmd.UiState.NavigationStack[i]
+		if state.Type == cmd.BreadcrumbDependentCmd {
+			// Check if this is the describe-table command
+			if state.Value == "describe-table" && state.CachedBody != nil {
+				if table, ok := state.CachedBody.(*tview.Table); ok {
+					// Extract all rows from the table to find the selected index
+					rowCount := table.GetRowCount()
+					for row := 1; row < rowCount; row++ { // Skip header row
+						indexNameCell := table.GetCell(row, 0)
+						if indexNameCell != nil && indexNameCell.Text == selectedIndexName {
+							// Found the selected index row
+							indexTypeCell := table.GetCell(row, 1)
+							keyDetailsCell := table.GetCell(row, 3)
+
+							if indexTypeCell != nil {
+								indexType = indexTypeCell.Text
+							}
+
+							if keyDetailsCell != nil {
+								// Parse key details: "KeyName (PK:S), KeyName (SK:S)"
+								keyDetailsParts := strings.Split(keyDetailsCell.Text, ", ")
+								for _, keyDetail := range keyDetailsParts {
+									// Parse "KeyName (PK:S)" format
+									if idx := strings.Index(keyDetail, " ("); idx > 0 {
+										keyName := keyDetail[:idx]
+										typesPart := keyDetail[idx+2 : len(keyDetail)-1] // Remove " (" and ")"
+										types := strings.Split(typesPart, ":")
+										if len(types) == 2 {
+											indexKeys = append(indexKeys, KeyInfo{
+												Name:     keyName,
+												Type:     types[0], // PK or SK
+												AttrType: types[1], // S, N, B
+											})
+										}
+									}
+								}
+							}
+							break
+						}
+					}
+				}
+				break
+			}
+		}
+	}
+
+	logger.Logger.Debug().
+		Str("selectedIndexName", selectedIndexName).
+		Str("indexType", indexType).
+		Interface("indexKeys", indexKeys).
+		Msg("Extracted index details for query")
+
+	// Create input fields for all keys in the index
+	var inputFields []ui.InputField
+	for _, key := range indexKeys {
+		displayLabel := fmt.Sprintf("%s (%s)", key.Name, key.Type)
+		inputFields = append(inputFields, ui.InputField{
+			Label:        displayLabel,
+			Key:          key.Name,
+			DefaultValue: "",
+		})
+	}
+
+	// Build title showing index name
+	formTitle := fmt.Sprintf(" Enter values for: %s ", selectedIndexName)
+	if len(indexKeys) == 1 {
+		formTitle = fmt.Sprintf(" Enter value for: %s ", selectedIndexName)
+	}
+
+	var inputForm *tview.Form
+	inputForm = ui.CreateInputForm(ui.InputFormProperties{
+		Title:  formTitle,
+		Fields: inputFields,
+		OnSubmit: func(values map[string]string) {
+			// Validate that all required fields have values
+			for _, key := range indexKeys {
+				if values[key.Name] == "" {
+					logger.Logger.Warn().Str("key", key.Name).Msg("Key value cannot be empty")
+					return
+				}
+			}
+
+			// Build the key-condition-expression for single or composite key
+			var keyConditionParts []string
+			expressionAttrValuesMap := make(map[string]map[string]string)
+
+			for i, key := range indexKeys {
+				placeholder := fmt.Sprintf(":val%d", i)
+
+				// Add condition for both partition and sort keys
+				keyConditionParts = append(keyConditionParts, fmt.Sprintf("%s = %s", key.Name, placeholder))
+
+				// Map attribute type (S, N, B)
+				expressionAttrValuesMap[placeholder] = map[string]string{
+					key.AttrType: values[key.Name],
+				}
+			}
+
+			keyConditionExpr := strings.Join(keyConditionParts, " AND ")
+
+			// Build expression-attribute-values JSON
+			var attrValuePairs []string
+			for placeholder, attrValue := range expressionAttrValuesMap {
+				for attrType, value := range attrValue {
+					attrValuePairs = append(attrValuePairs, fmt.Sprintf(`"%s": {"%s": "%s"}`, placeholder, attrType, value))
+				}
+			}
+			expressionAttrValues := fmt.Sprintf(`{%s}`, strings.Join(attrValuePairs, ", "))
+
+			logger.Logger.Debug().
+				Str("keyConditionExpr", keyConditionExpr).
+				Str("expressionAttrValues", expressionAttrValues).
+				Msg("Built query expression")
+
+			// Add the query parameters to the command arguments
+			cmd.UiState.Command.Arguments = append(cmd.UiState.Command.Arguments,
+				"--key-condition-expression", keyConditionExpr,
+				"--expression-attribute-values", expressionAttrValues,
+			)
+
+			// If querying a GSI or LSI, add the --index-name parameter
+			if indexType == "Global Secondary Index" || indexType == "Local Secondary Index" {
+				cmd.UiState.Command.Arguments = append(cmd.UiState.Command.Arguments,
+					"--index-name", selectedIndexName,
+				)
+			}
+
+			// Execute the query command
+			_, body := executeCommand(cmd.UiState.Command)
+			Body = body
+
+			updateRootView(nil)
+		},
+		OnCancel: func() {
+			// Go back from the input form to the describe-table results
+			// Pop the query navigation
+			popNavigation()
+
+			// Navigate back to the describe-table (index list)
+			parentState := peekNavigation()
+			if parentState != nil && parentState.Type == cmd.BreadcrumbCommand {
+				parentCommandName := parentState.Value
+				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(parentCommandName)
+
+				if parentState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
+					Body = parentState.CachedBody
+				} else {
+					_, body := executeCommand(cmd.UiState.Command)
+					Body = body
+				}
+			}
+			updateRootView(nil)
+		},
+		App: App,
+	})
+
+	Body = inputForm
+	updateRootView(nil)
+	App.SetFocus(inputForm)
+}
+
 func itemHandler(selectedItemName string) {
 	resourceName := cmd.VariablePlaceHolderPrefix + strings.ToUpper(cmd.UiState.Command.ResourceName)
 	cmd.UiState.SelectedItems[resourceName] = selectedItemName
@@ -522,6 +803,12 @@ func itemHandler(selectedItemName string) {
 
 		cmd.UiState.Command = dependentCommands[0]
 		pushNavigation(cmd.BreadcrumbDependentCmd, cmd.UiState.Command.Name)
+
+		// Check if command requires key input (e.g., DynamoDB query)
+		if cmd.UiState.Command.RequiresKeyInput {
+			showKeyInputForm()
+			return
+		}
 
 		_, body := executeCommand(cmd.UiState.Command)
 		Body = body
@@ -650,7 +937,7 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 
 					// Get parent command from remaining stack
 					parentState := peekNavigation()
-					if parentState != nil && parentState.Type == cmd.BreadcrumbCommand {
+					if parentState != nil && (parentState.Type == cmd.BreadcrumbCommand || parentState.Type == cmd.BreadcrumbDependentCmd) {
 						parentCommandName := parentState.Value
 						cmd.UiState.Command = cmd.UiState.Resource.GetCommand(parentCommandName)
 
@@ -718,6 +1005,11 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Rune:        'n',
 			Description: "Next Page",
 			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Don't handle if an input form has focus
+				if App.GetFocus() != Body {
+					return event
+				}
+
 				// Check if current command has pagination enabled
 				if cmd.UiState.Command.Pagination != nil && cmd.UiState.Command.Pagination.Enabled {
 					currentNav := peekNavigation()
@@ -744,6 +1036,11 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Rune:        'p',
 			Description: "Previous Page",
 			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Don't handle if an input form has focus
+				if App.GetFocus() != Body {
+					return event
+				}
+
 				// Check if we have previous pages
 				if len(cmd.UiState.PageHistory) > 0 {
 					// Pop previous token

@@ -26,6 +26,13 @@ type NavigationState struct {
 	PaginationHistory []string        // Stack of previous page tokens for backward navigation
 }
 
+type TableData struct {
+	Title   string
+	Headers []string
+	Rows    [][]string
+	RowData []interface{} // For JSON viewer
+}
+
 type UIState struct {
 	Profile            string            `yaml:"profile"`
 	Resource           Resource          `yaml:"resource"`
@@ -41,6 +48,7 @@ type UIState struct {
 	SelectedNodeText   string      // Stores the text of the selected node for focus restoration
 	CurrentPageToken   string      // Current page token for active paginated command
 	PageHistory        []string    // Stack of page tokens for backward navigation
+	OriginalTableData  *TableData  // Original unfiltered table data for search/filter
 }
 
 var UiState UIState = UIState{SelectedItems: make(map[string]string), Breadcrumbs: []string{}, NavigationStack: []NavigationState{}, CommandCache: make(map[string]string)}

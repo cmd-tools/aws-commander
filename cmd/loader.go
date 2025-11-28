@@ -23,16 +23,17 @@ const VariablePlaceHolderPrefix = "$"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name           string      `yaml:"name"`
-	ResourceName   string      `yaml:"resourceName"`
-	DefaultCommand string      `yaml:"defaultCommand"`
-	DependsOn      string      `yaml:"depends_on"`
-	Arguments      []string    `yaml:"arguments"`
-	View           string      `yaml:"view"`
-	Parse          Parse       `yaml:"parse"`
-	ShowJsonViewer bool        `yaml:"showJsonViewer"`
-	RerunOnBack    bool        `yaml:"rerunOnBack"`          // If true, rerun command when navigating back; if false, use cached result
-	Pagination     *Pagination `yaml:"pagination,omitempty"` // Pagination configuration
+	Name             string      `yaml:"name"`
+	ResourceName     string      `yaml:"resourceName"`
+	DefaultCommand   string      `yaml:"defaultCommand"`
+	DependsOn        string      `yaml:"depends_on"`
+	Arguments        []string    `yaml:"arguments"`
+	View             string      `yaml:"view"`
+	Parse            Parse       `yaml:"parse"`
+	ShowJsonViewer   bool        `yaml:"showJsonViewer"`
+	RerunOnBack      bool        `yaml:"rerunOnBack"`          // If true, rerun command when navigating back; if false, use cached result
+	RequiresKeyInput bool        `yaml:"requiresKeyInput"`     // If true, prompt user for key value before executing
+	Pagination       *Pagination `yaml:"pagination,omitempty"` // Pagination configuration
 }
 
 type Pagination struct {

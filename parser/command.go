@@ -15,13 +15,14 @@ type ParseCommandResult struct {
 	Command string
 	Header  []string
 	Values  [][]string
+	RawData []interface{}
 }
 
 func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult {
 	jsonResult := orderedmap.New()
 	err := json.Unmarshal([]byte(commandOutput), &jsonResult)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to unmarshal json for command: %s", command))
+		panic(fmt.Sprintf("Unable to unmarshal json for command: %s", command.Name))
 	}
 
 	var parseCommandResult = ParseCommandResult{Command: command.Name}
@@ -32,6 +33,9 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 		for i, s := range baseAttribute.([]interface{}) {
 			var values []string
 			if command.Parse.Type == "object" {
+				// Store raw data for JSON viewer
+				parseCommandResult.RawData = append(parseCommandResult.RawData, s)
+
 				item := s.(orderedmap.OrderedMap)
 				for _, key := range item.Keys() {
 					if i == 0 {
@@ -78,11 +82,11 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 	return parseCommandResult
 }
 
-func ParseToObject(viewType string, parsedResult ParseCommandResult, commandHandler func(selectedProfileName string)) tview.Primitive {
+func ParseToObject(viewType string, parsedResult ParseCommandResult, command cmd.Command, commandHandler func(selectedProfileName string), app *tview.Application, restoreRootView func(), createHeader func() *tview.Flex, createFooter func([]string) *tview.Table, logView *tview.TextView, isLogEnabled bool) tview.Primitive {
 	switch viewType {
 	case "tableView":
 		logger.Logger.Debug().Msg(fmt.Sprintf("Parse to %s", viewType))
-		return parseToTableView(parsedResult, commandHandler)
+		return parseToTableView(parsedResult, command, commandHandler, app, restoreRootView, createHeader, createFooter, logView, isLogEnabled)
 	default:
 		logger.Logger.Debug().Msg(fmt.Sprintf("View type '%s' not found", viewType))
 		return nil
@@ -97,11 +101,19 @@ func mapCommandHeaderToColumn(headers []string) []ui.Column {
 	return uiColumn
 }
 
-func parseToTableView(parsedResult ParseCommandResult, commandHandler func(selectedProfileName string)) tview.Primitive {
+func parseToTableView(parsedResult ParseCommandResult, command cmd.Command, commandHandler func(selectedProfileName string), app *tview.Application, restoreRootView func(), createHeader func() *tview.Flex, createFooter func([]string) *tview.Table, logView *tview.TextView, isLogEnabled bool) tview.Primitive {
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title:   fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(parsedResult.Values)),
-		Columns: mapCommandHeaderToColumn(parsedResult.Header),
-		Rows:    parsedResult.Values,
-		Handler: commandHandler,
+		Title:          fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(parsedResult.Values)),
+		Columns:        mapCommandHeaderToColumn(parsedResult.Header),
+		Rows:           parsedResult.Values,
+		RowData:        parsedResult.RawData,
+		Handler:        commandHandler,
+		ShowJsonViewer: command.ShowJsonViewer,
+		App:            app,
+		RestoreRoot:    restoreRootView,
+		CreateHeader:   createHeader,
+		CreateFooter:   createFooter,
+		LogView:        logView,
+		IsLogEnabled:   isLogEnabled,
 	})
 }

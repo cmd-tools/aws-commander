@@ -153,8 +153,27 @@ func updateNavigationCache(cachedResult string, cachedBody tview.Primitive) {
 
 // executeCommand runs a command and optionally caches the result based on command configuration
 func executeCommand(command cmd.Command) (string, tview.Primitive) {
-	// Run the command
-	commandOutput := command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile)
+	// Check if we should use pagination token
+	paginationToken := cmd.UiState.CurrentPageToken
+
+	// Run the command with pagination support
+	var commandOutput string
+	if command.Pagination != nil && command.Pagination.Enabled && paginationToken != "" {
+		commandOutput = command.RunWithPaginationToken(cmd.UiState.Resource.Name, cmd.UiState.Profile, paginationToken)
+	} else {
+		commandOutput = command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile)
+	}
+
+	// Extract next page token if pagination is enabled
+	if command.Pagination != nil && command.Pagination.Enabled {
+		nextToken := cmd.ExtractPaginationToken(commandOutput, command)
+		// Store in navigation state
+		currentNav := peekNavigation()
+		if currentNav != nil {
+			currentNav.PaginationToken = nextToken
+		}
+	}
+
 	commandParsed := commandParser.ParseCommand(command, commandOutput)
 	body := commandParser.ParseToObject(command.View, commandParsed, command, itemHandler, App, func() {
 		updateRootView(nil)
@@ -232,6 +251,19 @@ func createSearchBar() *tview.InputField {
 		SetBorder(true).
 		SetBackgroundColor(tcell.ColorDefault)
 
+	searchBar.SetChangedFunc(func(text string) {
+		// Filter table rows if Body is a table
+		if table, ok := Body.(*tview.Table); ok {
+			if text != "" {
+				// Filter the table
+				filterTableRows(table, text)
+			} else {
+				// Restore all rows when search is cleared
+				restoreTableRows(table)
+			}
+		}
+	})
+
 	searchBar.SetAutocompleteFunc(func(currentText string) (entries []string) {
 		if len(currentText) == 0 {
 			return
@@ -279,6 +311,61 @@ func createSearchBar() *tview.InputField {
 	})
 
 	return searchBar
+}
+
+func filterTableRows(table *tview.Table, filter string) {
+	filter = strings.ToLower(filter)
+	rowCount := table.GetRowCount()
+
+	// Start from row 1 to skip the header
+	for row := 1; row < rowCount; row++ {
+		// Check all cells in the row
+		rowMatches := false
+		colCount := table.GetColumnCount()
+
+		for col := 0; col < colCount; col++ {
+			cell := table.GetCell(row, col)
+			if cell != nil {
+				cellText := strings.ToLower(cell.Text)
+				if strings.Contains(cellText, filter) {
+					rowMatches = true
+					break
+				}
+			}
+		}
+
+		// Show or hide the row based on match
+		// Note: tview doesn't support hiding rows, so we'll use a workaround
+		// by setting the row's cells to selectable/non-selectable
+		for col := 0; col < colCount; col++ {
+			cell := table.GetCell(row, col)
+			if cell != nil {
+				if rowMatches {
+					cell.SetTextColor(tcell.ColorWhite)
+					cell.SetSelectable(true)
+				} else {
+					cell.SetTextColor(tcell.ColorGray)
+					cell.SetSelectable(false)
+				}
+			}
+		}
+	}
+}
+
+func restoreTableRows(table *tview.Table) {
+	rowCount := table.GetRowCount()
+
+	// Restore all rows to visible/selectable (skip header row 0)
+	for row := 1; row < rowCount; row++ {
+		colCount := table.GetColumnCount()
+		for col := 0; col < colCount; col++ {
+			cell := table.GetCell(row, col)
+			if cell != nil {
+				cell.SetTextColor(tcell.ColorWhite)
+				cell.SetSelectable(true)
+			}
+		}
+	}
 }
 
 func createLogo() *tview.TextView {
@@ -387,6 +474,10 @@ func executeDependentCommand(selectedCommandName string) {
 func createExecuteCommandView(selectedCommandName string) {
 	cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+
+	// Reset pagination state for new command
+	cmd.UiState.CurrentPageToken = ""
+	cmd.UiState.PageHistory = []string{}
 
 	pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
 
@@ -620,6 +711,51 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 				cmd.UiState.CommandBarVisible = true
 				updateRootView(nil)
 				App.SetFocus(Search)
+				return nil
+			},
+		},
+		{
+			Rune:        'n',
+			Description: "Next Page",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Check if current command has pagination enabled
+				if cmd.UiState.Command.Pagination != nil && cmd.UiState.Command.Pagination.Enabled {
+					currentNav := peekNavigation()
+					if currentNav != nil && currentNav.PaginationToken != "" {
+						// Save current token to history
+						if cmd.UiState.PageHistory == nil {
+							cmd.UiState.PageHistory = []string{}
+						}
+						cmd.UiState.PageHistory = append(cmd.UiState.PageHistory, cmd.UiState.CurrentPageToken)
+
+						// Set next page token
+						cmd.UiState.CurrentPageToken = currentNav.PaginationToken
+
+						// Re-execute command with new token
+						_, body := executeCommand(cmd.UiState.Command)
+						Body = body
+						updateRootView(nil)
+					}
+				}
+				return nil
+			},
+		},
+		{
+			Rune:        'p',
+			Description: "Previous Page",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Check if we have previous pages
+				if len(cmd.UiState.PageHistory) > 0 {
+					// Pop previous token
+					lastIndex := len(cmd.UiState.PageHistory) - 1
+					cmd.UiState.CurrentPageToken = cmd.UiState.PageHistory[lastIndex]
+					cmd.UiState.PageHistory = cmd.UiState.PageHistory[:lastIndex]
+
+					// Re-execute command with previous token
+					_, body := executeCommand(cmd.UiState.Command)
+					Body = body
+					updateRootView(nil)
+				}
 				return nil
 			},
 		},

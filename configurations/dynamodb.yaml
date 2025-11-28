@@ -5,11 +5,12 @@ commands:
     resourceName: tableName
     rerunOnBack: false
     arguments:
-      - "--no-paginate"
+      - "--max-items"
+      - "1000"
       - "--output"
       - "json"
       - "--cli-read-timeout"
-      - "2"
+      - "10"
       - "--cli-connect-timeout"
       - "5"
     view: tableView
@@ -22,6 +23,8 @@ commands:
     arguments:
       - "--table-name"
       - "$TABLENAME"
+      - "--limit"
+      - "50"
       - "--output"
       - "json"
       - "--cli-read-timeout"
@@ -33,3 +36,30 @@ commands:
     parse:
       type: "object"
       attributeName: "Items"
+    pagination:
+      enabled: true
+      nextTokenParam: "--exclusive-start-key"
+      nextTokenJsonPath: "LastEvaluatedKey"
+  - name: "query"
+    depends_on: "list-tables"
+    rerunOnBack: false
+    arguments:
+      - "--table-name"
+      - "$TABLENAME"
+      - "--limit"
+      - "50"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "2"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Items"
+    pagination:
+      enabled: true
+      nextTokenParam: "--exclusive-start-key"
+      nextTokenJsonPath: "LastEvaluatedKey"

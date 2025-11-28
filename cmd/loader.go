@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -22,15 +23,22 @@ const VariablePlaceHolderPrefix = "$"
 var Resources = map[string]Resource{}
 
 type Command struct {
-	Name           string   `yaml:"name"`
-	ResourceName   string   `yaml:"resourceName"`
-	DefaultCommand string   `yaml:"defaultCommand"`
-	DependsOn      string   `yaml:"depends_on"`
-	Arguments      []string `yaml:"arguments"`
-	View           string   `yaml:"view"`
-	Parse          Parse    `yaml:"parse"`
-	ShowJsonViewer bool     `yaml:"showJsonViewer"`
-	RerunOnBack    bool     `yaml:"rerunOnBack"` // If true, rerun command when navigating back; if false, use cached result
+	Name           string      `yaml:"name"`
+	ResourceName   string      `yaml:"resourceName"`
+	DefaultCommand string      `yaml:"defaultCommand"`
+	DependsOn      string      `yaml:"depends_on"`
+	Arguments      []string    `yaml:"arguments"`
+	View           string      `yaml:"view"`
+	Parse          Parse       `yaml:"parse"`
+	ShowJsonViewer bool        `yaml:"showJsonViewer"`
+	RerunOnBack    bool        `yaml:"rerunOnBack"`          // If true, rerun command when navigating back; if false, use cached result
+	Pagination     *Pagination `yaml:"pagination,omitempty"` // Pagination configuration
+}
+
+type Pagination struct {
+	Enabled           bool   `yaml:"enabled"`
+	NextTokenParam    string `yaml:"nextTokenParam"`    // Parameter name for next token (e.g., "--starting-token" or "--exclusive-start-key")
+	NextTokenJsonPath string `yaml:"nextTokenJsonPath"` // JSON path to extract next token (e.g., "NextToken" or "LastEvaluatedKey")
 }
 
 type Parse struct {
@@ -95,11 +103,21 @@ func (resource *Resource) GetCommand(name string) Command {
 }
 
 func (command *Command) Run(resource string, profile string) string {
+	return command.RunWithPaginationToken(resource, profile, "")
+}
+
+func (command *Command) RunWithPaginationToken(resource string, profile string, paginationToken string) string {
 	binaryName := "aws"
 	var argumentsCopy = make([]string, len(command.Arguments))
 	copy(argumentsCopy, command.Arguments)
 	args := []string{resource, command.Name, "--profile", profile}
 	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
+
+	// Add pagination token if provided and pagination is enabled
+	if paginationToken != "" && command.Pagination != nil && command.Pagination.Enabled {
+		args = append(args, command.Pagination.NextTokenParam, paginationToken)
+	}
+
 	logger.Logger.Debug().Msg(fmt.Sprintf("Running: %s %s", binaryName, strings.Join(args, " ")))
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
@@ -138,4 +156,30 @@ func replaceVariablesOnCommandArguments(arguments []string) []string {
 		}
 	}
 	return arguments
+}
+
+// ExtractPaginationToken extracts the next page token from JSON output
+func ExtractPaginationToken(jsonOutput string, command Command) string {
+	if command.Pagination == nil || !command.Pagination.Enabled {
+		return ""
+	}
+
+	var result map[string]interface{}
+	if err := json.Unmarshal([]byte(jsonOutput), &result); err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to parse JSON for pagination token extraction")
+		return ""
+	}
+
+	// Get the token from the JSON path
+	if token, exists := result[command.Pagination.NextTokenJsonPath]; exists && token != nil {
+		// Convert token to JSON string for AWS CLI
+		tokenBytes, err := json.Marshal(token)
+		if err != nil {
+			logger.Logger.Error().Err(err).Msg("Failed to marshal pagination token")
+			return ""
+		}
+		return string(tokenBytes)
+	}
+
+	return ""
 }

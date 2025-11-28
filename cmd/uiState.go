@@ -17,11 +17,13 @@ const (
 )
 
 type NavigationState struct {
-	Type          BreadcrumbType
-	Value         string
-	CachedResult  string          // Cached command result for this navigation level
-	CachedBody    tview.Primitive // Cached UI body for this navigation level
-	ProcessedData interface{}     // Processed JSON data at this level (for nested JSON)
+	Type              BreadcrumbType
+	Value             string
+	CachedResult      string          // Cached command result for this navigation level
+	CachedBody        tview.Primitive // Cached UI body for this navigation level
+	ProcessedData     interface{}     // Processed JSON data at this level (for nested JSON)
+	PaginationToken   string          // Next page token for paginated commands
+	PaginationHistory []string        // Stack of previous page tokens for backward navigation
 }
 
 type UIState struct {
@@ -37,6 +39,8 @@ type UIState struct {
 	ProcessedJsonData  interface{} // Stores processed JSON data (parsed or decompressed)
 	JsonViewerCallback func()      // Callback to rebuild JSON viewer
 	SelectedNodeText   string      // Stores the text of the selected node for focus restoration
+	CurrentPageToken   string      // Current page token for active paginated command
+	PageHistory        []string    // Stack of page tokens for backward navigation
 }
 
 var UiState UIState = UIState{SelectedItems: make(map[string]string), Breadcrumbs: []string{}, NavigationStack: []NavigationState{}, CommandCache: make(map[string]string)}

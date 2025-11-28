@@ -22,7 +22,7 @@ This project requires:
 ### Getting Started
 
 1. Run the command `make up` to setup and startup local development environment using `localstack`;
-2. Execute the application using `go run main.go`. 
+2. Execute the application using `go run .`. 
 3. Add `--logview` to show logs directly in `aws-commander` or check development logs by tailing the related log file `aws-commander.log`.
 
 ## Versioning

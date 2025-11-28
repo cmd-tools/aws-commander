@@ -23,7 +23,7 @@ commands:
       - "--queue-url"
       - "$QUEUENAME"
       - "--max-number-of-messages"
-      - "50"
+      - "10"
       - "--wait-time-seconds"
       - "0"
       - "--visibility-timeout"

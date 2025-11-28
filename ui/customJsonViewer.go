@@ -77,7 +77,7 @@ func extractValueFromNode(nodeText string) string {
 		// Remove color tags and quotes
 		value = strings.TrimPrefix(value, "[green]\"")
 		value = strings.TrimSuffix(value, "\"")
-		value = strings.TrimPrefix(value, "[blue]")
+		value = strings.TrimPrefix(value, "[white]")
 		value = strings.TrimPrefix(value, "[red]")
 		value = strings.TrimPrefix(value, "[gray]")
 		return value
@@ -228,8 +228,8 @@ func buildJsonTree(data interface{}, parent *tview.TreeNode) {
 		}
 	case []interface{}:
 		for i, val := range v {
-			node := tview.NewTreeNode(fmt.Sprintf("[blue][%d]", i)).
-				SetColor(tcell.ColorBlue).
+			node := tview.NewTreeNode(fmt.Sprintf("[white][%d]", i)).
+				SetColor(tcell.ColorWhite).
 				SetSelectable(true).
 				SetExpanded(true)
 			parent.AddChild(node)
@@ -239,7 +239,7 @@ func buildJsonTree(data interface{}, parent *tview.TreeNode) {
 		parent.SetText(fmt.Sprintf("%s: [green]\"%v\"", parent.GetText(), v))
 		parent.SetColor(tcell.ColorWhite)
 	case float64, int, int64:
-		parent.SetText(fmt.Sprintf("%s: [blue]%v", parent.GetText(), v))
+		parent.SetText(fmt.Sprintf("%s: [white]%v", parent.GetText(), v))
 		parent.SetColor(tcell.ColorWhite)
 	case bool:
 		parent.SetText(fmt.Sprintf("%s: [red]%v", parent.GetText(), v))

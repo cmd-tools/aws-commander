@@ -1,4 +1,5 @@
 name: "dynamodb"
+defaultCommand: "list-tables"
 commands:
   - name: "list-tables"
     resourceName: tableName
@@ -15,6 +16,7 @@ commands:
       type: "list"
       attributeName: "TableNames"
   - name: "scan"
+    depends_on: "list-tables"
     arguments:
       - "--table-name"
       - "$TABLENAME"
@@ -25,6 +27,7 @@ commands:
       - "--cli-connect-timeout"
       - "5"
     view: tableView
+    showJsonViewer: true
     parse:
       type: "object"
       attributeName: "Items"

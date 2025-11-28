@@ -25,9 +25,11 @@ type Command struct {
 	Name           string   `yaml:"name"`
 	ResourceName   string   `yaml:"resourceName"`
 	DefaultCommand string   `yaml:"defaultCommand"`
+	DependsOn      string   `yaml:"depends_on"`
 	Arguments      []string `yaml:"arguments"`
 	View           string   `yaml:"view"`
 	Parse          Parse    `yaml:"parse"`
+	ShowJsonViewer bool     `yaml:"showJsonViewer"`
 }
 
 type Parse struct {

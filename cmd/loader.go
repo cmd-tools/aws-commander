@@ -30,6 +30,7 @@ type Command struct {
 	View           string   `yaml:"view"`
 	Parse          Parse    `yaml:"parse"`
 	ShowJsonViewer bool     `yaml:"showJsonViewer"`
+	RerunOnBack    bool     `yaml:"rerunOnBack"` // If true, rerun command when navigating back; if false, use cached result
 }
 
 type Parse struct {

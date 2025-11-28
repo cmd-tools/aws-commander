@@ -3,6 +3,7 @@ defaultCommand: "list-tables"
 commands:
   - name: "list-tables"
     resourceName: tableName
+    rerunOnBack: false
     arguments:
       - "--no-paginate"
       - "--output"
@@ -17,6 +18,7 @@ commands:
       attributeName: "TableNames"
   - name: "scan"
     depends_on: "list-tables"
+    rerunOnBack: false
     arguments:
       - "--table-name"
       - "$TABLENAME"

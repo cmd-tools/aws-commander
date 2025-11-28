@@ -140,14 +140,19 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 				}
 
 				if processed {
-					// Store the processed data in UIState
-					cmd.UiState.ProcessedJsonData = newData
+					// Store the processed data in navigation stack (not global)
+					navState := cmd.NavigationState{
+						Type:          cmd.BreadcrumbProcessedJson,
+						Value:         newTitle,
+						ProcessedData: newData,
+					}
 
 					// Store the current node text for focus restoration
 					cmd.UiState.SelectedNodeText = nodeText
 
-					// Add breadcrumb for the expanded view
+					// Add breadcrumb and navigation state for the expanded view
 					cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, newTitle)
+					cmd.UiState.NavigationStack = append(cmd.UiState.NavigationStack, navState)
 
 					// Create a new JSON viewer with the processed data
 					newViewer := CreateJsonTreeViewer(JsonViewerProperties{

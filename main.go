@@ -122,8 +122,80 @@ func createFooter(sections []string) *tview.Table {
 	return header
 }
 
+// pushNavigation adds a new navigation state to the stack
+func pushNavigation(navType cmd.BreadcrumbType, value string) {
+	cmd.UiState.NavigationStack = append(cmd.UiState.NavigationStack, cmd.NavigationState{
+		Type:  navType,
+		Value: value,
+	})
+	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, value)
+}
+
+// pushNavigationWithCache adds a new navigation state with cached result
+func pushNavigationWithCache(navType cmd.BreadcrumbType, value string, cachedResult string, cachedBody tview.Primitive) {
+	cmd.UiState.NavigationStack = append(cmd.UiState.NavigationStack, cmd.NavigationState{
+		Type:         navType,
+		Value:        value,
+		CachedResult: cachedResult,
+		CachedBody:   cachedBody,
+	})
+	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, value)
+}
+
+// updateNavigationCache updates the cache for the current navigation level
+func updateNavigationCache(cachedResult string, cachedBody tview.Primitive) {
+	if len(cmd.UiState.NavigationStack) > 0 {
+		lastIndex := len(cmd.UiState.NavigationStack) - 1
+		cmd.UiState.NavigationStack[lastIndex].CachedResult = cachedResult
+		cmd.UiState.NavigationStack[lastIndex].CachedBody = cachedBody
+	}
+}
+
+// executeCommand runs a command and optionally caches the result based on command configuration
+func executeCommand(command cmd.Command) (string, tview.Primitive) {
+	// Run the command
+	commandOutput := command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile)
+	commandParsed := commandParser.ParseCommand(command, commandOutput)
+	body := commandParser.ParseToObject(command.View, commandParsed, command, itemHandler, App, func() {
+		updateRootView(nil)
+	}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+
+	// Cache the result if rerunOnBack is false
+	if !command.RerunOnBack {
+		updateNavigationCache(commandOutput, body)
+	}
+
+	return commandOutput, body
+}
+
+// popNavigation removes the last navigation state from the stack
+func popNavigation() *cmd.NavigationState {
+	if len(cmd.UiState.NavigationStack) == 0 {
+		return nil
+	}
+
+	lastIndex := len(cmd.UiState.NavigationStack) - 1
+	state := cmd.UiState.NavigationStack[lastIndex]
+	cmd.UiState.NavigationStack = cmd.UiState.NavigationStack[:lastIndex]
+
+	if len(cmd.UiState.Breadcrumbs) > 0 {
+		cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:len(cmd.UiState.Breadcrumbs)-1]
+	}
+
+	return &state
+}
+
+// peekNavigation returns the last navigation state without removing it
+func peekNavigation() *cmd.NavigationState {
+	if len(cmd.UiState.NavigationStack) == 0 {
+		return nil
+	}
+	return &cmd.UiState.NavigationStack[len(cmd.UiState.NavigationStack)-1]
+}
+
 func createBody() *tview.Table {
 	cmd.UiState.Breadcrumbs = []string{}
+	cmd.UiState.NavigationStack = []cmd.NavigationState{}
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
 		Title: fmt.Sprintf(" Profiles [%d] ", len(ProfileList)),
 		Columns: []ui.Column{
@@ -143,6 +215,10 @@ func createBody() *tview.Table {
 			Body = createResources(resources)
 
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, selectedProfileName}
+			cmd.UiState.NavigationStack = []cmd.NavigationState{
+				{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
+				{Type: cmd.BreadcrumbProfile, Value: selectedProfileName},
+			}
 			updateRootView(nil)
 		},
 	})
@@ -248,6 +324,10 @@ func updateRootView(shortcuts []ui.CustomShortCut) *tview.Flex {
 
 func createResources(resources []string) tview.Primitive {
 	cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile}
+	cmd.UiState.NavigationStack = []cmd.NavigationState{
+		{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
+		{Type: cmd.BreadcrumbProfile, Value: cmd.UiState.Profile},
+	}
 	return ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
 		Options: resources,
@@ -255,17 +335,20 @@ func createResources(resources []string) tview.Primitive {
 
 			cmd.UiState.Resource = cmd.Resources[selectedResourceName]
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, selectedResourceName}
+			cmd.UiState.NavigationStack = []cmd.NavigationState{
+				{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
+				{Type: cmd.BreadcrumbProfile, Value: cmd.UiState.Profile},
+				{Type: cmd.BreadcrumbResource, Value: selectedResourceName},
+			}
 			cmd.UiState.SelectedItems = make(map[string]string)
 			AutoCompletionWordList = append(resources, constants.Profiles)
 			if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
 				Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 			} else {
 				cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
-				cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
-				var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-				Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
-					updateRootView(nil)
-				}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+				pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
+				_, body := executeCommand(cmd.UiState.Command)
+				Body = body
 			}
 
 			updateRootView(nil)
@@ -281,16 +364,34 @@ func createCommandView(commandNames []string) tview.Primitive {
 	})
 }
 
+func createDependentCommandView(commandNames []string) tview.Primitive {
+	return ui.CreateCustomListView(ui.ListViewBoxProperties{
+		Title:   fmt.Sprintf(" Dependent Commands [%d] ", len(commandNames)),
+		Options: commandNames,
+		Handler: executeDependentCommand,
+	})
+}
+
+func executeDependentCommand(selectedCommandName string) {
+	cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
+	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
+
+	pushNavigation(cmd.BreadcrumbDependentCmd, cmd.UiState.Command.Name)
+
+	_, body := executeCommand(cmd.UiState.Command)
+	Body = body
+
+	updateRootView(nil)
+}
+
 func createExecuteCommandView(selectedCommandName string) {
 	cmd.UiState.Command = cmd.UiState.Resource.GetCommand(selectedCommandName)
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 
-	cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
+	pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
 
-	var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-	Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
-		updateRootView(nil)
-	}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+	_, body := executeCommand(cmd.UiState.Command)
+	Body = body
 
 	updateRootView(nil)
 }
@@ -313,29 +414,37 @@ func itemHandler(selectedItemName string) {
 
 	AutoCompletionWordList = append(cmd.UiState.Resource.GetCommandNames(), constants.Profiles)
 
-	// Find command that depends on the current command
-	var dependentCommand *cmd.Command
+	// Find all commands that depend on the current command
+	var dependentCommands []cmd.Command
 	for _, c := range cmd.UiState.Resource.Commands {
 		if c.DependsOn == cmd.UiState.Command.Name {
-			dependentCommand = &c
-			break
+			dependentCommands = append(dependentCommands, c)
 		}
 	}
 
-	if dependentCommand == nil {
+	if len(dependentCommands) == 0 {
 		// No dependent command found, show command list
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
+	} else if len(dependentCommands) == 1 {
+		// Only one dependent command, execute it directly
+		pushNavigation(cmd.BreadcrumbSelectedItem, selectedItemName)
+
+		cmd.UiState.Command = dependentCommands[0]
+		pushNavigation(cmd.BreadcrumbDependentCmd, cmd.UiState.Command.Name)
+
+		_, body := executeCommand(cmd.UiState.Command)
+		Body = body
 	} else {
-		// Add the selected item name and command name to breadcrumbs
-		cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, selectedItemName)
+		// Multiple dependent commands, show selection list
+		pushNavigation(cmd.BreadcrumbSelectedItem, selectedItemName)
 
-		cmd.UiState.Command = *dependentCommand
-		cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
+		var commandNames []string
+		for _, c := range dependentCommands {
+			commandNames = append(commandNames, c.Name)
+		}
 
-		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
-			updateRootView(nil)
-		}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+		pushNavigation(cmd.BreadcrumbDependentCmds, "Select Command")
+		Body = createDependentCommandView(commandNames)
 	}
 
 	updateRootView(nil)
@@ -352,92 +461,146 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 				if Search.HasFocus() {
 					return event
 				}
-				breadcrumbsLen := len(cmd.UiState.Breadcrumbs)
 
-				logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Breadcrumbs: %v (length: %d)", cmd.UiState.Breadcrumbs, breadcrumbsLen))
+				currentState := peekNavigation()
+				if currentState == nil {
+					// At root, nothing to do
+					return nil
+				}
 
-				// Handle navigation based on breadcrumb length
-				switch breadcrumbsLen {
-				case 0, 1:
-					// At profiles or empty - show profiles
+				logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Current state: %s = %s, Stack length: %d", currentState.Type, currentState.Value, len(cmd.UiState.NavigationStack)))
+
+				// Handle navigation based on the current state type
+				switch currentState.Type {
+				case cmd.BreadcrumbProfiles:
+					// At profiles list, nothing to go back to
+					return nil
+
+				case cmd.BreadcrumbProfile:
+					// Go back to profiles list
+					popNavigation()
 					Body = createBody()
-					cmd.UiState.Breadcrumbs = []string{}
-				case 2:
-					// At resources list - go back to profiles
-					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:1]
-					Body = createBody()
-				case 3:
-					// At resource view (command list or default command) - go back to resources
-					profileName := cmd.UiState.Breadcrumbs[1]
-					cmd.UiState.Breadcrumbs = []string{constants.Profiles, profileName}
+
+				case cmd.BreadcrumbResource:
+					// Go back to resources list
+					popNavigation() // Remove resource
 					Body = createResources(cmd.GetAvailableResourceNames())
-				case 4:
-					// At command result - go back to resource view
-					resourceName := cmd.UiState.Breadcrumbs[2]
-					cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:3]
-					cmd.UiState.Resource = cmd.Resources[resourceName]
 
-					// If the current command is the default command, skip it and go to resources list
-					if cmd.UiState.Resource.DefaultCommand != constants.EmptyString &&
-						cmd.UiState.Command.Name == cmd.UiState.Resource.DefaultCommand {
-						// Go back to resources list instead
-						profileName := cmd.UiState.Breadcrumbs[1]
-						cmd.UiState.Breadcrumbs = []string{constants.Profiles, profileName}
-						Body = createResources(cmd.GetAvailableResourceNames())
-					} else if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
-						Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
-					} else {
-						// Re-run the default command
-						cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
-						cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, cmd.UiState.Command.Name)
-						var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-						Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
-							updateRootView(nil)
-						}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
-					}
-				default:
-					// Length 5+: Could be at dependent command, JSON viewer, or processed JSON
-					lastBreadcrumb := cmd.UiState.Breadcrumbs[breadcrumbsLen-1]
+				case cmd.BreadcrumbCommand:
+					// Go back from command result
+					popNavigation() // Remove command
+					prevState := peekNavigation()
 
-					// Check if we're in a processed JSON view (parsed or decompressed)
-					if lastBreadcrumb == "Parsed JSON" || strings.HasPrefix(lastBreadcrumb, "Decompressed") {
-						// Remove the processed JSON breadcrumb
-						cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-1]
-						cmd.UiState.ProcessedJsonData = nil // Clear processed data
+					if prevState != nil && prevState.Type == cmd.BreadcrumbResource {
+						// We're at a command under a resource
+						resourceName := prevState.Value
+						cmd.UiState.Resource = cmd.Resources[resourceName]
 
-						// Call the JSON viewer callback to rebuild the view with original data
-						if cmd.UiState.JsonViewerCallback != nil {
-							cmd.UiState.JsonViewerCallback()
-							// The callback already sets the focus correctly, so just return
-							return nil
+						// If this was the default command, skip back to resources list
+						if cmd.UiState.Resource.DefaultCommand != constants.EmptyString &&
+							cmd.UiState.Command.Name == cmd.UiState.Resource.DefaultCommand {
+							popNavigation() // Remove resource too
+							profileName := cmd.UiState.Breadcrumbs[1]
+							cmd.UiState.Breadcrumbs = []string{constants.Profiles, profileName}
+							cmd.UiState.NavigationStack = []cmd.NavigationState{
+								{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
+								{Type: cmd.BreadcrumbProfile, Value: profileName},
+							}
+							Body = createResources(cmd.GetAvailableResourceNames())
+						} else {
+							// Show command list
+							Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 						}
-					} else if len(lastBreadcrumb) >= 9 && lastBreadcrumb[:9] == "JSON View" {
-						// Remove JSON viewer breadcrumb and restore the command view
-						cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-1]
-						cmd.UiState.ProcessedJsonData = nil  // Clear any processed data
-						cmd.UiState.JsonViewerCallback = nil // Clear callback
+					}
 
-						// Re-run current command to restore table view
-						var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-						Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
-							updateRootView(nil)
-						}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+				case cmd.BreadcrumbProcessedJson:
+					// Go back from processed JSON to original JSON viewer
+					popNavigation()
+					cmd.UiState.ProcessedJsonData = nil
+
+					if cmd.UiState.JsonViewerCallback != nil {
+						cmd.UiState.JsonViewerCallback()
+						return nil
+					}
+
+				case cmd.BreadcrumbJsonView:
+					// Go back from JSON viewer to command result
+					popNavigation()
+					cmd.UiState.ProcessedJsonData = nil
+					cmd.UiState.JsonViewerCallback = nil
+
+					// Always use cached body when going back from JSON viewer
+					// Don't re-run the command as it may hang (e.g., SQS receive-message with wait)
+					currentCmdState := peekNavigation()
+					if currentCmdState != nil && currentCmdState.CachedBody != nil {
+						// Use cached result
+						Body = currentCmdState.CachedBody
+						logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for command: %s", cmd.UiState.Command.Name))
 					} else {
-						// At dependent command (length 5+) - go back to parent command
-						logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Going back from dependent command. Last breadcrumb: %s", lastBreadcrumb))
+						// Fallback: Re-run current command to restore table view
+						_, body := executeCommand(cmd.UiState.Command)
+						Body = body
+					}
 
-						// Remove selected item name and dependent command name (last 2 breadcrumbs)
-						cmd.UiState.Breadcrumbs = cmd.UiState.Breadcrumbs[:breadcrumbsLen-2]
+				case cmd.BreadcrumbDependentCmd:
+					// Go back from dependent command
+					popNavigation() // Remove dependent command
 
-						logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] After removing 2 breadcrumbs: %v", cmd.UiState.Breadcrumbs))
+					// Check if the previous state was a dependent commands selection list
+					prevState := peekNavigation()
+					if prevState != nil && prevState.Type == cmd.BreadcrumbDependentCmds {
+						// We came from a selection list, go back 2 more levels (list + selected item)
+						popNavigation() // Remove dependent commands list
+						popNavigation() // Remove selected item
+					} else {
+						// Direct dependent command (only one option), go back 1 level
+						popNavigation() // Remove selected item
+					}
 
-						// Get the parent command name from breadcrumbs
-						parentCommandName := cmd.UiState.Breadcrumbs[len(cmd.UiState.Breadcrumbs)-1]
-						logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Parent command name: %s", parentCommandName))
-
+					// Get parent command from remaining stack
+					parentState := peekNavigation()
+					if parentState != nil && parentState.Type == cmd.BreadcrumbCommand {
+						parentCommandName := parentState.Value
 						cmd.UiState.Command = cmd.UiState.Resource.GetCommand(parentCommandName)
 
-						// Re-run parent command
+						// Check if we have cached result
+						if parentState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
+							// Use cached result
+							Body = parentState.CachedBody
+							logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for parent command: %s", parentCommandName))
+						} else {
+							// Re-run parent command
+							_, body := executeCommand(cmd.UiState.Command)
+							Body = body
+						}
+					}
+
+				case cmd.BreadcrumbDependentCmds:
+					// Go back from dependent commands selection to selected item
+					popNavigation() // Remove dependent commands list
+					popNavigation() // Remove selected item
+
+					// Get current command state
+					currentCmdState := peekNavigation()
+					if currentCmdState != nil && currentCmdState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
+						// Use cached result
+						Body = currentCmdState.CachedBody
+						logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for command: %s", cmd.UiState.Command.Name))
+					} else {
+						// Re-run current command
+						_, body := executeCommand(cmd.UiState.Command)
+						Body = body
+					}
+
+				case cmd.BreadcrumbSelectedItem:
+					// This shouldn't happen as selectedItem should always be followed by dependentCmd or dependentCmds
+					// But just in case, go back to parent command
+					popNavigation()
+					prevState := peekNavigation()
+					if prevState != nil && prevState.Type == cmd.BreadcrumbCommand {
+						parentCommandName := prevState.Value
+						cmd.UiState.Command = cmd.UiState.Resource.GetCommand(parentCommandName)
+
 						var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
 						Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
 							updateRootView(nil)

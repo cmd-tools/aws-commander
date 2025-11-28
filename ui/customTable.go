@@ -85,8 +85,13 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 
 			// Handle JSON viewer if enabled and we have data
 			if properties.ShowJsonViewer && len(properties.RowData) > 0 && properties.App != nil && row > 0 && row-1 < len(properties.RowData) {
-				// Add JSON viewer entry to breadcrumbs
-				cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, fmt.Sprintf("JSON View (Row %d)", row))
+				// Add JSON viewer entry to breadcrumbs and navigation stack
+				jsonViewLabel := fmt.Sprintf("JSON View (Row %d)", row)
+				cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, jsonViewLabel)
+				cmd.UiState.NavigationStack = append(cmd.UiState.NavigationStack, cmd.NavigationState{
+					Type:  cmd.BreadcrumbJsonView,
+					Value: jsonViewLabel,
+				})
 
 				// Create a callback that rebuilds the JSON viewer with the current or processed data
 				var onBack func()
@@ -103,8 +108,18 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 
 					// Determine what to show based on the last breadcrumb
 					if lastBreadcrumb == "Parsed JSON" || strings.HasPrefix(lastBreadcrumb, "Decompressed") {
-						// Show the processed data
-						dataToShow = cmd.UiState.ProcessedJsonData
+						// Get processed data from the current navigation state
+						if len(cmd.UiState.NavigationStack) > 0 {
+							currentNav := cmd.UiState.NavigationStack[len(cmd.UiState.NavigationStack)-1]
+							if currentNav.ProcessedData != nil {
+								dataToShow = currentNav.ProcessedData
+							} else {
+								// Fallback to original row data
+								dataToShow = properties.RowData[row-1]
+							}
+						} else {
+							dataToShow = properties.RowData[row-1]
+						}
 						title = lastBreadcrumb
 					} else {
 						// Show the original row data

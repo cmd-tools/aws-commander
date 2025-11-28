@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/atotto/clipboard"
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/helpers"
+	"github.com/cmd-tools/aws-commander/logger"
 	tcell "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -80,6 +82,24 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 
 	// Set up input capture for both JSON viewer and normal handler
 	table.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		// Handle clipboard copy with 'y' (yank) or Ctrl+C
+		if event.Rune() == 'y' || event.Key() == tcell.KeyCtrlC {
+			row, _ := table.GetSelection()
+			if row > 0 && row <= len(properties.Rows) {
+				// Copy the entire row as tab-separated values
+				rowData := properties.Rows[row-1]
+				rowText := strings.Join(rowData, "\t")
+				
+				err := clipboard.WriteAll(rowText)
+				if err != nil {
+					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
+				} else {
+					logger.Logger.Debug().Str("data", rowText).Msg("Copied row to clipboard")
+				}
+			}
+			return nil
+		}
+
 		if event.Key() == tcell.KeyEnter {
 			row, _ := table.GetSelection()
 

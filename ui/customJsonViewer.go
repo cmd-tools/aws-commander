@@ -8,7 +8,9 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/atotto/clipboard"
 	"github.com/cmd-tools/aws-commander/cmd"
+	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/gdamore/tcell/v2"
 	"github.com/iancoleman/orderedmap"
 	"github.com/rivo/tview"
@@ -109,6 +111,31 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 
 	// Add input handler for Enter key to process stringified JSON or Base64 gzip
 	tree.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		// Handle clipboard copy with 'y' (yank) or Ctrl+C
+		if event.Rune() == 'y' || event.Key() == tcell.KeyCtrlC {
+			currentNode := tree.GetCurrentNode()
+			if currentNode != nil {
+				nodeText := currentNode.GetText()
+				value := extractValueFromNode(nodeText)
+				
+				// If it's a leaf node, copy just the value, otherwise copy the full node text
+				var textToCopy string
+				if len(currentNode.GetChildren()) == 0 {
+					textToCopy = value
+				} else {
+					textToCopy = nodeText
+				}
+				
+				err := clipboard.WriteAll(textToCopy)
+				if err != nil {
+					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
+				} else {
+					logger.Logger.Debug().Str("data", textToCopy).Msg("Copied to clipboard")
+				}
+			}
+			return nil
+		}
+
 		if event.Key() == tcell.KeyEnter && properties.App != nil {
 			currentNode := tree.GetCurrentNode()
 			if currentNode != nil && len(currentNode.GetChildren()) == 0 {

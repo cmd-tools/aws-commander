@@ -58,10 +58,16 @@ func executeDependentCommand(selectedCommandName string) {
 
 	// Check if command requires key input (e.g., DynamoDB query)
 	if cmd.UiState.Command.RequiresKeyInput {
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		showKeyInputForm()
 		return
 	}
 
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
 	_, body := executeCommand(cmd.UiState.Command)
 	Body = body
 
@@ -79,6 +85,9 @@ func createExecuteCommandView(selectedCommandName string) {
 
 	pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
 
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
 	_, body := executeCommand(cmd.UiState.Command)
 	Body = body
 
@@ -102,6 +111,9 @@ func itemHandler(selectedItemName string) {
 
 	if len(dependentCommands) == 0 {
 		// No dependent command found, show command list
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 	} else if len(dependentCommands) == 1 {
 		// Only one dependent command, execute it directly
@@ -112,10 +124,16 @@ func itemHandler(selectedItemName string) {
 
 		// Check if command requires key input (e.g., DynamoDB query)
 		if cmd.UiState.Command.RequiresKeyInput {
+			cmd.UiState.CommandBarVisible = false
+			Search.SetText("")
+			cmd.UiState.OriginalTableData = nil
 			showKeyInputForm()
 			return
 		}
 
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		_, body := executeCommand(cmd.UiState.Command)
 		Body = body
 	} else {
@@ -127,6 +145,9 @@ func itemHandler(selectedItemName string) {
 			commandNames = append(commandNames, c.Name)
 		}
 
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		pushNavigation(cmd.BreadcrumbDependentCmds, "Select Command")
 		Body = createDependentCommandView(commandNames)
 	}
@@ -165,6 +186,14 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Handle:      handlePreviousPage,
 		},
 		{
+			Rune:        'y',
+			Description: "Copy (Yank)",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Copy is handled in individual UI components
+				return event
+			},
+		},
+		{
 			Rune:        '?',
 			Description: "Help",
 			Handle: func(event *tcell.EventKey) *tcell.EventKey {
@@ -193,10 +222,16 @@ func handleEscKey(event *tcell.EventKey) *tcell.EventKey {
 
 	case cmd.BreadcrumbProfile:
 		popNavigation()
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		Body = createBody()
 
 	case cmd.BreadcrumbResource:
 		popNavigation()
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		Body = createResources(cmd.GetAvailableResourceNames())
 
 	case cmd.BreadcrumbCommand:
@@ -244,8 +279,14 @@ func handleCommandBack() {
 				{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
 				{Type: cmd.BreadcrumbProfile, Value: profileName},
 			}
+			cmd.UiState.CommandBarVisible = false
+			Search.SetText("")
+			cmd.UiState.OriginalTableData = nil
 			Body = createResources(cmd.GetAvailableResourceNames())
 		} else {
+			cmd.UiState.CommandBarVisible = false
+			Search.SetText("")
+			cmd.UiState.OriginalTableData = nil
 			Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 		}
 	}
@@ -257,6 +298,9 @@ func handleProcessedJsonBack() bool {
 	cmd.UiState.ProcessedJsonData = nil
 
 	if cmd.UiState.JsonViewerCallback != nil {
+		cmd.UiState.CommandBarVisible = false
+		Search.SetText("")
+		cmd.UiState.OriginalTableData = nil
 		cmd.UiState.JsonViewerCallback()
 		return true // Signal to return early from ESC handler
 	}
@@ -268,6 +312,10 @@ func handleJsonViewBack() {
 	popNavigation()
 	cmd.UiState.ProcessedJsonData = nil
 	cmd.UiState.JsonViewerCallback = nil
+
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
 
 	currentCmdState := peekNavigation()
 	if currentCmdState != nil && currentCmdState.CachedBody != nil {
@@ -291,6 +339,10 @@ func handleDependentCommandBack() {
 		popNavigation()
 	}
 
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
+
 	parentState := peekNavigation()
 	if parentState != nil && (parentState.Type == cmd.BreadcrumbCommand || parentState.Type == cmd.BreadcrumbDependentCmd) {
 		parentCommandName := parentState.Value
@@ -311,6 +363,10 @@ func handleDependentCommandsBack() {
 	popNavigation()
 	popNavigation()
 
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
+
 	currentCmdState := peekNavigation()
 	if currentCmdState != nil && currentCmdState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
 		Body = currentCmdState.CachedBody
@@ -324,6 +380,10 @@ func handleDependentCommandsBack() {
 // handleSelectedItemBack navigates back from a selected item
 func handleSelectedItemBack() {
 	popNavigation()
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
+
 	prevState := peekNavigation()
 	if prevState != nil && prevState.Type == cmd.BreadcrumbCommand {
 		parentCommandName := prevState.Value

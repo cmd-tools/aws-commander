@@ -194,6 +194,10 @@ func createQuerySubmitHandler(indexKeys []KeyInfo, indexType, selectedIndexName 
 			)
 		}
 
+		// Reset pagination state for new query
+		cmd.UiState.CurrentPageToken = ""
+		cmd.UiState.PageHistory = []string{}
+
 		// Execute the query command
 		_, body := executeCommand(cmd.UiState.Command)
 		Body = body

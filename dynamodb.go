@@ -19,6 +19,11 @@ type KeyInfo struct {
 
 // showKeyInputForm displays an input form for DynamoDB query parameters
 func showKeyInputForm() {
+	// Hide search bar when showing input form
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
+
 	selectedIndexName := getSelectedIndexName()
 	indexKeys, indexType := extractIndexDetails(selectedIndexName)
 
@@ -188,6 +193,10 @@ func createQuerySubmitHandler(indexKeys []KeyInfo, indexType, selectedIndexName 
 				"--index-name", selectedIndexName,
 			)
 		}
+
+		// Reset pagination state for new query
+		cmd.UiState.CurrentPageToken = ""
+		cmd.UiState.PageHistory = []string{}
 
 		// Execute the query command
 		_, body := executeCommand(cmd.UiState.Command)

@@ -115,7 +115,8 @@ func (command *Command) RunWithPaginationToken(resource string, profile string, 
 	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
 
 	// Add pagination token if provided and pagination is enabled
-	if paginationToken != "" && command.Pagination != nil && command.Pagination.Enabled {
+	// Only add token parameter if both token and parameter name are non-empty
+	if paginationToken != "" && command.Pagination != nil && command.Pagination.Enabled && command.Pagination.NextTokenParam != "" {
 		args = append(args, command.Pagination.NextTokenParam, paginationToken)
 	}
 
@@ -165,6 +166,12 @@ func ExtractPaginationToken(jsonOutput string, command Command) string {
 		return ""
 	}
 
+	// If NextTokenJsonPath is empty, this is a token-less pagination (e.g., SQS receive-message)
+	// Return empty string to indicate pagination is enabled but no token is available
+	if command.Pagination.NextTokenJsonPath == "" {
+		return ""
+	}
+
 	var result map[string]interface{}
 	if err := json.Unmarshal([]byte(jsonOutput), &result); err != nil {
 		logger.Logger.Error().Err(err).Msg("Failed to parse JSON for pagination token extraction")
@@ -173,13 +180,22 @@ func ExtractPaginationToken(jsonOutput string, command Command) string {
 
 	// Get the token from the JSON path
 	if token, exists := result[command.Pagination.NextTokenJsonPath]; exists && token != nil {
-		// Convert token to JSON string for AWS CLI
-		tokenBytes, err := json.Marshal(token)
-		if err != nil {
-			logger.Logger.Error().Err(err).Msg("Failed to marshal pagination token")
-			return ""
+		// Handle different token types:
+		// - String tokens (e.g., SQS NextToken) should be returned as-is
+		// - Object tokens (e.g., DynamoDB LastEvaluatedKey) need JSON marshaling
+		switch v := token.(type) {
+		case string:
+			// For string tokens, return directly without JSON encoding
+			return v
+		default:
+			// For complex objects (maps, arrays), JSON marshal them
+			tokenBytes, err := json.Marshal(token)
+			if err != nil {
+				logger.Logger.Error().Err(err).Msg("Failed to marshal pagination token")
+				return ""
+			}
+			return string(tokenBytes)
 		}
-		return string(tokenBytes)
 	}
 
 	return ""

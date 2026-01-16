@@ -140,6 +140,10 @@ func createQueryInputForm(selectedIndexName string, indexKeys []KeyInfo, indexTy
 	var inputFields []ui.InputField
 	for _, key := range indexKeys {
 		displayLabel := fmt.Sprintf("%s (%s)", key.Name, key.Type)
+		// Mark sort key as optional for primary key queries
+		if key.Type == "SK" && indexType == "Primary Index" {
+			displayLabel = fmt.Sprintf("%s (%s, optional)", key.Name, key.Type)
+		}
 		inputFields = append(inputFields, ui.InputField{
 			Label:        displayLabel,
 			Key:          key.Name,
@@ -165,10 +169,17 @@ func createQueryInputForm(selectedIndexName string, indexKeys []KeyInfo, indexTy
 // createQuerySubmitHandler returns the submit handler for the query form
 func createQuerySubmitHandler(indexKeys []KeyInfo, indexType, selectedIndexName string) func(map[string]string) {
 	return func(values map[string]string) {
-		// Validate that all required fields have values
+		// Validate that partition key (PK) has a value - it's always required
+		// Sort key (SK) is optional for primary key queries
 		for _, key := range indexKeys {
-			if values[key.Name] == "" {
-				logger.Logger.Warn().Str("key", key.Name).Msg("Key value cannot be empty")
+			if key.Type == "PK" && values[key.Name] == "" {
+				logger.Logger.Warn().Str("key", key.Name).Msg("Partition key value cannot be empty")
+				return
+			}
+			// For non-primary indexes or when SK is provided, validate it's not empty
+			// But for primary index, SK can be empty
+			if key.Type == "SK" && indexType != "Primary Index" && values[key.Name] == "" {
+				logger.Logger.Warn().Str("key", key.Name).Msg("Sort key value cannot be empty for this index type")
 				return
 			}
 		}
@@ -210,9 +221,16 @@ func createQuerySubmitHandler(indexKeys []KeyInfo, indexType, selectedIndexName 
 func buildQueryExpression(indexKeys []KeyInfo, values map[string]string) (string, string) {
 	var keyConditionParts []string
 	expressionAttrValuesMap := make(map[string]map[string]string)
+	placeholderIndex := 0
 
-	for i, key := range indexKeys {
-		placeholder := fmt.Sprintf(":val%d", i)
+	for _, key := range indexKeys {
+		// Skip keys with empty values (e.g., optional sort key)
+		if values[key.Name] == "" {
+			continue
+		}
+
+		placeholder := fmt.Sprintf(":val%d", placeholderIndex)
+		placeholderIndex++
 
 		// Add condition for key
 		keyConditionParts = append(keyConditionParts, fmt.Sprintf("%s = %s", key.Name, placeholder))

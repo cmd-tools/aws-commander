@@ -5,7 +5,8 @@ commands:
     resourceName: queueName
     rerunOnBack: false
     arguments:
-      - "--no-paginate"
+      - "--max-results"
+      - "1000"
       - "--output"
       - "json"
       - "--cli-read-timeout"
@@ -16,6 +17,10 @@ commands:
     parse:
       type: "list"
       attributeName: "QueueUrls"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "NextToken"
   - name: "receive-message"
     depends_on: "list-queues"
     rerunOnBack: false
@@ -41,6 +46,10 @@ commands:
     parse:
       type: "object"
       attributeName: "Messages"
+    pagination:
+      enabled: true
+      nextTokenParam: ""
+      nextTokenJsonPath: ""
   - name: "get-queue-attributes"
     depends_on: "list-queues"
     rerunOnBack: false

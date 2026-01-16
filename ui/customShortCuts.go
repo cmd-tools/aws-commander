@@ -76,6 +76,17 @@ func CreateCustomShortCutsView(App *tview.Application, properties CustomShortCut
 	}
 
 	App.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		// Check if focus is on an input field (Form or InputField)
+		// If so, allow all characters to pass through without handling shortcuts
+		focus := App.GetFocus()
+		if focus != nil {
+			switch focus.(type) {
+			case *tview.Form, *tview.InputField:
+				// Allow all input to pass through when focus is on input fields
+				return event
+			}
+		}
+
 		for _, shortcut := range properties.Shortcuts {
 			if event.Rune() == shortcut.Rune {
 				logger.Logger.Debug().Msg(fmt.Sprintf("Got rune event: %s", shortcut.Description))

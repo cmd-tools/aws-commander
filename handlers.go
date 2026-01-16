@@ -406,19 +406,36 @@ func handleNextPage(event *tcell.EventKey) *tcell.EventKey {
 	// Check if current command has pagination enabled
 	if cmd.UiState.Command.Pagination != nil && cmd.UiState.Command.Pagination.Enabled {
 		currentNav := peekNavigation()
-		if currentNav != nil && currentNav.PaginationToken != "" {
-			// Save current token to history
-			if cmd.UiState.PageHistory == nil {
-				cmd.UiState.PageHistory = []string{}
-			}
-			cmd.UiState.PageHistory = append(cmd.UiState.PageHistory, cmd.UiState.CurrentPageToken)
-			// Set next page token
-			cmd.UiState.CurrentPageToken = currentNav.PaginationToken
+		if currentNav != nil {
+			// Check if we have a token-based pagination (like list-queues)
+			if currentNav.PaginationToken != "" {
+				// Save current token to history
+				if cmd.UiState.PageHistory == nil {
+					cmd.UiState.PageHistory = []string{}
+				}
+				cmd.UiState.PageHistory = append(cmd.UiState.PageHistory, cmd.UiState.CurrentPageToken)
+				// Set next page token
+				cmd.UiState.CurrentPageToken = currentNav.PaginationToken
 
-			// Re-execute command with new token
-			_, body := executeCommand(cmd.UiState.Command)
-			Body = body
-			updateRootView(nil)
+				// Re-execute command with new token
+				_, body := executeCommand(cmd.UiState.Command)
+				Body = body
+				updateRootView(nil)
+			} else if cmd.UiState.Command.Pagination.NextTokenJsonPath == "" {
+				// Token-less pagination (like receive-message): just re-execute to get next batch
+				// Save current state to history (use empty string as marker)
+				if cmd.UiState.PageHistory == nil {
+					cmd.UiState.PageHistory = []string{}
+				}
+				cmd.UiState.PageHistory = append(cmd.UiState.PageHistory, cmd.UiState.CurrentPageToken)
+				// Reset token to empty for next execution
+				cmd.UiState.CurrentPageToken = ""
+
+				// Re-execute command to fetch next batch
+				_, body := executeCommand(cmd.UiState.Command)
+				Body = body
+				updateRootView(nil)
+			}
 		}
 	}
 	return nil

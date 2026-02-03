@@ -16,6 +16,137 @@ import (
 	"github.com/rivo/tview"
 )
 
+// convertDynamoDBToRegularJSON converts DynamoDB JSON format to regular JSON
+func convertDynamoDBToRegularJSON(data interface{}) interface{} {
+	switch v := data.(type) {
+	case map[string]interface{}:
+		// Check if this is a DynamoDB typed value (has single key like "S", "N", "BOOL", etc.)
+		if len(v) == 1 {
+			for key, val := range v {
+				switch key {
+				case "S", "N", "BOOL", "NULL":
+					// Simple types - return the value directly
+					if key == "NULL" {
+						return nil
+					}
+					if key == "BOOL" {
+						return val
+					}
+					if key == "N" {
+						// Keep numbers as strings to preserve precision
+						return val
+					}
+					return val
+				case "M":
+					// Map type - recursively convert (handle both map and orderedmap)
+					return convertMapValue(val)
+				case "L":
+					// List type - recursively convert
+					if listVal, ok := val.([]interface{}); ok {
+						result := make([]interface{}, len(listVal))
+						for i, item := range listVal {
+							result[i] = convertDynamoDBToRegularJSON(item)
+						}
+						return result
+					}
+				case "SS", "NS", "BS":
+					// String set, number set, binary set - return as array
+					return val
+				case "B":
+					// Binary data - keep as is
+					return val
+				}
+			}
+		}
+		// Not a DynamoDB typed value, process as regular map
+		result := make(map[string]interface{})
+		for key, val := range v {
+			result[key] = convertDynamoDBToRegularJSON(val)
+		}
+		return result
+	case []interface{}:
+		// Process array
+		result := make([]interface{}, len(v))
+		for i, item := range v {
+			result[i] = convertDynamoDBToRegularJSON(item)
+		}
+		return result
+	case orderedmap.OrderedMap:
+		// Handle orderedmap - check if it's a DynamoDB typed value
+		keys := v.Keys()
+		if len(keys) == 1 {
+			key := keys[0]
+			val, _ := v.Get(key)
+			switch key {
+			case "S", "N", "BOOL", "NULL":
+				if key == "NULL" {
+					return nil
+				}
+				if key == "BOOL" {
+					return val
+				}
+				if key == "N" {
+					return val
+				}
+				return val
+			case "M":
+				// Map type - recursively convert (handle both map and orderedmap)
+				return convertMapValue(val)
+			case "L":
+				if listVal, ok := val.([]interface{}); ok {
+					result := make([]interface{}, len(listVal))
+					for i, item := range listVal {
+						result[i] = convertDynamoDBToRegularJSON(item)
+					}
+					return result
+				}
+			case "SS", "NS", "BS":
+				return val
+			case "B":
+				return val
+			}
+		}
+		// Not a DynamoDB typed value, process as regular ordered map
+		result := make(map[string]interface{})
+		for _, key := range keys {
+			val, _ := v.Get(key)
+			result[key] = convertDynamoDBToRegularJSON(val)
+		}
+		return result
+	default:
+		// Primitive value, return as is
+		return v
+	}
+}
+
+// convertMapValue handles converting DynamoDB M (Map) type values
+// which can be either orderedmap.OrderedMap or map[string]interface{}
+func convertMapValue(val interface{}) interface{} {
+	result := make(map[string]interface{})
+
+	switch mapVal := val.(type) {
+	case orderedmap.OrderedMap:
+		for _, k := range mapVal.Keys() {
+			v, _ := mapVal.Get(k)
+			result[k] = convertDynamoDBToRegularJSON(v)
+		}
+	case *orderedmap.OrderedMap:
+		for _, k := range mapVal.Keys() {
+			v, _ := mapVal.Get(k)
+			result[k] = convertDynamoDBToRegularJSON(v)
+		}
+	case map[string]interface{}:
+		for k, v := range mapVal {
+			result[k] = convertDynamoDBToRegularJSON(v)
+		}
+	default:
+		// If we can't convert, return as-is
+		return val
+	}
+
+	return result
+}
+
 type JsonViewerProperties struct {
 	Title  string
 	Data   interface{}
@@ -89,6 +220,15 @@ func extractValueFromNode(nodeText string) string {
 
 // CreateJsonTreeViewer creates an interactive tree view for JSON data
 func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
+	// Use the global state to determine which format to show
+	showDynamoStyle := cmd.UiState.ShowDynamoDBJsonFormat
+
+	// Determine which data to display based on format preference
+	dataToDisplay := properties.Data
+	if !showDynamoStyle {
+		dataToDisplay = convertDynamoDBToRegularJSON(properties.Data)
+	}
+
 	root := tview.NewTreeNode(properties.Title).
 		SetColor(tcell.ColorGold).
 		SetExpanded(true)
@@ -98,7 +238,7 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 		SetCurrentNode(root)
 
 	// Build tree from JSON data
-	buildJsonTree(properties.Data, root)
+	buildJsonTree(dataToDisplay, root)
 
 	// Auto-expand all nodes
 	expandAllNodes(root)
@@ -111,27 +251,41 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 
 	// Add input handler for Enter key to process stringified JSON or Base64 gzip
 	tree.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		// Handle clipboard copy with 'y' (yank) or Ctrl+C
+		// Handle 'v' key to toggle between DynamoDB and regular JSON format
+		if event.Rune() == 'v' {
+			// Toggle the global format state
+			cmd.UiState.ShowDynamoDBJsonFormat = !cmd.UiState.ShowDynamoDBJsonFormat
+
+			// Recreate the viewer with toggled format
+			newViewer := CreateJsonTreeViewer(properties)
+
+			// Rebuild the view with header and footer
+			if properties.App != nil {
+				if properties.OnBack != nil {
+					// Use OnBack to get proper header/footer
+					properties.OnBack()
+				} else {
+					properties.App.SetRoot(newViewer, true)
+					properties.App.SetFocus(newViewer)
+				}
+			}
+			return nil
+		}
+
+		// Handle clipboard copy with 'y' (yank) or Ctrl+C - copy entire JSON
 		if event.Rune() == 'y' || event.Key() == tcell.KeyCtrlC {
-			currentNode := tree.GetCurrentNode()
-			if currentNode != nil {
-				nodeText := currentNode.GetText()
-				value := extractValueFromNode(nodeText)
-				
-				// If it's a leaf node, copy just the value, otherwise copy the full node text
-				var textToCopy string
-				if len(currentNode.GetChildren()) == 0 {
-					textToCopy = value
-				} else {
-					textToCopy = nodeText
-				}
-				
-				err := clipboard.WriteAll(textToCopy)
-				if err != nil {
-					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
-				} else {
-					logger.Logger.Debug().Str("data", textToCopy).Msg("Copied to clipboard")
-				}
+			// Copy the entire JSON data to clipboard
+			jsonBytes, err := json.MarshalIndent(dataToDisplay, "", "  ")
+			if err != nil {
+				logger.Logger.Error().Err(err).Msg("Failed to marshal JSON for clipboard")
+				return nil
+			}
+
+			err = clipboard.WriteAll(string(jsonBytes))
+			if err != nil {
+				logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
+			} else {
+				logger.Logger.Debug().Msg("Copied entire JSON to clipboard")
 			}
 			return nil
 		}
@@ -180,6 +334,9 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 					// Add breadcrumb and navigation state for the expanded view
 					cmd.UiState.Breadcrumbs = append(cmd.UiState.Breadcrumbs, newTitle)
 					cmd.UiState.NavigationStack = append(cmd.UiState.NavigationStack, navState)
+
+					// Reset JSON format for parsed/decompressed data (not DynamoDB format)
+					cmd.UiState.ShowDynamoDBJsonFormat = false
 
 					// Create a new JSON viewer with the processed data
 					newViewer := CreateJsonTreeViewer(JsonViewerProperties{

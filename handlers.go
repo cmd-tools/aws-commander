@@ -157,7 +157,7 @@ func itemHandler(selectedItemName string) {
 
 // defaultKeyCombinations defines the default keyboard shortcuts
 func defaultKeyCombinations() []ui.CustomShortCut {
-	return []ui.CustomShortCut{
+	shortcuts := []ui.CustomShortCut{
 		{
 			Name:        "esc",
 			Key:         tcell.KeyEsc,
@@ -201,6 +201,20 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			},
 		},
 	}
+
+	// Add 'v' shortcut only when viewing DynamoDB items in JSON viewer
+	if cmd.UiState.InDynamoDBJsonViewer {
+		shortcuts = append(shortcuts, ui.CustomShortCut{
+			Rune:        'v',
+			Description: "Toggle JSON Format",
+			Handle: func(event *tcell.EventKey) *tcell.EventKey {
+				// Handled in JSON viewer component
+				return event
+			},
+		})
+	}
+
+	return shortcuts
 }
 
 // handleEscKey processes ESC key navigation
@@ -312,6 +326,7 @@ func handleJsonViewBack() {
 	popNavigation()
 	cmd.UiState.ProcessedJsonData = nil
 	cmd.UiState.JsonViewerCallback = nil
+	cmd.UiState.InDynamoDBJsonViewer = false
 
 	cmd.UiState.CommandBarVisible = false
 	Search.SetText("")

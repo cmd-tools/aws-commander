@@ -89,7 +89,7 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 				// Copy the entire row as tab-separated values
 				rowData := properties.Rows[row-1]
 				rowText := strings.Join(rowData, "\t")
-				
+
 				err := clipboard.WriteAll(rowText)
 				if err != nil {
 					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
@@ -181,6 +181,12 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 
 				// Store the callback in UIState so ESC handler can use it
 				cmd.UiState.JsonViewerCallback = onBack
+
+				// Reset JSON format to DynamoDB style when first opening a viewer
+				cmd.UiState.ShowDynamoDBJsonFormat = true
+
+				// Mark that we're in DynamoDB JSON viewer
+				cmd.UiState.InDynamoDBJsonViewer = true
 
 				// Show initial JSON viewer
 				jsonViewer := CreateJsonTreeViewer(JsonViewerProperties{

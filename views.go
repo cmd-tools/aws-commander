@@ -157,6 +157,7 @@ func createResources(resources []string) tview.Primitive {
 		Title:   fmt.Sprintf(" Resources [%d] ", len(resources)),
 		Options: resources,
 		Handler: resourceSelectionHandler,
+		App:     App,
 	})
 }
 
@@ -171,7 +172,7 @@ func resourceSelectionHandler(selectedResourceName string) {
 	}
 	cmd.UiState.SelectedItems = make(map[string]string)
 	AutoCompletionWordList = append(cmd.GetAvailableResourceNames(), constants.Profiles)
-	
+
 	if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 	} else {
@@ -190,6 +191,7 @@ func createCommandView(commandNames []string) tview.Primitive {
 		Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
 		Options: commandNames,
 		Handler: createExecuteCommandView,
+		App:     App,
 	})
 }
 
@@ -199,6 +201,7 @@ func createDependentCommandView(commandNames []string) tview.Primitive {
 		Title:   fmt.Sprintf(" Dependent Commands [%d] ", len(commandNames)),
 		Options: commandNames,
 		Handler: executeDependentCommand,
+		App:     App,
 	})
 }
 

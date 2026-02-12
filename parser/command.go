@@ -1,15 +1,26 @@
 package parser
 
 import (
+	"bufio"
+	"bytes"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
+	"net/http"
+	"path/filepath"
 	"strings"
 
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/cmd-tools/aws-commander/ui"
+	"github.com/gdamore/tcell/v2"
 	"github.com/iancoleman/orderedmap"
 	"github.com/rivo/tview"
+	"gopkg.in/yaml.v2"
 )
 
 type ParseCommandResult struct {
@@ -414,4 +425,438 @@ func parseToTableView(parsedResult ParseCommandResult, command cmd.Command, comm
 		LogView:        logView,
 		IsLogEnabled:   isLogEnabled,
 	})
+}
+
+// CreateErrorView creates a simple error message view
+func CreateErrorView(commandName string, message string) tview.Primitive {
+	textView := tview.NewTextView().
+		SetText(message).
+		SetDynamicColors(false).
+		SetScrollable(false).
+		SetWrap(true)
+
+	textView.
+		SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - Error ", commandName)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(1, 1, 2, 2)
+
+	return textView
+}
+
+// CreateContentView creates the default view for downloaded file content.
+// Images are rendered with tview.Image; everything else is shown as raw text.
+// Use CreatePrettyContentView to get the formatted/structured view.
+func CreateContentView(commandName string, objectKey string, content []byte) tview.Primitive {
+	fileName := filepath.Base(objectKey)
+	contentType := detectContentType(objectKey, content)
+
+	logger.Logger.Debug().
+		Str("objectKey", objectKey).
+		Str("contentType", contentType).
+		Int("contentLength", len(content)).
+		Msg("Creating content view (raw)")
+
+	// Images are always rendered as images -- there is no useful "raw" alternative
+	if strings.HasPrefix(contentType, "image/") {
+		return createImageContentView(commandName, fileName, content)
+	}
+
+	return createTextContentView(commandName, fileName, content)
+}
+
+// CreatePrettyContentView creates a structured/formatted view for downloaded file content.
+// Routes to the appropriate viewer based on detected content type:
+// - Images: rendered with tview.Image (same as raw)
+// - JSON: interactive tree view
+// - JSONL/NDJSON: table with one row per JSON line
+// - YAML: parsed to map, then rendered as tree view
+// - CSV/TSV: parsed and rendered as a table
+// - Everything else: plain text (same as raw)
+func CreatePrettyContentView(commandName string, objectKey string, content []byte) tview.Primitive {
+	fileName := filepath.Base(objectKey)
+	contentType := detectContentType(objectKey, content)
+
+	logger.Logger.Debug().
+		Str("objectKey", objectKey).
+		Str("contentType", contentType).
+		Int("contentLength", len(content)).
+		Msg("Creating content view (pretty)")
+
+	switch {
+	case strings.HasPrefix(contentType, "image/"):
+		return createImageContentView(commandName, fileName, content)
+	case contentType == "application/json":
+		return createJsonContentView(commandName, fileName, content)
+	case contentType == "application/jsonl":
+		return createJsonlContentView(commandName, fileName, content)
+	case contentType == "text/yaml":
+		return createYamlContentView(commandName, fileName, content)
+	case contentType == "text/csv":
+		return createCsvContentView(commandName, fileName, content, ',')
+	case contentType == "text/tab-separated-values":
+		return createCsvContentView(commandName, fileName, content, '\t')
+	default:
+		return createTextContentView(commandName, fileName, content)
+	}
+}
+
+// ContentViewHasPrettyFormat returns true if the content type supports a pretty/structured view
+// that is different from the raw text view. Used to decide whether to show the 'v' toggle shortcut.
+func ContentViewHasPrettyFormat(objectKey string, content []byte) bool {
+	contentType := detectContentType(objectKey, content)
+	switch {
+	case contentType == "application/json",
+		contentType == "application/jsonl",
+		contentType == "text/yaml",
+		contentType == "text/csv",
+		contentType == "text/tab-separated-values":
+		return true
+	default:
+		return false
+	}
+}
+
+// detectContentType determines the MIME type of the content using the file extension
+// first, then falling back to http.DetectContentType for sniffing the bytes.
+func detectContentType(objectKey string, content []byte) string {
+	ext := strings.ToLower(filepath.Ext(objectKey))
+	switch ext {
+	case ".jpg", ".jpeg":
+		return "image/jpeg"
+	case ".png":
+		return "image/png"
+	case ".gif":
+		return "image/gif"
+	case ".bmp":
+		return "image/bmp"
+	case ".svg":
+		return "image/svg+xml"
+	case ".webp":
+		return "image/webp"
+	case ".csv":
+		return "text/csv"
+	case ".tsv":
+		return "text/tab-separated-values"
+	case ".txt", ".log", ".md":
+		return "text/plain"
+	case ".json":
+		return "application/json"
+	case ".jsonl", ".ndjson":
+		return "application/jsonl"
+	case ".xml", ".html", ".htm":
+		return "text/html"
+	case ".yaml", ".yml":
+		return "text/yaml"
+	}
+
+	// Fall back to content sniffing
+	return http.DetectContentType(content)
+}
+
+// createImageContentView renders image content using tview.Image
+func createImageContentView(commandName string, fileName string, content []byte) tview.Primitive {
+	img, _, err := image.Decode(bytes.NewReader(content))
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to decode image, falling back to text view")
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	imageView := tview.NewImage()
+	imageView.SetImage(img)
+	imageView.SetColors(tview.TrueColor)
+	imageView.SetDithering(tview.DitheringFloydSteinberg)
+
+	imageView.
+		SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s ", commandName, fileName)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(0, 0, 1, 1)
+
+	return imageView
+}
+
+// createTextContentView renders text/binary content in a scrollable TextView
+func createTextContentView(commandName string, fileName string, content []byte) tview.Primitive {
+	textView := tview.NewTextView().
+		SetText(string(content)).
+		SetDynamicColors(false).
+		SetScrollable(true).
+		SetWrap(true)
+
+	textView.
+		SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s ", commandName, fileName)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(1, 1, 2, 2)
+
+	return textView
+}
+
+// createJsonContentView parses JSON content and renders it as an interactive tree view.
+// Falls back to plain text view if the content cannot be parsed as JSON.
+func createJsonContentView(commandName string, fileName string, content []byte) tview.Primitive {
+	var data interface{}
+	if err := json.Unmarshal(content, &data); err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to parse JSON content, falling back to text view")
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	root := tview.NewTreeNode(fileName).
+		SetColor(tcell.ColorGold).
+		SetExpanded(true)
+
+	buildContentTree(data, root)
+	expandAllContentNodes(root)
+
+	tree := tview.NewTreeView().
+		SetRoot(root).
+		SetCurrentNode(root)
+
+	tree.SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s (JSON) ", commandName, fileName)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor)
+
+	return tree
+}
+
+// createYamlContentView parses YAML content and renders it as an interactive tree view.
+// Falls back to plain text view if the content cannot be parsed as YAML.
+func createYamlContentView(commandName string, fileName string, content []byte) tview.Primitive {
+	var data interface{}
+	if err := yaml.Unmarshal(content, &data); err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to parse YAML content, falling back to text view")
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	// yaml.Unmarshal produces map[interface{}]interface{}, convert to map[string]interface{}
+	data = normalizeYamlValue(data)
+
+	root := tview.NewTreeNode(fileName).
+		SetColor(tcell.ColorGold).
+		SetExpanded(true)
+
+	buildContentTree(data, root)
+	expandAllContentNodes(root)
+
+	tree := tview.NewTreeView().
+		SetRoot(root).
+		SetCurrentNode(root)
+
+	tree.SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s (YAML) ", commandName, fileName)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor)
+
+	return tree
+}
+
+// createCsvContentView parses CSV (or TSV) content and renders it as a table.
+// The first row is used as column headers.
+// Falls back to plain text view if the content cannot be parsed.
+func createCsvContentView(commandName string, fileName string, content []byte, delimiter rune) tview.Primitive {
+	reader := csv.NewReader(bytes.NewReader(content))
+	reader.Comma = delimiter
+	reader.LazyQuotes = true
+	reader.TrimLeadingSpace = true
+
+	records, err := reader.ReadAll()
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to parse CSV content, falling back to text view")
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	if len(records) == 0 {
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	table := tview.NewTable()
+
+	table.SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s [%d rows] ", commandName, fileName, len(records)-1)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(0, 1, 2, 2)
+
+	table.SetSelectable(true, false).
+		SetSelectedStyle(tcell.StyleDefault.
+			Foreground(tcell.ColorBlack).
+			Background(tcell.ColorGold))
+
+	// First row as header
+	for colIndex, header := range records[0] {
+		table.SetCell(0, colIndex, tview.NewTableCell(header).
+			SetAlign(tview.AlignLeft).
+			SetMaxWidth(0).
+			SetSelectable(false))
+	}
+
+	// Data rows
+	for rowIndex := 1; rowIndex < len(records); rowIndex++ {
+		for colIndex, cellData := range records[rowIndex] {
+			table.SetCell(rowIndex, colIndex, tview.NewTableCell(cellData).
+				SetExpansion(1).
+				SetAlign(tview.AlignLeft).
+				SetSelectable(true))
+		}
+	}
+
+	return table
+}
+
+// createJsonlContentView parses JSONL/NDJSON content (one JSON object per line) and renders
+// it as a table. Column headers are derived from the union of all keys across all lines.
+// Falls back to plain text view if no lines can be parsed.
+func createJsonlContentView(commandName string, fileName string, content []byte) tview.Primitive {
+	scanner := bufio.NewScanner(bytes.NewReader(content))
+
+	// Collect all parsed objects and track column order
+	var objects []map[string]interface{}
+	var columnOrder []string
+	columnSet := map[string]bool{}
+
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		var obj map[string]interface{}
+		if err := json.Unmarshal([]byte(line), &obj); err != nil {
+			// Skip non-JSON lines
+			continue
+		}
+		// Track new keys in order of first appearance
+		for key := range obj {
+			if !columnSet[key] {
+				columnSet[key] = true
+				columnOrder = append(columnOrder, key)
+			}
+		}
+		objects = append(objects, obj)
+	}
+
+	if len(objects) == 0 {
+		return createTextContentView(commandName, fileName, content)
+	}
+
+	table := tview.NewTable()
+
+	table.SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - %s [%d rows] (JSONL) ", commandName, fileName, len(objects))).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(0, 1, 2, 2)
+
+	table.SetSelectable(true, false).
+		SetSelectedStyle(tcell.StyleDefault.
+			Foreground(tcell.ColorBlack).
+			Background(tcell.ColorGold))
+
+	// Header row
+	for colIndex, header := range columnOrder {
+		table.SetCell(0, colIndex, tview.NewTableCell(header).
+			SetAlign(tview.AlignLeft).
+			SetMaxWidth(0).
+			SetSelectable(false))
+	}
+
+	// Data rows
+	for rowIndex, obj := range objects {
+		for colIndex, key := range columnOrder {
+			val, exists := obj[key]
+			cellText := ""
+			if exists && val != nil {
+				switch v := val.(type) {
+				case string:
+					cellText = v
+				default:
+					b, _ := json.Marshal(v)
+					cellText = string(b)
+				}
+			}
+			table.SetCell(rowIndex+1, colIndex, tview.NewTableCell(cellText).
+				SetExpansion(1).
+				SetAlign(tview.AlignLeft).
+				SetSelectable(true))
+		}
+	}
+
+	return table
+}
+
+// buildContentTree recursively builds tree nodes from parsed data (JSON or YAML).
+func buildContentTree(data interface{}, parent *tview.TreeNode) {
+	switch v := data.(type) {
+	case map[string]interface{}:
+		for key, val := range v {
+			node := tview.NewTreeNode(fmt.Sprintf("[yellow]%s", key)).
+				SetColor(tcell.ColorYellow).
+				SetSelectable(true).
+				SetExpanded(true)
+			parent.AddChild(node)
+			buildContentTree(val, node)
+		}
+	case []interface{}:
+		for i, val := range v {
+			node := tview.NewTreeNode(fmt.Sprintf("[white][%d]", i)).
+				SetColor(tcell.ColorWhite).
+				SetSelectable(true).
+				SetExpanded(true)
+			parent.AddChild(node)
+			buildContentTree(val, node)
+		}
+	case string:
+		parent.SetText(fmt.Sprintf("%s: [green]\"%v\"", parent.GetText(), v))
+		parent.SetColor(tcell.ColorWhite)
+	case float64, int, int64:
+		parent.SetText(fmt.Sprintf("%s: [white]%v", parent.GetText(), v))
+		parent.SetColor(tcell.ColorWhite)
+	case bool:
+		parent.SetText(fmt.Sprintf("%s: [red]%v", parent.GetText(), v))
+		parent.SetColor(tcell.ColorWhite)
+	case nil:
+		parent.SetText(fmt.Sprintf("%s: [gray]null", parent.GetText()))
+		parent.SetColor(tcell.ColorGray)
+	default:
+		parent.SetText(fmt.Sprintf("%s: %v", parent.GetText(), v))
+	}
+}
+
+// expandAllContentNodes recursively expands all tree nodes.
+func expandAllContentNodes(node *tview.TreeNode) {
+	node.SetExpanded(true)
+	for _, child := range node.GetChildren() {
+		expandAllContentNodes(child)
+	}
+}
+
+// normalizeYamlValue converts yaml.Unmarshal output (which uses map[interface{}]interface{})
+// into standard map[string]interface{} so it can be rendered by the tree builder.
+func normalizeYamlValue(v interface{}) interface{} {
+	switch val := v.(type) {
+	case map[interface{}]interface{}:
+		result := make(map[string]interface{})
+		for k, v := range val {
+			result[fmt.Sprintf("%v", k)] = normalizeYamlValue(v)
+		}
+		return result
+	case []interface{}:
+		for i, item := range val {
+			val[i] = normalizeYamlValue(item)
+		}
+		return val
+	default:
+		return v
+	}
 }

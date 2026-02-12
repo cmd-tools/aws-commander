@@ -7,7 +7,7 @@ A terminal-based user interface (TUI) for interacting with AWS services. AWS Com
 - **Interactive TUI**: Navigate AWS resources using keyboard shortcuts
 - **Multiple AWS Service Support**: 
   - DynamoDB (tables, scan, query with support for GSI/LSI)
-  - S3 (buckets, objects, folder navigation)
+  - S3API (buckets, objects)
   - SQS (queues, messages)
   - And more...
 - **DynamoDB Query Builder**: Interactive form-based query builder with automatic key detection
@@ -46,7 +46,7 @@ AWS Commander is a terminal UI that wraps the AWS CLI, providing:
    - Toggle between formats with the 'n' key
    - Expand stringified JSON fields
    - Decompress base64-gzipped data
-4. **S3 Navigation**: Browse buckets and folders like a file system
+4. **S3API Navigation**: Browse buckets and objects
 5. **Result Caching**: Fast navigation with intelligent result caching
 
 ## Key Bindings
@@ -133,7 +133,7 @@ The application will prompt you to select an AWS profile from your `~/.aws/crede
 #### Navigation Flow Example
 1. Start the application
 2. Select a profile (e.g., `localstack`, `default`, or your custom profile)
-3. Select a service (e.g., `dynamodb`, `s3`, `sqs`)
+3. Select a service (e.g., `dynamodb`, `s3api`, `sqs`)
 4. Select a resource (e.g., table name, bucket name)
 5. Select an action (e.g., `scan`, `query`, `list-objects`)
 6. View results in table format

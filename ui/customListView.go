@@ -13,6 +13,7 @@ type ListViewBoxProperties struct {
 	Title   string
 	Options []string
 	Handler func(selectedOption string)
+	App     *tview.Application
 }
 
 func CreateCustomListView(properties ListViewBoxProperties) *tview.List {
@@ -45,12 +46,15 @@ func CreateCustomListView(properties ListViewBoxProperties) *tview.List {
 			currentIndex := list.GetCurrentItem()
 			if currentIndex >= 0 && currentIndex < len(properties.Options) {
 				itemText, _ := list.GetItemText(currentIndex)
-				
+
 				err := clipboard.WriteAll(itemText)
 				if err != nil {
 					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
 				} else {
 					logger.Logger.Debug().Str("data", itemText).Msg("Copied to clipboard")
+					if properties.App != nil {
+						ShowToastOnList(properties.App, list)
+					}
 				}
 			}
 			return nil

@@ -95,6 +95,9 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 					logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
 				} else {
 					logger.Logger.Debug().Str("data", rowText).Msg("Copied row to clipboard")
+					if properties.App != nil {
+						ShowToastOnTable(properties.App, table)
+					}
 				}
 			}
 			return nil

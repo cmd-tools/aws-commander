@@ -13,10 +13,11 @@ import (
 )
 
 type ParseCommandResult struct {
-	Command string
-	Header  []string
-	Values  [][]string
-	RawData []interface{}
+	Command   string
+	Header    []string
+	Values    [][]string
+	RawData   []interface{}
+	RawOutput string
 }
 
 func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult {
@@ -46,9 +47,8 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 	if err != nil {
 		logger.Logger.Error().Err(err).Str("output", commandOutput).Msg(fmt.Sprintf("Unable to unmarshal json for command: %s", command.Name))
 		return ParseCommandResult{
-			Command: command.Name,
-			Header:  []string{"Error"},
-			Values:  [][]string{{"Failed to parse JSON output"}},
+			Command:   command.Name,
+			RawOutput: strings.TrimSpace(commandOutput),
 		}
 	}
 
@@ -357,6 +357,12 @@ func parseTableKeys(tableAttribute interface{}) ParseCommandResult {
 }
 
 func ParseToObject(viewType string, parsedResult ParseCommandResult, command cmd.Command, commandHandler func(selectedProfileName string), app *tview.Application, restoreRootView func(), createHeader func() *tview.Flex, createFooter func([]string) *tview.Table, logView *tview.TextView, isLogEnabled bool) tview.Primitive {
+	// If the output was unparsable, show it as plain text
+	if parsedResult.RawOutput != "" {
+		logger.Logger.Debug().Msg("Showing raw output as plain text")
+		return createRawOutputView(parsedResult)
+	}
+
 	switch viewType {
 	case "tableView":
 		logger.Logger.Debug().Msg(fmt.Sprintf("Parse to %s", viewType))
@@ -365,6 +371,24 @@ func ParseToObject(viewType string, parsedResult ParseCommandResult, command cmd
 		logger.Logger.Debug().Msg(fmt.Sprintf("View type '%s' not found", viewType))
 		return nil
 	}
+}
+
+func createRawOutputView(parsedResult ParseCommandResult) tview.Primitive {
+	textView := tview.NewTextView().
+		SetText(parsedResult.RawOutput).
+		SetDynamicColors(false).
+		SetScrollable(true).
+		SetWrap(true)
+
+	textView.
+		SetBorder(true).
+		SetTitle(fmt.Sprintf(" %s - Raw Output ", parsedResult.Command)).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetBackgroundColor(tview.Styles.PrimitiveBackgroundColor).
+		SetBorderPadding(1, 1, 2, 2)
+
+	return textView
 }
 
 func mapCommandHeaderToColumn(headers []string) []ui.Column {

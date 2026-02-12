@@ -286,6 +286,9 @@ func CreateJsonTreeViewer(properties JsonViewerProperties) *tview.TreeView {
 				logger.Logger.Error().Err(err).Msg("Failed to copy to clipboard")
 			} else {
 				logger.Logger.Debug().Msg("Copied entire JSON to clipboard")
+				if properties.App != nil {
+					ShowToastOnTreeView(properties.App, tree)
+				}
 			}
 			return nil
 		}

@@ -8,6 +8,7 @@ import (
 
 const toastDuration = 2 * time.Second
 const toastMessage = " Copied to clipboard! "
+const ToastRefreshMessage = " Refreshing... "
 
 // ShowToastOnTable temporarily changes a table's title to show a toast message,
 // then restores the original title after a short delay.
@@ -50,6 +51,27 @@ func ShowToastOnTreeView(app *tview.Application, tree *tview.TreeView) {
 		time.Sleep(toastDuration)
 		app.QueueUpdateDraw(func() {
 			tree.SetTitle(originalTitle)
+		})
+	}()
+}
+
+// Boxed is an interface for tview primitives that have Get/SetTitle (i.e. embed tview.Box).
+type Boxed interface {
+	GetTitle() string
+	SetTitle(title string) *tview.Box
+}
+
+// ShowToast temporarily changes a widget's title to show a custom toast message,
+// then restores the original title after a short delay.
+func ShowToast(app *tview.Application, widget Boxed, message string) {
+	originalTitle := widget.GetTitle()
+	widget.SetTitle(message)
+	app.ForceDraw()
+
+	go func() {
+		time.Sleep(toastDuration)
+		app.QueueUpdateDraw(func() {
+			widget.SetTitle(originalTitle)
 		})
 	}()
 }

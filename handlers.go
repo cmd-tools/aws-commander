@@ -200,6 +200,11 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 				return nil
 			},
 		},
+		{
+			Rune:        'r',
+			Description: "Refresh",
+			Handle:      handleRerunCommand,
+		},
 	}
 
 	// Add 'v' shortcut only when viewing DynamoDB items in JSON viewer
@@ -475,5 +480,29 @@ func handlePreviousPage(event *tcell.EventKey) *tcell.EventKey {
 		Body = body
 		updateRootView(nil)
 	}
+	return nil
+}
+
+// handleRerunCommand re-executes the current command
+func handleRerunCommand(event *tcell.EventKey) *tcell.EventKey {
+	if cmd.UiState.Command.Name == "" {
+		return nil
+	}
+
+	logger.Logger.Debug().Msg(fmt.Sprintf("Re-running command: %s", cmd.UiState.Command.Name))
+
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText("")
+	cmd.UiState.OriginalTableData = nil
+
+	_, body := executeCommand(cmd.UiState.Command)
+	Body = body
+	updateRootView(nil)
+	App.SetFocus(Body)
+
+	if boxed, ok := Body.(ui.Boxed); ok {
+		ui.ShowToast(App, boxed, ui.ToastRefreshMessage)
+	}
+
 	return nil
 }

@@ -51,6 +51,10 @@ type UIState struct {
 	OriginalTableData      *TableData  // Original unfiltered table data for search/filter
 	ShowDynamoDBJsonFormat bool        // Toggle for DynamoDB JSON format vs regular JSON (true = DynamoDB style)
 	InDynamoDBJsonViewer   bool        // True when viewing a DynamoDB item in the JSON viewer
+	InContentView          bool        // True when viewing S3 object content (contentView)
+	ContentViewPretty      bool        // True when content view is in pretty/formatted mode (toggled by 'v')
+	ContentViewObjectKey   string      // Object key of the currently viewed content (for toggle rebuild)
+	ContentViewData        []byte      // Raw bytes of the currently viewed content (for toggle rebuild)
 }
 
 var UiState UIState = UIState{SelectedItems: make(map[string]string), Breadcrumbs: []string{}, NavigationStack: []NavigationState{}, CommandCache: make(map[string]string)}

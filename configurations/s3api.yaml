@@ -19,6 +19,11 @@ commands:
   - name: "list-objects-v2"
     depends_on: "list-buckets"
     resourceName: object
+    actions:
+      - type: "download"
+        rune: "d"
+        description: "Download"
+        targetCommand: "get-object"
     arguments:
       - "--bucket"
       - "$BUCKET"
@@ -33,3 +38,15 @@ commands:
     parse:
       type: "object"
       attributeName: "Contents"
+  - name: "get-object"
+    depends_on: "list-objects-v2"
+    arguments:
+      - "--bucket"
+      - "$BUCKET"
+      - "--key"
+      - "$OBJECT"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: contentView

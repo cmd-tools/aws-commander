@@ -34,12 +34,20 @@ type Command struct {
 	RerunOnBack      bool        `yaml:"rerunOnBack"`          // If true, rerun command when navigating back; if false, use cached result
 	RequiresKeyInput bool        `yaml:"requiresKeyInput"`     // If true, prompt user for key value before executing
 	Pagination       *Pagination `yaml:"pagination,omitempty"` // Pagination configuration
+	Actions          []Action    `yaml:"actions,omitempty"`    // Context-specific actions (e.g., download)
 }
 
 type Pagination struct {
 	Enabled           bool   `yaml:"enabled"`
 	NextTokenParam    string `yaml:"nextTokenParam"`    // Parameter name for next token (e.g., "--starting-token" or "--exclusive-start-key")
 	NextTokenJsonPath string `yaml:"nextTokenJsonPath"` // JSON path to extract next token (e.g., "NextToken" or "LastEvaluatedKey")
+}
+
+type Action struct {
+	Type          string `yaml:"type"`          // Action type, e.g. "download"
+	Rune          string `yaml:"rune"`          // Single character shortcut key
+	Description   string `yaml:"description"`   // Description shown in shortcut bar
+	TargetCommand string `yaml:"targetCommand"` // Which command to execute for this action
 }
 
 type Parse struct {
@@ -124,6 +132,26 @@ func (command *Command) RunWithPaginationToken(resource string, profile string, 
 	start := time.Now()
 	output := executor.ExecCommand(binaryName, args)
 	// set again original args which contains placeholders
+	copy(command.Arguments, argumentsCopy)
+	logger.Logger.Debug().Msg(fmt.Sprintf("Execution time %s", time.Since(start)))
+
+	return output
+}
+
+// RunToFile runs the command with an output file as the last positional argument.
+// Used for commands like s3api get-object that download content to a file.
+// Returns the file path and the CLI metadata output.
+func (command *Command) RunToFile(resource string, profile string, outFile string) string {
+	binaryName := "aws"
+	var argumentsCopy = make([]string, len(command.Arguments))
+	copy(argumentsCopy, command.Arguments)
+	args := []string{resource, command.Name, "--profile", profile}
+	args = append(args, replaceVariablesOnCommandArguments(command.Arguments)...)
+	args = append(args, outFile)
+
+	logger.Logger.Debug().Msg(fmt.Sprintf("Running (to file): %s %s", binaryName, strings.Join(args, " ")))
+	start := time.Now()
+	output := executor.ExecCommand(binaryName, args)
 	copy(command.Arguments, argumentsCopy)
 	logger.Logger.Debug().Msg(fmt.Sprintf("Execution time %s", time.Since(start)))
 

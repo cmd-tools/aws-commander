@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/cmd-tools/aws-commander/cmd"
@@ -15,6 +17,11 @@ import (
 
 // executeCommand runs a command and optionally caches the result
 func executeCommand(command cmd.Command) (string, tview.Primitive) {
+	// Handle contentView commands (e.g., get-object) that download content to a file
+	if command.View == "contentView" {
+		return executeContentViewCommand(command)
+	}
+
 	// Check if we should use pagination token
 	paginationToken := cmd.UiState.CurrentPageToken
 
@@ -47,6 +54,54 @@ func executeCommand(command cmd.Command) (string, tview.Primitive) {
 	}
 
 	return commandOutput, body
+}
+
+// executeContentViewCommand handles commands that download content to a file (e.g., s3api get-object).
+// It creates a temp file, runs the command with the file as output, then renders the content
+// as raw text by default. The user can press 'v' to toggle to the pretty/formatted view.
+func executeContentViewCommand(command cmd.Command) (string, tview.Primitive) {
+	// Determine file extension from the selected object key
+	objectKey := cmd.UiState.SelectedItems["$OBJECT"]
+	ext := filepath.Ext(objectKey)
+
+	// Create temp file with the correct extension so content type detection works
+	tmpFile, err := os.CreateTemp("", "aws-commander-*"+ext)
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to create temp file for content download")
+		return "", commandParser.CreateErrorView(command.Name, "Failed to create temp file")
+	}
+	tmpPath := tmpFile.Name()
+	tmpFile.Close()
+
+	// Run the command with the temp file as output destination
+	metadataOutput := command.RunToFile(cmd.UiState.Resource.Name, cmd.UiState.Profile, tmpPath)
+	logger.Logger.Debug().Str("metadata", metadataOutput).Str("file", tmpPath).Msg("Content downloaded")
+
+	// Read the downloaded file content
+	fileContent, err := os.ReadFile(tmpPath)
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to read downloaded content")
+		os.Remove(tmpPath)
+		return "", commandParser.CreateErrorView(command.Name, "Failed to read downloaded content")
+	}
+
+	// Clean up temp file
+	os.Remove(tmpPath)
+
+	// Store content for 'v' toggle
+	cmd.UiState.InContentView = true
+	cmd.UiState.ContentViewPretty = false
+	cmd.UiState.ContentViewObjectKey = objectKey
+	cmd.UiState.ContentViewData = fileContent
+
+	// Default: show raw text view
+	body := commandParser.CreateContentView(command.Name, objectKey, fileContent)
+
+	if !command.RerunOnBack {
+		updateNavigationCache(metadataOutput, body)
+	}
+
+	return metadataOutput, body
 }
 
 // executeDependentCommand handles execution of dependent commands
@@ -217,6 +272,34 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 				return event
 			},
 		})
+	} else if cmd.UiState.InContentView && commandParser.ContentViewHasPrettyFormat(cmd.UiState.ContentViewObjectKey, cmd.UiState.ContentViewData) {
+		description := "Pretty View"
+		if cmd.UiState.ContentViewPretty {
+			description = "Raw View"
+		}
+		shortcuts = append(shortcuts, ui.CustomShortCut{
+			Rune:        'v',
+			Description: description,
+			Handle:      handleToggleContentView,
+		})
+	}
+
+	// Add action-based shortcuts from the current command's configuration
+	for _, action := range cmd.UiState.Command.Actions {
+		actionCopy := action // capture loop variable
+		if len(actionCopy.Rune) != 1 {
+			continue
+		}
+		r := rune(actionCopy.Rune[0])
+
+		switch actionCopy.Type {
+		case "download":
+			shortcuts = append(shortcuts, ui.CustomShortCut{
+				Rune:        r,
+				Description: actionCopy.Description,
+				Handle:      makeDownloadHandler(actionCopy),
+			})
+		}
 	}
 
 	return shortcuts
@@ -350,6 +433,12 @@ func handleJsonViewBack() {
 // handleDependentCommandBack navigates back from a dependent command
 func handleDependentCommandBack() {
 	popNavigation()
+
+	// Clear content view state when leaving a content view
+	cmd.UiState.InContentView = false
+	cmd.UiState.ContentViewPretty = false
+	cmd.UiState.ContentViewObjectKey = ""
+	cmd.UiState.ContentViewData = nil
 
 	prevState := peekNavigation()
 	if prevState != nil && prevState.Type == cmd.BreadcrumbDependentCmds {
@@ -505,4 +594,118 @@ func handleRerunCommand(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	return nil
+}
+
+// handleToggleContentView toggles between raw and pretty/formatted views
+// for S3 object content. It rebuilds the view from the stored content bytes.
+func handleToggleContentView(event *tcell.EventKey) *tcell.EventKey {
+	cmd.UiState.ContentViewPretty = !cmd.UiState.ContentViewPretty
+
+	var newView tview.Primitive
+	if cmd.UiState.ContentViewPretty {
+		newView = commandParser.CreatePrettyContentView(cmd.UiState.Command.Name, cmd.UiState.ContentViewObjectKey, cmd.UiState.ContentViewData)
+	} else {
+		newView = commandParser.CreateContentView(cmd.UiState.Command.Name, cmd.UiState.ContentViewObjectKey, cmd.UiState.ContentViewData)
+	}
+
+	Body = newView
+	updateRootView(nil)
+	App.SetFocus(Body)
+	return nil
+}
+
+// makeDownloadHandler returns a handler for "download" type actions.
+// It reads the target command from the action config, shows a save dialog,
+// and downloads the object using RunToFile.
+func makeDownloadHandler(action cmd.Action) func(event *tcell.EventKey) *tcell.EventKey {
+	return func(event *tcell.EventKey) *tcell.EventKey {
+		table, ok := Body.(*tview.Table)
+		if !ok {
+			return nil
+		}
+
+		row, _ := table.GetSelection()
+		if row < 1 {
+			return nil
+		}
+
+		objectKey := table.GetCell(row, 0).Text
+		if objectKey == "" {
+			return nil
+		}
+
+		// Build default download path: <cwd>/<filename>
+		cwd, err := os.Getwd()
+		if err != nil {
+			cwd = "."
+		}
+		fileName := filepath.Base(objectKey)
+		defaultPath := filepath.Join(cwd, fileName)
+
+		// Store the cached body so we can restore it after the form
+		cachedBody := Body
+
+		// Set the selected item variable for the resource being acted on
+		resourceName := cmd.VariablePlaceHolderPrefix + strings.ToUpper(cmd.UiState.Command.ResourceName)
+		cmd.UiState.SelectedItems[resourceName] = objectKey
+
+		// Show download form
+		downloadForm := ui.CreateInputForm(ui.InputFormProperties{
+			Title: fmt.Sprintf(" Download: %s ", objectKey),
+			Fields: []ui.InputField{
+				{
+					Label:        "Save to",
+					Key:          "path",
+					DefaultValue: defaultPath,
+				},
+			},
+			OnSubmit: func(values map[string]string) {
+				destPath := values["path"]
+				if destPath == "" {
+					destPath = defaultPath
+				}
+
+				// Ensure the destination directory exists
+				destDir := filepath.Dir(destPath)
+				if err := os.MkdirAll(destDir, 0755); err != nil {
+					logger.Logger.Error().Err(err).Msg("Failed to create destination directory")
+					Body = cachedBody
+					updateRootView(nil)
+					App.SetFocus(Body)
+					return
+				}
+
+				// Resolve and run the target command
+				targetCmd := cmd.UiState.Resource.GetCommand(action.TargetCommand)
+				targetCmd.RunToFile(cmd.UiState.Resource.Name, cmd.UiState.Profile, destPath)
+
+				logger.Logger.Debug().
+					Str("key", objectKey).
+					Str("path", destPath).
+					Str("targetCommand", action.TargetCommand).
+					Msg("Downloaded object via action")
+
+				// Restore the previous view
+				Body = cachedBody
+				updateRootView(nil)
+				App.SetFocus(Body)
+
+				if boxed, ok := Body.(ui.Boxed); ok {
+					ui.ShowToast(App, boxed, " Downloaded! ")
+				}
+			},
+			OnCancel: func() {
+				Body = cachedBody
+				updateRootView(nil)
+				App.SetFocus(Body)
+			},
+			App: App,
+		})
+
+		Body = downloadForm
+		updateRootView(nil)
+		App.SetFocus(downloadForm)
+
+		return nil
+	}
 }

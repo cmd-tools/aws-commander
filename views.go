@@ -114,6 +114,32 @@ func updateRootView(shortcuts []ui.CustomShortCut) *tview.Flex {
 	return view
 }
 
+// updateRootViewWithBody assembles the main UI layout using the given body primitive.
+// This is used by the loading modal wrapper to display a loading overlay as the body.
+func updateRootViewWithBody(body tview.Primitive) *tview.Flex {
+	view := tview.
+		NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(createHeader(nil), 7, 2, false)
+
+	if cmd.UiState.CommandBarVisible {
+		view.AddItem(Search, 3, 2, false)
+	}
+
+	view.AddItem(body, 0, 1, true).
+		AddItem(createFooter(cmd.UiState.Breadcrumbs), 2, 2, false)
+
+	if IsLogViewEnabled {
+		if nil == LogView {
+			LogView = createLogView()
+		}
+		view.AddItem(LogView, 8, 3, false)
+	}
+
+	App.SetRoot(view, true)
+	return view
+}
+
 // createBody creates the initial profile selection view
 func createBody() *tview.Table {
 	cmd.UiState.Breadcrumbs = []string{constants.Profiles}
@@ -178,8 +204,11 @@ func resourceSelectionHandler(selectedResourceName string) {
 	} else {
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
 		pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+		})
+		return
 	}
 
 	updateRootView(nil)

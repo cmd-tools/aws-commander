@@ -217,10 +217,10 @@ func createQuerySubmitHandler(indexKeys []KeyInfo, indexType, selectedIndexName 
 		cmd.UiState.PageHistory = []string{}
 
 		// Execute the query command
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
-
-		updateRootView(nil)
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+		})
 	}
 }
 
@@ -361,8 +361,11 @@ func createQueryCancelHandler() func() {
 			if parentState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
 				Body = parentState.CachedBody
 			} else {
-				_, body := executeCommand(cmd.UiState.Command)
-				Body = body
+				executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+					Body = body
+					updateRootView(nil)
+				})
+				return
 			}
 		}
 		updateRootView(nil)

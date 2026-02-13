@@ -1,0 +1,36 @@
+name: "cloudtrail"
+defaultCommand: ""
+commands:
+  - name: "list-trails"
+    rerunOnBack: false
+    arguments:
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Trails"
+  - name: "lookup-events"
+    rerunOnBack: false
+    arguments:
+      - "--max-results"
+      - "50"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Events"
+    pagination:
+      enabled: true
+      nextTokenParam: "--starting-token"
+      nextTokenJsonPath: "NextToken"

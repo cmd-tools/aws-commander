@@ -16,6 +16,12 @@ import (
 	"github.com/rivo/tview"
 )
 
+// executeCommandWithLoading runs a command synchronously and calls the callback with the result.
+func executeCommandWithLoading(command cmd.Command, callback func(string, tview.Primitive)) {
+	output, body := executeCommand(command)
+	callback(output, body)
+}
+
 // executeCommand runs a command and optionally caches the result
 func executeCommand(command cmd.Command) (string, tview.Primitive) {
 	// Handle contentView commands (e.g., get-object) that download content to a file
@@ -124,10 +130,10 @@ func executeDependentCommand(selectedCommandName string) {
 	cmd.UiState.CommandBarVisible = false
 	Search.SetText("")
 	cmd.UiState.OriginalTableData = nil
-	_, body := executeCommand(cmd.UiState.Command)
-	Body = body
-
-	updateRootView(nil)
+	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+		Body = body
+		updateRootView(nil)
+	})
 }
 
 // createExecuteCommandView handles command selection and execution
@@ -144,10 +150,10 @@ func createExecuteCommandView(selectedCommandName string) {
 	cmd.UiState.CommandBarVisible = false
 	Search.SetText("")
 	cmd.UiState.OriginalTableData = nil
-	_, body := executeCommand(cmd.UiState.Command)
-	Body = body
-
-	updateRootView(nil)
+	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+		Body = body
+		updateRootView(nil)
+	})
 }
 
 // itemHandler handles item selection from command results
@@ -171,6 +177,7 @@ func itemHandler(selectedItemName string) {
 		Search.SetText("")
 		cmd.UiState.OriginalTableData = nil
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
+		updateRootView(nil)
 	} else if len(dependentCommands) == 1 {
 		// Only one dependent command, execute it directly
 		pushNavigation(cmd.BreadcrumbSelectedItem, selectedItemName)
@@ -190,8 +197,10 @@ func itemHandler(selectedItemName string) {
 		cmd.UiState.CommandBarVisible = false
 		Search.SetText("")
 		cmd.UiState.OriginalTableData = nil
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+		})
 	} else {
 		// Multiple dependent commands, show selection list
 		pushNavigation(cmd.BreadcrumbSelectedItem, selectedItemName)
@@ -206,9 +215,8 @@ func itemHandler(selectedItemName string) {
 		cmd.UiState.OriginalTableData = nil
 		pushNavigation(cmd.BreadcrumbDependentCmds, "Select Command")
 		Body = createDependentCommandView(commandNames)
+		updateRootView(nil)
 	}
-
-	updateRootView(nil)
 }
 
 // defaultKeyCombinations defines the default keyboard shortcuts
@@ -356,16 +364,24 @@ func handleEscKey(event *tcell.EventKey) *tcell.EventKey {
 		}
 
 	case cmd.BreadcrumbJsonView:
+		// handleJsonViewBack may run asynchronously with loading
 		handleJsonViewBack()
+		return nil
 
 	case cmd.BreadcrumbDependentCmd:
+		// handleDependentCommandBack may run asynchronously with loading
 		handleDependentCommandBack()
+		return nil
 
 	case cmd.BreadcrumbDependentCmds:
+		// handleDependentCommandsBack may run asynchronously with loading
 		handleDependentCommandsBack()
+		return nil
 
 	case cmd.BreadcrumbSelectedItem:
+		// handleSelectedItemBack may run asynchronously with loading
 		handleSelectedItemBack()
+		return nil
 	}
 
 	updateRootView(nil)
@@ -435,9 +451,14 @@ func handleJsonViewBack() {
 	if currentCmdState != nil && currentCmdState.CachedBody != nil {
 		Body = currentCmdState.CachedBody
 		logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for command: %s", cmd.UiState.Command.Name))
+		updateRootView(nil)
+		App.SetFocus(Body)
 	} else {
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+			App.SetFocus(Body)
+		})
 	}
 }
 
@@ -471,9 +492,14 @@ func handleDependentCommandBack() {
 		if parentState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
 			Body = parentState.CachedBody
 			logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for parent command: %s", parentCommandName))
+			updateRootView(nil)
+			App.SetFocus(Body)
 		} else {
-			_, body := executeCommand(cmd.UiState.Command)
-			Body = body
+			executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+				Body = body
+				updateRootView(nil)
+				App.SetFocus(Body)
+			})
 		}
 	}
 }
@@ -491,9 +517,14 @@ func handleDependentCommandsBack() {
 	if currentCmdState != nil && currentCmdState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
 		Body = currentCmdState.CachedBody
 		logger.Logger.Debug().Msg(fmt.Sprintf("[ESC] Using cached result for command: %s", cmd.UiState.Command.Name))
+		updateRootView(nil)
+		App.SetFocus(Body)
 	} else {
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+			App.SetFocus(Body)
+		})
 	}
 }
 
@@ -509,10 +540,11 @@ func handleSelectedItemBack() {
 		parentCommandName := prevState.Value
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(parentCommandName)
 
-		var commandParsed = commandParser.ParseCommand(cmd.UiState.Command, cmd.UiState.Command.Run(cmd.UiState.Resource.Name, cmd.UiState.Profile))
-		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
 			updateRootView(nil)
-		}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+			App.SetFocus(Body)
+		})
 	}
 }
 
@@ -538,9 +570,10 @@ func handleNextPage(event *tcell.EventKey) *tcell.EventKey {
 				cmd.UiState.CurrentPageToken = currentNav.PaginationToken
 
 				// Re-execute command with new token
-				_, body := executeCommand(cmd.UiState.Command)
-				Body = body
-				updateRootView(nil)
+				executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+					Body = body
+					updateRootView(nil)
+				})
 			} else if cmd.UiState.Command.Pagination.NextTokenJsonPath == "" {
 				// Token-less pagination (like receive-message): just re-execute to get next batch
 				// Save current state to history (use empty string as marker)
@@ -552,9 +585,10 @@ func handleNextPage(event *tcell.EventKey) *tcell.EventKey {
 				cmd.UiState.CurrentPageToken = ""
 
 				// Re-execute command to fetch next batch
-				_, body := executeCommand(cmd.UiState.Command)
-				Body = body
-				updateRootView(nil)
+				executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+					Body = body
+					updateRootView(nil)
+				})
 			}
 		}
 	}
@@ -576,9 +610,10 @@ func handlePreviousPage(event *tcell.EventKey) *tcell.EventKey {
 		cmd.UiState.PageHistory = cmd.UiState.PageHistory[:lastIndex]
 
 		// Re-execute command with previous token
-		_, body := executeCommand(cmd.UiState.Command)
-		Body = body
-		updateRootView(nil)
+		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+		})
 	}
 	return nil
 }
@@ -595,14 +630,15 @@ func handleRerunCommand(event *tcell.EventKey) *tcell.EventKey {
 	Search.SetText("")
 	cmd.UiState.OriginalTableData = nil
 
-	_, body := executeCommand(cmd.UiState.Command)
-	Body = body
-	updateRootView(nil)
-	App.SetFocus(Body)
+	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
+		Body = body
+		updateRootView(nil)
+		App.SetFocus(Body)
 
-	if boxed, ok := Body.(ui.Boxed); ok {
-		ui.ShowToast(App, boxed, ui.ToastRefreshMessage)
-	}
+		if boxed, ok := Body.(ui.Boxed); ok {
+			ui.ShowToast(App, boxed, ui.ToastRefreshMessage)
+		}
+	})
 
 	return nil
 }
@@ -663,9 +699,14 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 	roles, err := profile.ListAccountRoles(p)
 	if err != nil {
 		logger.Logger.Error().Err(err).Str("profile", profileName).Msg("Failed to list SSO roles")
-		if boxed, ok := Body.(ui.Boxed); ok {
-			ui.ShowToast(App, boxed, " Failed to list roles ")
-		}
+		errorModal := ui.CreateErrorModal(Body, err.Error(), func() {
+			Body = cachedBody
+			updateRootView(nil)
+			App.SetFocus(Body)
+		})
+		Body = errorModal
+		updateRootView(nil)
+		App.SetFocus(errorModal)
 		return nil
 	}
 
@@ -681,21 +722,33 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 		Title:   fmt.Sprintf(" SSO Roles for %s [%d] ", profileName, len(roles)),
 		Options: roles,
 		Handler: func(selectedRole string) {
-			profile.UpdateSSORole(profileName, selectedRole)
-			logger.Logger.Debug().
-				Str("profile", profileName).
-				Str("role", selectedRole).
-				Msg("Updated SSO role")
+			// Show animated loading modal while updating role and refreshing profiles
+			loadingView, stopAnim := ui.CreateLoadingModal(App, Body, "Updating role...")
+			updateRootViewWithBody(loadingView)
+			App.ForceDraw()
 
-			// Refresh the profile list and rebuild the profiles view
-			ProfileList = profile.GetList()
-			Body = createBody()
-			updateRootView(nil)
-			App.SetFocus(Body)
+			go func() {
+				profile.UpdateSSORole(profileName, selectedRole)
+				logger.Logger.Debug().
+					Str("profile", profileName).
+					Str("role", selectedRole).
+					Msg("Updated SSO role")
 
-			if boxed, ok := Body.(ui.Boxed); ok {
-				ui.ShowToast(App, boxed, " Role updated! ")
-			}
+				// Refresh the profile list (slow: multiple AWS CLI calls)
+				newProfileList := profile.GetList()
+
+				close(stopAnim)
+				App.QueueUpdateDraw(func() {
+					ProfileList = newProfileList
+					Body = createBody()
+					updateRootView(nil)
+					App.SetFocus(Body)
+
+					if boxed, ok := Body.(ui.Boxed); ok {
+						ui.ShowToast(App, boxed, " Role updated! ")
+					}
+				})
+			}()
 		},
 		App: App,
 	})

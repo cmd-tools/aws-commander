@@ -17,7 +17,7 @@ type ModalProperties struct {
 }
 
 func CreateModal(properties ModalProperties, currentFlex *tview.Flex) *tview.Modal {
-	return tview.NewModal().
+	modal := tview.NewModal().
 		SetText(properties.Title).
 		SetBackgroundColor(tcell.ColorDefault).
 		AddButtons([]string{properties.LeftChoice.Name, properties.RightChoice.Name}).
@@ -33,4 +33,6 @@ func CreateModal(properties ModalProperties, currentFlex *tview.Flex) *tview.Mod
 				panic("Unexpected choice")
 			}
 		})
+	modal.Box.SetBackgroundColor(tcell.ColorDefault)
+	return modal
 }

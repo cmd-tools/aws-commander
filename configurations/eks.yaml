@@ -1,0 +1,69 @@
+name: "eks"
+defaultCommand: "list-clusters"
+commands:
+  - name: "list-clusters"
+    resourceName: clusterName
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "clusters"
+  - name: "list-nodegroups"
+    depends_on: "list-clusters"
+    rerunOnBack: false
+    arguments:
+      - "--cluster-name"
+      - "$CLUSTERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "nodegroups"
+  - name: "list-fargate-profiles"
+    depends_on: "list-clusters"
+    rerunOnBack: false
+    arguments:
+      - "--cluster-name"
+      - "$CLUSTERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "fargateProfileNames"
+  - name: "list-addons"
+    depends_on: "list-clusters"
+    rerunOnBack: false
+    arguments:
+      - "--cluster-name"
+      - "$CLUSTERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "addons"

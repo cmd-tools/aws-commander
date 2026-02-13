@@ -1,0 +1,117 @@
+name: "iam"
+defaultCommand: ""
+commands:
+  - name: "list-users"
+    resourceName: UserName
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Users"
+  - name: "list-groups-for-user"
+    depends_on: "list-users"
+    rerunOnBack: false
+    arguments:
+      - "--user-name"
+      - "$USERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Groups"
+  - name: "list-attached-user-policies"
+    depends_on: "list-users"
+    rerunOnBack: false
+    arguments:
+      - "--user-name"
+      - "$USERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "AttachedPolicies"
+  - name: "list-user-policies"
+    depends_on: "list-users"
+    rerunOnBack: false
+    arguments:
+      - "--user-name"
+      - "$USERNAME"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "PolicyNames"
+  - name: "list-roles"
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Roles"
+  - name: "list-groups"
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Groups"
+  - name: "list-policies"
+    rerunOnBack: false
+    arguments:
+      - "--scope"
+      - "Local"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Policies"

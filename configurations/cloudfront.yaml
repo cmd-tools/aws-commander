@@ -1,0 +1,39 @@
+name: "cloudfront"
+defaultCommand: "list-distributions"
+commands:
+  - name: "list-distributions"
+    resourceName: Id
+    rerunOnBack: false
+    arguments:
+      - "--query"
+      - "DistributionList"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Items"
+  - name: "list-invalidations"
+    depends_on: "list-distributions"
+    rerunOnBack: false
+    arguments:
+      - "--distribution-id"
+      - "$ID"
+      - "--query"
+      - "InvalidationList"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Items"

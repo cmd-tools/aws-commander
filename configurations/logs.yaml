@@ -1,0 +1,69 @@
+name: "logs"
+defaultCommand: "describe-log-groups"
+commands:
+  - name: "describe-log-groups"
+    resourceName: logGroupName
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "logGroups"
+  - name: "describe-log-streams"
+    depends_on: "describe-log-groups"
+    resourceName: logStreamName
+    rerunOnBack: false
+    arguments:
+      - "--log-group-name"
+      - "$LOGGROUPNAME"
+      - "--order-by"
+      - "LastEventTime"
+      - "--descending"
+      - "--max-items"
+      - "50"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "logStreams"
+    pagination:
+      enabled: true
+      nextTokenParam: "--starting-token"
+      nextTokenJsonPath: "nextToken"
+  - name: "get-log-events"
+    depends_on: "describe-log-streams"
+    rerunOnBack: false
+    arguments:
+      - "--log-group-name"
+      - "$LOGGROUPNAME"
+      - "--log-stream-name"
+      - "$LOGSTREAMNAME"
+      - "--limit"
+      - "100"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "events"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "nextForwardToken"

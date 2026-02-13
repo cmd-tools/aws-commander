@@ -1,0 +1,63 @@
+name: "stepfunctions"
+defaultCommand: "list-state-machines"
+commands:
+  - name: "list-state-machines"
+    resourceName: stateMachineArn
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "stateMachines"
+  - name: "list-executions"
+    depends_on: "list-state-machines"
+    resourceName: executionArn
+    rerunOnBack: false
+    arguments:
+      - "--state-machine-arn"
+      - "$STATEMACHINEARN"
+      - "--max-items"
+      - "100"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "executions"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "nextToken"
+  - name: "get-execution-history"
+    depends_on: "list-executions"
+    rerunOnBack: false
+    arguments:
+      - "--execution-arn"
+      - "$EXECUTIONARN"
+      - "--reverse-order"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "events"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "nextToken"

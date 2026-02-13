@@ -1,0 +1,60 @@
+name: "lambda"
+defaultCommand: "list-functions"
+commands:
+  - name: "list-functions"
+    resourceName: FunctionName
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Functions"
+  - name: "list-aliases"
+    depends_on: "list-functions"
+    rerunOnBack: false
+    arguments:
+      - "--function-name"
+      - "$FUNCTIONNAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Aliases"
+    pagination:
+      enabled: true
+      nextTokenParam: "--starting-token"
+      nextTokenJsonPath: "NextMarker"
+  - name: "list-event-source-mappings"
+    depends_on: "list-functions"
+    rerunOnBack: false
+    arguments:
+      - "--function-name"
+      - "$FUNCTIONNAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "EventSourceMappings"
+    pagination:
+      enabled: true
+      nextTokenParam: "--starting-token"
+      nextTokenJsonPath: "NextMarker"

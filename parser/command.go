@@ -12,7 +12,6 @@ import (
 	_ "image/png"
 	"net/http"
 	"path/filepath"
-	"sort"
 	"strings"
 
 	"github.com/cmd-tools/aws-commander/cmd"
@@ -121,7 +120,6 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 				if orderedItem, ok := s.(orderedmap.OrderedMap); ok {
 					// It's an orderedmap
 					keys = orderedItem.Keys()
-					sort.Strings(keys)
 					if i == 0 {
 						parseCommandResult.Header = keys
 					}

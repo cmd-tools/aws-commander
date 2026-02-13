@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/cmd-tools/aws-commander/cmd"
+	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/constants"
 	"github.com/cmd-tools/aws-commander/logger"
 	commandParser "github.com/cmd-tools/aws-commander/parser"
@@ -281,6 +282,16 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Rune:        'v',
 			Description: description,
 			Handle:      handleToggleContentView,
+		})
+	}
+
+	// Add 'u' shortcut to update SSO role when viewing the profiles table
+	currentNav := peekNavigation()
+	if currentNav != nil && currentNav.Type == cmd.BreadcrumbProfiles {
+		shortcuts = append(shortcuts, ui.CustomShortCut{
+			Rune:        'u',
+			Description: "Update SSO Role",
+			Handle:      handleUpdateSSORole,
 		})
 	}
 
@@ -609,6 +620,98 @@ func handleToggleContentView(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	Body = newView
+	updateRootView(nil)
+	App.SetFocus(Body)
+	return nil
+}
+
+// handleUpdateSSORole handles the 'u' shortcut to update the SSO role for the selected profile.
+// It fetches available roles from the SSO session and shows a list for the user to pick from.
+func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
+	table, ok := Body.(*tview.Table)
+	if !ok {
+		return nil
+	}
+
+	row, _ := table.GetSelection()
+	if row < 1 {
+		return nil
+	}
+
+	profileName := table.GetCell(row, 0).Text
+	if profileName == "" {
+		return nil
+	}
+
+	p := ProfileList.FindProfile(profileName)
+	if p == nil {
+		logger.Logger.Error().Str("profile", profileName).Msg("Profile not found")
+		return nil
+	}
+
+	if p.SSO.AccountId == "" || p.SSO.AccountId == "n/a" {
+		logger.Logger.Debug().Str("profile", profileName).Msg("Profile is not an SSO profile, skipping")
+		if boxed, ok := Body.(ui.Boxed); ok {
+			ui.ShowToast(App, boxed, " Not an SSO profile ")
+		}
+		return nil
+	}
+
+	// Save the current body so we can restore it on cancel
+	cachedBody := Body
+
+	roles, err := profile.ListAccountRoles(p)
+	if err != nil {
+		logger.Logger.Error().Err(err).Str("profile", profileName).Msg("Failed to list SSO roles")
+		if boxed, ok := Body.(ui.Boxed); ok {
+			ui.ShowToast(App, boxed, " Failed to list roles ")
+		}
+		return nil
+	}
+
+	if len(roles) == 0 {
+		if boxed, ok := Body.(ui.Boxed); ok {
+			ui.ShowToast(App, boxed, " No roles found ")
+		}
+		return nil
+	}
+
+	// Show role selection list
+	roleList := ui.CreateCustomListView(ui.ListViewBoxProperties{
+		Title:   fmt.Sprintf(" SSO Roles for %s [%d] ", profileName, len(roles)),
+		Options: roles,
+		Handler: func(selectedRole string) {
+			profile.UpdateSSORole(profileName, selectedRole)
+			logger.Logger.Debug().
+				Str("profile", profileName).
+				Str("role", selectedRole).
+				Msg("Updated SSO role")
+
+			// Refresh the profile list and rebuild the profiles view
+			ProfileList = profile.GetList()
+			Body = createBody()
+			updateRootView(nil)
+			App.SetFocus(Body)
+
+			if boxed, ok := Body.(ui.Boxed); ok {
+				ui.ShowToast(App, boxed, " Role updated! ")
+			}
+		},
+		App: App,
+	})
+
+	// Override the list's input capture to handle ESC back to profiles
+	roleList.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEsc {
+			Body = cachedBody
+			updateRootView(nil)
+			App.SetFocus(Body)
+			return nil
+		}
+		return event
+	})
+
+	Body = roleList
 	updateRootView(nil)
 	App.SetFocus(Body)
 	return nil

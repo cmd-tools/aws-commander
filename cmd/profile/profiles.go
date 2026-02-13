@@ -1,13 +1,17 @@
 package profile
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/cmd-tools/aws-commander/logger"
+	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/cmd-tools/aws-commander/executor"
+	"github.com/cmd-tools/aws-commander/logger"
 )
 
 type SSO struct {
@@ -133,4 +137,140 @@ func getProfileDetailsByProperty(profileName string, property string, ch chan<- 
 		return
 	}
 	ch <- strings.Fields(out)[0]
+}
+
+// ssoTokenCache represents the structure of an SSO cache file that contains an access token
+type ssoTokenCache struct {
+	StartURL    string `json:"startUrl"`
+	Region      string `json:"region"`
+	AccessToken string `json:"accessToken"`
+	ExpiresAt   string `json:"expiresAt"`
+}
+
+// listAccountRolesResponse represents the response from aws sso list-account-roles
+type listAccountRolesResponse struct {
+	RoleList []struct {
+		RoleName  string `json:"roleName"`
+		AccountId string `json:"accountId"`
+	} `json:"roleList"`
+}
+
+// FindProfile returns the Profile matching the given name, or nil if not found
+func (profiles Profiles) FindProfile(name string) *Profile {
+	for i := range profiles {
+		if profiles[i].Name == name {
+			return &profiles[i]
+		}
+	}
+	return nil
+}
+
+// getAccessToken reads the SSO cache directory and returns the access token
+// for the given start URL. Returns empty string if no valid token is found.
+func getAccessToken(startURL string) string {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to get home directory")
+		return ""
+	}
+
+	cacheDir := filepath.Join(homeDir, ".aws", "sso", "cache")
+	entries, err := os.ReadDir(cacheDir)
+	if err != nil {
+		logger.Logger.Error().Err(err).Msg("Failed to read SSO cache directory")
+		return ""
+	}
+
+	for _, entry := range entries {
+		if entry.IsDir() || !strings.HasSuffix(entry.Name(), ".json") {
+			continue
+		}
+
+		data, err := os.ReadFile(filepath.Join(cacheDir, entry.Name()))
+		if err != nil {
+			continue
+		}
+
+		var cache ssoTokenCache
+		if err := json.Unmarshal(data, &cache); err != nil {
+			continue
+		}
+
+		// Match by start URL and ensure token exists
+		if cache.StartURL != startURL || cache.AccessToken == "" {
+			continue
+		}
+
+		// Check expiry
+		expiresAt, err := time.Parse(time.RFC3339, cache.ExpiresAt)
+		if err != nil {
+			logger.Logger.Debug().Str("expiresAt", cache.ExpiresAt).Msg("Failed to parse SSO token expiry")
+			continue
+		}
+		if time.Now().After(expiresAt) {
+			logger.Logger.Debug().Str("startUrl", startURL).Msg("SSO token expired")
+			continue
+		}
+
+		return cache.AccessToken
+	}
+
+	return ""
+}
+
+// ListAccountRoles fetches the list of SSO role names available for a given profile.
+// It reads the SSO access token from the cached SSO session and calls
+// aws sso list-account-roles. Returns role names or an error message.
+func ListAccountRoles(p *Profile) ([]string, error) {
+	if p.SSO.AccountId == "" || p.SSO.AccountId == "n/a" {
+		return nil, fmt.Errorf("profile %s has no SSO account ID configured", p.Name)
+	}
+	if p.SSO.StartURL == "" || p.SSO.StartURL == "n/a" {
+		return nil, fmt.Errorf("profile %s has no SSO start URL configured", p.Name)
+	}
+
+	accessToken := getAccessToken(p.SSO.StartURL)
+	if accessToken == "" {
+		return nil, fmt.Errorf("no valid SSO session found for %s. Run 'aws sso login --profile %s' first", p.SSO.StartURL, p.Name)
+	}
+
+	region := p.SSO.Region
+	if region == "" || region == "n/a" {
+		region = p.Region
+	}
+
+	args := []string{
+		"sso", "list-account-roles",
+		"--account-id", p.SSO.AccountId,
+		"--access-token", accessToken,
+		"--region", region,
+		"--output", "json",
+	}
+
+	out := executor.ExecCommand("aws", args)
+
+	var response listAccountRolesResponse
+	if err := json.Unmarshal([]byte(out), &response); err != nil {
+		logger.Logger.Error().Err(err).Str("output", out).Msg("Failed to parse list-account-roles response")
+		return nil, fmt.Errorf("failed to list roles: %s", strings.TrimSpace(out))
+	}
+
+	var roles []string
+	for _, role := range response.RoleList {
+		roles = append(roles, role.RoleName)
+	}
+
+	sort.Strings(roles)
+	return roles, nil
+}
+
+// UpdateSSORole updates the sso_role_name for a given profile using aws configure set
+func UpdateSSORole(profileName string, roleName string) error {
+	args := []string{"configure", "set", "sso_role_name", roleName, "--profile", profileName}
+	out := executor.ExecCommand("aws", args)
+	trimmed := strings.TrimSpace(out)
+	if trimmed != "" {
+		logger.Logger.Debug().Str("output", trimmed).Msg("aws configure set output")
+	}
+	return nil
 }

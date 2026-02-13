@@ -52,41 +52,38 @@ func GetList() Profiles {
 		wg.Add(1)
 		go func(name string) {
 			defer wg.Done()
-			var region, ssoRegion, ssoStartURL, ssoRoleName, ssoAccountId string
 
-			ch := make(chan string, propertyCount)
-
-			// Launch goroutines to fetch profile details concurrently, aws command it's really slow, let's parallelize
+			// Fetch all properties concurrently
+			results := make([]string, propertyCount)
+			var propWg sync.WaitGroup
 			for i, property := range properties {
-				logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Fetching property: %s for profile: %s", property, name))
-
-				go getProfileDetailsByProperty(name, property, ch)
-				result := <-ch
-				switch {
-				case i == 0:
-					region = result
-				case i == 1:
-					ssoRegion = result
-				case i == 2:
-					ssoStartURL = result
-				case i == 3:
-					ssoRoleName = result
-				case i == 4:
-					ssoAccountId = result
-				}
+				propWg.Add(1)
+				go func(idx int, prop string) {
+					defer propWg.Done()
+					logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Fetching property: %s for profile: %s", prop, name))
+					command := "aws"
+					args := []string{"configure", "get", prop, "--profile", name}
+					out := executor.ExecCommand(command, args)
+					if len(strings.Fields(out)) == 0 {
+						results[idx] = "n/a"
+					} else {
+						results[idx] = strings.Fields(out)[0]
+					}
+				}(i, property)
 			}
+			propWg.Wait()
 
 			mu.Lock()
 			defer mu.Unlock()
 
 			profiles = append(profiles, Profile{
 				Name:   name,
-				Region: region,
+				Region: results[0],
 				SSO: SSO{
-					Region:    ssoRegion,
-					StartURL:  ssoStartURL,
-					RoleName:  ssoRoleName,
-					AccountId: ssoAccountId,
+					Region:    results[1],
+					StartURL:  results[2],
+					RoleName:  results[3],
+					AccountId: results[4],
 				},
 			})
 		}(profileName)
@@ -128,17 +125,6 @@ func (profiles Profiles) GetProfileNames() []string {
 	return list
 }
 
-func getProfileDetailsByProperty(profileName string, property string, ch chan<- string) {
-	command := "aws"
-	args := []string{"configure", "get", property, "--profile", profileName}
-	out := executor.ExecCommand(command, args)
-	if len(strings.Fields(out)) == 0 {
-		ch <- "n/a"
-		return
-	}
-	ch <- strings.Fields(out)[0]
-}
-
 // ssoTokenCache represents the structure of an SSO cache file that contains an access token
 type ssoTokenCache struct {
 	StartURL    string `json:"startUrl"`
@@ -163,6 +149,14 @@ func (profiles Profiles) FindProfile(name string) *Profile {
 		}
 	}
 	return nil
+}
+
+// UpdateProfileRole updates the SSO role name for the given profile in-memory.
+func (profiles Profiles) UpdateProfileRole(profileName string, roleName string) {
+	p := profiles.FindProfile(profileName)
+	if p != nil {
+		p.SSO.RoleName = roleName
+	}
 }
 
 // getAccessToken reads the SSO cache directory and returns the access token

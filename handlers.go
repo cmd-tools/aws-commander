@@ -722,33 +722,22 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 		Title:   fmt.Sprintf(" SSO Roles for %s [%d] ", profileName, len(roles)),
 		Options: roles,
 		Handler: func(selectedRole string) {
-			// Show animated loading modal while updating role and refreshing profiles
-			loadingView, stopAnim := ui.CreateLoadingModal(App, Body, "Updating role...")
-			updateRootViewWithBody(loadingView)
-			App.ForceDraw()
+			// Update the role via AWS CLI (fast: single command)
+			profile.UpdateSSORole(profileName, selectedRole)
+			logger.Logger.Debug().
+				Str("profile", profileName).
+				Str("role", selectedRole).
+				Msg("Updated SSO role")
 
-			go func() {
-				profile.UpdateSSORole(profileName, selectedRole)
-				logger.Logger.Debug().
-					Str("profile", profileName).
-					Str("role", selectedRole).
-					Msg("Updated SSO role")
+			// Update in-memory instead of re-fetching all profiles
+			ProfileList.UpdateProfileRole(profileName, selectedRole)
+			Body = createBody()
+			updateRootView(nil)
+			App.SetFocus(Body)
 
-				// Refresh the profile list (slow: multiple AWS CLI calls)
-				newProfileList := profile.GetList()
-
-				close(stopAnim)
-				App.QueueUpdateDraw(func() {
-					ProfileList = newProfileList
-					Body = createBody()
-					updateRootView(nil)
-					App.SetFocus(Body)
-
-					if boxed, ok := Body.(ui.Boxed); ok {
-						ui.ShowToast(App, boxed, " Role updated! ")
-					}
-				})
-			}()
+			if boxed, ok := Body.(ui.Boxed); ok {
+				ui.ShowToast(App, boxed, " Role updated! ")
+			}
 		},
 		App: App,
 	})

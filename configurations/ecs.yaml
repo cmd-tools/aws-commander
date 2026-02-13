@@ -1,0 +1,55 @@
+name: "ecs"
+defaultCommand: "list-clusters"
+commands:
+  - name: "list-clusters"
+    resourceName: clusterArn
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "clusterArns"
+  - name: "list-services"
+    depends_on: "list-clusters"
+    resourceName: serviceArn
+    rerunOnBack: false
+    arguments:
+      - "--cluster"
+      - "$CLUSTERARN"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "serviceArns"
+  - name: "list-tasks"
+    depends_on: "list-services"
+    rerunOnBack: false
+    arguments:
+      - "--cluster"
+      - "$CLUSTERARN"
+      - "--service-name"
+      - "$SERVICEARN"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "list"
+      attributeName: "taskArns"

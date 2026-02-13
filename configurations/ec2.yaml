@@ -1,0 +1,84 @@
+name: "ec2"
+defaultCommand: ""
+commands:
+  - name: "describe-instances"
+    rerunOnBack: false
+    arguments:
+      - "--query"
+      - "{Instances: Reservations[].Instances[]}"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Instances"
+  - name: "describe-security-groups"
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "SecurityGroups"
+  - name: "describe-vpcs"
+    resourceName: VpcId
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Vpcs"
+  - name: "describe-subnets"
+    depends_on: "describe-vpcs"
+    rerunOnBack: false
+    arguments:
+      - "--filters"
+      - "Name=vpc-id,Values=$VPCID"
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Subnets"
+  - name: "describe-volumes"
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Volumes"

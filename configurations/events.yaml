@@ -1,0 +1,62 @@
+name: "events"
+defaultCommand: "list-event-buses"
+commands:
+  - name: "list-event-buses"
+    resourceName: eventBusName
+    rerunOnBack: false
+    arguments:
+      - "--no-paginate"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "EventBuses"
+  - name: "list-rules"
+    depends_on: "list-event-buses"
+    resourceName: ruleName
+    rerunOnBack: false
+    arguments:
+      - "--event-bus-name"
+      - "$EVENTBUSNAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    parse:
+      type: "object"
+      attributeName: "Rules"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "NextToken"
+  - name: "list-targets-by-rule"
+    depends_on: "list-rules"
+    rerunOnBack: false
+    arguments:
+      - "--rule"
+      - "$RULENAME"
+      - "--event-bus-name"
+      - "$EVENTBUSNAME"
+      - "--output"
+      - "json"
+      - "--cli-read-timeout"
+      - "10"
+      - "--cli-connect-timeout"
+      - "5"
+    view: tableView
+    showJsonViewer: true
+    parse:
+      type: "object"
+      attributeName: "Targets"
+    pagination:
+      enabled: true
+      nextTokenParam: "--next-token"
+      nextTokenJsonPath: "NextToken"

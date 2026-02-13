@@ -76,7 +76,11 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 		// Only call handler if showJsonViewer is not enabled
 		// (if showJsonViewer is enabled, Enter key is handled by InputCapture)
 		if !properties.ShowJsonViewer {
-			properties.Handler(table.GetCell(row, 0).Text)
+			selectedText := table.GetCell(row, 0).Text
+			if selectedText == "" {
+				return
+			}
+			properties.Handler(selectedText)
 		}
 	})
 
@@ -220,7 +224,10 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 			} else {
 				// Normal handler for tables without JSON viewer (like list-tables)
 				if row > 0 {
-					properties.Handler(table.GetCell(row, 0).Text)
+					selectedText := table.GetCell(row, 0).Text
+					if selectedText != "" {
+						properties.Handler(selectedText)
+					}
 				}
 				return nil
 			}

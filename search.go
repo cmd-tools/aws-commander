@@ -111,8 +111,8 @@ func filterTableRows(table *tview.Table, filter string) {
 
 	totalRows := len(cmd.UiState.OriginalTableData.Rows)
 
-	// Iterate through original data and show matching rows
-	for originalRow := 0; originalRow < totalRows; originalRow++ {
+	// Iterate through original data (skip row 0 which is the header) and show matching rows
+	for originalRow := 1; originalRow < totalRows; originalRow++ {
 		rowData := cmd.UiState.OriginalTableData.Rows[originalRow]
 		if rowData == nil {
 			continue
@@ -144,12 +144,10 @@ func filterTableRows(table *tview.Table, filter string) {
 		}
 	}
 
-	// Clear remaining rows
+	// Remove remaining rows that are no longer needed (instead of clearing with empty text)
 	rowCount := table.GetRowCount()
-	for row := visibleRow; row < rowCount; row++ {
-		for col := 0; col < table.GetColumnCount(); col++ {
-			table.SetCell(row, col, tview.NewTableCell(""))
-		}
+	for row := rowCount - 1; row >= visibleRow; row-- {
+		table.RemoveRow(row)
 	}
 
 	// Update table title with filter info

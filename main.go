@@ -7,6 +7,7 @@ import (
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
 	"github.com/cmd-tools/aws-commander/logger"
+	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/rivo/tview"
 )
 
@@ -32,6 +33,7 @@ func main() {
 
 	cmd.Init()
 	cmd.Favourites.Load()
+	cmd.Settings.Load()
 
 	App = tview.NewApplication()
 	Search = createSearchBar()
@@ -44,8 +46,19 @@ func main() {
 		go startLogViewListener()
 	}
 
-	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
-		panic(err)
+	// Show startup animation if enabled in settings
+	if cmd.Settings.AnimationsEnabled() {
+		animOverlay := ui.ShowAnimationOverlay(App, mainFlexPanel, func() {
+			App.SetRoot(mainFlexPanel, true)
+			App.SetFocus(Body)
+		})
+		if err := App.SetRoot(animOverlay, true).EnableMouse(true).Run(); err != nil {
+			panic(err)
+		}
+	} else {
+		if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
+			panic(err)
+		}
 	}
 }
 

@@ -180,7 +180,8 @@ func resourceSelectionHandler(selectedResourceName string) {
 	AutoCompletionWordList = append(cmd.GetAvailableResourceNames(), constants.Profiles)
 
 	if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
-		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
+		newBody := createCommandView(cmd.UiState.Resource.GetCommandNames())
+		showWithAnimation(newBody)
 	} else {
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
 		pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
@@ -190,8 +191,23 @@ func resourceSelectionHandler(selectedResourceName string) {
 		})
 		return
 	}
+}
 
-	updateRootView(nil)
+// showWithAnimation sets the body and optionally shows an animation overlay during the transition.
+// If animations are disabled in settings, it just updates the view directly.
+func showWithAnimation(newBody tview.Primitive) {
+	if cmd.Settings.AnimationsEnabled() {
+		Body = newBody
+		mainView := updateRootView(nil)
+		overlay := ui.ShowAnimationOverlay(App, mainView, func() {
+			App.SetRoot(mainView, true)
+			App.SetFocus(Body)
+		})
+		App.SetRoot(overlay, true)
+	} else {
+		Body = newBody
+		updateRootView(nil)
+	}
 }
 
 // createCommandView creates the command selection view

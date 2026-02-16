@@ -20,9 +20,7 @@ type KeyInfo struct {
 // showKeyInputForm displays an input form for DynamoDB query parameters
 func showKeyInputForm() {
 	// Hide search bar when showing input form
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	selectedIndexName := getSelectedIndexName()
 	indexKeys, indexType := extractIndexDetails(selectedIndexName)

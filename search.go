@@ -11,6 +11,14 @@ import (
 	"github.com/rivo/tview"
 )
 
+// resetSearchState clears the search bar text, hides it, and discards any cached
+// pre-filter table data. Call this on every navigation transition that replaces Body.
+func resetSearchState() {
+	cmd.UiState.CommandBarVisible = false
+	Search.SetText(constants.EmptyString)
+	cmd.UiState.OriginalTableData = nil
+}
+
 // createSearchBar creates and configures the search input field with autocomplete
 func createSearchBar() *tview.InputField {
 	searchBar := tview.NewInputField()
@@ -59,9 +67,7 @@ func createSearchBar() *tview.InputField {
 func handleSearchInput(event *tcell.EventKey) *tcell.EventKey {
 	if event.Key() == tcell.KeyEsc && Search.HasFocus() {
 		logger.Logger.Debug().Msg("[Search section] Got ESC")
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText(constants.EmptyString)
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		updateRootView(nil)
 		return nil
 	}
@@ -89,6 +95,7 @@ func handleSearchInput(event *tcell.EventKey) *tcell.EventKey {
 		cmd.UiState.CommandBarVisible = false
 		updateRootView(nil)
 		Search.SetText(constants.EmptyString)
+		cmd.UiState.OriginalTableData = nil
 		return nil
 	}
 	return event

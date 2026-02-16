@@ -130,6 +130,7 @@ func createBody() *tview.Table {
 		Columns: columns,
 		Rows:    ProfileList.AsMatrix(),
 		Handler: func(selectedProfileName string) {
+			resetSearchState()
 			cmd.UiState.Profile = selectedProfileName
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, selectedProfileName}
 			cmd.UiState.NavigationStack = []cmd.NavigationState{
@@ -164,6 +165,7 @@ func createResources(resources []string) tview.Primitive {
 
 // resourceSelectionHandler handles resource selection
 func resourceSelectionHandler(selectedResourceName string) {
+	resetSearchState()
 	cmd.UiState.Resource = cmd.Resources[selectedResourceName]
 	cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile, selectedResourceName}
 	cmd.UiState.NavigationStack = []cmd.NavigationState{

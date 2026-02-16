@@ -148,6 +148,7 @@ func createBody() *tview.Table {
 
 // createResources creates the resource selection view
 func createResources(resources []string) tview.Primitive {
+	cmd.UiState.Command = cmd.Command{}
 	cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile}
 	cmd.UiState.NavigationStack = []cmd.NavigationState{
 		{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},

@@ -4,6 +4,7 @@ commands:
   - name: "list-event-buses"
     resourceName: eventBusName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

@@ -3,6 +3,7 @@ defaultCommand: ""
 commands:
   - name: "describe-instances"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--query"
       - "{Instances: Reservations[].Instances[]}"
@@ -20,6 +21,7 @@ commands:
       attributeName: "Instances"
   - name: "describe-security-groups"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"
@@ -36,6 +38,7 @@ commands:
   - name: "describe-vpcs"
     resourceName: VpcId
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"
@@ -69,6 +72,7 @@ commands:
       attributeName: "Subnets"
   - name: "describe-volumes"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

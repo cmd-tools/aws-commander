@@ -148,6 +148,7 @@ func createBody() *tview.Table {
 
 // createResources creates the resource selection view
 func createResources(resources []string) tview.Primitive {
+	cmd.UiState.Command = cmd.Command{}
 	cmd.UiState.Breadcrumbs = []string{constants.Profiles, cmd.UiState.Profile}
 	cmd.UiState.NavigationStack = []cmd.NavigationState{
 		{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
@@ -190,6 +191,7 @@ func resourceSelectionHandler(selectedResourceName string) {
 
 // createCommandView creates the command selection view
 func createCommandView(commandNames []string) tview.Primitive {
+	cmd.UiState.Command = cmd.Command{}
 	return ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" Commands [%d] ", len(commandNames)),
 		Options: commandNames,
@@ -200,6 +202,7 @@ func createCommandView(commandNames []string) tview.Primitive {
 
 // createDependentCommandView creates a view for selecting dependent commands
 func createDependentCommandView(commandNames []string) tview.Primitive {
+	cmd.UiState.Command = cmd.Command{}
 	return ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" Dependent Commands [%d] ", len(commandNames)),
 		Options: commandNames,

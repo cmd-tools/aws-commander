@@ -3,6 +3,7 @@ defaultCommand: ""
 commands:
   - name: "list-trails"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--output"
       - "json"

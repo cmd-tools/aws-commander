@@ -4,6 +4,7 @@ commands:
   - name: "describe-log-groups"
     resourceName: logGroupName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

@@ -33,6 +33,7 @@ type Command struct {
 	ShowJsonViewer   bool        `yaml:"showJsonViewer"`
 	RerunOnBack      bool        `yaml:"rerunOnBack"`          // If true, rerun command when navigating back; if false, use cached result
 	RequiresKeyInput bool        `yaml:"requiresKeyInput"`     // If true, prompt user for key value before executing
+	Favouritable     bool        `yaml:"favouritable"`         // If true, enable 'f' shortcut to toggle favourites
 	Pagination       *Pagination `yaml:"pagination,omitempty"` // Pagination configuration
 	Actions          []Action    `yaml:"actions,omitempty"`    // Context-specific actions (e.g., download)
 }

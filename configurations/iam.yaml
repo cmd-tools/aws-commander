@@ -4,6 +4,7 @@ commands:
   - name: "list-users"
     resourceName: UserName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"
@@ -71,6 +72,7 @@ commands:
       attributeName: "PolicyNames"
   - name: "list-roles"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"
@@ -86,6 +88,7 @@ commands:
       attributeName: "Roles"
   - name: "list-groups"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"
@@ -100,6 +103,7 @@ commands:
       attributeName: "Groups"
   - name: "list-policies"
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--scope"
       - "Local"

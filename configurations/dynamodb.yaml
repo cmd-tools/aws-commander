@@ -4,6 +4,7 @@ commands:
   - name: "list-tables"
     resourceName: tableName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--max-items"
       - "1000"

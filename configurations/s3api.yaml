@@ -4,6 +4,7 @@ commands:
   - name: "list-buckets"
     defaultCommand: list-objects-v2
     resourceName: bucket
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

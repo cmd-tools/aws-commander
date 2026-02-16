@@ -125,11 +125,14 @@ func createBody() *tview.Table {
 		{Name: "Name", Width: 0},
 	}
 
+	rows, _ := cmd.Favourites.ApplyFavourites("profiles", "", ProfileList.AsMatrix(), nil)
+
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
 		Title:   fmt.Sprintf(" Profiles [%d] ", len(ProfileList)),
 		Columns: columns,
-		Rows:    ProfileList.AsMatrix(),
+		Rows:    rows,
 		Handler: func(selectedProfileName string) {
+			selectedProfileName = cmd.StripFavouritePrefix(selectedProfileName)
 			resetSearchState()
 			cmd.UiState.Profile = selectedProfileName
 			cmd.UiState.Breadcrumbs = []string{constants.Profiles, selectedProfileName}

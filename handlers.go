@@ -288,6 +288,11 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Description: "Update SSO Role",
 			Handle:      handleUpdateSSORole,
 		})
+		shortcuts = append(shortcuts, ui.CustomShortCut{
+			Rune:        'f',
+			Description: "Favourite",
+			Handle:      handleToggleProfileFavourite,
+		})
 	}
 
 	// Add 'f' shortcut to toggle favourites when the command opts in via YAML config
@@ -653,7 +658,7 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 		return nil
 	}
 
-	profileName := table.GetCell(row, 0).Text
+	profileName := cmd.StripFavouritePrefix(table.GetCell(row, 0).Text)
 	if profileName == "" {
 		return nil
 	}
@@ -788,6 +793,44 @@ func handleToggleFavourite(event *tcell.EventKey) *tcell.EventKey {
 			App.SetFocus(Body)
 		})
 	}
+
+	if boxed, ok := Body.(ui.Boxed); ok {
+		ui.ShowToast(App, boxed, msg)
+	}
+
+	return nil
+}
+
+// handleToggleProfileFavourite toggles the favourite status of the currently selected profile.
+// It uses the synthetic key "profiles:" since profiles have no resource/command in config.
+func handleToggleProfileFavourite(event *tcell.EventKey) *tcell.EventKey {
+	table, ok := Body.(*tview.Table)
+	if !ok {
+		return nil
+	}
+
+	row, _ := table.GetSelection()
+	if row < 1 {
+		return nil
+	}
+
+	profileName := cmd.StripFavouritePrefix(table.GetCell(row, 0).Text)
+	if profileName == "" {
+		return nil
+	}
+
+	added := cmd.Favourites.Toggle("profiles", "", profileName)
+	cmd.Favourites.Save()
+
+	msg := fmt.Sprintf(" ★ %s added ", profileName)
+	if !added {
+		msg = fmt.Sprintf(" %s removed ", profileName)
+	}
+
+	resetSearchState()
+	Body = createBody()
+	updateRootView(nil)
+	App.SetFocus(Body)
 
 	if boxed, ok := Body.(ui.Boxed); ok {
 		ui.ShowToast(App, boxed, msg)

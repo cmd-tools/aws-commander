@@ -37,25 +37,33 @@ func main() {
 
 	App = tview.NewApplication()
 	Search = createSearchBar()
-	ProfileList = profile.GetList()
-	Body = createBody()
-
-	mainFlexPanel := updateRootView(nil)
 
 	if IsLogViewEnabled {
 		go startLogViewListener()
 	}
 
-	// Show startup animation if enabled in settings
 	if cmd.Settings.AnimationsEnabled() {
-		animOverlay := ui.ShowAnimationOverlay(App, mainFlexPanel, func() {
+		// Show animation immediately while profiles load in the background
+		done := make(chan struct{})
+		loadingView := ui.ShowLoadingAnimation(App, done, func() {
+			Body = createBody()
+			mainFlexPanel := updateRootView(nil)
 			App.SetRoot(mainFlexPanel, true)
 			App.SetFocus(Body)
 		})
-		if err := App.SetRoot(animOverlay, true).EnableMouse(true).Run(); err != nil {
+
+		go func() {
+			ProfileList = profile.GetList()
+			close(done)
+		}()
+
+		if err := App.SetRoot(loadingView, true).EnableMouse(true).Run(); err != nil {
 			panic(err)
 		}
 	} else {
+		ProfileList = profile.GetList()
+		Body = createBody()
+		mainFlexPanel := updateRootView(nil)
 		if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
 			panic(err)
 		}

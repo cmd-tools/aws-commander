@@ -528,19 +528,14 @@ func RandomAnimation() Animation {
 	return animations[rand.Intn(len(animations))]
 }
 
-// ShowAnimationOverlay displays a random ASCII animation as a centered overlay on top of
-// the provided background. The animation plays for animationTotalDuration then auto-dismisses
-// by calling onDone. Returns a tview.Pages primitive to be used as the root/body.
-func ShowAnimationOverlay(app *tview.Application, background tview.Primitive, onDone func()) *tview.Pages {
-	anim := RandomAnimation()
-
+// createAnimationView builds the centered text view and container used by all animation functions.
+func createAnimationView() (*tview.TextView, *tview.Flex) {
 	textView := tview.NewTextView().
 		SetTextAlign(tview.AlignCenter).
 		SetDynamicColors(false)
 	textView.SetBackgroundColor(tcell.ColorDefault)
 	textView.SetBorderPadding(1, 1, 2, 2)
 
-	// Centered container
 	centered := tview.NewFlex().SetDirection(tview.FlexRow).
 		AddItem(nil, 0, 1, false).
 		AddItem(
@@ -551,6 +546,16 @@ func ShowAnimationOverlay(app *tview.Application, background tview.Primitive, on
 			14, 0, false).
 		AddItem(nil, 0, 1, false)
 	centered.SetBackgroundColor(tcell.ColorDefault)
+
+	return textView, centered
+}
+
+// ShowAnimationOverlay displays a random ASCII animation as a centered overlay on top of
+// the provided background. The animation plays for animationTotalDuration then auto-dismisses
+// by calling onDone. Returns a tview.Pages primitive to be used as the root/body.
+func ShowAnimationOverlay(app *tview.Application, background tview.Primitive, onDone func()) *tview.Pages {
+	anim := RandomAnimation()
+	textView, centered := createAnimationView()
 
 	pages := tview.NewPages().
 		AddPage("background", background, true, true).
@@ -594,4 +599,35 @@ func ShowAnimationOverlay(app *tview.Application, background tview.Primitive, on
 	}()
 
 	return pages
+}
+
+// ShowLoadingAnimation displays a random ASCII animation as a full-screen view that loops
+// indefinitely until the done channel is closed. Once done is signalled, onDone is called
+// via QueueUpdateDraw to swap the view. Returns the Flex primitive to use as root.
+func ShowLoadingAnimation(app *tview.Application, done <-chan struct{}, onDone func()) *tview.Flex {
+	anim := RandomAnimation()
+	textView, centered := createAnimationView()
+
+	go func() {
+		frameCount := len(anim.Frames)
+		i := 0
+		for {
+			select {
+			case <-done:
+				app.QueueUpdateDraw(func() {
+					onDone()
+				})
+				return
+			default:
+				frame := anim.Frames[i%frameCount]
+				app.QueueUpdateDraw(func() {
+					textView.SetText(frame)
+				})
+				time.Sleep(animationFrameDelay)
+				i++
+			}
+		}
+	}()
+
+	return centered
 }

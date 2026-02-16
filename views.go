@@ -202,6 +202,7 @@ func createCommandView(commandNames []string) tview.Primitive {
 
 // createDependentCommandView creates a view for selecting dependent commands
 func createDependentCommandView(commandNames []string) tview.Primitive {
+	cmd.UiState.Command = cmd.Command{}
 	return ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" Dependent Commands [%d] ", len(commandNames)),
 		Options: commandNames,

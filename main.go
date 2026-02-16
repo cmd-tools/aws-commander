@@ -42,31 +42,22 @@ func main() {
 		go startLogViewListener()
 	}
 
-	if cmd.Settings.AnimationsEnabled() {
-		// Show animation immediately while profiles load in the background
-		done := make(chan struct{})
-		loadingView := ui.ShowLoadingAnimation(App, done, func() {
-			Body = createBody()
-			mainFlexPanel := updateRootView(nil)
-			App.SetRoot(mainFlexPanel, true)
-			App.SetFocus(Body)
-		})
-
-		go func() {
-			ProfileList = profile.GetList()
-			close(done)
-		}()
-
-		if err := App.SetRoot(loadingView, true).EnableMouse(true).Run(); err != nil {
-			panic(err)
-		}
-	} else {
-		ProfileList = profile.GetList()
+	// Always show loading animation while profiles load in the background
+	done := make(chan struct{})
+	loadingView := ui.ShowLoadingAnimation(App, done, func() {
 		Body = createBody()
 		mainFlexPanel := updateRootView(nil)
-		if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
-			panic(err)
-		}
+		App.SetRoot(mainFlexPanel, true)
+		App.SetFocus(Body)
+	})
+
+	go func() {
+		ProfileList = profile.GetList()
+		close(done)
+	}()
+
+	if err := App.SetRoot(loadingView, true).EnableMouse(true).Run(); err != nil {
+		panic(err)
 	}
 }
 

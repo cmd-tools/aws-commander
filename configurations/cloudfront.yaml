@@ -4,6 +4,7 @@ commands:
   - name: "list-distributions"
     resourceName: Id
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--query"
       - "DistributionList"

@@ -4,6 +4,7 @@ commands:
   - name: "list-clusters"
     resourceName: clusterName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

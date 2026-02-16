@@ -4,6 +4,7 @@ commands:
   - name: "list-functions"
     resourceName: FunctionName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

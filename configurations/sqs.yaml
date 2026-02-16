@@ -4,6 +4,7 @@ commands:
   - name: "list-queues"
     resourceName: queueName
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--max-results"
       - "1000"

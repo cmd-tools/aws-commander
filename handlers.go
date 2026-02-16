@@ -304,8 +304,8 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 		})
 	}
 
-	// Add 'f' shortcut to toggle favourites when viewing a command result table
-	if cmd.UiState.Command.Name != "" {
+	// Add 'f' shortcut to toggle favourites when the command opts in via YAML config
+	if cmd.UiState.Command.Favouritable {
 		shortcuts = append(shortcuts, ui.CustomShortCut{
 			Rune:        'f',
 			Description: "Favourite",

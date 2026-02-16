@@ -4,6 +4,7 @@ commands:
   - name: "list-state-machines"
     resourceName: stateMachineArn
     rerunOnBack: false
+    favouritable: true
     arguments:
       - "--no-paginate"
       - "--output"

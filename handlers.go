@@ -120,16 +120,12 @@ func executeDependentCommand(selectedCommandName string) {
 
 	// Check if command requires key input (e.g., DynamoDB query)
 	if cmd.UiState.Command.RequiresKeyInput {
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		showKeyInputForm()
 		return
 	}
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 		Body = body
 		updateRootView(nil)
@@ -147,9 +143,7 @@ func createExecuteCommandView(selectedCommandName string) {
 
 	pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 		Body = body
 		updateRootView(nil)
@@ -174,9 +168,7 @@ func itemHandler(selectedItemName string) {
 
 	if len(dependentCommands) == 0 {
 		// No dependent command found, show command list
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 		updateRootView(nil)
 	} else if len(dependentCommands) == 1 {
@@ -188,16 +180,12 @@ func itemHandler(selectedItemName string) {
 
 		// Check if command requires key input (e.g., DynamoDB query)
 		if cmd.UiState.Command.RequiresKeyInput {
-			cmd.UiState.CommandBarVisible = false
-			Search.SetText("")
-			cmd.UiState.OriginalTableData = nil
+			resetSearchState()
 			showKeyInputForm()
 			return
 		}
 
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 			Body = body
 			updateRootView(nil)
@@ -211,9 +199,7 @@ func itemHandler(selectedItemName string) {
 			commandNames = append(commandNames, c.Name)
 		}
 
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		pushNavigation(cmd.BreadcrumbDependentCmds, "Select Command")
 		Body = createDependentCommandView(commandNames)
 		updateRootView(nil)
@@ -353,16 +339,12 @@ func handleEscKey(event *tcell.EventKey) *tcell.EventKey {
 
 	case cmd.BreadcrumbProfile:
 		popNavigation()
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		Body = createBody()
 
 	case cmd.BreadcrumbResource:
 		popNavigation()
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		Body = createResources(cmd.GetAvailableResourceNames())
 
 	case cmd.BreadcrumbCommand:
@@ -418,14 +400,10 @@ func handleCommandBack() {
 				{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
 				{Type: cmd.BreadcrumbProfile, Value: profileName},
 			}
-			cmd.UiState.CommandBarVisible = false
-			Search.SetText("")
-			cmd.UiState.OriginalTableData = nil
+			resetSearchState()
 			Body = createResources(cmd.GetAvailableResourceNames())
 		} else {
-			cmd.UiState.CommandBarVisible = false
-			Search.SetText("")
-			cmd.UiState.OriginalTableData = nil
+			resetSearchState()
 			Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
 		}
 	}
@@ -437,9 +415,7 @@ func handleProcessedJsonBack() bool {
 	cmd.UiState.ProcessedJsonData = nil
 
 	if cmd.UiState.JsonViewerCallback != nil {
-		cmd.UiState.CommandBarVisible = false
-		Search.SetText("")
-		cmd.UiState.OriginalTableData = nil
+		resetSearchState()
 		cmd.UiState.JsonViewerCallback()
 		return true // Signal to return early from ESC handler
 	}
@@ -453,9 +429,7 @@ func handleJsonViewBack() {
 	cmd.UiState.JsonViewerCallback = nil
 	cmd.UiState.InDynamoDBJsonViewer = false
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	currentCmdState := peekNavigation()
 	if currentCmdState != nil && currentCmdState.CachedBody != nil {
@@ -490,9 +464,7 @@ func handleDependentCommandBack() {
 		popNavigation()
 	}
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	parentState := peekNavigation()
 	if parentState != nil && (parentState.Type == cmd.BreadcrumbCommand || parentState.Type == cmd.BreadcrumbDependentCmd) {
@@ -519,9 +491,7 @@ func handleDependentCommandsBack() {
 	popNavigation()
 	popNavigation()
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	currentCmdState := peekNavigation()
 	if currentCmdState != nil && currentCmdState.CachedBody != nil && !cmd.UiState.Command.RerunOnBack {
@@ -541,9 +511,7 @@ func handleDependentCommandsBack() {
 // handleSelectedItemBack navigates back from a selected item
 func handleSelectedItemBack() {
 	popNavigation()
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	prevState := peekNavigation()
 	if prevState != nil && prevState.Type == cmd.BreadcrumbCommand {
@@ -580,6 +548,7 @@ func handleNextPage(event *tcell.EventKey) *tcell.EventKey {
 				cmd.UiState.CurrentPageToken = currentNav.PaginationToken
 
 				// Re-execute command with new token
+				resetSearchState()
 				executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 					Body = body
 					updateRootView(nil)
@@ -595,6 +564,7 @@ func handleNextPage(event *tcell.EventKey) *tcell.EventKey {
 				cmd.UiState.CurrentPageToken = ""
 
 				// Re-execute command to fetch next batch
+				resetSearchState()
 				executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 					Body = body
 					updateRootView(nil)
@@ -620,6 +590,7 @@ func handlePreviousPage(event *tcell.EventKey) *tcell.EventKey {
 		cmd.UiState.PageHistory = cmd.UiState.PageHistory[:lastIndex]
 
 		// Re-execute command with previous token
+		resetSearchState()
 		executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 			Body = body
 			updateRootView(nil)
@@ -636,9 +607,7 @@ func handleRerunCommand(event *tcell.EventKey) *tcell.EventKey {
 
 	logger.Logger.Debug().Msg(fmt.Sprintf("Re-running command: %s", cmd.UiState.Command.Name))
 
-	cmd.UiState.CommandBarVisible = false
-	Search.SetText("")
-	cmd.UiState.OriginalTableData = nil
+	resetSearchState()
 
 	executeCommandWithLoading(cmd.UiState.Command, func(_ string, body tview.Primitive) {
 		Body = body
@@ -728,6 +697,7 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 	}
 
 	// Show role selection list
+	resetSearchState()
 	roleList := ui.CreateCustomListView(ui.ListViewBoxProperties{
 		Title:   fmt.Sprintf(" SSO Roles for %s [%d] ", profileName, len(roles)),
 		Options: roles,
@@ -800,6 +770,7 @@ func handleToggleFavourite(event *tcell.EventKey) *tcell.EventKey {
 
 	// Re-execute the command to rebuild the table with updated favourite ordering.
 	// Use cached result if available to avoid an extra AWS CLI call.
+	resetSearchState()
 	currentNav := peekNavigation()
 	if currentNav != nil && currentNav.CachedResult != "" {
 		commandParsed := commandParser.ParseCommand(cmd.UiState.Command, currentNav.CachedResult)
@@ -861,6 +832,7 @@ func makeDownloadHandler(action cmd.Action) func(event *tcell.EventKey) *tcell.E
 		cmd.UiState.SelectedItems[resourceName] = objectKey
 
 		// Show download form
+		resetSearchState()
 		downloadForm := ui.CreateInputForm(ui.InputFormProperties{
 			Title: fmt.Sprintf(" Download: %s ", objectKey),
 			Fields: []ui.InputField{

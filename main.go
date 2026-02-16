@@ -31,6 +31,7 @@ func main() {
 	logger.Logger.Debug().Msg("Loading configurations")
 
 	cmd.Init()
+	cmd.Favourites.Load()
 
 	App = tview.NewApplication()
 	Search = createSearchBar()

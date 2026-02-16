@@ -411,11 +411,15 @@ func mapCommandHeaderToColumn(headers []string) []ui.Column {
 }
 
 func parseToTableView(parsedResult ParseCommandResult, command cmd.Command, commandHandler func(selectedProfileName string), app *tview.Application, restoreRootView func(), createHeader func() *tview.Flex, createFooter func([]string) *tview.Table, logView *tview.TextView, isLogEnabled bool) tview.Primitive {
+	rows, rowData := cmd.Favourites.ApplyFavourites(
+		cmd.UiState.Resource.Name, command.Name,
+		parsedResult.Values, parsedResult.RawData,
+	)
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title:          fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(parsedResult.Values)),
+		Title:          fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(rows)),
 		Columns:        mapCommandHeaderToColumn(parsedResult.Header),
-		Rows:           parsedResult.Values,
-		RowData:        parsedResult.RawData,
+		Rows:           rows,
+		RowData:        rowData,
 		Handler:        commandHandler,
 		ShowJsonViewer: command.ShowJsonViewer,
 		App:            app,

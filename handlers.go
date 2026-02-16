@@ -158,6 +158,7 @@ func createExecuteCommandView(selectedCommandName string) {
 
 // itemHandler handles item selection from command results
 func itemHandler(selectedItemName string) {
+	selectedItemName = cmd.StripFavouritePrefix(selectedItemName)
 	resourceName := cmd.VariablePlaceHolderPrefix + strings.ToUpper(cmd.UiState.Command.ResourceName)
 	cmd.UiState.SelectedItems[resourceName] = selectedItemName
 
@@ -300,6 +301,15 @@ func defaultKeyCombinations() []ui.CustomShortCut {
 			Rune:        'u',
 			Description: "Update SSO Role",
 			Handle:      handleUpdateSSORole,
+		})
+	}
+
+	// Add 'f' shortcut to toggle favourites when viewing a command result table
+	if cmd.UiState.Command.Name != "" {
+		shortcuts = append(shortcuts, ui.CustomShortCut{
+			Rune:        'f',
+			Description: "Favourite",
+			Handle:      handleToggleFavourite,
 		})
 	}
 
@@ -756,6 +766,62 @@ func handleUpdateSSORole(event *tcell.EventKey) *tcell.EventKey {
 	Body = roleList
 	updateRootView(nil)
 	App.SetFocus(Body)
+	return nil
+}
+
+// handleToggleFavourite toggles the favourite status of the currently selected table row.
+// It strips any existing star prefix, toggles the favourite in the store, saves to disk,
+// and refreshes the view so the item moves to the top (or back to its natural position).
+func handleToggleFavourite(event *tcell.EventKey) *tcell.EventKey {
+	table, ok := Body.(*tview.Table)
+	if !ok {
+		return nil
+	}
+
+	row, _ := table.GetSelection()
+	if row < 1 {
+		return nil
+	}
+
+	itemName := cmd.StripFavouritePrefix(table.GetCell(row, 0).Text)
+	if itemName == "" {
+		return nil
+	}
+
+	resource := cmd.UiState.Resource.Name
+	command := cmd.UiState.Command.Name
+	added := cmd.Favourites.Toggle(resource, command, itemName)
+	cmd.Favourites.Save()
+
+	msg := fmt.Sprintf(" ★ %s added ", itemName)
+	if !added {
+		msg = fmt.Sprintf(" %s removed ", itemName)
+	}
+
+	// Re-execute the command to rebuild the table with updated favourite ordering.
+	// Use cached result if available to avoid an extra AWS CLI call.
+	currentNav := peekNavigation()
+	if currentNav != nil && currentNav.CachedResult != "" {
+		commandParsed := commandParser.ParseCommand(cmd.UiState.Command, currentNav.CachedResult)
+		Body = commandParser.ParseToObject(cmd.UiState.Command.View, commandParsed, cmd.UiState.Command, itemHandler, App, func() {
+			updateRootView(nil)
+		}, func() *tview.Flex { return createHeader(nil) }, createFooter, LogView, IsLogViewEnabled)
+		// Update the cached body so ESC navigation shows the new ordering
+		currentNav.CachedBody = Body
+		updateRootView(nil)
+		App.SetFocus(Body)
+	} else {
+		executeCommandWithLoading(cmd.UiState.Command, func(output string, body tview.Primitive) {
+			Body = body
+			updateRootView(nil)
+			App.SetFocus(Body)
+		})
+	}
+
+	if boxed, ok := Body.(ui.Boxed); ok {
+		ui.ShowToast(App, boxed, msg)
+	}
+
 	return nil
 }
 

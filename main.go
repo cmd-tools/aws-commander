@@ -6,6 +6,7 @@ import (
 
 	"github.com/cmd-tools/aws-commander/cmd"
 	"github.com/cmd-tools/aws-commander/cmd/profile"
+	"github.com/cmd-tools/aws-commander/constants"
 	"github.com/cmd-tools/aws-commander/logger"
 	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/rivo/tview"
@@ -42,21 +43,35 @@ func main() {
 		go startLogViewListener()
 	}
 
-	// Always show loading animation while profiles load in the background
+	// Show the full profile page layout immediately with an animation dialog
+	// overlaid on an empty Profiles box while profiles load in the background
 	done := make(chan struct{})
-	loadingView := ui.ShowLoadingAnimation(App, done, func() {
+	cmd.UiState.Breadcrumbs = []string{constants.Profiles}
+	cmd.UiState.NavigationStack = []cmd.NavigationState{
+		{Type: cmd.BreadcrumbProfiles, Value: constants.Profiles},
+	}
+
+	// Create an empty bordered box matching the profile table style
+	emptyProfileBox := tview.NewTable()
+	emptyProfileBox.SetTitle(" Profiles ").
+		SetBorder(true).
+		SetBorderColor(tview.Styles.BorderColor).
+		SetTitleAlign(tview.AlignCenter).
+		SetBorderPadding(0, 1, 2, 2)
+
+	Body = ui.ShowLoadingAnimation(App, emptyProfileBox, done, func() {
 		Body = createBody()
-		mainFlexPanel := updateRootView(nil)
-		App.SetRoot(mainFlexPanel, true)
+		updateRootView(nil)
 		App.SetFocus(Body)
 	})
+	mainFlexPanel := updateRootView(nil)
 
 	go func() {
 		ProfileList = profile.GetList()
 		close(done)
 	}()
 
-	if err := App.SetRoot(loadingView, true).EnableMouse(true).Run(); err != nil {
+	if err := App.SetRoot(mainFlexPanel, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 }

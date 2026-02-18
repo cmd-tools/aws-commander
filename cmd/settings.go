@@ -13,9 +13,8 @@ const settingsFileName = "settings.yaml"
 
 // SettingsStore holds the user-configurable settings, persisted to disk.
 type SettingsStore struct {
-	Animations bool `yaml:"animations"` // Show ASCII animations on startup and resource switching (default: false)
-	mu         sync.Mutex
-	path       string
+	mu   sync.Mutex
+	path string
 }
 
 // Settings is the global singleton for user settings.
@@ -74,11 +73,4 @@ func (s *SettingsStore) Save() {
 	if err := os.WriteFile(s.path, data, 0644); err != nil {
 		logger.Logger.Error().Err(err).Msg("Failed to write settings file")
 	}
-}
-
-// AnimationsEnabled returns whether ASCII animations are enabled.
-func (s *SettingsStore) AnimationsEnabled() bool {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	return s.Animations
 }

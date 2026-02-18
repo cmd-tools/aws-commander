@@ -1,20 +1,27 @@
 package logger
 
 import (
-	"github.com/rs/zerolog"
 	"io"
 	"os"
+	"path/filepath"
+
+	"github.com/rs/zerolog"
 )
 
 var Logger zerolog.Logger
 
-const AWS_COMMANDER_LOG_FILE = "aws-commander.log"
+const awsCommanderLogFileName = "aws-commander.log"
+
+// LogFilePath returns the full path to the log file in the system temporary directory.
+func LogFilePath() string {
+	return filepath.Join(os.TempDir(), awsCommanderLogFileName)
+}
 
 var LogChannel chan string
 
 func InitLog(isLogViewEnabled bool) {
 	runLogFile, _ := os.OpenFile(
-		AWS_COMMANDER_LOG_FILE,
+		LogFilePath(),
 		os.O_APPEND|os.O_CREATE|os.O_WRONLY,
 		0664,
 	)

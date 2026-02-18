@@ -23,13 +23,35 @@ A terminal-based user interface (TUI) for interacting with AWS services. AWS Com
 - **Copy to Clipboard**: Copy data with 'y' key
 
 ## Table of contents
-1. [What the Project Does](#what-the-project-does)
-2. [Key Bindings](#key-bindings)
-3. [Development](#development)
+1. [Installation](#installation)
+2. [What the Project Does](#what-the-project-does)
+3. [Key Bindings](#key-bindings)
+4. [Development](#development)
    1. [Prerequisites](#prerequisites)
-   1. [Getting Started](#getting-started)
-   1. [Running the Application](#running-the-application)
-4. [Versioning](#versioning)
+   2. [Getting Started](#getting-started)
+   3. [Running the Application](#running-the-application)
+   4. [Project Structure](#project-structure)
+   5. [Build and Test](#build-and-test)
+5. [Versioning](#versioning)
+
+## Installation
+
+### Homebrew
+
+```bash
+brew tap cmd-tools/homebrew-tap
+brew install aws-commander
+```
+
+### From source
+
+```bash
+go install github.com/cmd-tools/aws-commander@latest
+```
+
+### Manual download
+
+Download the latest binary for your platform from the [Releases](https://github.com/cmd-tools/aws-commander/releases) page.
 
 ## What the Project Does
 
@@ -69,28 +91,33 @@ AWS Commander is a terminal UI that wraps the AWS CLI, providing:
 ### Prerequisites
 
 This project requires:
-* [AWS cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html).
-* `Makefile` 
-  * `Windows` ([MinGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/));
-  * `Linux`: `apt install make`;
-  * `Mac`: `brew install make`.
-* [Docker](https://docs.docker.com/engine/install/);
-* [Go](https://go.dev/doc/install).
+* [Go](https://go.dev/doc/install) 1.24.0 or later
+* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+* [Docker](https://docs.docker.com/engine/install/) (optional, for LocalStack)
+* `make` (optional, for LocalStack)
+  * `Windows`: [MinGW](http://www.mingw.org/) or [Cygwin](https://www.cygwin.com/)
+  * `Linux`: `apt install make`
+  * `Mac`: `brew install make`
 
 ### Getting Started
 
-1. **Setup local development environment**:
+1. **Clone the repository**:
    ```bash
-   make up
+   git clone https://github.com/cmd-tools/aws-commander.git
+   cd aws-commander
    ```
-   This starts a LocalStack environment with pre-configured AWS resources (DynamoDB tables, S3 buckets, SQS queues) for testing.
 
-2. **Build the application**:
+2. **Install dependencies**:
+   ```bash
+   go mod tidy
+   ```
+
+3. **Build the application**:
    ```bash
    go build -o aws-commander .
    ```
 
-3. **Run the application**:
+4. **Run the application**:
    ```bash
    ./aws-commander
    ```
@@ -100,9 +127,9 @@ This project requires:
    go run .
    ```
 
-4. **Enable logging** (optional):
+5. **Enable logging** (optional):
    - Add `--logview` flag to show logs in the application
-   - Or tail the log file: `tail -f aws-commander.log`
+   - Or tail the log file: `tail -f $TMPDIR/aws-commander.log` (macOS/Linux)
 
 ### Running the Application
 
@@ -115,6 +142,9 @@ make up
 
 # Run AWS Commander
 ./aws-commander
+
+# Stop LocalStack
+make down
 ```
 
 #### With Real AWS Account
@@ -141,6 +171,43 @@ The application will prompt you to select an AWS profile from your `~/.aws/crede
 8. Press `v` in JSON view to toggle between DynamoDB and regular JSON format
 9. Press `ESC` to go back
 10. Press `:` to search within results
+
+### Project Structure
+
+| Package | Purpose |
+|---------|---------|
+| `main` (root) | Entry point, handlers, views, navigation, search |
+| `cmd/` | Domain types, config loading, UI state |
+| `cmd/profile/` | AWS profile discovery and SSO handling |
+| `parser/` | Command output parsing and content view creation |
+| `ui/` | Reusable TUI components (table, list, tree, modal, toast) |
+| `executor/` | Shell command execution wrapper |
+| `logger/` | Logging singleton |
+| `constants/` | Shared string constants |
+| `helpers/` | String utilities, AWS version detection |
+| `configurations/` | YAML service definitions for AWS commands |
+
+### Build and Test
+
+```bash
+# Build
+go build ./...
+
+# Run all tests
+go test ./...
+
+# Run tests with race detector
+go test -race ./...
+
+# Run a specific test
+go test ./parser/ -run Test_ParseCommand_Object
+
+# Static analysis
+go vet ./...
+
+# Format check
+gofmt -l .
+```
 
 ## Versioning
 

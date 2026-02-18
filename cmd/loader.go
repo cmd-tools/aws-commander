@@ -15,7 +15,20 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var ConfigurationsRelativeFilePath = "./configurations"
+var ConfigurationsRelativeFilePath = resolveConfigurationsPath()
+
+// resolveConfigurationsPath returns the configurations directory path relative to the executable location.
+func resolveConfigurationsPath() string {
+	execPath, err := os.Executable()
+	if err != nil {
+		return "./configurations"
+	}
+	execPath, err = filepath.EvalSymlinks(execPath)
+	if err != nil {
+		return "./configurations"
+	}
+	return filepath.Join(filepath.Dir(execPath), "configurations")
+}
 var ConfigurationsRelativeFileExtension = ".yaml"
 
 const VariablePlaceHolderPrefix = "$"

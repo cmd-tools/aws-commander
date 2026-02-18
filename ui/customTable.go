@@ -54,7 +54,8 @@ func CreateCustomTableView(properties CustomTableViewProperties) *tview.Table {
 		SetSelectedStyle(tcell.StyleDefault.
 			Foreground(tcell.ColorBlack).
 			Background(tcell.ColorGold)).
-		SetEvaluateAllRows(true)
+		SetEvaluateAllRows(true).
+		SetFixed(1, 0)
 
 	for colIndex, columnName := range properties.Columns {
 		table.SetCell(0, colIndex, tview.NewTableCell(columnName.Name).

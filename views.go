@@ -181,6 +181,7 @@ func resourceSelectionHandler(selectedResourceName string) {
 
 	if cmd.UiState.Resource.DefaultCommand == constants.EmptyString {
 		Body = createCommandView(cmd.UiState.Resource.GetCommandNames())
+		updateRootView(nil)
 	} else {
 		cmd.UiState.Command = cmd.UiState.Resource.GetCommand(cmd.UiState.Resource.DefaultCommand)
 		pushNavigation(cmd.BreadcrumbCommand, cmd.UiState.Command.Name)
@@ -190,8 +191,6 @@ func resourceSelectionHandler(selectedResourceName string) {
 		})
 		return
 	}
-
-	updateRootView(nil)
 }
 
 // createCommandView creates the command selection view

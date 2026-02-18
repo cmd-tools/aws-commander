@@ -58,3 +58,16 @@ type UIState struct {
 }
 
 var UiState UIState = UIState{SelectedItems: make(map[string]string), Breadcrumbs: []string{}, NavigationStack: []NavigationState{}, CommandCache: make(map[string]string)}
+
+// PaginationPageInfo returns the current page number and whether a next page is available.
+// Page number is derived from the length of the page history stack.
+// HasNext is true when the current navigation state holds a non-empty pagination token.
+func (u *UIState) PaginationPageInfo() (page int, hasNext bool) {
+	page = len(u.PageHistory) + 1
+
+	if len(u.NavigationStack) > 0 {
+		current := u.NavigationStack[len(u.NavigationStack)-1]
+		hasNext = current.PaginationToken != ""
+	}
+	return
+}

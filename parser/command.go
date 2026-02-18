@@ -107,71 +107,80 @@ func ParseCommand(command cmd.Command, commandOutput string) ParseCommandResult 
 			}
 		}
 
-		for i, s := range items {
-			var values []string
+		for _, s := range items {
 			if command.Parse.Type == "object" {
 				// Store raw data for JSON viewer
 				parseCommandResult.RawData = append(parseCommandResult.RawData, s)
+			} else if command.Parse.Type == "list" {
+				if len(parseCommandResult.Header) == 0 {
+					parseCommandResult.Header = append(parseCommandResult.Header, "Item")
+				}
+				if s != nil {
+					parseCommandResult.Values = append(parseCommandResult.Values, []string{s.(string)})
+				}
+			} else {
+				logger.Logger.Debug().Msg("Wrong type. Accepted types [Object, List]")
+			}
+		}
 
-				// Try orderedmap first, then regular map
-				var itemMap map[string]interface{}
+		// For object type, collect the union of all keys across all items to build
+		// a consistent header, then build each row aligned to those header keys.
+		// This handles DynamoDB's schemaless nature where items can have different attributes.
+		if command.Parse.Type == "object" && len(parseCommandResult.RawData) > 0 {
+			var headerKeys []string
+			headerSet := map[string]bool{}
+
+			// First pass: collect union of all keys in order of first appearance
+			for _, s := range parseCommandResult.RawData {
 				var keys []string
-
 				if orderedItem, ok := s.(orderedmap.OrderedMap); ok {
-					// It's an orderedmap
 					keys = orderedItem.Keys()
-					if i == 0 {
-						parseCommandResult.Header = keys
+				} else if regularMap, ok := s.(map[string]interface{}); ok {
+					for key := range regularMap {
+						keys = append(keys, key)
 					}
-					for _, key := range keys {
+				}
+				for _, key := range keys {
+					if !headerSet[key] {
+						headerSet[key] = true
+						headerKeys = append(headerKeys, key)
+					}
+				}
+			}
+
+			parseCommandResult.Header = headerKeys
+
+			// Second pass: build each row aligned to the header keys
+			for _, s := range parseCommandResult.RawData {
+				values := make([]string, len(headerKeys))
+				if orderedItem, ok := s.(orderedmap.OrderedMap); ok {
+					for colIdx, key := range headerKeys {
 						value, exists := orderedItem.Get(key)
 						if exists {
 							switch value.(type) {
 							case string:
-								values = append(values, fmt.Sprintf("%v", value))
+								values[colIdx] = fmt.Sprintf("%v", value)
 							default:
 								bytes, _ := json.Marshal(value)
-								values = append(values, fmt.Sprintf("%v", string(bytes)))
+								values[colIdx] = string(bytes)
 							}
 						}
 					}
 				} else if regularMap, ok := s.(map[string]interface{}); ok {
-					// It's a regular map
-					itemMap = regularMap
-					for key := range itemMap {
-						keys = append(keys, key)
-					}
-					if i == 0 {
-						parseCommandResult.Header = keys
-					}
-					for _, key := range keys {
-						value := itemMap[key]
-						switch value.(type) {
-						case string:
-							values = append(values, fmt.Sprintf("%v", value))
-						default:
-							bytes, _ := json.Marshal(value)
-							values = append(values, fmt.Sprintf("%v", string(bytes)))
+					for colIdx, key := range headerKeys {
+						value, exists := regularMap[key]
+						if exists {
+							switch value.(type) {
+							case string:
+								values[colIdx] = fmt.Sprintf("%v", value)
+							default:
+								bytes, _ := json.Marshal(value)
+								values[colIdx] = string(bytes)
+							}
 						}
 					}
-				} else {
-					logger.Logger.Error().
-						Interface("item", s).
-						Str("type", fmt.Sprintf("%T", s)).
-						Msg("Item is neither orderedmap nor regular map")
-					continue
 				}
-
 				parseCommandResult.Values = append(parseCommandResult.Values, values)
-			} else if command.Parse.Type == "list" {
-				if i == 0 {
-					parseCommandResult.Header = append(parseCommandResult.Header, "Item")
-				}
-				if s != nil {
-					parseCommandResult.Values = append(parseCommandResult.Values, append(values, s.(string)))
-				}
-			} else {
-				logger.Logger.Debug().Msg("Wrong type. Accepted types [Object, List]")
 			}
 		}
 	case interface{}:

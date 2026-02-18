@@ -17,6 +17,22 @@ type KeyInfo struct {
 	AttrType string // S (String), N (Number), B (Binary)
 }
 
+// SortKeyOperator represents the comparison operator for a Sort Key condition
+type SortKeyOperator string
+
+const (
+	SortKeyEquals     SortKeyOperator = "Equals (=)"
+	SortKeyBeginsWith SortKeyOperator = "Begins with"
+)
+
+// sortKeyOperatorOptions returns the available Sort Key operators for the dropdown
+func sortKeyOperatorOptions() []string {
+	return []string{string(SortKeyEquals), string(SortKeyBeginsWith)}
+}
+
+// sortKeyOperatorKey is the well-known key used in the form values map
+const sortKeyOperatorKey = "__sk_operator"
+
 // showKeyInputForm displays an input form for DynamoDB query parameters
 func showKeyInputForm() {
 	// Hide search bar when showing input form
@@ -136,17 +152,36 @@ func parseKeyDetails(keyDetailsText string) []KeyInfo {
 func createQueryInputForm(selectedIndexName string, indexKeys []KeyInfo, indexType string) *tview.Form {
 	// Create input fields for all keys in the index
 	var inputFields []ui.InputField
+	var dropdownFields []ui.DropdownField
+	hasSortKey := false
+	skFieldIndex := -1
+
 	for _, key := range indexKeys {
 		displayLabel := fmt.Sprintf("%s (%s)", key.Name, key.Type)
 		// Mark sort key as optional for primary key queries
 		if key.Type == "SK" && indexType == "Primary Index" {
 			displayLabel = fmt.Sprintf("%s (%s, optional)", key.Name, key.Type)
 		}
+		if key.Type == "SK" {
+			hasSortKey = true
+			skFieldIndex = len(inputFields)
+		}
 		inputFields = append(inputFields, ui.InputField{
 			Label:        displayLabel,
 			Key:          key.Name,
 			DefaultValue: "",
 		})
+	}
+
+	// Add operator dropdown before the Sort Key input field
+	if hasSortKey && skFieldIndex >= 0 {
+		dropdownFields = make([]ui.DropdownField, len(inputFields))
+		dropdownFields[skFieldIndex] = ui.DropdownField{
+			Label:        "Sort Key Operator",
+			Key:          sortKeyOperatorKey,
+			Options:      sortKeyOperatorOptions(),
+			DefaultIndex: 0,
+		}
 	}
 
 	// Build title showing index name
@@ -156,11 +191,12 @@ func createQueryInputForm(selectedIndexName string, indexKeys []KeyInfo, indexTy
 	}
 
 	return ui.CreateInputForm(ui.InputFormProperties{
-		Title:    formTitle,
-		Fields:   inputFields,
-		OnSubmit: createQuerySubmitHandler(indexKeys, indexType, selectedIndexName),
-		OnCancel: createQueryCancelHandler(),
-		App:      App,
+		Title:          formTitle,
+		Fields:         inputFields,
+		DropdownFields: dropdownFields,
+		OnSubmit:       createQuerySubmitHandler(indexKeys, indexType, selectedIndexName),
+		OnCancel:       createQueryCancelHandler(),
+		App:            App,
 	})
 }
 
@@ -296,6 +332,8 @@ func buildQueryExpression(indexKeys []KeyInfo, values map[string]string) (string
 	expressionAttrNamesMap := make(map[string]string)
 	placeholderIndex := 0
 
+	skOperator := SortKeyOperator(values[sortKeyOperatorKey])
+
 	for _, key := range indexKeys {
 		// Skip keys with empty values (e.g., optional sort key)
 		if values[key.Name] == "" {
@@ -312,8 +350,14 @@ func buildQueryExpression(indexKeys []KeyInfo, values map[string]string) (string
 			expressionAttrNamesMap[keyRef] = key.Name
 		}
 
-		// Add condition for key
-		keyConditionParts = append(keyConditionParts, fmt.Sprintf("%s = %s", keyRef, placeholder))
+		// Build condition based on key type and operator
+		var condition string
+		if key.Type == "SK" && skOperator == SortKeyBeginsWith {
+			condition = fmt.Sprintf("begins_with(%s, %s)", keyRef, placeholder)
+		} else {
+			condition = fmt.Sprintf("%s = %s", keyRef, placeholder)
+		}
+		keyConditionParts = append(keyConditionParts, condition)
 
 		// Map attribute type (S, N, B) to value
 		expressionAttrValuesMap[placeholder] = map[string]string{

@@ -424,8 +424,19 @@ func parseToTableView(parsedResult ParseCommandResult, command cmd.Command, comm
 		cmd.UiState.Resource.Name, command.Name,
 		parsedResult.Values, parsedResult.RawData,
 	)
+
+	title := fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(rows))
+	if command.Pagination != nil && command.Pagination.Enabled {
+		page, hasNext := cmd.UiState.PaginationPageInfo()
+		if hasNext {
+			title = fmt.Sprintf(" %s [%d] - Page %d >> ", parsedResult.Command, len(rows), page)
+		} else {
+			title = fmt.Sprintf(" %s [%d] - Page %d ", parsedResult.Command, len(rows), page)
+		}
+	}
+
 	return ui.CreateCustomTableView(ui.CustomTableViewProperties{
-		Title:          fmt.Sprintf(" %s [%d] ", parsedResult.Command, len(rows)),
+		Title:          title,
 		Columns:        mapCommandHeaderToColumn(parsedResult.Header),
 		Rows:           rows,
 		RowData:        rowData,

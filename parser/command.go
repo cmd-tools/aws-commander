@@ -704,7 +704,8 @@ func createCsvContentView(commandName string, fileName string, content []byte, d
 	table.SetSelectable(true, false).
 		SetSelectedStyle(tcell.StyleDefault.
 			Foreground(tcell.ColorBlack).
-			Background(tcell.ColorGold))
+			Background(tcell.ColorGold)).
+		SetFixed(1, 0)
 
 	// First row as header
 	for colIndex, header := range records[0] {
@@ -774,7 +775,8 @@ func createJsonlContentView(commandName string, fileName string, content []byte)
 	table.SetSelectable(true, false).
 		SetSelectedStyle(tcell.StyleDefault.
 			Foreground(tcell.ColorBlack).
-			Background(tcell.ColorGold))
+			Background(tcell.ColorGold)).
+		SetFixed(1, 0)
 
 	// Header row
 	for colIndex, header := range columnOrder {

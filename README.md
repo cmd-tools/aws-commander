@@ -129,7 +129,7 @@ This project requires:
 
 5. **Enable logging** (optional):
    - Add `--logview` flag to show logs in the application
-   - Or tail the log file: `tail -f aws-commander.log`
+   - Or tail the log file: `tail -f $TMPDIR/aws-commander.log` (macOS/Linux)
 
 ### Running the Application
 

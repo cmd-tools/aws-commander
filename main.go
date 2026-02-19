@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"embed"
 	"flag"
 
 	"github.com/cmd-tools/aws-commander/cmd"
@@ -11,6 +12,9 @@ import (
 	"github.com/cmd-tools/aws-commander/ui"
 	"github.com/rivo/tview"
 )
+
+//go:embed configurations/*.yaml
+var configurationsFS embed.FS
 
 // Global application state
 var (
@@ -32,7 +36,7 @@ func main() {
 	logger.Logger.Info().Msg("Starting aws-commander")
 	logger.Logger.Debug().Msg("Loading configurations")
 
-	cmd.Init()
+	cmd.Init(configurationsFS)
 	cmd.Favourites.Load()
 	cmd.Settings.Load()
 

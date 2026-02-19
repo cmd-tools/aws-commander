@@ -3,9 +3,8 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"log"
-	"os"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -15,12 +14,15 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var ConfigurationsRelativeFilePath = "./configurations"
-var ConfigurationsRelativeFileExtension = ".yaml"
+const ConfigurationsDir = "configurations"
+const ConfigurationsFileExtension = ".yaml"
 
 const VariablePlaceHolderPrefix = "$"
 
 var Resources = map[string]Resource{}
+
+// configFS holds a reference to the embedded configuration filesystem for retry loading.
+var configFS fs.FS
 
 type Command struct {
 	Name             string      `yaml:"name"`
@@ -62,9 +64,11 @@ type Resource struct {
 	Commands       []Command `yaml:"commands"`
 }
 
-func Init() {
+// Init loads all YAML configuration files from the embedded filesystem.
+func Init(embeddedFS fs.FS) {
 
-	entries, err := os.ReadDir(ConfigurationsRelativeFilePath)
+	configFS = embeddedFS
+	entries, err := fs.ReadDir(configFS, ConfigurationsDir)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -72,8 +76,8 @@ func Init() {
 	channel := make(chan Resource)
 
 	for _, e := range entries {
-		if filepath.Ext(e.Name()) == ConfigurationsRelativeFileExtension {
-			go processConfigurationFile(channel, fmt.Sprintf("%s/%s", ConfigurationsRelativeFilePath, e.Name()))
+		if strings.HasSuffix(e.Name(), ConfigurationsFileExtension) {
+			go processConfigurationFile(channel, configFS, fmt.Sprintf("%s/%s", ConfigurationsDir, e.Name()))
 			resource := <-channel
 			Resources[resource.Name] = resource
 		}
@@ -85,7 +89,7 @@ func Init() {
 func GetAvailableResourceNames() []string {
 	if len(Resources) == 0 {
 		logger.Logger.Warn().Msg("No resources found, try to load from configuration again")
-		Init()
+		Init(configFS)
 	}
 
 	if len(Resources) == 0 {
@@ -159,10 +163,10 @@ func (command *Command) RunToFile(resource string, profile string, outFile strin
 	return output
 }
 
-func processConfigurationFile(channel chan Resource, filename string) {
+func processConfigurationFile(channel chan Resource, configFS fs.FS, filename string) {
 	logger.Logger.Debug().Msg(fmt.Sprintf("[Worker] Loading configurations from: %s", filename))
 	resource := Resource{}
-	yamlFile, err := os.ReadFile(filename)
+	yamlFile, err := fs.ReadFile(configFS, filename)
 	if err != nil {
 		logger.Logger.Error().Msg(fmt.Sprintf("[Worker] Error while reading: %s, description: #%v", filename, err))
 	}

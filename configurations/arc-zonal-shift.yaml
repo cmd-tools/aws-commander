@@ -1,0 +1,138 @@
+name: arc-zonal-shift
+defaultCommand: ''
+commands:
+- name: ListAutoshifts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: autoshift
+  rerunOnBack: false
+  favouritable: true
+- name: ListManagedResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: managedresource
+  rerunOnBack: false
+  favouritable: true
+- name: ListZonalShifts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: zonalshift
+  rerunOnBack: false
+  favouritable: true
+- name: GetAutoshiftObserverNotificationStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Arc-Zonal-Shift
+  rerunOnBack: false
+  favouritable: true
+- name: GetManagedResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Arc-Zonal-Shift
+  rerunOnBack: false
+  favouritable: true
+- name: CancelPracticeRun
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: CancelZonalShift
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: StartPracticeRun
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: StartZonalShift
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

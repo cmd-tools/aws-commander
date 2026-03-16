@@ -1,0 +1,303 @@
+name: ses
+defaultCommand: ''
+commands:
+- name: ListConfigurationSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: configurationset
+  rerunOnBack: false
+  favouritable: true
+- name: ListCustomVerificationEmailTemplates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: customverificationemailtemplate
+  rerunOnBack: false
+  favouritable: true
+- name: ListIdentities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: identitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListIdentityPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: identitypolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListReceiptFilters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: receiptfilter
+  rerunOnBack: false
+  favouritable: true
+- name: ListReceiptRuleSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: receiptruleset
+  rerunOnBack: false
+  favouritable: true
+- name: ListTemplates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: template
+  rerunOnBack: false
+  favouritable: true
+- name: ListVerifiedEmailAddresses
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: verifiedemailaddresse
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeActiveReceiptRuleSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeConfigurationSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeReceiptRule
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeReceiptRuleSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetAccountSendingEnabled
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetCustomVerificationEmailTemplate
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdentityDkimAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdentityMailFromDomainAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdentityNotificationAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdentityPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdentityVerificationAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true
+- name: GetSendQuota
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ses
+  rerunOnBack: false
+  favouritable: true

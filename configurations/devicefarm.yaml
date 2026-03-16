@@ -1,0 +1,303 @@
+name: devicefarm
+defaultCommand: ''
+commands:
+- name: ListArtifacts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: artifact
+  rerunOnBack: false
+  favouritable: true
+- name: ListDeviceInstances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: deviceinstance
+  rerunOnBack: false
+  favouritable: true
+- name: ListDevicePools
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: devicepool
+  rerunOnBack: false
+  favouritable: true
+- name: ListDevices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: device
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstanceProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instanceprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: job
+  rerunOnBack: false
+  favouritable: true
+- name: ListNetworkProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: networkprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListOfferingPromotions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: offeringpromotion
+  rerunOnBack: false
+  favouritable: true
+- name: ListOfferingTransactions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: offeringtransaction
+  rerunOnBack: false
+  favouritable: true
+- name: ListOfferings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: offering
+  rerunOnBack: false
+  favouritable: true
+- name: ListProjects
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: project
+  rerunOnBack: false
+  favouritable: true
+- name: ListRemoteAccessSessions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: remoteaccesssession
+  rerunOnBack: false
+  favouritable: true
+- name: ListRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: run
+  rerunOnBack: false
+  favouritable: true
+- name: ListSamples
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: sample
+  rerunOnBack: false
+  favouritable: true
+- name: ListSuites
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: suite
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListTestGridProjects
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testgridproject
+  rerunOnBack: false
+  favouritable: true
+- name: ListTestGridSessionActions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testgridsessionaction
+  rerunOnBack: false
+  favouritable: true
+- name: ListTestGridSessionArtifacts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testgridsessionartifact
+  rerunOnBack: false
+  favouritable: true
+- name: ListTestGridSessions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testgridsession
+  rerunOnBack: false
+  favouritable: true

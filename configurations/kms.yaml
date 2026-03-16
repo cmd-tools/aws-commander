@@ -1,0 +1,243 @@
+name: kms
+defaultCommand: ''
+commands:
+- name: ListAliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: aliase
+  rerunOnBack: false
+  favouritable: true
+- name: ListGrants
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: grant
+  rerunOnBack: false
+  favouritable: true
+- name: ListKeyPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: keypolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListKeyRotations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: keyrotation
+  rerunOnBack: false
+  favouritable: true
+- name: ListKeys
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: key
+  rerunOnBack: false
+  favouritable: true
+- name: ListResourceTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: resourcetag
+  rerunOnBack: false
+  favouritable: true
+- name: ListRetirableGrants
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: retirablegrant
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeCustomKeyStores
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeKey
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: GetKeyPolicy
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: GetKeyRotationStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: GetParametersForImport
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: GetPublicKey
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kms
+  rerunOnBack: false
+  favouritable: true
+- name: CancelKeyDeletion
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ConnectCustomKeyStore
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: Decrypt
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

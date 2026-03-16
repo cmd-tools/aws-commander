@@ -1,0 +1,138 @@
+name: machinelearning
+defaultCommand: ''
+commands:
+- name: DescribeBatchPredictions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeDataSources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeEvaluations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeMLModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: GetBatchPrediction
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: GetDataSource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: GetEvaluation
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true
+- name: GetMLModel
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Machinelearning
+  rerunOnBack: false
+  favouritable: true

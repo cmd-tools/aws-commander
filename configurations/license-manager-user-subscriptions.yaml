@@ -1,0 +1,213 @@
+name: license-manager-user-subscriptions
+defaultCommand: ''
+commands:
+- name: ListIdentityProviders
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: identityprovider
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instance
+  rerunOnBack: false
+  favouritable: true
+- name: ListLicenseServerEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: licenseserverendpoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListProductSubscriptions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: productsubscription
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListUserAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: userassociation
+  rerunOnBack: false
+  favouritable: true
+- name: AssociateUser
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: DeregisterIdentityProvider
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: DisassociateUser
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: RegisterIdentityProvider
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: StartProductSubscription
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: StopProductSubscription
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: TagResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: UntagResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

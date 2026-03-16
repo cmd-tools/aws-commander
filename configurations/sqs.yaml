@@ -1,85 +1,295 @@
-name: "sqs"
-defaultCommand: "list-queues"
+name: sqs
+defaultCommand: list-queues
 commands:
-  - name: "list-queues"
-    resourceName: queueName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--max-results"
-      - "1000"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "QueueUrls"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "NextToken"
-  - name: "receive-message"
-    depends_on: "list-queues"
-    rerunOnBack: false
-    arguments:
-      - "--queue-url"
-      - "$QUEUENAME"
-      - "--max-number-of-messages"
-      - "10"
-      - "--wait-time-seconds"
-      - "0"
-      - "--visibility-timeout"
-      - "0"
-      - "--attribute-names"
-      - "All"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Messages"
-    pagination:
-      enabled: true
-      nextTokenParam: ""
-      nextTokenJsonPath: ""
-  - name: "get-queue-attributes"
-    depends_on: "list-queues"
-    rerunOnBack: false
-    arguments:
-      - "--queue-url"
-      - "$QUEUENAME"
-      - "--attribute-names"
-      - "All"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Attributes"
-  - name: "purge-queue"
-    depends_on: "list-queues"
-    rerunOnBack: true
-    arguments:
-      - "--queue-url"
-      - "$QUEUENAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
+- name: list-queues
+  resourceName: queueName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --max-results
+  - '1000'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: QueueUrls
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: receive-message
+  depends_on: list-queues
+  rerunOnBack: false
+  arguments:
+  - --queue-url
+  - $QUEUENAME
+  - --max-number-of-messages
+  - '10'
+  - --wait-time-seconds
+  - '0'
+  - --visibility-timeout
+  - '0'
+  - --attribute-names
+  - All
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Messages
+  pagination:
+    enabled: true
+    nextTokenParam: ''
+    nextTokenJsonPath: ''
+- name: get-queue-attributes
+  depends_on: list-queues
+  rerunOnBack: false
+  arguments:
+  - --queue-url
+  - $QUEUENAME
+  - --attribute-names
+  - All
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Attributes
+- name: purge-queue
+  depends_on: list-queues
+  rerunOnBack: true
+  arguments:
+  - --queue-url
+  - $QUEUENAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+- name: ListDeadLetterSourceQueues
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: deadlettersourcequeue
+  rerunOnBack: false
+  favouritable: true
+- name: ListMessageMoveTasks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: messagemovetask
+  rerunOnBack: false
+  favouritable: true
+- name: ListQueueTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: queuetag
+  rerunOnBack: false
+  favouritable: true
+- name: ListQueues
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: queue
+  rerunOnBack: false
+  favouritable: true
+- name: GetQueueAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sqs
+  rerunOnBack: false
+  favouritable: true
+- name: GetQueueUrl
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sqs
+  rerunOnBack: false
+  favouritable: true
+- name: CancelMessageMoveTask
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ChangeMessageVisibility
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ChangeMessageVisibilityBatch
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: PurgeQueue
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ReceiveMessage
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: SendMessage
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: SendMessageBatch
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: SetQueueAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

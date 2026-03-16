@@ -1,0 +1,168 @@
+name: elb
+defaultCommand: ''
+commands:
+- name: DescribeAccountLimits
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeInstanceHealth
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeLoadBalancerAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeLoadBalancerPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeLoadBalancerPolicyTypes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeLoadBalancers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Elb
+  rerunOnBack: false
+  favouritable: true
+- name: ApplySecurityGroupsToLoadBalancer
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: AttachLoadBalancerToSubnets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ConfigureHealthCheck
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: DeregisterInstancesFromLoadBalancer
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

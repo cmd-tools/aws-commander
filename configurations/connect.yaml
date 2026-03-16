@@ -1,0 +1,303 @@
+name: connect
+defaultCommand: ''
+commands:
+- name: ListAgentStatuses
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: agentstatuse
+  rerunOnBack: false
+  favouritable: true
+- name: ListAnalyticsDataAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: analyticsdataassociation
+  rerunOnBack: false
+  favouritable: true
+- name: ListAnalyticsDataLakeDataSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: analyticsdatalakedataset
+  rerunOnBack: false
+  favouritable: true
+- name: ListApprovedOrigins
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: approvedorigin
+  rerunOnBack: false
+  favouritable: true
+- name: ListAssociatedContacts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: associatedcontact
+  rerunOnBack: false
+  favouritable: true
+- name: ListAuthenticationProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: authenticationprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListBots
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: bot
+  rerunOnBack: false
+  favouritable: true
+- name: ListChildHoursOfOperations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: childhoursofoperation
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactEvaluations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactevaluation
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactFlowModuleAliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactflowmodulealiase
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactFlowModuleVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactflowmoduleversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactFlowModules
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactflowmodule
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactFlowVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactflowversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactFlows
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactflow
+  rerunOnBack: false
+  favouritable: true
+- name: ListContactReferences
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contactreference
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataTableAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: datatableattribute
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataTablePrimaryValues
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: datatableprimaryvalue
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataTableValues
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: datatablevalue
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataTables
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: datatable
+  rerunOnBack: false
+  favouritable: true
+- name: ListDefaultVocabularies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: defaultvocabularie
+  rerunOnBack: false
+  favouritable: true

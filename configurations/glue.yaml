@@ -1,0 +1,303 @@
+name: glue
+defaultCommand: ''
+commands:
+- name: ListBlueprints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: blueprint
+  rerunOnBack: false
+  favouritable: true
+- name: ListColumnStatisticsTaskRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: columnstatisticstaskrun
+  rerunOnBack: false
+  favouritable: true
+- name: ListConnectionTypes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: connectiontype
+  rerunOnBack: false
+  favouritable: true
+- name: ListCrawlers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: crawler
+  rerunOnBack: false
+  favouritable: true
+- name: ListCrawls
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: crawl
+  rerunOnBack: false
+  favouritable: true
+- name: ListCustomEntityTypes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: customentitytype
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityResults
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualityresult
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityRuleRecommendationRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualityrulerecommendationrun
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityRulesetEvaluationRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualityrulesetevaluationrun
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityRulesets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualityruleset
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityStatisticAnnotations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualitystatisticannotation
+  rerunOnBack: false
+  favouritable: true
+- name: ListDataQualityStatistics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: dataqualitystatistic
+  rerunOnBack: false
+  favouritable: true
+- name: ListDevEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: devendpoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListEntities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: entitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListIntegrationResourceProperties
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: integrationresourcepropertie
+  rerunOnBack: false
+  favouritable: true
+- name: ListJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: job
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLTransforms
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mltransform
+  rerunOnBack: false
+  favouritable: true
+- name: ListMaterializedViewRefreshTaskRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: materializedviewrefreshtaskrun
+  rerunOnBack: false
+  favouritable: true
+- name: ListRegistries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: registrie
+  rerunOnBack: false
+  favouritable: true
+- name: ListSchemaVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: schemaversion
+  rerunOnBack: false
+  favouritable: true

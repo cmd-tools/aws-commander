@@ -1,70 +1,370 @@
-name: "logs"
-defaultCommand: "describe-log-groups"
+name: logs
+defaultCommand: describe-log-groups
 commands:
-  - name: "describe-log-groups"
-    resourceName: logGroupName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "logGroups"
-  - name: "describe-log-streams"
-    depends_on: "describe-log-groups"
-    resourceName: logStreamName
-    rerunOnBack: false
-    arguments:
-      - "--log-group-name"
-      - "$LOGGROUPNAME"
-      - "--order-by"
-      - "LastEventTime"
-      - "--descending"
-      - "--max-items"
-      - "50"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "logStreams"
-    pagination:
-      enabled: true
-      nextTokenParam: "--starting-token"
-      nextTokenJsonPath: "nextToken"
-  - name: "get-log-events"
-    depends_on: "describe-log-streams"
-    rerunOnBack: false
-    arguments:
-      - "--log-group-name"
-      - "$LOGGROUPNAME"
-      - "--log-stream-name"
-      - "$LOGSTREAMNAME"
-      - "--limit"
-      - "100"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "events"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "nextForwardToken"
+- name: describe-log-groups
+  resourceName: logGroupName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: logGroups
+- name: describe-log-streams
+  depends_on: describe-log-groups
+  resourceName: logStreamName
+  rerunOnBack: false
+  arguments:
+  - --log-group-name
+  - $LOGGROUPNAME
+  - --order-by
+  - LastEventTime
+  - --descending
+  - --max-items
+  - '50'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: logStreams
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: nextToken
+- name: get-log-events
+  depends_on: describe-log-streams
+  rerunOnBack: false
+  arguments:
+  - --log-group-name
+  - $LOGGROUPNAME
+  - --log-stream-name
+  - $LOGSTREAMNAME
+  - --limit
+  - '100'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: events
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextForwardToken
+- name: ListAggregateLogGroupSummaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: aggregateloggroupsummarie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAnomalies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: anomalie
+  rerunOnBack: false
+  favouritable: true
+- name: ListIntegrations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: integration
+  rerunOnBack: false
+  favouritable: true
+- name: ListLogAnomalyDetectors
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loganomalydetector
+  rerunOnBack: false
+  favouritable: true
+- name: ListLogGroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggroup
+  rerunOnBack: false
+  favouritable: true
+- name: ListLogGroupsForQuery
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggroupsforquerys
+  rerunOnBack: false
+  favouritable: true
+- name: ListScheduledQueries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: scheduledquerie
+  rerunOnBack: false
+  favouritable: true
+- name: ListSourcesForS3TableIntegration
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: sourcesfors3tableintegrations
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsLogGroup
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsloggroups
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAccountPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeConfigurationTemplates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeDeliveries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeDeliveryDestinations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeDeliverySources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeDestinations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeExportTasks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeFieldIndexes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeImportTaskBatches
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeImportTasks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Logs
+  rerunOnBack: false
+  favouritable: true

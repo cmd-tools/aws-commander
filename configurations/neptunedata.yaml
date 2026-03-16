@@ -1,0 +1,303 @@
+name: neptunedata
+defaultCommand: ''
+commands:
+- name: ListGremlinQueries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: gremlinquerie
+  rerunOnBack: false
+  favouritable: true
+- name: ListLoaderJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loaderjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLDataProcessingJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mldataprocessingjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mlendpoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLModelTrainingJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mlmodeltrainingjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLModelTransformJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mlmodeltransformjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListOpenCypherQueries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: opencypherquerie
+  rerunOnBack: false
+  favouritable: true
+- name: GetEngineStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetGremlinQueryStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetLoaderJobStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetMLDataProcessingJob
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetMLEndpoint
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetMLModelTrainingJob
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetMLModelTransformJob
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetOpenCypherQueryStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetPropertygraphStatistics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetPropertygraphStream
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetPropertygraphSummary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetRDFGraphSummary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true
+- name: GetSparqlStatistics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Neptunedata
+  rerunOnBack: false
+  favouritable: true

@@ -1,0 +1,303 @@
+name: greengrass
+defaultCommand: ''
+commands:
+- name: ListBulkDeploymentDetailedReports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: bulkdeploymentdetailedreport
+  rerunOnBack: false
+  favouritable: true
+- name: ListBulkDeployments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: bulkdeployment
+  rerunOnBack: false
+  favouritable: true
+- name: ListConnectorDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: connectordefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListConnectorDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: connectordefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListCoreDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: coredefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListCoreDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: coredefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListDeployments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: deployment
+  rerunOnBack: false
+  favouritable: true
+- name: ListDeviceDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: devicedefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListDeviceDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: devicedefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListFunctionDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: functiondefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListFunctionDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: functiondefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroupCertificateAuthorities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: groupcertificateauthoritie
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroupVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: groupversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: group
+  rerunOnBack: false
+  favouritable: true
+- name: ListLoggerDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggerdefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListLoggerDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggerdefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListResourceDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: resourcedefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListResourceDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: resourcedefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListSubscriptionDefinitionVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: subscriptiondefinitionversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListSubscriptionDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: subscriptiondefinition
+  rerunOnBack: false
+  favouritable: true

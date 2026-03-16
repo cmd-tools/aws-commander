@@ -1,0 +1,138 @@
+name: trustedadvisor
+defaultCommand: ''
+commands:
+- name: ListChecks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: check
+  rerunOnBack: false
+  favouritable: true
+- name: ListOrganizationRecommendationAccounts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: organizationrecommendationaccount
+  rerunOnBack: false
+  favouritable: true
+- name: ListOrganizationRecommendationResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: organizationrecommendationresource
+  rerunOnBack: false
+  favouritable: true
+- name: ListOrganizationRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: organizationrecommendation
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecommendationResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recommendationresource
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recommendation
+  rerunOnBack: false
+  favouritable: true
+- name: GetOrganizationRecommendation
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Trustedadvisor
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecommendation
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Trustedadvisor
+  rerunOnBack: false
+  favouritable: true
+- name: BatchUpdateRecommendationResourceExclusion
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

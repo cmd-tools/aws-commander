@@ -1,121 +1,421 @@
-name: "iam"
-defaultCommand: ""
+name: iam
+defaultCommand: ''
 commands:
-  - name: "list-users"
-    resourceName: UserName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "Users"
-  - name: "list-groups-for-user"
-    depends_on: "list-users"
-    rerunOnBack: false
-    arguments:
-      - "--user-name"
-      - "$USERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Groups"
-  - name: "list-attached-user-policies"
-    depends_on: "list-users"
-    rerunOnBack: false
-    arguments:
-      - "--user-name"
-      - "$USERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "AttachedPolicies"
-  - name: "list-user-policies"
-    depends_on: "list-users"
-    rerunOnBack: false
-    arguments:
-      - "--user-name"
-      - "$USERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "PolicyNames"
-  - name: "list-roles"
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Roles"
-  - name: "list-groups"
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "Groups"
-  - name: "list-policies"
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--scope"
-      - "Local"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Policies"
+- name: list-users
+  resourceName: UserName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: Users
+- name: list-groups-for-user
+  depends_on: list-users
+  rerunOnBack: false
+  arguments:
+  - --user-name
+  - $USERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Groups
+- name: list-attached-user-policies
+  depends_on: list-users
+  rerunOnBack: false
+  arguments:
+  - --user-name
+  - $USERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: AttachedPolicies
+- name: list-user-policies
+  depends_on: list-users
+  rerunOnBack: false
+  arguments:
+  - --user-name
+  - $USERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: PolicyNames
+- name: list-roles
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Roles
+- name: list-groups
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: Groups
+- name: list-policies
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --scope
+  - Local
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Policies
+- name: ListAccessKeys
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accesskey
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccountAliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountaliase
+  rerunOnBack: false
+  favouritable: true
+- name: ListAttachedGroupPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: attachedgrouppolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAttachedRolePolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: attachedrolepolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAttachedUserPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: attacheduserpolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListDelegationRequests
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: delegationrequest
+  rerunOnBack: false
+  favouritable: true
+- name: ListEntitiesForPolicy
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: entitiesforpolicys
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroupPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: grouppolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: group
+  rerunOnBack: false
+  favouritable: true
+- name: ListGroupsForUser
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: groupsforusers
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstanceProfileTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instanceprofiletag
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstanceProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instanceprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstanceProfilesForRole
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instanceprofilesforroles
+  rerunOnBack: false
+  favouritable: true
+- name: ListMFADeviceTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mfadevicetag
+  rerunOnBack: false
+  favouritable: true
+- name: ListMFADevices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mfadevice
+  rerunOnBack: false
+  favouritable: true
+- name: ListOpenIDConnectProviderTags
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: openidconnectprovidertag
+  rerunOnBack: false
+  favouritable: true
+- name: ListOpenIDConnectProviders
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: openidconnectprovider
+  rerunOnBack: false
+  favouritable: true
+- name: ListOrganizationsFeatures
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: organizationsfeature
+  rerunOnBack: false
+  favouritable: true
+- name: ListPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: policie
+  rerunOnBack: false
+  favouritable: true
+- name: ListPoliciesGrantingServiceAccess
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: policiesgrantingserviceacces
+  rerunOnBack: false
+  favouritable: true

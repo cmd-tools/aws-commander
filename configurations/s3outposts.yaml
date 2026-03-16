@@ -1,0 +1,48 @@
+name: s3outposts
+defaultCommand: ''
+commands:
+- name: ListEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: endpoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListOutpostsWithS3
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: outpostswiths3s
+  rerunOnBack: false
+  favouritable: true
+- name: ListSharedEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: sharedendpoint
+  rerunOnBack: false
+  favouritable: true

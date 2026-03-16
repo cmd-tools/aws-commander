@@ -1,84 +1,384 @@
-name: "dynamodb"
-defaultCommand: "list-tables"
+name: dynamodb
+defaultCommand: list-tables
 commands:
-  - name: "list-tables"
-    resourceName: tableName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--max-items"
-      - "1000"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "TableNames"
-  - name: "scan"
-    depends_on: "list-tables"
-    rerunOnBack: false
-    arguments:
-      - "--table-name"
-      - "$TABLENAME"
-      - "--limit"
-      - "50"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Items"
-    pagination:
-      enabled: true
-      nextTokenParam: "--exclusive-start-key"
-      nextTokenJsonPath: "LastEvaluatedKey"
-  - name: "describe-table"
-    depends_on: "list-tables"
-    rerunOnBack: false
-    resourceName: indexName
-    arguments:
-      - "--table-name"
-      - "$TABLENAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "keys"
-      attributeName: "Table"
-  - name: "query"
-    depends_on: "describe-table"
-    rerunOnBack: false
-    requiresKeyInput: true
-    arguments:
-      - "--table-name"
-      - "$TABLENAME"
-      - "--limit"
-      - "50"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "2"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Items"
-    pagination:
-      enabled: true
-      nextTokenParam: "--exclusive-start-key"
-      nextTokenJsonPath: "LastEvaluatedKey"
+- name: list-tables
+  resourceName: tableName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --max-items
+  - '1000'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: TableNames
+- name: scan
+  depends_on: list-tables
+  rerunOnBack: false
+  arguments:
+  - --table-name
+  - $TABLENAME
+  - --limit
+  - '50'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Items
+  pagination:
+    enabled: true
+    nextTokenParam: --exclusive-start-key
+    nextTokenJsonPath: LastEvaluatedKey
+- name: describe-table
+  depends_on: list-tables
+  rerunOnBack: false
+  resourceName: indexName
+  arguments:
+  - --table-name
+  - $TABLENAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: keys
+    attributeName: Table
+- name: query
+  depends_on: describe-table
+  rerunOnBack: false
+  requiresKeyInput: true
+  arguments:
+  - --table-name
+  - $TABLENAME
+  - --limit
+  - '50'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '2'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Items
+  pagination:
+    enabled: true
+    nextTokenParam: --exclusive-start-key
+    nextTokenJsonPath: LastEvaluatedKey
+- name: ListBackups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backup
+  rerunOnBack: false
+  favouritable: true
+- name: ListContributorInsights
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: contributorinsight
+  rerunOnBack: false
+  favouritable: true
+- name: ListExports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: export
+  rerunOnBack: false
+  favouritable: true
+- name: ListGlobalTables
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: globaltable
+  rerunOnBack: false
+  favouritable: true
+- name: ListImports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: import
+  rerunOnBack: false
+  favouritable: true
+- name: ListTables
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: table
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsOfResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsofresources
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeBackup
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeContinuousBackups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeContributorInsights
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeExport
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeGlobalTable
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeGlobalTableSettings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeImport
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeKinesisStreamingDestination
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeLimits
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTable
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTableReplicaAutoScaling
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTimeToLive
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodb
+  rerunOnBack: false
+  favouritable: true

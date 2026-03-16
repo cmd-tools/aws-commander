@@ -1,0 +1,48 @@
+name: autoscaling-plans
+defaultCommand: ''
+commands:
+- name: DescribeScalingPlanResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Autoscaling-Plans
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeScalingPlans
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Autoscaling-Plans
+  rerunOnBack: false
+  favouritable: true
+- name: GetScalingPlanResourceForecastData
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Autoscaling-Plans
+  rerunOnBack: false
+  favouritable: true

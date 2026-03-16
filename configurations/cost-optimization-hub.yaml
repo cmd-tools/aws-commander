@@ -1,0 +1,93 @@
+name: cost-optimization-hub
+defaultCommand: ''
+commands:
+- name: ListEfficiencyMetrics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: efficiencymetric
+  rerunOnBack: false
+  favouritable: true
+- name: ListEnrollmentStatuses
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: enrollmentstatuse
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecommendationSummaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recommendationsummarie
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recommendation
+  rerunOnBack: false
+  favouritable: true
+- name: GetPreferences
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cost-Optimization-Hub
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecommendation
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cost-Optimization-Hub
+  rerunOnBack: false
+  favouritable: true

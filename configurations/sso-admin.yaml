@@ -1,0 +1,303 @@
+name: sso-admin
+defaultCommand: ''
+commands:
+- name: ListAccountAssignmentCreationStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountassignmentcreationstatu
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccountAssignmentDeletionStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountassignmentdeletionstatu
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccountAssignments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountassignment
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccountAssignmentsForPrincipal
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountassignmentsforprincipals
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccountsForProvisionedPermissionSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountsforprovisionedpermissionsets
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationAccessScopes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationaccessscope
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationAssignments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationassignment
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationAssignmentsForPrincipal
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationassignmentsforprincipals
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationAuthenticationMethods
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationauthenticationmethod
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationGrants
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationgrant
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplicationProviders
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: applicationprovider
+  rerunOnBack: false
+  favouritable: true
+- name: ListApplications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: application
+  rerunOnBack: false
+  favouritable: true
+- name: ListCustomerManagedPolicyReferencesInPermissionSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: customermanagedpolicyreferencesinpermissionsets
+  rerunOnBack: false
+  favouritable: true
+- name: ListInstances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: instance
+  rerunOnBack: false
+  favouritable: true
+- name: ListManagedPoliciesInPermissionSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: managedpoliciesinpermissionsets
+  rerunOnBack: false
+  favouritable: true
+- name: ListPermissionSetProvisioningStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: permissionsetprovisioningstatu
+  rerunOnBack: false
+  favouritable: true
+- name: ListPermissionSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: permissionset
+  rerunOnBack: false
+  favouritable: true
+- name: ListPermissionSetsProvisionedToAccount
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: permissionsetsprovisionedtoaccounts
+  rerunOnBack: false
+  favouritable: true
+- name: ListRegions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: region
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true

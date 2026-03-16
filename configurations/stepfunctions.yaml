@@ -1,64 +1,289 @@
-name: "stepfunctions"
-defaultCommand: "list-state-machines"
+name: stepfunctions
+defaultCommand: list-state-machines
 commands:
-  - name: "list-state-machines"
-    resourceName: stateMachineArn
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "stateMachines"
-  - name: "list-executions"
-    depends_on: "list-state-machines"
-    resourceName: executionArn
-    rerunOnBack: false
-    arguments:
-      - "--state-machine-arn"
-      - "$STATEMACHINEARN"
-      - "--max-items"
-      - "100"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "executions"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "nextToken"
-  - name: "get-execution-history"
-    depends_on: "list-executions"
-    rerunOnBack: false
-    arguments:
-      - "--execution-arn"
-      - "$EXECUTIONARN"
-      - "--reverse-order"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "events"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "nextToken"
+- name: list-state-machines
+  resourceName: stateMachineArn
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: stateMachines
+- name: list-executions
+  depends_on: list-state-machines
+  resourceName: executionArn
+  rerunOnBack: false
+  arguments:
+  - --state-machine-arn
+  - $STATEMACHINEARN
+  - --max-items
+  - '100'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: executions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-execution-history
+  depends_on: list-executions
+  rerunOnBack: false
+  arguments:
+  - --execution-arn
+  - $EXECUTIONARN
+  - --reverse-order
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: events
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: ListActivities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: activitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListExecutions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: execution
+  rerunOnBack: false
+  favouritable: true
+- name: ListMapRuns
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: maprun
+  rerunOnBack: false
+  favouritable: true
+- name: ListStateMachineAliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: statemachinealiase
+  rerunOnBack: false
+  favouritable: true
+- name: ListStateMachineVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: statemachineversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListStateMachines
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: statemachine
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeActivity
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeExecution
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeMapRun
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeStateMachine
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeStateMachineAlias
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeStateMachineForExecution
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: GetActivityTask
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: GetExecutionHistory
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Stepfunctions
+  rerunOnBack: false
+  favouritable: true

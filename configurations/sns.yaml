@@ -1,78 +1,348 @@
-name: "sns"
-defaultCommand: "list-topics"
+name: sns
+defaultCommand: list-topics
 commands:
-  - name: "list-topics"
-    resourceName: topicArn
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "Topics"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "NextToken"
-  - name: "list-subscriptions-by-topic"
-    depends_on: "list-topics"
-    resourceName: subscriptionArn
-    rerunOnBack: false
-    arguments:
-      - "--topic-arn"
-      - "$TOPICARN"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Subscriptions"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "NextToken"
-  - name: "get-topic-attributes"
-    depends_on: "list-topics"
-    rerunOnBack: false
-    arguments:
-      - "--topic-arn"
-      - "$TOPICARN"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "keys"
-      attributeName: "Attributes"
-  - name: "get-subscription-attributes"
-    depends_on: "list-subscriptions-by-topic"
-    rerunOnBack: false
-    arguments:
-      - "--subscription-arn"
-      - "$SUBSCRIPTIONARN"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "keys"
-      attributeName: "Attributes"
+- name: list-topics
+  resourceName: topicArn
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: Topics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-subscriptions-by-topic
+  depends_on: list-topics
+  resourceName: subscriptionArn
+  rerunOnBack: false
+  arguments:
+  - --topic-arn
+  - $TOPICARN
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Subscriptions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-topic-attributes
+  depends_on: list-topics
+  rerunOnBack: false
+  arguments:
+  - --topic-arn
+  - $TOPICARN
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: keys
+    attributeName: Attributes
+- name: get-subscription-attributes
+  depends_on: list-subscriptions-by-topic
+  rerunOnBack: false
+  arguments:
+  - --subscription-arn
+  - $SUBSCRIPTIONARN
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: keys
+    attributeName: Attributes
+- name: ListEndpointsByPlatformApplication
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: endpointsbyplatformapplications
+  rerunOnBack: false
+  favouritable: true
+- name: ListOriginationNumbers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: originationnumber
+  rerunOnBack: false
+  favouritable: true
+- name: ListPhoneNumbersOptedOut
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: phonenumbersoptedouts
+  rerunOnBack: false
+  favouritable: true
+- name: ListPlatformApplications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: platformapplication
+  rerunOnBack: false
+  favouritable: true
+- name: ListSMSSandboxPhoneNumbers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: smssandboxphonenumber
+  rerunOnBack: false
+  favouritable: true
+- name: ListSubscriptions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: subscription
+  rerunOnBack: false
+  favouritable: true
+- name: ListSubscriptionsByTopic
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: subscriptionsbytopics
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListTopics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: topic
+  rerunOnBack: false
+  favouritable: true
+- name: GetDataProtectionPolicy
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetEndpointAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetPlatformApplicationAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetSMSAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetSMSSandboxAccountStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetSubscriptionAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: GetTopicAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sns
+  rerunOnBack: false
+  favouritable: true
+- name: CheckIfPhoneNumberIsOptedOut
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ConfirmSubscription
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

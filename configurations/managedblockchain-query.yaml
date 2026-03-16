@@ -1,0 +1,138 @@
+name: managedblockchain-query
+defaultCommand: ''
+commands:
+- name: ListAssetContracts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: assetcontract
+  rerunOnBack: false
+  favouritable: true
+- name: ListFilteredTransactionEvents
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: filteredtransactionevent
+  rerunOnBack: false
+  favouritable: true
+- name: ListTokenBalances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tokenbalance
+  rerunOnBack: false
+  favouritable: true
+- name: ListTransactionEvents
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: transactionevent
+  rerunOnBack: false
+  favouritable: true
+- name: ListTransactions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: transaction
+  rerunOnBack: false
+  favouritable: true
+- name: GetAssetContract
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Managedblockchain-Query
+  rerunOnBack: false
+  favouritable: true
+- name: GetTokenBalance
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Managedblockchain-Query
+  rerunOnBack: false
+  favouritable: true
+- name: GetTransaction
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Managedblockchain-Query
+  rerunOnBack: false
+  favouritable: true
+- name: BatchGetTokenBalance
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Managedblockchain-Query
+  rerunOnBack: false
+  favouritable: true

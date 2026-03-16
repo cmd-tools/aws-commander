@@ -1,40 +1,340 @@
-name: "cloudfront"
-defaultCommand: "list-distributions"
+name: cloudfront
+defaultCommand: list-distributions
 commands:
-  - name: "list-distributions"
-    resourceName: Id
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--query"
-      - "DistributionList"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Items"
-  - name: "list-invalidations"
-    depends_on: "list-distributions"
-    rerunOnBack: false
-    arguments:
-      - "--distribution-id"
-      - "$ID"
-      - "--query"
-      - "InvalidationList"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Items"
+- name: list-distributions
+  resourceName: Id
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --query
+  - DistributionList
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Items
+- name: list-invalidations
+  depends_on: list-distributions
+  rerunOnBack: false
+  arguments:
+  - --distribution-id
+  - $ID
+  - --query
+  - InvalidationList
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Items
+- name: ListAnycastIpLists
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: anycastip
+  rerunOnBack: false
+  favouritable: true
+- name: ListCachePolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: cachepolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListCloudFrontOriginAccessIdentities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: cloudfrontoriginaccessidentitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListConflictingAliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: conflictingaliase
+  rerunOnBack: false
+  favouritable: true
+- name: ListConnectionFunctions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: connectionfunction
+  rerunOnBack: false
+  favouritable: true
+- name: ListConnectionGroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: connectiongroup
+  rerunOnBack: false
+  favouritable: true
+- name: ListContinuousDeploymentPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: continuousdeploymentpolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionTenants
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributiontenant
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionTenantsByCustomization
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributiontenantsbycustomizations
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distribution
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByAnycastIpListId
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyanycastipids
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByCachePolicyId
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbycachepolicyids
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByConnectionFunction
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyconnectionfunctions
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByConnectionMode
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyconnectionmodes
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByKeyGroup
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbykeygroups
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByOriginRequestPolicyId
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyoriginrequestpolicyids
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByOwnedResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyownedresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByRealtimeLogConfig
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyrealtimelogconfigs
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByResponseHeadersPolicyId
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbyresponseheaderspolicyids
+  rerunOnBack: false
+  favouritable: true
+- name: ListDistributionsByTrustStore
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: distributionsbytruststores
+  rerunOnBack: false
+  favouritable: true

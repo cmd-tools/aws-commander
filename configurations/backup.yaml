@@ -1,0 +1,303 @@
+name: backup
+defaultCommand: ''
+commands:
+- name: ListBackupJobSummaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupjobsummarie
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupPlanTemplates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupplantemplate
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupPlanVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupplanversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupPlans
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupplan
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupSelections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupselection
+  rerunOnBack: false
+  favouritable: true
+- name: ListBackupVaults
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: backupvault
+  rerunOnBack: false
+  favouritable: true
+- name: ListCopyJobSummaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: copyjobsummarie
+  rerunOnBack: false
+  favouritable: true
+- name: ListCopyJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: copyjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListFrameworks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: framework
+  rerunOnBack: false
+  favouritable: true
+- name: ListIndexedRecoveryPoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: indexedrecoverypoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListLegalHolds
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: legalhold
+  rerunOnBack: false
+  favouritable: true
+- name: ListProtectedResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: protectedresource
+  rerunOnBack: false
+  favouritable: true
+- name: ListProtectedResourcesByBackupVault
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: protectedresourcesbybackupvaults
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecoveryPointsByBackupVault
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recoverypointsbybackupvaults
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecoveryPointsByLegalHold
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recoverypointsbylegalholds
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecoveryPointsByResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recoverypointsbyresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListReportJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: reportjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListReportPlans
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: reportplan
+  rerunOnBack: false
+  favouritable: true
+- name: ListRestoreAccessBackupVaults
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: restoreaccessbackupvault
+  rerunOnBack: false
+  favouritable: true

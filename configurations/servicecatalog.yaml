@@ -1,0 +1,303 @@
+name: servicecatalog
+defaultCommand: ''
+commands:
+- name: ListAcceptedPortfolioShares
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: acceptedportfolioshare
+  rerunOnBack: false
+  favouritable: true
+- name: ListBudgetsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: budgetsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListConstraintsForPortfolio
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: constraintsforportfolios
+  rerunOnBack: false
+  favouritable: true
+- name: ListLaunchPaths
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: launchpath
+  rerunOnBack: false
+  favouritable: true
+- name: ListOrganizationPortfolioAccess
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: organizationportfolioacces
+  rerunOnBack: false
+  favouritable: true
+- name: ListPortfolioAccess
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: portfolioacces
+  rerunOnBack: false
+  favouritable: true
+- name: ListPortfolios
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: portfolio
+  rerunOnBack: false
+  favouritable: true
+- name: ListPortfoliosForProduct
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: portfoliosforproducts
+  rerunOnBack: false
+  favouritable: true
+- name: ListPrincipalsForPortfolio
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: principalsforportfolios
+  rerunOnBack: false
+  favouritable: true
+- name: ListProvisionedProductPlans
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: provisionedproductplan
+  rerunOnBack: false
+  favouritable: true
+- name: ListProvisioningArtifacts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: provisioningartifact
+  rerunOnBack: false
+  favouritable: true
+- name: ListProvisioningArtifactsForServiceAction
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: provisioningartifactsforserviceactions
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecordHistory
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recordhistorys
+  rerunOnBack: false
+  favouritable: true
+- name: ListResourcesForTagOption
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: resourcesfortagoptions
+  rerunOnBack: false
+  favouritable: true
+- name: ListServiceActions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: serviceaction
+  rerunOnBack: false
+  favouritable: true
+- name: ListServiceActionsForProvisioningArtifact
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: serviceactionsforprovisioningartifacts
+  rerunOnBack: false
+  favouritable: true
+- name: ListStackInstancesForProvisionedProduct
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: stackinstancesforprovisionedproducts
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagOptions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagoption
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeConstraint
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Servicecatalog
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeCopyProductStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Servicecatalog
+  rerunOnBack: false
+  favouritable: true

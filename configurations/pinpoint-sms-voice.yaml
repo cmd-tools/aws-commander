@@ -1,0 +1,48 @@
+name: pinpoint-sms-voice
+defaultCommand: ''
+commands:
+- name: ListConfigurationSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: configurationset
+  rerunOnBack: false
+  favouritable: true
+- name: GetConfigurationSetEventDestinations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice
+  rerunOnBack: false
+  favouritable: true
+- name: SendVoiceMessage
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

@@ -1,0 +1,303 @@
+name: cleanroomsml
+defaultCommand: ''
+commands:
+- name: ListAudienceExportJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: audienceexportjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListAudienceGenerationJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: audiencegenerationjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListAudienceModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: audiencemodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListCollaborationConfiguredModelAlgorithmAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collaborationconfiguredmodelalgorithmassociation
+  rerunOnBack: false
+  favouritable: true
+- name: ListCollaborationMLInputChannels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collaborationmlinputchannel
+  rerunOnBack: false
+  favouritable: true
+- name: ListCollaborationTrainedModelExportJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collaborationtrainedmodelexportjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListCollaborationTrainedModelInferenceJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collaborationtrainedmodelinferencejob
+  rerunOnBack: false
+  favouritable: true
+- name: ListCollaborationTrainedModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collaborationtrainedmodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListConfiguredAudienceModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: configuredaudiencemodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListConfiguredModelAlgorithmAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: configuredmodelalgorithmassociation
+  rerunOnBack: false
+  favouritable: true
+- name: ListConfiguredModelAlgorithms
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: configuredmodelalgorithm
+  rerunOnBack: false
+  favouritable: true
+- name: ListMLInputChannels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mlinputchannel
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListTrainedModelInferenceJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: trainedmodelinferencejob
+  rerunOnBack: false
+  favouritable: true
+- name: ListTrainedModelVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: trainedmodelversion
+  rerunOnBack: false
+  favouritable: true
+- name: ListTrainedModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: trainedmodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListTrainingDatasets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: trainingdataset
+  rerunOnBack: false
+  favouritable: true
+- name: GetAudienceGenerationJob
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cleanroomsml
+  rerunOnBack: false
+  favouritable: true
+- name: GetAudienceModel
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cleanroomsml
+  rerunOnBack: false
+  favouritable: true
+- name: GetCollaborationConfiguredModelAlgorithmAssociation
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cleanroomsml
+  rerunOnBack: false
+  favouritable: true

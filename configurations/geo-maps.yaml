@@ -1,0 +1,78 @@
+name: geo-maps
+defaultCommand: ''
+commands:
+- name: GetGlyphs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Geo-Maps
+  rerunOnBack: false
+  favouritable: true
+- name: GetSprites
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Geo-Maps
+  rerunOnBack: false
+  favouritable: true
+- name: GetStaticMap
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Geo-Maps
+  rerunOnBack: false
+  favouritable: true
+- name: GetStyleDescriptor
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Geo-Maps
+  rerunOnBack: false
+  favouritable: true
+- name: GetTile
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Geo-Maps
+  rerunOnBack: false
+  favouritable: true

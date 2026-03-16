@@ -1,0 +1,303 @@
+name: pinpoint-sms-voice-v2
+defaultCommand: ''
+commands:
+- name: ListPoolOriginationIdentities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: pooloriginationidentitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListProtectConfigurationRuleSetNumberOverrides
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: protectconfigurationrulesetnumberoverride
+  rerunOnBack: false
+  favouritable: true
+- name: ListRegistrationAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: registrationassociation
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAccountAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAccountLimits
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeConfigurationSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeKeywords
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeOptOutLists
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: describeoptout
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeOptedOutNumbers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribePhoneNumbers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribePools
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeProtectConfigurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationAttachments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationFieldDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationFieldValues
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationSectionDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationTypeDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrationVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeRegistrations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Pinpoint-Sms-Voice-V2
+  rerunOnBack: false
+  favouritable: true

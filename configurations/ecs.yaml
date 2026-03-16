@@ -1,56 +1,356 @@
-name: "ecs"
-defaultCommand: "list-clusters"
+name: ecs
+defaultCommand: list-clusters
 commands:
-  - name: "list-clusters"
-    resourceName: clusterArn
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "clusterArns"
-  - name: "list-services"
-    depends_on: "list-clusters"
-    resourceName: serviceArn
-    rerunOnBack: false
-    arguments:
-      - "--cluster"
-      - "$CLUSTERARN"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "serviceArns"
-  - name: "list-tasks"
-    depends_on: "list-services"
-    rerunOnBack: false
-    arguments:
-      - "--cluster"
-      - "$CLUSTERARN"
-      - "--service-name"
-      - "$SERVICEARN"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "taskArns"
+- name: list-clusters
+  resourceName: clusterArn
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: clusterArns
+- name: list-services
+  depends_on: list-clusters
+  resourceName: serviceArn
+  rerunOnBack: false
+  arguments:
+  - --cluster
+  - $CLUSTERARN
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: serviceArns
+- name: list-tasks
+  depends_on: list-services
+  rerunOnBack: false
+  arguments:
+  - --cluster
+  - $CLUSTERARN
+  - --service-name
+  - $SERVICEARN
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: taskArns
+- name: ListAccountSettings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountsetting
+  rerunOnBack: false
+  favouritable: true
+- name: ListAttributes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: attribute
+  rerunOnBack: false
+  favouritable: true
+- name: ListClusters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: cluster
+  rerunOnBack: false
+  favouritable: true
+- name: ListContainerInstances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: containerinstance
+  rerunOnBack: false
+  favouritable: true
+- name: ListServiceDeployments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: servicedeployment
+  rerunOnBack: false
+  favouritable: true
+- name: ListServices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: service
+  rerunOnBack: false
+  favouritable: true
+- name: ListServicesByNamespace
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: servicesbynamespaces
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListTaskDefinitionFamilies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: taskdefinitionfamilie
+  rerunOnBack: false
+  favouritable: true
+- name: ListTaskDefinitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: taskdefinition
+  rerunOnBack: false
+  favouritable: true
+- name: ListTasks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: task
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeCapacityProviders
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeClusters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeContainerInstances
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeExpressGatewayService
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeServiceDeployments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeServiceRevisions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeServices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTaskDefinition
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeTaskSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Ecs
+  rerunOnBack: false
+  favouritable: true

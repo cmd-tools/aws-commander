@@ -1,0 +1,288 @@
+name: compute-optimizer
+defaultCommand: ''
+commands:
+- name: DescribeRecommendationExportJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetAutoScalingGroupRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEBSVolumeRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEC2InstanceRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEC2RecommendationProjectedMetrics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetECSServiceRecommendationProjectedMetrics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetECSServiceRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEffectiveRecommendationPreferences
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEnrollmentStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetEnrollmentStatusesForOrganization
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetIdleRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetLambdaFunctionRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetLicenseRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetRDSDatabaseRecommendationProjectedMetrics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetRDSDatabaseRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecommendationPreferences
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecommendationSummaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Compute-Optimizer
+  rerunOnBack: false
+  favouritable: true
+- name: ExportAutoScalingGroupRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true
+- name: ExportEBSVolumeRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

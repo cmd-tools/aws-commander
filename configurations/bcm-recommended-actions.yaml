@@ -1,0 +1,18 @@
+name: bcm-recommended-actions
+defaultCommand: ''
+commands:
+- name: ListRecommendedActions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recommendedaction
+  rerunOnBack: false
+  favouritable: true

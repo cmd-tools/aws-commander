@@ -1,0 +1,303 @@
+name: bedrock
+defaultCommand: ''
+commands:
+- name: ListAutomatedReasoningPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: automatedreasoningpolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAutomatedReasoningPolicyBuildWorkflows
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: automatedreasoningpolicybuildworkflow
+  rerunOnBack: false
+  favouritable: true
+- name: ListAutomatedReasoningPolicyTestCases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: automatedreasoningpolicytestcase
+  rerunOnBack: false
+  favouritable: true
+- name: ListAutomatedReasoningPolicyTestResults
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: automatedreasoningpolicytestresult
+  rerunOnBack: false
+  favouritable: true
+- name: ListCustomModelDeployments
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: custommodeldeployment
+  rerunOnBack: false
+  favouritable: true
+- name: ListCustomModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: custommodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListEnforcedGuardrailsConfiguration
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: enforcedguardrailsconfigurations
+  rerunOnBack: false
+  favouritable: true
+- name: ListEvaluationJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: evaluationjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListFoundationModelAgreementOffers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: foundationmodelagreementoffer
+  rerunOnBack: false
+  favouritable: true
+- name: ListFoundationModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: foundationmodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListGuardrails
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: guardrail
+  rerunOnBack: false
+  favouritable: true
+- name: ListImportedModels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: importedmodel
+  rerunOnBack: false
+  favouritable: true
+- name: ListInferenceProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: inferenceprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListMarketplaceModelEndpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: marketplacemodelendpoint
+  rerunOnBack: false
+  favouritable: true
+- name: ListModelCopyJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: modelcopyjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListModelCustomizationJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: modelcustomizationjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListModelImportJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: modelimportjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListModelInvocationJobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: modelinvocationjob
+  rerunOnBack: false
+  favouritable: true
+- name: ListPromptRouters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: promptrouter
+  rerunOnBack: false
+  favouritable: true
+- name: ListProvisionedModelThroughputs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: provisionedmodelthroughput
+  rerunOnBack: false
+  favouritable: true

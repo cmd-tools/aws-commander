@@ -1,0 +1,33 @@
+name: migrationhub-config
+defaultCommand: ''
+commands:
+- name: DescribeHomeRegionControls
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Migrationhub-Config
+  rerunOnBack: false
+  favouritable: true
+- name: GetHomeRegion
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Migrationhub-Config
+  rerunOnBack: false
+  favouritable: true

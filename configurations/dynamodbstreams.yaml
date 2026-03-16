@@ -1,0 +1,63 @@
+name: dynamodbstreams
+defaultCommand: ''
+commands:
+- name: ListStreams
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: stream
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeStream
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodbstreams
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecords
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodbstreams
+  rerunOnBack: false
+  favouritable: true
+- name: GetShardIterator
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Dynamodbstreams
+  rerunOnBack: false
+  favouritable: true

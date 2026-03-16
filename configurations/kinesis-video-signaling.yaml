@@ -1,0 +1,33 @@
+name: kinesis-video-signaling
+defaultCommand: ''
+commands:
+- name: GetIceServerConfig
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Kinesis-Video-Signaling
+  rerunOnBack: false
+  favouritable: true
+- name: SendAlexaOfferToMaster
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

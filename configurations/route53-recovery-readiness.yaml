@@ -1,0 +1,243 @@
+name: route53-recovery-readiness
+defaultCommand: ''
+commands:
+- name: ListCells
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: cell
+  rerunOnBack: false
+  favouritable: true
+- name: ListCrossAccountAuthorizations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: crossaccountauthorization
+  rerunOnBack: false
+  favouritable: true
+- name: ListReadinessChecks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: readinesscheck
+  rerunOnBack: false
+  favouritable: true
+- name: ListRecoveryGroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: recoverygroup
+  rerunOnBack: false
+  favouritable: true
+- name: ListResourceSets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: resourceset
+  rerunOnBack: false
+  favouritable: true
+- name: ListRules
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: rule
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresource
+  rerunOnBack: false
+  favouritable: true
+- name: GetArchitectureRecommendations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetCell
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetCellReadinessSummary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetReadinessCheck
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetReadinessCheckResourceStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetReadinessCheckStatus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecoveryGroup
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetRecoveryGroupReadinessSummary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true
+- name: GetResourceSet
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Route53-Recovery-Readiness
+  rerunOnBack: false
+  favouritable: true

@@ -1,70 +1,370 @@
-name: "eks"
-defaultCommand: "list-clusters"
+name: eks
+defaultCommand: list-clusters
 commands:
-  - name: "list-clusters"
-    resourceName: clusterName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "clusters"
-  - name: "list-nodegroups"
-    depends_on: "list-clusters"
-    rerunOnBack: false
-    arguments:
-      - "--cluster-name"
-      - "$CLUSTERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "nodegroups"
-  - name: "list-fargate-profiles"
-    depends_on: "list-clusters"
-    rerunOnBack: false
-    arguments:
-      - "--cluster-name"
-      - "$CLUSTERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "fargateProfileNames"
-  - name: "list-addons"
-    depends_on: "list-clusters"
-    rerunOnBack: false
-    arguments:
-      - "--cluster-name"
-      - "$CLUSTERNAME"
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "list"
-      attributeName: "addons"
+- name: list-clusters
+  resourceName: clusterName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: clusters
+- name: list-nodegroups
+  depends_on: list-clusters
+  rerunOnBack: false
+  arguments:
+  - --cluster-name
+  - $CLUSTERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: nodegroups
+- name: list-fargate-profiles
+  depends_on: list-clusters
+  rerunOnBack: false
+  arguments:
+  - --cluster-name
+  - $CLUSTERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: fargateProfileNames
+- name: list-addons
+  depends_on: list-clusters
+  rerunOnBack: false
+  arguments:
+  - --cluster-name
+  - $CLUSTERNAME
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: list
+    attributeName: addons
+- name: ListAccessEntries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accessentrie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAccessPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accesspolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListAddons
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: addon
+  rerunOnBack: false
+  favouritable: true
+- name: ListAssociatedAccessPolicies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: associatedaccesspolicie
+  rerunOnBack: false
+  favouritable: true
+- name: ListCapabilities
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: capabilitie
+  rerunOnBack: false
+  favouritable: true
+- name: ListClusters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: cluster
+  rerunOnBack: false
+  favouritable: true
+- name: ListEksAnywhereSubscriptions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: eksanywheresubscription
+  rerunOnBack: false
+  favouritable: true
+- name: ListFargateProfiles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: fargateprofile
+  rerunOnBack: false
+  favouritable: true
+- name: ListIdentityProviderConfigs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: identityproviderconfig
+  rerunOnBack: false
+  favouritable: true
+- name: ListInsights
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: insight
+  rerunOnBack: false
+  favouritable: true
+- name: ListNodegroups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: nodegroup
+  rerunOnBack: false
+  favouritable: true
+- name: ListPodIdentityAssociations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: podidentityassociation
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: ListUpdates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: update
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAccessEntry
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAddon
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAddonConfiguration
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeAddonVersions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeCapability
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeCluster
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Eks
+  rerunOnBack: false
+  favouritable: true

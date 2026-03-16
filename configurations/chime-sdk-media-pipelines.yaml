@@ -1,0 +1,168 @@
+name: chime-sdk-media-pipelines
+defaultCommand: ''
+commands:
+- name: ListMediaCapturePipelines
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mediacapturepipeline
+  rerunOnBack: false
+  favouritable: true
+- name: ListMediaInsightsPipelineConfigurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mediainsightspipelineconfiguration
+  rerunOnBack: false
+  favouritable: true
+- name: ListMediaPipelineKinesisVideoStreamPools
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mediapipelinekinesisvideostreampool
+  rerunOnBack: false
+  favouritable: true
+- name: ListMediaPipelines
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: mediapipeline
+  rerunOnBack: false
+  favouritable: true
+- name: ListTagsForResource
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tagsforresources
+  rerunOnBack: false
+  favouritable: true
+- name: GetMediaCapturePipeline
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true
+- name: GetMediaInsightsPipelineConfiguration
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true
+- name: GetMediaPipeline
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true
+- name: GetMediaPipelineKinesisVideoStreamPool
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true
+- name: GetSpeakerSearchTask
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true
+- name: GetVoiceToneAnalysisTask
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Chime-Sdk-Media-Pipelines
+  rerunOnBack: false
+  favouritable: true

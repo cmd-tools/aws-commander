@@ -1,7 +1,7 @@
 name: observabilityadmin
-defaultCommand: ''
+defaultCommand: list-centralization-rules-for-organization
 commands:
-- name: ListCentralizationRulesForOrganization
+- name: list-centralization-rules-for-organization
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: centralizationrulesfororganizations
+    attributeName: CentralizationRuleSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListResourceTelemetry
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-telemetry
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcetelemetrys
+    attributeName: TelemetryConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListResourceTelemetryForOrganization
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-telemetry-for-organization
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcetelemetryfororganizations
+    attributeName: TelemetryConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListS3TableIntegrations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-s3-table-integrations
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: s3tableintegration
+    attributeName: IntegrationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-telemetry-pipelines
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: PipelineSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTelemetryPipelines
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-telemetry-rules
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: telemetrypipeline
+    attributeName: TelemetryRuleSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTelemetryRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-telemetry-rules-for-organization
   arguments:
   - --output
   - json
@@ -103,141 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: telemetryrule
+    attributeName: TelemetryRuleSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTelemetryRulesForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: telemetryrulesfororganizations
-  rerunOnBack: false
-  favouritable: true
-- name: GetCentralizationRuleForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetS3TableIntegration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryEnrichmentStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryEvaluationStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryEvaluationStatusForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryPipeline
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryRule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryRuleForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Observabilityadmin
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

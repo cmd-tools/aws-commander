@@ -1,7 +1,7 @@
 name: organizations
-defaultCommand: ''
+defaultCommand: list-accounts
 commands:
-- name: ListAWSServiceAccessForOrganization
+- name: list-aws-service-access-for-organization
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: awsserviceaccessfororganizations
+    attributeName: EnabledServicePrincipals
   rerunOnBack: false
   favouritable: true
-- name: ListAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-accounts
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: account
+    attributeName: Accounts
   rerunOnBack: false
   favouritable: true
-- name: ListAccountsForParent
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-create-account-status
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountsforparents
+    attributeName: CreateAccountStatuses
   rerunOnBack: false
   favouritable: true
-- name: ListAccountsWithInvalidEffectivePolicy
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-delegated-administrators
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountswithinvalideffectivepolicys
+    attributeName: DelegatedAdministrators
   rerunOnBack: false
   favouritable: true
-- name: ListChildren
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-handshakes-for-account
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: childrens
+    attributeName: Handshakes
   rerunOnBack: false
   favouritable: true
-- name: ListCreateAccountStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-handshakes-for-organization
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: createaccountstatu
+    attributeName: Handshakes
   rerunOnBack: false
   favouritable: true
-- name: ListDelegatedAdministrators
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-roots
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: delegatedadministrator
+    attributeName: Roots
   rerunOnBack: false
   favouritable: true
-- name: ListDelegatedServicesForAccount
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-organization
   arguments:
   - --output
   - json
@@ -118,10 +146,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: delegatedservicesforaccounts
+    attributeName: Organization
   rerunOnBack: false
   favouritable: true
-- name: ListEffectivePolicyValidationErrors
+- name: describe-resource-policy
   arguments:
   - --output
   - json
@@ -133,10 +161,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: effectivepolicyvalidationerror
+    attributeName: ResourcePolicy
   rerunOnBack: false
   favouritable: true
-- name: ListHandshakesForAccount
+- name: enable-all-features
   arguments:
   - --output
   - json
@@ -148,156 +176,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: handshakesforaccounts
-  rerunOnBack: false
-  favouritable: true
-- name: ListHandshakesForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: handshakesfororganizations
-  rerunOnBack: false
-  favouritable: true
-- name: ListInboundResponsibilityTransfers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: inboundresponsibilitytransfer
-  rerunOnBack: false
-  favouritable: true
-- name: ListOrganizationalUnitsForParent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: organizationalunitsforparents
-  rerunOnBack: false
-  favouritable: true
-- name: ListOutboundResponsibilityTransfers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: outboundresponsibilitytransfer
-  rerunOnBack: false
-  favouritable: true
-- name: ListParents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: parent
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policie
-  rerunOnBack: false
-  favouritable: true
-- name: ListPoliciesForTarget
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policiesfortargets
-  rerunOnBack: false
-  favouritable: true
-- name: ListRoots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: root
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTargetsForPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: targetsforpolicys
+    attributeName: Handshake
   rerunOnBack: false
   favouritable: true

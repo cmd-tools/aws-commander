@@ -1,7 +1,7 @@
 name: mediaconnect
-defaultCommand: ''
+defaultCommand: list-bridges
 commands:
-- name: ListBridges
+- name: list-bridges
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: bridge
+    attributeName: Bridges
   rerunOnBack: false
   favouritable: true
-- name: ListEntitlements
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-entitlements
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entitlement
+    attributeName: Entitlements
   rerunOnBack: false
   favouritable: true
-- name: ListFlows
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-flows
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: flow
+    attributeName: Flows
   rerunOnBack: false
   favouritable: true
-- name: ListGatewayInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-gateway-instances
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gatewayinstance
+    attributeName: Instances
   rerunOnBack: false
   favouritable: true
-- name: ListGateways
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-gateways
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gateway
+    attributeName: Gateways
   rerunOnBack: false
   favouritable: true
-- name: ListOfferings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-offerings
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: offering
+    attributeName: Offerings
   rerunOnBack: false
   favouritable: true
-- name: ListReservations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-reservations
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reservation
+    attributeName: Reservations
   rerunOnBack: false
   favouritable: true
-- name: ListRouterInputs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-router-inputs
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: routerinput
+    attributeName: RouterInputs
   rerunOnBack: false
   favouritable: true
-- name: ListRouterNetworkInterfaces
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-router-network-interfaces
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: routernetworkinterface
+    attributeName: RouterNetworkInterfaces
   rerunOnBack: false
   favouritable: true
-- name: ListRouterOutputs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-router-outputs
   arguments:
   - --output
   - json
@@ -148,156 +184,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: routeroutput
+    attributeName: RouterOutputs
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForGlobalResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforglobalresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeBridge
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFlow
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFlowSourceMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFlowSourceThumbnail
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeGateway
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeGatewayInstance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeOffering
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeReservation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconnect
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

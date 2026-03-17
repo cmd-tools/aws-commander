@@ -1,7 +1,7 @@
 name: cleanrooms
-defaultCommand: ''
+defaultCommand: list-collaborations
 commands:
-- name: ListAnalysisTemplates
+- name: list-collaborations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: analysistemplate
+    attributeName: collaborationList
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationAnalysisTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-configured-tables
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collaborationanalysistemplate
+    attributeName: configuredTableSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationChangeRequests
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-memberships
   arguments:
   - --output
   - json
@@ -43,261 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collaborationchangerequest
+    attributeName: membershipSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationConfiguredAudienceModelAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationconfiguredaudiencemodelassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListCollaborationIdNamespaceAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationidnamespaceassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListCollaborationPrivacyBudgetTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationprivacybudgettemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListCollaborationPrivacyBudgets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationprivacybudget
-  rerunOnBack: false
-  favouritable: true
-- name: ListCollaborations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaboration
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredAudienceModelAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredaudiencemodelassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredTableAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredtableassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredTables
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredtable
-  rerunOnBack: false
-  favouritable: true
-- name: ListIdMappingTables
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: idmappingtable
-  rerunOnBack: false
-  favouritable: true
-- name: ListIdNamespaceAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: idnamespaceassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListMembers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: member
-  rerunOnBack: false
-  favouritable: true
-- name: ListMemberships
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: membership
-  rerunOnBack: false
-  favouritable: true
-- name: ListPrivacyBudgetTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: privacybudgettemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListPrivacyBudgets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: privacybudget
-  rerunOnBack: false
-  favouritable: true
-- name: ListProtectedJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: protectedjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListProtectedQueries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: protectedquerie
-  rerunOnBack: false
-  favouritable: true
-- name: ListSchemas
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: schema
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

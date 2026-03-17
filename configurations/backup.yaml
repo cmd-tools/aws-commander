@@ -1,7 +1,7 @@
 name: backup
-defaultCommand: ''
+defaultCommand: list-backup-job-summaries
 commands:
-- name: ListBackupJobSummaries
+- name: list-backup-job-summaries
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupjobsummarie
+    attributeName: BackupJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBackupJobs
+- name: list-backup-jobs
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupjob
+    attributeName: BackupJobs
   rerunOnBack: false
   favouritable: true
-- name: ListBackupPlanTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-backup-plan-templates
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupplantemplate
+    attributeName: BackupPlanTemplatesList
   rerunOnBack: false
   favouritable: true
-- name: ListBackupPlanVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-backup-plans
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupplanversion
+    attributeName: BackupPlansList
   rerunOnBack: false
   favouritable: true
-- name: ListBackupPlans
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-backup-vaults
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupplan
+    attributeName: BackupVaultList
   rerunOnBack: false
   favouritable: true
-- name: ListBackupSelections
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-copy-job-summaries
   arguments:
   - --output
   - json
@@ -88,10 +104,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupselection
+    attributeName: CopyJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBackupVaults
+- name: list-copy-jobs
   arguments:
   - --output
   - json
@@ -103,10 +119,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: backupvault
+    attributeName: CopyJobs
   rerunOnBack: false
   favouritable: true
-- name: ListCopyJobSummaries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-frameworks
   arguments:
   - --output
   - json
@@ -118,10 +138,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: copyjobsummarie
+    attributeName: Frameworks
   rerunOnBack: false
   favouritable: true
-- name: ListCopyJobs
+- name: list-indexed-recovery-points
   arguments:
   - --output
   - json
@@ -133,10 +153,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: copyjob
+    attributeName: IndexedRecoveryPoints
   rerunOnBack: false
   favouritable: true
-- name: ListFrameworks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-legal-holds
   arguments:
   - --output
   - json
@@ -148,10 +172,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: framework
+    attributeName: LegalHolds
   rerunOnBack: false
   favouritable: true
-- name: ListIndexedRecoveryPoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-protected-resources
   arguments:
   - --output
   - json
@@ -163,10 +191,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: indexedrecoverypoint
+    attributeName: Results
   rerunOnBack: false
   favouritable: true
-- name: ListLegalHolds
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-report-jobs
   arguments:
   - --output
   - json
@@ -178,10 +210,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: legalhold
+    attributeName: ReportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListProtectedResources
+- name: list-report-plans
   arguments:
   - --output
   - json
@@ -193,10 +225,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: protectedresource
+    attributeName: ReportPlans
   rerunOnBack: false
   favouritable: true
-- name: ListProtectedResourcesByBackupVault
+- name: list-restore-job-summaries
   arguments:
   - --output
   - json
@@ -208,10 +240,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: protectedresourcesbybackupvaults
+    attributeName: RestoreJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListRecoveryPointsByBackupVault
+- name: list-restore-jobs
   arguments:
   - --output
   - json
@@ -223,10 +255,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recoverypointsbybackupvaults
+    attributeName: RestoreJobs
   rerunOnBack: false
   favouritable: true
-- name: ListRecoveryPointsByLegalHold
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-restore-testing-plans
   arguments:
   - --output
   - json
@@ -238,10 +274,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recoverypointsbylegalholds
+    attributeName: RestoreTestingPlans
   rerunOnBack: false
   favouritable: true
-- name: ListRecoveryPointsByResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-scan-job-summaries
   arguments:
   - --output
   - json
@@ -253,10 +293,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recoverypointsbyresources
+    attributeName: ScanJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListReportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-scan-jobs
   arguments:
   - --output
   - json
@@ -268,10 +312,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reportjob
+    attributeName: ScanJobs
   rerunOnBack: false
   favouritable: true
-- name: ListReportPlans
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tiering-configurations
   arguments:
   - --output
   - json
@@ -283,10 +331,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reportplan
+    attributeName: TieringConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListRestoreAccessBackupVaults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-global-settings
   arguments:
   - --output
   - json
@@ -298,6 +350,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: restoreaccessbackupvault
+    attributeName: GlobalSettings
   rerunOnBack: false
   favouritable: true

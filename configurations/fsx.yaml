@@ -1,7 +1,7 @@
 name: fsx
-defaultCommand: ''
+defaultCommand: describe-backups
 commands:
-- name: ListTagsForResource
+- name: describe-backups
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: Backups
   rerunOnBack: false
   favouritable: true
-- name: DescribeBackups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-data-repository-associations
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: Associations
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataRepositoryAssociations
+- name: describe-data-repository-tasks
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: DataRepositoryTasks
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataRepositoryTasks
+- name: describe-file-caches
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: FileCaches
   rerunOnBack: false
   favouritable: true
-- name: DescribeFileCaches
+- name: describe-file-systems
   arguments:
   - --output
   - json
@@ -73,10 +77,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: FileSystems
   rerunOnBack: false
   favouritable: true
-- name: DescribeFileSystemAliases
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-s3-access-point-attachments
   arguments:
   - --output
   - json
@@ -88,10 +96,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: S3AccessPointAttachments
   rerunOnBack: false
   favouritable: true
-- name: DescribeFileSystems
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-snapshots
   arguments:
   - --output
   - json
@@ -103,10 +115,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeS3AccessPointAttachments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-storage-virtual-machines
   arguments:
   - --output
   - json
@@ -118,10 +134,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: StorageVirtualMachines
   rerunOnBack: false
   favouritable: true
-- name: DescribeSharedVpcConfiguration
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-volumes
   arguments:
   - --output
   - json
@@ -133,111 +153,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Fsx
+    attributeName: Volumes
   rerunOnBack: false
   favouritable: true
-- name: DescribeSnapshots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fsx
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStorageVirtualMachines
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fsx
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVolumes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fsx
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateFileSystemAliases
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CancelDataRepositoryTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CopyBackup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CopySnapshotAndUpdateVolume
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

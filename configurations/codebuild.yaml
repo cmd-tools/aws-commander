@@ -1,7 +1,64 @@
 name: codebuild
-defaultCommand: ''
+defaultCommand: list-build-batches
 commands:
-- name: ListBuildBatches
+- name: list-build-batches
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ids
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-build-batches-for-project
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ids
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-builds
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ids
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-curated-environment-images
   arguments:
   - --output
   - json
@@ -13,10 +70,139 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: buildbatche
+    attributeName: platforms
   rerunOnBack: false
   favouritable: true
-- name: ListBuildBatchesForProject
+- name: list-fleets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: fleets
+  rerunOnBack: false
+  favouritable: true
+- name: list-projects
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: projects
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-report-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: reportGroups
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-reports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: reports
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-sandboxes
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ids
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-shared-projects
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: projects
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-shared-report-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: reportGroups
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-source-credentials
   arguments:
   - --output
   - json
@@ -28,10 +214,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: buildbatchesforprojects
+    attributeName: sourceCredentialsInfos
   rerunOnBack: false
   favouritable: true
-- name: ListBuilds
+- name: retry-build
   arguments:
   - --output
   - json
@@ -46,7 +232,7 @@ commands:
     attributeName: build
   rerunOnBack: false
   favouritable: true
-- name: ListBuildsForProject
+- name: retry-build-batch
   arguments:
   - --output
   - json
@@ -58,246 +244,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: buildsforprojects
-  rerunOnBack: false
-  favouritable: true
-- name: ListCommandExecutionsForSandbox
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: commandexecutionsforsandboxs
-  rerunOnBack: false
-  favouritable: true
-- name: ListCuratedEnvironmentImages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: curatedenvironmentimage
-  rerunOnBack: false
-  favouritable: true
-- name: ListFleets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: fleet
-  rerunOnBack: false
-  favouritable: true
-- name: ListProjects
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: project
-  rerunOnBack: false
-  favouritable: true
-- name: ListReportGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reportgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListReports
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: report
-  rerunOnBack: false
-  favouritable: true
-- name: ListReportsForReportGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reportsforreportgroups
-  rerunOnBack: false
-  favouritable: true
-- name: ListSandboxes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sandboxe
-  rerunOnBack: false
-  favouritable: true
-- name: ListSandboxesForProject
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sandboxesforprojects
-  rerunOnBack: false
-  favouritable: true
-- name: ListSharedProjects
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sharedproject
-  rerunOnBack: false
-  favouritable: true
-- name: ListSharedReportGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sharedreportgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListSourceCredentials
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sourcecredential
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCodeCoverages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codebuild
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTestCases
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codebuild
-  rerunOnBack: false
-  favouritable: true
-- name: GetReportGroupTrend
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codebuild
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourcePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codebuild
+    attributeName: buildBatch
   rerunOnBack: false
   favouritable: true

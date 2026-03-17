@@ -1,7 +1,7 @@
 name: imagebuilder
-defaultCommand: ''
+defaultCommand: list-component-build-versions
 commands:
-- name: ListComponentBuildVersions
+- name: list-component-build-versions
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: componentbuildversion
+    attributeName: componentSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListComponents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-components
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: component
+    attributeName: componentVersionList
   rerunOnBack: false
   favouritable: true
-- name: ListContainerRecipes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-container-recipes
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: containerrecipe
+    attributeName: containerRecipeSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-distribution-configurations
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionconfiguration
+    attributeName: distributionConfigurationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListImageBuildVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-image-build-versions
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagebuildversion
+    attributeName: imageSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListImagePackages
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-image-pipelines
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagepackage
+    attributeName: imagePipelineList
   rerunOnBack: false
   favouritable: true
-- name: ListImagePipelineImages
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-image-recipes
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagepipelineimage
+    attributeName: imageRecipeSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListImagePipelines
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-image-scan-finding-aggregations
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagepipeline
+    attributeName: responses
   rerunOnBack: false
   favouritable: true
-- name: ListImageRecipes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-image-scan-findings
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagerecipe
+    attributeName: findings
   rerunOnBack: false
   favouritable: true
-- name: ListImageScanFindingAggregations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-images
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagescanfindingaggregation
+    attributeName: imageVersionList
   rerunOnBack: false
   favouritable: true
-- name: ListImageScanFindings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-infrastructure-configurations
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagescanfinding
+    attributeName: infrastructureConfigurationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListImages
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-lifecycle-policies
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: image
+    attributeName: lifecyclePolicySummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListInfrastructureConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-waiting-workflow-steps
   arguments:
   - --output
   - json
@@ -193,10 +241,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: infrastructureconfiguration
+    attributeName: steps
   rerunOnBack: false
   favouritable: true
-- name: ListLifecycleExecutionResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workflow-build-versions
   arguments:
   - --output
   - json
@@ -208,10 +260,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lifecycleexecutionresource
+    attributeName: workflowSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListLifecycleExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workflows
   arguments:
   - --output
   - json
@@ -223,81 +279,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lifecycleexecution
+    attributeName: workflowVersionList
   rerunOnBack: false
   favouritable: true
-- name: ListLifecyclePolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: lifecyclepolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListWaitingWorkflowSteps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: waitingworkflowstep
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowBuildVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowbuildversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowExecutions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowexecution
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

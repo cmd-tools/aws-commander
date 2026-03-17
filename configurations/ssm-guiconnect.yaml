@@ -1,7 +1,7 @@
 name: ssm-guiconnect
-defaultCommand: ''
+defaultCommand: get-connection-recording-preferences
 commands:
-- name: GetConnectionRecordingPreferences
+- name: get-connection-recording-preferences
   arguments:
   - --output
   - json
@@ -13,6 +13,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ssm-Guiconnect
+    attributeName: ConnectionRecordingPreferences
   rerunOnBack: false
   favouritable: true

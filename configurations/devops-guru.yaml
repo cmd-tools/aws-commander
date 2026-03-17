@@ -1,7 +1,7 @@
 name: devops-guru
-defaultCommand: ''
+defaultCommand: list-monitored-resources
 commands:
-- name: ListAnomaliesForInsight
+- name: list-monitored-resources
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: anomaliesforinsights
+    attributeName: MonitoredResourceIdentifiers
   rerunOnBack: false
   favouritable: true
-- name: ListAnomalousLogGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-notification-channels
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: anomalousloggroup
+    attributeName: Channels
   rerunOnBack: false
   favouritable: true
-- name: ListEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-event-sources-config
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: event
+    attributeName: EventSources
   rerunOnBack: false
   favouritable: true
-- name: ListInsights
+- name: describe-feedback
   arguments:
   - --output
   - json
@@ -58,10 +66,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: insight
+    attributeName: InsightFeedback
   rerunOnBack: false
   favouritable: true
-- name: ListMonitoredResources
+- name: describe-service-integration
   arguments:
   - --output
   - json
@@ -73,10 +81,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: monitoredresource
+    attributeName: ServiceIntegration
   rerunOnBack: false
   favouritable: true
-- name: ListNotificationChannels
+- name: get-cost-estimation
   arguments:
   - --output
   - json
@@ -88,216 +96,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: notificationchannel
+    attributeName: Costs
   rerunOnBack: false
   favouritable: true
-- name: ListOrganizationInsights
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: organizationinsight
-  rerunOnBack: false
-  favouritable: true
-- name: ListRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: recommendation
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAccountHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAccountOverview
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAnomaly
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventSourcesConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFeedback
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeInsight
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeOrganizationHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeOrganizationOverview
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeOrganizationResourceCollectionHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeResourceCollectionHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeServiceIntegration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostEstimation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Devops-Guru
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

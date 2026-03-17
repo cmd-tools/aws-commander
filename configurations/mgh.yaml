@@ -1,7 +1,7 @@
 name: mgh
-defaultCommand: ''
+defaultCommand: list-application-states
 commands:
-- name: ListApplicationStates
+- name: list-application-states
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: applicationstate
+    attributeName: ApplicationStateList
   rerunOnBack: false
   favouritable: true
-- name: ListCreatedArtifacts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-migration-tasks
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: createdartifact
+    attributeName: MigrationTaskSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListDiscoveredResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-progress-update-streams
   arguments:
   - --output
   - json
@@ -43,231 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: discoveredresource
+    attributeName: ProgressUpdateStreamSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListMigrationTaskUpdates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: migrationtaskupdate
-  rerunOnBack: false
-  favouritable: true
-- name: ListMigrationTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: migrationtask
-  rerunOnBack: false
-  favouritable: true
-- name: ListProgressUpdateStreams
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: progressupdatestream
-  rerunOnBack: false
-  favouritable: true
-- name: ListSourceResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sourceresource
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeApplicationState
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mgh
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeMigrationTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mgh
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateCreatedArtifact
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateDiscoveredResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateSourceResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisassociateCreatedArtifact
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisassociateDiscoveredResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisassociateSourceResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ImportMigrationTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: NotifyApplicationState
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: NotifyMigrationTaskState
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

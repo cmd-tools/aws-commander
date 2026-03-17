@@ -1,7 +1,7 @@
 name: greengrassv2
-defaultCommand: ''
+defaultCommand: list-components
 commands:
-- name: ListClientDevicesAssociatedWithCoreDevice
+- name: list-components
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: clientdevicesassociatedwithcoredevices
+    attributeName: components
   rerunOnBack: false
   favouritable: true
-- name: ListComponentVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-core-devices
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: componentversion
+    attributeName: coreDevices
   rerunOnBack: false
   favouritable: true
-- name: ListComponents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-deployments
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: component
+    attributeName: deployments
   rerunOnBack: false
   favouritable: true
-- name: ListCoreDevices
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: resolve-component-candidates
   arguments:
   - --output
   - json
@@ -58,231 +70,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: coredevice
-  rerunOnBack: false
-  favouritable: true
-- name: ListDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: deployment
-  rerunOnBack: false
-  favouritable: true
-- name: ListEffectiveDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: effectivedeployment
-  rerunOnBack: false
-  favouritable: true
-- name: ListInstalledComponents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: installedcomponent
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeComponent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetComponent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetComponentVersionArtifact
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetConnectivityInfo
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetCoreDevice
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeployment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetServiceRoleForAccount
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Greengrassv2
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateServiceRoleToAccount
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchAssociateClientDeviceWithCoreDevice
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchDisassociateClientDeviceFromCoreDevice
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CancelDeployment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: resolvedComponentVersions
   rerunOnBack: false
   favouritable: true

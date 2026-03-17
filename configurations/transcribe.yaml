@@ -1,7 +1,7 @@
 name: transcribe
-defaultCommand: ''
+defaultCommand: list-call-analytics-categories
 commands:
-- name: ListCallAnalyticsCategories
+- name: list-call-analytics-categories
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: callanalyticscategorie
+    attributeName: Categories
   rerunOnBack: false
   favouritable: true
-- name: ListCallAnalyticsJobs
+- name: list-call-analytics-jobs
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: callanalyticsjob
+    attributeName: CallAnalyticsJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLanguageModels
+- name: list-language-models
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: languagemodel
+    attributeName: Models
   rerunOnBack: false
   favouritable: true
-- name: ListMedicalScribeJobs
+- name: list-medical-scribe-jobs
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: medicalscribejob
+    attributeName: MedicalScribeJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMedicalTranscriptionJobs
+- name: list-medical-transcription-jobs
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: medicaltranscriptionjob
+    attributeName: MedicalTranscriptionJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMedicalVocabularies
+- name: list-medical-vocabularies
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: medicalvocabularie
+    attributeName: Vocabularies
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: list-transcription-jobs
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: TranscriptionJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTranscriptionJobs
+- name: list-vocabularies
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: transcriptionjob
+    attributeName: Vocabularies
   rerunOnBack: false
   favouritable: true
-- name: ListVocabularies
+- name: list-vocabulary-filters
   arguments:
   - --output
   - json
@@ -133,156 +133,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: vocabularie
-  rerunOnBack: false
-  favouritable: true
-- name: ListVocabularyFilters
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vocabularyfilter
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLanguageModel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetCallAnalyticsCategory
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetCallAnalyticsJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetMedicalScribeJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetMedicalTranscriptionJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetMedicalVocabulary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetTranscriptionJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetVocabulary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
-  rerunOnBack: false
-  favouritable: true
-- name: GetVocabularyFilter
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transcribe
+    attributeName: VocabularyFilters
   rerunOnBack: false
   favouritable: true

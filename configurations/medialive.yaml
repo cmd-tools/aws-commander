@@ -1,7 +1,7 @@
 name: medialive
-defaultCommand: ''
+defaultCommand: list-channels
 commands:
-- name: ListAlerts
+- name: list-channels
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: alert
+    attributeName: Channels
   rerunOnBack: false
   favouritable: true
-- name: ListChannelPlacementGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cloud-watch-alarm-template-groups
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channelplacementgroup
+    attributeName: CloudWatchAlarmTemplateGroups
   rerunOnBack: false
   favouritable: true
-- name: ListChannels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cloud-watch-alarm-templates
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channel
+    attributeName: CloudWatchAlarmTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListCloudWatchAlarmTemplateGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-clusters
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudwatchalarmtemplategroup
+    attributeName: Clusters
   rerunOnBack: false
   favouritable: true
-- name: ListCloudWatchAlarmTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-event-bridge-rule-template-groups
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudwatchalarmtemplate
+    attributeName: EventBridgeRuleTemplateGroups
   rerunOnBack: false
   favouritable: true
-- name: ListClusterAlerts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-event-bridge-rule-templates
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: clusteralert
+    attributeName: EventBridgeRuleTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-input-devices
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cluster
+    attributeName: InputDevices
   rerunOnBack: false
   favouritable: true
-- name: ListEventBridgeRuleTemplateGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-input-security-groups
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventbridgeruletemplategroup
+    attributeName: InputSecurityGroups
   rerunOnBack: false
   favouritable: true
-- name: ListEventBridgeRuleTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-inputs
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventbridgeruletemplate
+    attributeName: Inputs
   rerunOnBack: false
   favouritable: true
-- name: ListInputDeviceTransfers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-multiplexes
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inputdevicetransfer
+    attributeName: Multiplexes
   rerunOnBack: false
   favouritable: true
-- name: ListInputDevices
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-networks
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inputdevice
+    attributeName: Networks
   rerunOnBack: false
   favouritable: true
-- name: ListInputSecurityGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-offerings
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inputsecuritygroup
+    attributeName: Offerings
   rerunOnBack: false
   favouritable: true
-- name: ListInputs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-reservations
   arguments:
   - --output
   - json
@@ -193,10 +241,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: input
+    attributeName: Reservations
   rerunOnBack: false
   favouritable: true
-- name: ListMultiplexAlerts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-sdi-sources
   arguments:
   - --output
   - json
@@ -208,10 +260,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multiplexalert
+    attributeName: SdiSources
   rerunOnBack: false
   favouritable: true
-- name: ListMultiplexPrograms
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-signal-maps
   arguments:
   - --output
   - json
@@ -223,10 +279,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multiplexprogram
+    attributeName: SignalMaps
   rerunOnBack: false
   favouritable: true
-- name: ListMultiplexes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-versions
   arguments:
   - --output
   - json
@@ -238,10 +298,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multiplexe
+    attributeName: Versions
   rerunOnBack: false
   favouritable: true
-- name: ListNetworks
+- name: describe-account-configuration
   arguments:
   - --output
   - json
@@ -253,10 +313,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: network
+    attributeName: AccountConfiguration
   rerunOnBack: false
   favouritable: true
-- name: ListNodes
+- name: batch-delete
   arguments:
   - --output
   - json
@@ -268,10 +328,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: node
+    attributeName: Failed
   rerunOnBack: false
   favouritable: true
-- name: ListOfferings
+- name: batch-start
   arguments:
   - --output
   - json
@@ -283,10 +343,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: offering
+    attributeName: Failed
   rerunOnBack: false
   favouritable: true
-- name: ListReservations
+- name: batch-stop
   arguments:
   - --output
   - json
@@ -298,6 +358,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reservation
+    attributeName: Failed
   rerunOnBack: false
   favouritable: true

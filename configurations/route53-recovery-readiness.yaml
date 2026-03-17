@@ -1,7 +1,7 @@
 name: route53-recovery-readiness
-defaultCommand: ''
+defaultCommand: list-cells
 commands:
-- name: ListCells
+- name: list-cells
   arguments:
   - --output
   - json
@@ -13,10 +13,33 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cell
+    attributeName: Cells
   rerunOnBack: false
   favouritable: true
-- name: ListCrossAccountAuthorizations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cross-account-authorizations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: CrossAccountAuthorizations
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-readiness-checks
   arguments:
   - --output
   - json
@@ -28,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: crossaccountauthorization
+    attributeName: ReadinessChecks
   rerunOnBack: false
   favouritable: true
-- name: ListReadinessChecks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-recovery-groups
   arguments:
   - --output
   - json
@@ -43,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readinesscheck
+    attributeName: RecoveryGroups
   rerunOnBack: false
   favouritable: true
-- name: ListRecoveryGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-sets
   arguments:
   - --output
   - json
@@ -58,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recoverygroup
+    attributeName: ResourceSets
   rerunOnBack: false
   favouritable: true
-- name: ListResourceSets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-rules
   arguments:
   - --output
   - json
@@ -73,171 +108,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourceset
+    attributeName: Rules
   rerunOnBack: false
   favouritable: true
-- name: ListRules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: rule
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresource
-  rerunOnBack: false
-  favouritable: true
-- name: GetArchitectureRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetCell
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetCellReadinessSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetReadinessCheck
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetReadinessCheckResourceStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetReadinessCheckStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecoveryGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecoveryGroupReadinessSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourceSet
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Readiness
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

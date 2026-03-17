@@ -1,7 +1,7 @@
 name: account
-defaultCommand: ''
+defaultCommand: list-regions
 commands:
-- name: ListRegions
+- name: list-regions
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: region
+    attributeName: Regions
   rerunOnBack: false
   favouritable: true
-- name: GetAccountInformation
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-contact-information
   arguments:
   - --output
   - json
@@ -28,141 +32,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: GetAlternateContact
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: GetContactInformation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: GetGovCloudAccountInformation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: GetPrimaryEmail
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: GetRegionOptStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Account
-  rerunOnBack: false
-  favouritable: true
-- name: AcceptPrimaryEmailUpdate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisableRegion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: EnableRegion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartPrimaryEmailUpdate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: ContactInformation
   rerunOnBack: false
   favouritable: true

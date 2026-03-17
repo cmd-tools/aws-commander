@@ -1,7 +1,7 @@
 name: mediatailor
-defaultCommand: ''
+defaultCommand: list-channels
 commands:
-- name: ListAlerts
+- name: list-channels
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: alert
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListChannels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-playback-configurations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channel
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListLiveSources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-source-locations
   arguments:
   - --output
   - json
@@ -43,246 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: livesource
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListPlaybackConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: playbackconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListPrefetchSchedules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: prefetchschedule
-  rerunOnBack: false
-  favouritable: true
-- name: ListSourceLocations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sourcelocation
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListVodSources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vodsource
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLiveSource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeProgram
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSourceLocation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVodSource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: GetChannelPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: GetChannelSchedule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: GetPlaybackConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: GetPrefetchSchedule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediatailor
-  rerunOnBack: false
-  favouritable: true
-- name: ConfigureLogsForChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ConfigureLogsForPlaybackConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

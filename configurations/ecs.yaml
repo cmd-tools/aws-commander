@@ -54,7 +54,7 @@ commands:
   parse:
     type: list
     attributeName: taskArns
-- name: ListAccountSettings
+- name: list-account-settings
   arguments:
   - --output
   - json
@@ -66,24 +66,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountsetting
+    attributeName: settings
   rerunOnBack: false
   favouritable: true
-- name: ListAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: attribute
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
 - name: ListClusters
   arguments:
   - --output
@@ -99,7 +88,7 @@ commands:
     attributeName: cluster
   rerunOnBack: false
   favouritable: true
-- name: ListContainerInstances
+- name: list-container-instances
   arguments:
   - --output
   - json
@@ -110,25 +99,14 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: containerinstance
+    type: list
+    attributeName: containerInstanceArns
   rerunOnBack: false
   favouritable: true
-- name: ListServiceDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: servicedeployment
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
 - name: ListServices
   arguments:
   - --output
@@ -144,7 +122,7 @@ commands:
     attributeName: service
   rerunOnBack: false
   favouritable: true
-- name: ListServicesByNamespace
+- name: list-task-definition-families
   arguments:
   - --output
   - json
@@ -155,11 +133,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: servicesbynamespaces
+    type: list
+    attributeName: families
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-task-definitions
   arguments:
   - --output
   - json
@@ -170,40 +152,14 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: tagsforresources
+    type: list
+    attributeName: taskDefinitionArns
   rerunOnBack: false
   favouritable: true
-- name: ListTaskDefinitionFamilies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: taskdefinitionfamilie
-  rerunOnBack: false
-  favouritable: true
-- name: ListTaskDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: taskdefinition
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
 - name: ListTasks
   arguments:
   - --output
@@ -219,7 +175,7 @@ commands:
     attributeName: task
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityProviders
+- name: describe-capacity-providers
   arguments:
   - --output
   - json
@@ -231,10 +187,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ecs
+    attributeName: capacityProviders
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusters
+- name: describe-clusters
   arguments:
   - --output
   - json
@@ -246,10 +202,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ecs
+    attributeName: clusters
   rerunOnBack: false
   favouritable: true
-- name: DescribeContainerInstances
+- name: register-container-instance
   arguments:
   - --output
   - json
@@ -261,96 +217,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeExpressGatewayService
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeServiceDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeServiceRevisions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeServices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTaskDefinition
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTaskSets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ecs
+    attributeName: containerInstance
   rerunOnBack: false
   favouritable: true

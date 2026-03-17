@@ -17,8 +17,8 @@
 #   --help         Show this help message
 #
 # Environment Variables:
-#   AWS_CLI_PATH          Path to AWS CLI source (default: ~/code/aws-cli)
 #   AWS_COMMANDER_PATH    Path to aws-commander (default: parent of this script)
+#   VIRTUAL_ENV           Activated Python virtualenv containing botocore/PyYAML
 #
 # Examples:
 #
@@ -34,8 +34,8 @@
 #   # Process a single service
 #   ./sync-aws-services.sh --service dynamodb --apply
 #
-#   # Use custom paths
-#   AWS_CLI_PATH=/path/to/aws-cli AWS_COMMANDER_PATH=/path/to/aws-commander ./sync-aws-services.sh --apply
+#   # Use custom repo path
+#   AWS_COMMANDER_PATH=/path/to/aws-commander ./sync-aws-services.sh --apply
 #
 
 set -euo pipefail
@@ -45,7 +45,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
 
 # Default paths
-DEFAULT_AWS_CLI_PATH="${HOME}/code/aws-cli"
 DEFAULT_AWS_COMMANDER_PATH="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 # Colors (if terminal supports it)
@@ -121,15 +120,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Set defaults for paths
-AWS_CLI_PATH="${AWS_CLI_PATH:-$DEFAULT_AWS_CLI_PATH}"
 AWS_COMMANDER_PATH="${AWS_COMMANDER_PATH:-$DEFAULT_AWS_COMMANDER_PATH}"
-
-# Validate paths
-if [[ ! -d "${AWS_CLI_PATH}" ]]; then
-    echo -e "${RED}ERROR: AWS CLI path not found: ${AWS_CLI_PATH}${NC}"
-    echo "Set AWS_CLI_PATH environment variable or use --aws-cli-path"
-    exit 1
-fi
 
 if [[ ! -d "${AWS_COMMANDER_PATH}" ]]; then
     echo -e "${RED}ERROR: aws-commander path not found: ${AWS_COMMANDER_PATH}${NC}"
@@ -148,18 +139,20 @@ if ! command -v python3 &> /dev/null; then
     exit 1
 fi
 
-# Check for botocore
-if ! python3 -c "import botocore" 2>/dev/null; then
-    echo -e "${YELLOW}WARNING: botocore not installed${NC}"
-    echo "Installing botocore..."
-    if command -v pip3 &> /dev/null; then
-        pip3 install botocore --quiet
-    elif command -v pip &> /dev/null; then
-        pip install botocore --quiet
-    else
-        echo -e "${RED}ERROR: pip not found. Install botocore manually: pip install botocore${NC}"
-        exit 1
-    fi
+# Require virtualenv-based Python dependencies
+if [[ -z "${VIRTUAL_ENV:-}" ]]; then
+    echo -e "${RED}ERROR: activate a Python virtualenv before running this script${NC}"
+    echo "Example:"
+    echo "  python3 -m venv .venv-sync"
+    echo "  source .venv-sync/bin/activate"
+    echo "  pip install botocore PyYAML"
+    exit 1
+fi
+
+if ! python3 -c "import botocore, yaml" 2>/dev/null; then
+    echo -e "${RED}ERROR: botocore and/or PyYAML not available in the active virtualenv${NC}"
+    echo "Install them with: pip install botocore PyYAML"
+    exit 1
 fi
 
 # Default action is --report if nothing specified
@@ -176,12 +169,11 @@ if [[ "${APPLY}" == "true" && "${BACKUP}" == "false" ]]; then
 fi
 
 # Run the sync script
-echo -e "${BLUE}AWS CLI Path:${NC} ${AWS_CLI_PATH}"
 echo -e "${BLUE}aws-commander Path:${NC} ${AWS_COMMANDER_PATH}"
+echo -e "${BLUE}Python Env:${NC} ${VIRTUAL_ENV}"
 echo ""
 
 python3 "${SCRIPT_DIR}/sync_aws_services.py" \
-    --aws-cli-path "${AWS_CLI_PATH}" \
     --aws-commander-path "${AWS_COMMANDER_PATH}" \
     "${PYTHON_ARGS[@]}"
 

@@ -1,7 +1,7 @@
 name: fis
-defaultCommand: ''
+defaultCommand: list-actions
 commands:
-- name: ListActions
+- name: list-actions
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: action
+    attributeName: actions
   rerunOnBack: false
   favouritable: true
-- name: ListExperimentResolvedTargets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-experiment-templates
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: experimentresolvedtarget
+    attributeName: experimentTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListExperimentTargetAccountConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-experiments
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: experimenttargetaccountconfiguration
+    attributeName: experiments
   rerunOnBack: false
   favouritable: true
-- name: ListExperimentTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-target-resource-types
   arguments:
   - --output
   - json
@@ -58,186 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: experimenttemplate
+    attributeName: targetResourceTypes
   rerunOnBack: false
   favouritable: true
-- name: ListExperiments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: experiment
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTargetAccountConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: targetaccountconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTargetResourceTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: targetresourcetype
-  rerunOnBack: false
-  favouritable: true
-- name: GetAction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetExperiment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetExperimentTargetAccountConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetExperimentTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetSafetyLever
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetTargetAccountConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: GetTargetResourceType
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fis
-  rerunOnBack: false
-  favouritable: true
-- name: StartExperiment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

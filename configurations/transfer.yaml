@@ -1,7 +1,7 @@
 name: transfer
-defaultCommand: ''
+defaultCommand: list-certificates
 commands:
-- name: ListAccesses
+- name: list-certificates
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accesse
+    attributeName: Certificates
   rerunOnBack: false
   favouritable: true
-- name: ListAgreements
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-connectors
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: agreement
+    attributeName: Connectors
   rerunOnBack: false
   favouritable: true
-- name: ListCertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-profiles
   arguments:
   - --output
   - json
@@ -43,10 +51,34 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: certificate
+    attributeName: Profiles
   rerunOnBack: false
   favouritable: true
-- name: ListConnectors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-security-policies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: SecurityPolicyNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: SecurityPolicyName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-servers
   arguments:
   - --output
   - json
@@ -58,10 +90,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connector
+    attributeName: Servers
   rerunOnBack: false
   favouritable: true
-- name: ListExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-web-apps
   arguments:
   - --output
   - json
@@ -73,10 +109,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: execution
+    attributeName: WebApps
   rerunOnBack: false
   favouritable: true
-- name: ListFileTransferResults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-workflows
   arguments:
   - --output
   - json
@@ -88,216 +128,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: filetransferresult
+    attributeName: Workflows
   rerunOnBack: false
   favouritable: true
-- name: ListHostKeys
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: hostkey
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfiles
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profile
-  rerunOnBack: false
-  favouritable: true
-- name: ListSecurityPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: securitypolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListServers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: server
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListUsers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: user
-  rerunOnBack: false
-  favouritable: true
-- name: ListWebApps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: webapp
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflows
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflow
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAccess
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAgreement
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCertificate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConnector
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeExecution
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeHostKey
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Transfer
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

@@ -1,7 +1,7 @@
 name: elbv2
-defaultCommand: ''
+defaultCommand: describe-account-limits
 commands:
-- name: DescribeAccountLimits
+- name: describe-account-limits
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elbv2
+    attributeName: Limits
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityReservation
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-listeners
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elbv2
+    attributeName: Listeners
   rerunOnBack: false
   favouritable: true
-- name: DescribeListenerAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-load-balancers
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: describeenerattribute
+    attributeName: LoadBalancers
   rerunOnBack: false
   favouritable: true
-- name: DescribeListenerCertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-rules
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: describeenercertificate
+    attributeName: Rules
   rerunOnBack: false
   favouritable: true
-- name: DescribeListeners
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-ssl-policies
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: describeener
+    attributeName: SslPolicies
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancerAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-target-groups
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elbv2
+    attributeName: TargetGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancers
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-trust-stores
   arguments:
   - --output
   - json
@@ -103,186 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elbv2
+    attributeName: TrustStores
   rerunOnBack: false
   favouritable: true
-- name: DescribeRules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSSLPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTargetGroupAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTargetGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTargetHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTrustStoreAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTrustStoreRevocations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTrustStores
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourcePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetTrustStoreCaCertificatesBundle
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
-- name: GetTrustStoreRevocationContent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elbv2
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker

@@ -1,7 +1,7 @@
 name: mgn
-defaultCommand: ''
+defaultCommand: list-applications
 commands:
-- name: ListApplications
+- name: list-applications
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: application
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListConnectors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-connectors
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connector
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListExportErrors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-exports
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: exporterror
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListExports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-import-file-enrichments
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: export
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListImportErrors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-imports
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importerror
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListImportFileEnrichments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-managed-accounts
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importfileenrichment
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListImports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-network-migration-definitions
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: import
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListManagedAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-waves
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedaccount
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationAnalyses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-jobs
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkmigrationanalyse
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationAnalysisResults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-launch-configuration-templates
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkmigrationanalysisresult
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationCodeGenerationSegments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-replication-configuration-templates
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkmigrationcodegenerationsegment
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationCodeGenerations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-source-servers
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkmigrationcodegeneration
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-vcenter-clients
   arguments:
   - --output
   - json
@@ -193,111 +241,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkmigrationdefinition
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkMigrationDeployedStacks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationdeployedstack
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationdeployment
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationExecutions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationexecution
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationMapperSegmentConstructs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationmappersegmentconstruct
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationMapperSegments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationmappersegment
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationMappingUpdates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationmappingupdate
-  rerunOnBack: false
-  favouritable: true
-- name: ListNetworkMigrationMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: networkmigrationmapping
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

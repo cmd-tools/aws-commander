@@ -1,7 +1,7 @@
 name: vpc-lattice
-defaultCommand: ''
+defaultCommand: list-domain-verifications
 commands:
-- name: ListAccessLogSubscriptions
+- name: list-domain-verifications
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accesslogsubscription
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListDomainVerifications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-resource-configurations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domainverification
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListListeners
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-resource-gateways
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: ener
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListResourceConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-service-network-resource-associations
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourceconfiguration
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListResourceEndpointAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-service-network-service-associations
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourceendpointassociation
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListResourceGateways
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-service-network-vpc-associations
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcegateway
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-service-networks
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: rule
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListServiceNetworkResourceAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-services
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: servicenetworkresourceassociation
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListServiceNetworkServiceAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-target-groups
   arguments:
   - --output
   - json
@@ -133,171 +165,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: servicenetworkserviceassociation
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListServiceNetworkVpcAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: servicenetworkvpcassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListServiceNetworkVpcEndpointAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: servicenetworkvpcendpointassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListServiceNetworks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: servicenetwork
-  rerunOnBack: false
-  favouritable: true
-- name: ListServices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: service
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTargetGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: targetgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListTargets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: target
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccessLogSubscription
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Vpc-Lattice
-  rerunOnBack: false
-  favouritable: true
-- name: GetAuthPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Vpc-Lattice
-  rerunOnBack: false
-  favouritable: true
-- name: GetDomainVerification
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Vpc-Lattice
-  rerunOnBack: false
-  favouritable: true
-- name: GetListener
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: geteners
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

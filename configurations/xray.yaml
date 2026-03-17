@@ -1,7 +1,7 @@
 name: xray
-defaultCommand: ''
+defaultCommand: list-resource-policies
 commands:
-- name: ListResourcePolicies
+- name: list-resource-policies
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcepolicie
+    attributeName: ResourcePolicies
   rerunOnBack: false
   favouritable: true
-- name: ListRetrievedTraces
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-encryption-config
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: retrievedtrace
+    attributeName: EncryptionConfig
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-group
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: Group
   rerunOnBack: false
   favouritable: true
-- name: GetEncryptionConfig
+- name: get-groups
   arguments:
   - --output
   - json
@@ -58,10 +62,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Xray
+    attributeName: Groups
   rerunOnBack: false
   favouritable: true
-- name: GetGroup
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-indexing-rules
   arguments:
   - --output
   - json
@@ -73,10 +81,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Xray
+    attributeName: IndexingRules
   rerunOnBack: false
   favouritable: true
-- name: GetGroups
+- name: get-sampling-rules
   arguments:
   - --output
   - json
@@ -88,10 +96,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Xray
+    attributeName: SamplingRuleRecords
   rerunOnBack: false
   favouritable: true
-- name: GetIndexingRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-sampling-statistic-summaries
   arguments:
   - --output
   - json
@@ -103,201 +115,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Xray
+    attributeName: SamplingStatisticSummaries
   rerunOnBack: false
   favouritable: true
-- name: GetInsight
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetInsightEvents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetInsightImpactGraph
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetInsightSummaries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetRetrievedTracesGraph
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetSamplingRules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetSamplingStatisticSummaries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetSamplingTargets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetServiceGraph
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetTimeSeriesServiceStatistics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetTraceGraph
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetTraceSegmentDestination
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
-- name: GetTraceSummaries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Xray
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

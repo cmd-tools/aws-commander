@@ -1,7 +1,7 @@
 name: ivschat
-defaultCommand: ''
+defaultCommand: list-logging-configurations
 commands:
-- name: ListLoggingConfigurations
+- name: list-logging-configurations
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: loggingconfiguration
+    attributeName: loggingConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListRooms
+- name: list-rooms
   arguments:
   - --output
   - json
@@ -28,111 +28,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: room
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetLoggingConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivschat
-  rerunOnBack: false
-  favouritable: true
-- name: GetRoom
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivschat
-  rerunOnBack: false
-  favouritable: true
-- name: DisconnectUser
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: SendEvent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: TagResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: UntagResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: rooms
   rerunOnBack: false
   favouritable: true

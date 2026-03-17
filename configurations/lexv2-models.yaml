@@ -1,7 +1,7 @@
 name: lexv2-models
-defaultCommand: ''
+defaultCommand: list-bots
 commands:
-- name: ListAggregatedUtterances
+- name: list-bots
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aggregatedutterance
+    attributeName: botSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBotAliasReplicas
+- name: list-exports
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: botaliasreplica
+    attributeName: exportSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBotAliases
+- name: list-imports
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: botaliase
+    attributeName: importSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBotAnalyzerHistory
+- name: list-test-executions
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: botanalyzerhistorys
+    attributeName: testExecutions
   rerunOnBack: false
   favouritable: true
-- name: ListBotLocales
+- name: list-test-sets
   arguments:
   - --output
   - json
@@ -73,231 +73,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: botlocale
-  rerunOnBack: false
-  favouritable: true
-- name: ListBotRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: botrecommendation
-  rerunOnBack: false
-  favouritable: true
-- name: ListBotReplicas
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: botreplica
-  rerunOnBack: false
-  favouritable: true
-- name: ListBotResourceGenerations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: botresourcegeneration
-  rerunOnBack: false
-  favouritable: true
-- name: ListBotVersionReplicas
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: botversionreplica
-  rerunOnBack: false
-  favouritable: true
-- name: ListBotVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: botversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListBots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: bot
-  rerunOnBack: false
-  favouritable: true
-- name: ListBuiltInIntents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: builtinintent
-  rerunOnBack: false
-  favouritable: true
-- name: ListBuiltInSlotTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: builtinslottype
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomVocabularyItems
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customvocabularyitem
-  rerunOnBack: false
-  favouritable: true
-- name: ListExports
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: export
-  rerunOnBack: false
-  favouritable: true
-- name: ListImports
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: import
-  rerunOnBack: false
-  favouritable: true
-- name: ListIntentMetrics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: intentmetric
-  rerunOnBack: false
-  favouritable: true
-- name: ListIntentPaths
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: intentpath
-  rerunOnBack: false
-  favouritable: true
-- name: ListIntentStageMetrics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: intentstagemetric
-  rerunOnBack: false
-  favouritable: true
-- name: ListIntents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: intent
+    attributeName: testSets
   rerunOnBack: false
   favouritable: true

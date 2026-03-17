@@ -1,7 +1,7 @@
 name: appstream
-defaultCommand: ''
+defaultCommand: list-export-image-tasks
 commands:
-- name: ListAssociatedFleets
+- name: list-export-image-tasks
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associatedfleet
+    attributeName: ExportImageTasks
   rerunOnBack: false
   favouritable: true
-- name: ListAssociatedStacks
+- name: describe-app-block-builder-app-block-associations
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associatedstack
+    attributeName: AppBlockBuilderAppBlockAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListEntitledApplications
+- name: describe-app-block-builders
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entitledapplication
+    attributeName: AppBlockBuilders
   rerunOnBack: false
   favouritable: true
-- name: ListExportImageTasks
+- name: describe-app-blocks
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: exportimagetask
+    attributeName: AppBlocks
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-application-fleet-associations
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: ApplicationFleetAssociations
   rerunOnBack: false
   favouritable: true
-- name: DescribeAppBlockBuilderAppBlockAssociations
+- name: describe-applications
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: Applications
   rerunOnBack: false
   favouritable: true
-- name: DescribeAppBlockBuilders
+- name: describe-directory-configs
   arguments:
   - --output
   - json
@@ -103,10 +103,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: DirectoryConfigs
   rerunOnBack: false
   favouritable: true
-- name: DescribeAppBlocks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-fleets
   arguments:
   - --output
   - json
@@ -118,10 +122,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: Fleets
   rerunOnBack: false
   favouritable: true
-- name: DescribeAppLicenseUsage
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-image-builders
   arguments:
   - --output
   - json
@@ -133,10 +141,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: ImageBuilders
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplicationFleetAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-images
   arguments:
   - --output
   - json
@@ -148,10 +160,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: Images
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-stacks
   arguments:
   - --output
   - json
@@ -163,10 +179,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: Stacks
   rerunOnBack: false
   favouritable: true
-- name: DescribeDirectoryConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-usage-report-subscriptions
   arguments:
   - --output
   - json
@@ -178,10 +198,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: UsageReportSubscriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeEntitlements
+- name: describe-user-stack-associations
   arguments:
   - --output
   - json
@@ -193,10 +213,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
+    attributeName: UserStackAssociations
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-export-image-task
   arguments:
   - --output
   - json
@@ -208,96 +232,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeImageBuilders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeImagePermissions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeImages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSoftwareAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStacks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Appstream
+    attributeName: ExportImageTask
   rerunOnBack: false
   favouritable: true

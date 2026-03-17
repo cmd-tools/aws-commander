@@ -1,7 +1,7 @@
 name: personalize-runtime
-defaultCommand: ''
+defaultCommand: get-action-recommendations
 commands:
-- name: GetActionRecommendations
+- name: get-action-recommendations
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Personalize-Runtime
+    attributeName: actionList
   rerunOnBack: false
   favouritable: true
-- name: GetPersonalizedRanking
+- name: get-recommendations
   arguments:
   - --output
   - json
@@ -28,21 +28,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Personalize-Runtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Personalize-Runtime
+    attributeName: itemList
   rerunOnBack: false
   favouritable: true

@@ -1,7 +1,7 @@
 name: storagegateway
-defaultCommand: ''
+defaultCommand: list-automatic-tape-creation-policies
 commands:
-- name: ListAutomaticTapeCreationPolicies
+- name: list-automatic-tape-creation-policies
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automatictapecreationpolicie
+    attributeName: AutomaticTapeCreationPolicyInfos
   rerunOnBack: false
   favouritable: true
-- name: ListCacheReports
+- name: list-cache-reports
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cachereport
+    attributeName: CacheReportList
   rerunOnBack: false
   favouritable: true
-- name: ListFileShares
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-file-shares
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fileshare
+    attributeName: FileShareInfoList
   rerunOnBack: false
   favouritable: true
-- name: ListFileSystemAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-file-system-associations
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: filesystemassociation
+    attributeName: FileSystemAssociationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListGateways
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-gateways
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gateway
+    attributeName: Gateways
   rerunOnBack: false
   favouritable: true
-- name: ListLocalDisks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-tape-pools
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: localdisk
+    attributeName: PoolInfos
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-tapes
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: TapeInfos
   rerunOnBack: false
   favouritable: true
-- name: ListTapePools
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-volumes
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tapepool
+    attributeName: VolumeInfos
   rerunOnBack: false
   favouritable: true
-- name: ListTapes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-tape-archives
   arguments:
   - --output
   - json
@@ -133,171 +161,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tape
+    attributeName: TapeArchives
   rerunOnBack: false
   favouritable: true
-- name: ListVolumeInitiators
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: volumeinitiator
-  rerunOnBack: false
-  favouritable: true
-- name: ListVolumeRecoveryPoints
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: volumerecoverypoint
-  rerunOnBack: false
-  favouritable: true
-- name: ListVolumes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: volume
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAvailabilityMonitorTest
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeBandwidthRateLimit
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeBandwidthRateLimitSchedule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCache
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCacheReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCachediSCSIVolumes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeChapCredentials
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFileSystemAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Storagegateway
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker

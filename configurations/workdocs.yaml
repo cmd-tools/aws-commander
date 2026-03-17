@@ -1,7 +1,7 @@
 name: workdocs
-defaultCommand: ''
+defaultCommand: describe-activities
 commands:
-- name: DescribeActivities
+- name: describe-activities
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workdocs
+    attributeName: UserActivities
   rerunOnBack: false
   favouritable: true
-- name: DescribeComments
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-users
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workdocs
+    attributeName: Users
   rerunOnBack: false
   favouritable: true
-- name: DescribeDocumentVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: get-resources
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workdocs
+    attributeName: Folders
   rerunOnBack: false
   favouritable: true
-- name: DescribeFolderContents
+- name: initiate-document-version-upload
   arguments:
   - --output
   - json
@@ -58,10 +66,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workdocs
+    attributeName: Metadata
   rerunOnBack: false
   favouritable: true
-- name: DescribeGroups
+- name: search-resources
   arguments:
   - --output
   - json
@@ -73,201 +81,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workdocs
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: DescribeNotificationSubscriptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeResourcePermissions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRootFolders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeUsers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetCurrentUser
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetDocument
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetDocumentPath
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetDocumentVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetFolder
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetFolderPath
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: GetResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workdocs
-  rerunOnBack: false
-  favouritable: true
-- name: AbortDocumentVersionUpload
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ActivateUser
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker

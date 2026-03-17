@@ -1,7 +1,7 @@
 name: ssm-incidents
-defaultCommand: ''
+defaultCommand: list-incident-records
 commands:
-- name: ListIncidentFindings
+- name: list-incident-records
   arguments:
   - --output
   - json
@@ -13,10 +13,33 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: incidentfinding
+    attributeName: incidentRecordSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListIncidentRecords
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-replication-sets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: replicationSetArns
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-response-plans
   arguments:
   - --output
   - json
@@ -28,171 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: incidentrecord
+    attributeName: responsePlanSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListRelatedItems
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: relateditem
-  rerunOnBack: false
-  favouritable: true
-- name: ListReplicationSets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: replicationset
-  rerunOnBack: false
-  favouritable: true
-- name: ListResponsePlans
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: responseplan
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTimelineEvents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: timelineevent
-  rerunOnBack: false
-  favouritable: true
-- name: GetIncidentRecord
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
-- name: GetReplicationSet
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourcePolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
-- name: GetResponsePlan
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
-- name: GetTimelineEvent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetIncidentFindings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Incidents
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

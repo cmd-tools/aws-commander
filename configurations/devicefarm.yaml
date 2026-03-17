@@ -1,7 +1,7 @@
 name: devicefarm
-defaultCommand: ''
+defaultCommand: list-device-instances
 commands:
-- name: ListArtifacts
+- name: list-device-instances
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: artifact
+    attributeName: deviceInstances
   rerunOnBack: false
   favouritable: true
-- name: ListDeviceInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-devices
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: deviceinstance
+    attributeName: devices
   rerunOnBack: false
   favouritable: true
-- name: ListDevicePools
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-instance-profiles
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: devicepool
+    attributeName: instanceProfiles
   rerunOnBack: false
   favouritable: true
-- name: ListDevices
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-offering-promotions
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: device
+    attributeName: offeringPromotions
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-offering-transactions
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instanceprofile
+    attributeName: offeringTransactions
   rerunOnBack: false
   favouritable: true
-- name: ListJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-offerings
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: job
+    attributeName: offerings
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-projects
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkprofile
+    attributeName: projects
   rerunOnBack: false
   favouritable: true
-- name: ListOfferingPromotions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-test-grid-projects
   arguments:
   - --output
   - json
@@ -118,10 +146,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: offeringpromotion
+    attributeName: testGridProjects
   rerunOnBack: false
   favouritable: true
-- name: ListOfferingTransactions
+- name: list-vpce-configurations
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: offeringtransaction
+    attributeName: vpceConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListOfferings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-account-settings
   arguments:
   - --output
   - json
@@ -148,10 +180,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: offering
+    attributeName: accountSettings
   rerunOnBack: false
   favouritable: true
-- name: ListProjects
+- name: get-offering-status
   arguments:
   - --output
   - json
@@ -163,10 +195,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: project
+    attributeName: current
   rerunOnBack: false
   favouritable: true
-- name: ListRemoteAccessSessions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-test-grid-session
   arguments:
   - --output
   - json
@@ -178,126 +214,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: remoteaccesssession
-  rerunOnBack: false
-  favouritable: true
-- name: ListRuns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: run
-  rerunOnBack: false
-  favouritable: true
-- name: ListSamples
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sample
-  rerunOnBack: false
-  favouritable: true
-- name: ListSuites
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: suite
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTestGridProjects
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: testgridproject
-  rerunOnBack: false
-  favouritable: true
-- name: ListTestGridSessionActions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: testgridsessionaction
-  rerunOnBack: false
-  favouritable: true
-- name: ListTestGridSessionArtifacts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: testgridsessionartifact
-  rerunOnBack: false
-  favouritable: true
-- name: ListTestGridSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: testgridsession
+    attributeName: testGridSession
   rerunOnBack: false
   favouritable: true

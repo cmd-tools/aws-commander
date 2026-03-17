@@ -1,7 +1,7 @@
 name: gamelift
-defaultCommand: ''
+defaultCommand: list-aliases
 commands:
-- name: ListAliases
+- name: list-aliases
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aliase
+    attributeName: Aliases
   rerunOnBack: false
   favouritable: true
-- name: ListBuilds
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-builds
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: build
+    attributeName: Builds
   rerunOnBack: false
   favouritable: true
-- name: ListCompute
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-container-fleets
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: computes
+    attributeName: ContainerFleets
   rerunOnBack: false
   favouritable: true
-- name: ListContainerFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-container-group-definitions
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: containerfleet
+    attributeName: ContainerGroupDefinitions
   rerunOnBack: false
   favouritable: true
-- name: ListContainerGroupDefinitionVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-fleet-deployments
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: containergroupdefinitionversion
+    attributeName: FleetDeployments
   rerunOnBack: false
   favouritable: true
-- name: ListContainerGroupDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-fleets
   arguments:
   - --output
   - json
@@ -87,11 +107,16 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: containergroupdefinition
+    type: list
+    attributeName: FleetIds
   rerunOnBack: false
   favouritable: true
-- name: ListFleetDeployments
+  resourceName: FleetId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-game-server-groups
   arguments:
   - --output
   - json
@@ -103,10 +128,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fleetdeployment
+    attributeName: GameServerGroups
   rerunOnBack: false
   favouritable: true
-- name: ListFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-locations
   arguments:
   - --output
   - json
@@ -118,10 +147,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fleet
+    attributeName: Locations
   rerunOnBack: false
   favouritable: true
-- name: ListGameServerGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-scripts
   arguments:
   - --output
   - json
@@ -133,10 +166,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gameservergroup
+    attributeName: Scripts
   rerunOnBack: false
   favouritable: true
-- name: ListGameServers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-ec2-instance-limits
   arguments:
   - --output
   - json
@@ -148,10 +185,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gameserver
+    attributeName: EC2InstanceLimits
   rerunOnBack: false
   favouritable: true
-- name: ListLocations
+- name: describe-fleet-attributes
   arguments:
   - --output
   - json
@@ -163,10 +200,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: location
+    attributeName: FleetAttributes
   rerunOnBack: false
   favouritable: true
-- name: ListScripts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-fleet-capacity
   arguments:
   - --output
   - json
@@ -178,10 +219,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: script
+    attributeName: FleetCapacity
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-fleet-utilization
   arguments:
   - --output
   - json
@@ -193,10 +238,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: FleetUtilization
   rerunOnBack: false
   favouritable: true
-- name: DescribeAlias
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-game-session-details
   arguments:
   - --output
   - json
@@ -208,10 +257,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: GameSessionDetails
   rerunOnBack: false
   favouritable: true
-- name: DescribeBuild
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-game-session-queues
   arguments:
   - --output
   - json
@@ -223,10 +276,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: GameSessionQueues
   rerunOnBack: false
   favouritable: true
-- name: DescribeCompute
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-game-sessions
   arguments:
   - --output
   - json
@@ -238,10 +295,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: GameSessions
   rerunOnBack: false
   favouritable: true
-- name: DescribeContainerFleet
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-matchmaking-configurations
   arguments:
   - --output
   - json
@@ -253,10 +314,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: Configurations
   rerunOnBack: false
   favouritable: true
-- name: DescribeContainerGroupDefinition
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-matchmaking-rule-sets
   arguments:
   - --output
   - json
@@ -268,10 +333,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: RuleSets
   rerunOnBack: false
   favouritable: true
-- name: DescribeEC2InstanceLimits
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-player-sessions
   arguments:
   - --output
   - json
@@ -283,10 +352,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: PlayerSessions
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleetAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-vpc-peering-authorizations
   arguments:
   - --output
   - json
@@ -298,6 +371,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Gamelift
+    attributeName: VpcPeeringAuthorizations
   rerunOnBack: false
   favouritable: true

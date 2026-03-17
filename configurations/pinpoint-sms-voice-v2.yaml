@@ -1,7 +1,7 @@
 name: pinpoint-sms-voice-v2
-defaultCommand: ''
+defaultCommand: describe-account-attributes
 commands:
-- name: ListPoolOriginationIdentities
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: pooloriginationidentitie
+    attributeName: AccountAttributes
   rerunOnBack: false
   favouritable: true
-- name: ListProtectConfigurationRuleSetNumberOverrides
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-account-limits
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: protectconfigurationrulesetnumberoverride
+    attributeName: AccountLimits
   rerunOnBack: false
   favouritable: true
-- name: ListRegistrationAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-configuration-sets
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: registrationassociation
+    attributeName: ConfigurationSets
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-opt-out-lists
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: OptOutLists
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-phone-numbers
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: PhoneNumbers
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountLimits
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-pools
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: Pools
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationSets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-protect-configurations
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: ProtectConfigurations
   rerunOnBack: false
   favouritable: true
-- name: DescribeKeywords
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-registration-attachments
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: RegistrationAttachments
   rerunOnBack: false
   favouritable: true
-- name: DescribeOptOutLists
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-registration-type-definitions
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: describeoptout
+    attributeName: RegistrationTypeDefinitions
   rerunOnBack: false
   favouritable: true
-- name: DescribeOptedOutNumbers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-registrations
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: Registrations
   rerunOnBack: false
   favouritable: true
-- name: DescribePhoneNumbers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-sender-ids
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: SenderIds
   rerunOnBack: false
   favouritable: true
-- name: DescribePools
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-spend-limits
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: SpendLimits
   rerunOnBack: false
   favouritable: true
-- name: DescribeProtectConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-verified-destination-numbers
   arguments:
   - --output
   - json
@@ -193,111 +241,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Sms-Voice-V2
+    attributeName: VerifiedDestinationNumbers
   rerunOnBack: false
   favouritable: true
-- name: DescribeRegistrationAttachments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrationFieldDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrationFieldValues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrationSectionDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrationTypeDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrationVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegistrations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Sms-Voice-V2
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

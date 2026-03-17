@@ -1,7 +1,7 @@
 name: comprehend
-defaultCommand: ''
+defaultCommand: list-datasets
 commands:
-- name: ListDatasets
+- name: list-datasets
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataset
+    attributeName: DatasetPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListDocumentClassificationJobs
+- name: list-document-classification-jobs
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: documentclassificationjob
+    attributeName: DocumentClassificationJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListDocumentClassifierSummaries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-document-classifier-summaries
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: documentclassifiersummarie
+    attributeName: DocumentClassifierSummariesList
   rerunOnBack: false
   favouritable: true
-- name: ListDocumentClassifiers
+- name: list-document-classifiers
   arguments:
   - --output
   - json
@@ -58,10 +62,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: documentclassifier
+    attributeName: DocumentClassifierPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListDominantLanguageDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-dominant-language-detection-jobs
   arguments:
   - --output
   - json
@@ -73,10 +81,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dominantlanguagedetectionjob
+    attributeName: DominantLanguageDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-endpoints
   arguments:
   - --output
   - json
@@ -88,10 +100,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: endpoint
+    attributeName: EndpointPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListEntitiesDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-entities-detection-jobs
   arguments:
   - --output
   - json
@@ -103,10 +119,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entitiesdetectionjob
+    attributeName: EntitiesDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListEntityRecognizerSummaries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-entity-recognizer-summaries
   arguments:
   - --output
   - json
@@ -118,10 +138,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entityrecognizersummarie
+    attributeName: EntityRecognizerSummariesList
   rerunOnBack: false
   favouritable: true
-- name: ListEntityRecognizers
+- name: list-entity-recognizers
   arguments:
   - --output
   - json
@@ -133,10 +153,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entityrecognizer
+    attributeName: EntityRecognizerPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListEventsDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-events-detection-jobs
   arguments:
   - --output
   - json
@@ -148,10 +172,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventsdetectionjob
+    attributeName: EventsDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListFlywheelIterationHistory
+- name: list-flywheels
   arguments:
   - --output
   - json
@@ -163,10 +187,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: flywheeliterationhistorys
+    attributeName: FlywheelSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListFlywheels
+- name: list-key-phrases-detection-jobs
   arguments:
   - --output
   - json
@@ -178,10 +202,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: flywheel
+    attributeName: KeyPhrasesDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListKeyPhrasesDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-pii-entities-detection-jobs
   arguments:
   - --output
   - json
@@ -193,10 +221,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: keyphrasesdetectionjob
+    attributeName: PiiEntitiesDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListPiiEntitiesDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-sentiment-detection-jobs
   arguments:
   - --output
   - json
@@ -208,10 +240,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: piientitiesdetectionjob
+    attributeName: SentimentDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListSentimentDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-targeted-sentiment-detection-jobs
   arguments:
   - --output
   - json
@@ -223,10 +259,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: sentimentdetectionjob
+    attributeName: TargetedSentimentDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: list-topics-detection-jobs
   arguments:
   - --output
   - json
@@ -238,10 +274,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: TopicsDetectionJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListTargetedSentimentDetectionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: detect-entities
   arguments:
   - --output
   - json
@@ -253,51 +293,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: targetedsentimentdetectionjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListTopicsDetectionJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: topicsdetectionjob
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDataset
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehend
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDocumentClassificationJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehend
+    attributeName: Entities
   rerunOnBack: false
   favouritable: true

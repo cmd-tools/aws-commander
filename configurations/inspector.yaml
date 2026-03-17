@@ -1,7 +1,64 @@
 name: inspector
-defaultCommand: ''
+defaultCommand: list-assessment-runs
 commands:
-- name: ListAssessmentRunAgents
+- name: list-assessment-runs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: assessmentRunArns
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-assessment-targets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: assessmentTargetArns
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-assessment-templates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: assessmentTemplateArns
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-event-subscriptions
   arguments:
   - --output
   - json
@@ -13,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessmentrunagent
+    attributeName: subscriptions
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentRuns
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-findings
   arguments:
   - --output
   - json
@@ -27,11 +88,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: assessmentrun
+    type: list
+    attributeName: findingArns
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentTargets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-rules-packages
   arguments:
   - --output
   - json
@@ -42,262 +107,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: assessmenttarget
+    type: list
+    attributeName: rulesPackageArns
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: assessmenttemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListEventSubscriptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: eventsubscription
-  rerunOnBack: false
-  favouritable: true
-- name: ListExclusions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: exclusion
-  rerunOnBack: false
-  favouritable: true
-- name: ListFindings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: finding
-  rerunOnBack: false
-  favouritable: true
-- name: ListRulesPackages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: rulespackage
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAssessmentRuns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAssessmentTargets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAssessmentTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCrossAccountAccessRole
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeExclusions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeFindings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeResourceGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRulesPackages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssessmentReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: GetExclusionsPreview
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
-- name: GetTelemetryMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Inspector
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

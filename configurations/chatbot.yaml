@@ -1,7 +1,26 @@
 name: chatbot
-defaultCommand: ''
+defaultCommand: list-custom-actions
 commands:
-- name: ListAssociations
+- name: list-custom-actions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: CustomActions
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-microsoft-teams-channel-configurations
   arguments:
   - --output
   - json
@@ -13,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: association
+    attributeName: TeamChannelConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListCustomActions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-microsoft-teams-configured-teams
   arguments:
   - --output
   - json
@@ -28,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: customaction
+    attributeName: ConfiguredTeams
   rerunOnBack: false
   favouritable: true
-- name: ListMicrosoftTeamsChannelConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-microsoft-teams-user-identities
   arguments:
   - --output
   - json
@@ -43,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: microsoftteamschannelconfiguration
+    attributeName: TeamsUserIdentities
   rerunOnBack: false
   favouritable: true
-- name: ListMicrosoftTeamsConfiguredTeams
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-chime-webhook-configurations
   arguments:
   - --output
   - json
@@ -58,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: microsoftteamsconfiguredteam
+    attributeName: WebhookConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListMicrosoftTeamsUserIdentities
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-slack-channel-configurations
   arguments:
   - --output
   - json
@@ -73,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: microsoftteamsuseridentitie
+    attributeName: SlackChannelConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-slack-user-identities
   arguments:
   - --output
   - json
@@ -88,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: SlackUserIdentities
   rerunOnBack: false
   favouritable: true
-- name: DescribeChimeWebhookConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-slack-workspaces
   arguments:
   - --output
   - json
@@ -103,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Chatbot
+    attributeName: SlackWorkspaces
   rerunOnBack: false
   favouritable: true
-- name: DescribeSlackChannelConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-account-preferences
   arguments:
   - --output
   - json
@@ -118,96 +165,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSlackUserIdentities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSlackWorkspaces
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountPreferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: GetCustomAction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: GetMicrosoftTeamsChannelConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chatbot
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateToConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: AccountPreferences
   rerunOnBack: false
   favouritable: true

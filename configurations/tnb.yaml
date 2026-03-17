@@ -1,7 +1,7 @@
 name: tnb
-defaultCommand: ''
+defaultCommand: list-sol-function-instances
 commands:
-- name: ListSolFunctionInstances
+- name: list-sol-function-instances
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solfunctioninstance
+    attributeName: functionInstances
   rerunOnBack: false
   favouritable: true
-- name: ListSolFunctionPackages
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-sol-function-packages
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solfunctionpackage
+    attributeName: functionPackages
   rerunOnBack: false
   favouritable: true
-- name: ListSolNetworkInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-sol-network-instances
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solnetworkinstance
+    attributeName: networkInstances
   rerunOnBack: false
   favouritable: true
-- name: ListSolNetworkOperations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-sol-network-operations
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solnetworkoperation
+    attributeName: networkOperations
   rerunOnBack: false
   favouritable: true
-- name: ListSolNetworkPackages
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-sol-network-packages
   arguments:
   - --output
   - json
@@ -73,171 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solnetworkpackage
+    attributeName: networkPackages
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolFunctionInstance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolFunctionPackage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolFunctionPackageContent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolFunctionPackageDescriptor
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolNetworkInstance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolNetworkOperation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolNetworkPackage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolNetworkPackageContent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: GetSolNetworkPackageDescriptor
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Tnb
-  rerunOnBack: false
-  favouritable: true
-- name: CancelSolNetworkOperation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

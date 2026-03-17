@@ -1,7 +1,7 @@
 name: mediaconvert
-defaultCommand: ''
+defaultCommand: list-job-templates
 commands:
-- name: ListJobTemplates
+- name: list-job-templates
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: jobtemplate
+    attributeName: JobTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-jobs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: job
+    attributeName: Jobs
   rerunOnBack: false
   favouritable: true
-- name: ListPresets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-presets
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: preset
+    attributeName: Presets
   rerunOnBack: false
   favouritable: true
-- name: ListQueues
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-queues
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: queue
+    attributeName: Queues
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-versions
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: Versions
   rerunOnBack: false
   favouritable: true
-- name: ListVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-endpoints
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: version
+    attributeName: Endpoints
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-policy
   arguments:
   - --output
   - json
@@ -103,10 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Mediaconvert
+    attributeName: Policy
   rerunOnBack: false
   favouritable: true
-- name: GetJob
+- name: probe
   arguments:
   - --output
   - json
@@ -118,10 +142,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Mediaconvert
+    attributeName: ProbeResults
   rerunOnBack: false
   favouritable: true
-- name: GetJobTemplate
+- name: search-jobs
   arguments:
   - --output
   - json
@@ -133,96 +157,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Mediaconvert
+    attributeName: Jobs
   rerunOnBack: false
   favouritable: true
-- name: GetJobsQueryResults
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconvert
-  rerunOnBack: false
-  favouritable: true
-- name: GetPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconvert
-  rerunOnBack: false
-  favouritable: true
-- name: GetPreset
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconvert
-  rerunOnBack: false
-  favouritable: true
-- name: GetQueue
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mediaconvert
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateCertificate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CancelJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

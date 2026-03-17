@@ -1,7 +1,7 @@
 name: autoscaling-plans
-defaultCommand: ''
+defaultCommand: describe-scaling-plans
 commands:
-- name: DescribeScalingPlanResources
+- name: describe-scaling-plans
   arguments:
   - --output
   - json
@@ -13,36 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling-Plans
+    attributeName: ScalingPlans
   rerunOnBack: false
   favouritable: true
-- name: DescribeScalingPlans
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling-Plans
-  rerunOnBack: false
-  favouritable: true
-- name: GetScalingPlanResourceForecastData
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling-Plans
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

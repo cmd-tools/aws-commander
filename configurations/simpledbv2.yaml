@@ -1,7 +1,7 @@
 name: simpledbv2
-defaultCommand: ''
+defaultCommand: list-exports
 commands:
-- name: ListExports
+- name: list-exports
   arguments:
   - --output
   - json
@@ -13,36 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: export
+    attributeName: exportSummaries
   rerunOnBack: false
   favouritable: true
-- name: GetExport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Simpledbv2
-  rerunOnBack: false
-  favouritable: true
-- name: StartDomainExport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

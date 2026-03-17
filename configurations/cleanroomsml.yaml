@@ -1,7 +1,7 @@
 name: cleanroomsml
-defaultCommand: ''
+defaultCommand: list-audience-export-jobs
 commands:
-- name: ListAudienceExportJobs
+- name: list-audience-export-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: audienceexportjob
+    attributeName: audienceExportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListAudienceGenerationJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-audience-generation-jobs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: audiencegenerationjob
+    attributeName: audienceGenerationJobs
   rerunOnBack: false
   favouritable: true
-- name: ListAudienceModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-audience-models
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: audiencemodel
+    attributeName: audienceModels
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationConfiguredModelAlgorithmAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-configured-audience-models
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collaborationconfiguredmodelalgorithmassociation
+    attributeName: configuredAudienceModels
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationMLInputChannels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-configured-model-algorithms
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collaborationmlinputchannel
+    attributeName: configuredModelAlgorithms
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationTrainedModelExportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-training-datasets
   arguments:
   - --output
   - json
@@ -88,216 +108,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collaborationtrainedmodelexportjob
+    attributeName: trainingDatasets
   rerunOnBack: false
   favouritable: true
-- name: ListCollaborationTrainedModelInferenceJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationtrainedmodelinferencejob
-  rerunOnBack: false
-  favouritable: true
-- name: ListCollaborationTrainedModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: collaborationtrainedmodel
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredAudienceModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredaudiencemodel
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredModelAlgorithmAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredmodelalgorithmassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListConfiguredModelAlgorithms
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: configuredmodelalgorithm
-  rerunOnBack: false
-  favouritable: true
-- name: ListMLInputChannels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: mlinputchannel
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrainedModelInferenceJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trainedmodelinferencejob
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrainedModelVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trainedmodelversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrainedModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trainedmodel
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrainingDatasets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trainingdataset
-  rerunOnBack: false
-  favouritable: true
-- name: GetAudienceGenerationJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cleanroomsml
-  rerunOnBack: false
-  favouritable: true
-- name: GetAudienceModel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cleanroomsml
-  rerunOnBack: false
-  favouritable: true
-- name: GetCollaborationConfiguredModelAlgorithmAssociation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cleanroomsml
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

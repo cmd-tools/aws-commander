@@ -1,7 +1,7 @@
 name: dms
-defaultCommand: ''
+defaultCommand: list-tags-for-resource
 commands:
-- name: ListTagsForResource
+- name: list-tags-for-resource
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: TagList
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: AccountQuotas
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplicableIndividualAssessments
+- name: describe-applicable-individual-assessments
   arguments:
   - --output
   - json
@@ -42,11 +42,12 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: Dms
+    type: list
+    attributeName: IndividualAssessmentNames
   rerunOnBack: false
   favouritable: true
-- name: DescribeCertificates
+  resourceName: IndividualAssessmentName
+- name: describe-certificates
   arguments:
   - --output
   - json
@@ -58,10 +59,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Certificates
   rerunOnBack: false
   favouritable: true
-- name: DescribeConnections
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-connections
   arguments:
   - --output
   - json
@@ -73,10 +78,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Connections
   rerunOnBack: false
   favouritable: true
-- name: DescribeConversionConfiguration
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-data-migrations
   arguments:
   - --output
   - json
@@ -88,10 +97,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: DataMigrations
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataMigrations
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-data-providers
   arguments:
   - --output
   - json
@@ -103,10 +116,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: DataProviders
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataProviders
+- name: describe-endpoint-types
   arguments:
   - --output
   - json
@@ -118,10 +131,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: SupportedEndpointTypes
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpointSettings
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-endpoints
   arguments:
   - --output
   - json
@@ -133,10 +150,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Endpoints
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpointTypes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-engine-versions
   arguments:
   - --output
   - json
@@ -148,10 +169,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: EngineVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpoints
+- name: describe-event-categories
   arguments:
   - --output
   - json
@@ -163,10 +184,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: EventCategoryGroupList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEngineVersions
+- name: describe-event-subscriptions
   arguments:
   - --output
   - json
@@ -178,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: EventSubscriptionsList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEventCategories
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-events
   arguments:
   - --output
   - json
@@ -193,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Events
   rerunOnBack: false
   favouritable: true
-- name: DescribeEventSubscriptions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-fleet-advisor-collectors
   arguments:
   - --output
   - json
@@ -208,10 +237,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Collectors
   rerunOnBack: false
   favouritable: true
-- name: DescribeEvents
+- name: describe-fleet-advisor-databases
   arguments:
   - --output
   - json
@@ -223,10 +252,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Databases
   rerunOnBack: false
   favouritable: true
-- name: DescribeExtensionPackAssociations
+- name: describe-fleet-advisor-lsa-analysis
   arguments:
   - --output
   - json
@@ -238,10 +267,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: Analysis
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleetAdvisorCollectors
+- name: describe-fleet-advisor-schema-object-summary
   arguments:
   - --output
   - json
@@ -253,10 +282,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: FleetAdvisorSchemaObjects
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleetAdvisorDatabases
+- name: describe-fleet-advisor-schemas
   arguments:
   - --output
   - json
@@ -268,10 +297,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: FleetAdvisorSchemas
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleetAdvisorLsaAnalysis
+- name: describe-instance-profiles
   arguments:
   - --output
   - json
@@ -283,10 +312,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: InstanceProfiles
   rerunOnBack: false
   favouritable: true
-- name: DescribeFleetAdvisorSchemaObjectSummary
+- name: describe-migration-projects
   arguments:
   - --output
   - json
@@ -298,6 +327,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Dms
+    attributeName: MigrationProjects
   rerunOnBack: false
   favouritable: true

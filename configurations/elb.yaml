@@ -1,7 +1,7 @@
 name: elb
-defaultCommand: ''
+defaultCommand: describe-account-limits
 commands:
-- name: DescribeAccountLimits
+- name: describe-account-limits
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elb
+    attributeName: Limits
   rerunOnBack: false
   favouritable: true
-- name: DescribeInstanceHealth
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: describe-load-balancer-policies
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elb
+    attributeName: PolicyDescriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancerAttributes
+- name: describe-load-balancer-policy-types
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elb
+    attributeName: PolicyTypeDescriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancerPolicies
+- name: describe-load-balancers
   arguments:
   - --output
   - json
@@ -58,111 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elb
+    attributeName: LoadBalancerDescriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancerPolicyTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLoadBalancers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elb
-  rerunOnBack: false
-  favouritable: true
-- name: ApplySecurityGroupsToLoadBalancer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: AttachLoadBalancerToSubnets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ConfigureHealthCheck
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DeregisterInstancesFromLoadBalancer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker

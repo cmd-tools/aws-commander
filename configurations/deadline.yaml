@@ -1,7 +1,7 @@
 name: deadline
-defaultCommand: ''
+defaultCommand: list-available-metered-products
 commands:
-- name: ListAvailableMeteredProducts
+- name: list-available-metered-products
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: availablemeteredproduct
+    attributeName: meteredProducts
   rerunOnBack: false
   favouritable: true
-- name: ListBudgets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-farms
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: budget
+    attributeName: farms
   rerunOnBack: false
   favouritable: true
-- name: ListFarmMembers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-license-endpoints
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: farmmember
+    attributeName: licenseEndpoints
   rerunOnBack: false
   favouritable: true
-- name: ListFarms
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-monitors
   arguments:
   - --output
   - json
@@ -58,246 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: farm
+    attributeName: monitors
   rerunOnBack: false
   favouritable: true
-- name: ListFleetMembers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: fleetmember
-  rerunOnBack: false
-  favouritable: true
-- name: ListFleets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: fleet
-  rerunOnBack: false
-  favouritable: true
-- name: ListJobMembers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: jobmember
-  rerunOnBack: false
-  favouritable: true
-- name: ListJobParameterDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: jobparameterdefinition
-  rerunOnBack: false
-  favouritable: true
-- name: ListJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: job
-  rerunOnBack: false
-  favouritable: true
-- name: ListLicenseEndpoints
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: licenseendpoint
-  rerunOnBack: false
-  favouritable: true
-- name: ListLimits
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: limit
-  rerunOnBack: false
-  favouritable: true
-- name: ListMeteredProducts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: meteredproduct
-  rerunOnBack: false
-  favouritable: true
-- name: ListMonitors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: monitor
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueueEnvironments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queueenvironment
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueueFleetAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queuefleetassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueueLimitAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queuelimitassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueueMembers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queuemember
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queue
-  rerunOnBack: false
-  favouritable: true
-- name: ListSessionActions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sessionaction
-  rerunOnBack: false
-  favouritable: true
-- name: ListSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: session
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

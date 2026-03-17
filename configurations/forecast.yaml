@@ -1,7 +1,7 @@
 name: forecast
-defaultCommand: ''
+defaultCommand: list-dataset-groups
 commands:
-- name: ListDatasetGroups
+- name: list-dataset-groups
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetgroup
+    attributeName: DatasetGroups
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-dataset-import-jobs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetimportjob
+    attributeName: DatasetImportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListDatasets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-datasets
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataset
+    attributeName: Datasets
   rerunOnBack: false
   favouritable: true
-- name: ListExplainabilities
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-explainabilities
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: explainabilitie
+    attributeName: Explainabilities
   rerunOnBack: false
   favouritable: true
-- name: ListExplainabilityExports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-explainability-exports
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: explainabilityexport
+    attributeName: ExplainabilityExports
   rerunOnBack: false
   favouritable: true
-- name: ListForecastExportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-forecast-export-jobs
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: forecastexportjob
+    attributeName: ForecastExportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListForecasts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-forecasts
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: forecast
+    attributeName: Forecasts
   rerunOnBack: false
   favouritable: true
-- name: ListMonitorEvaluations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-monitors
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: monitorevaluation
+    attributeName: Monitors
   rerunOnBack: false
   favouritable: true
-- name: ListMonitors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-predictor-backtest-export-jobs
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: monitor
+    attributeName: PredictorBacktestExportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListPredictorBacktestExportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-predictors
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: predictorbacktestexportjob
+    attributeName: Predictors
   rerunOnBack: false
   favouritable: true
-- name: ListPredictors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-what-if-analyses
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: predictor
+    attributeName: WhatIfAnalyses
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-what-if-forecast-exports
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: WhatIfForecastExports
   rerunOnBack: false
   favouritable: true
-- name: ListWhatIfAnalyses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-what-if-forecasts
   arguments:
   - --output
   - json
@@ -193,111 +241,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: whatifanalyse
+    attributeName: WhatIfForecasts
   rerunOnBack: false
   favouritable: true
-- name: ListWhatIfForecastExports
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: whatifforecastexport
-  rerunOnBack: false
-  favouritable: true
-- name: ListWhatIfForecasts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: whatifforecast
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAutoPredictor
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Forecast
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDataset
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Forecast
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDatasetGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Forecast
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDatasetImportJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Forecast
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeExplainability
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Forecast
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

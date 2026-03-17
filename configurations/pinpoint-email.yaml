@@ -1,7 +1,7 @@
 name: pinpoint-email
-defaultCommand: ''
+defaultCommand: list-configuration-sets
 commands:
-- name: ListConfigurationSets
+- name: list-configuration-sets
   arguments:
   - --output
   - json
@@ -12,11 +12,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: configurationset
+    type: list
+    attributeName: ConfigurationSets
   rerunOnBack: false
   favouritable: true
-- name: ListDedicatedIpPools
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-dedicated-ip-pools
   arguments:
   - --output
   - json
@@ -27,11 +31,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: dedicatedippool
+    type: list
+    attributeName: DedicatedIpPools
   rerunOnBack: false
   favouritable: true
-- name: ListDeliverabilityTestReports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-deliverability-test-reports
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: deliverabilitytestreport
+    attributeName: DeliverabilityTestReports
   rerunOnBack: false
   favouritable: true
-- name: ListDomainDeliverabilityCampaigns
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-email-identities
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domaindeliverabilitycampaign
+    attributeName: EmailIdentities
   rerunOnBack: false
   favouritable: true
-- name: ListEmailIdentities
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-account
   arguments:
   - --output
   - json
@@ -73,10 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: emailidentitie
+    attributeName: SendQuota
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-dedicated-ips
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: DedicatedIps
   rerunOnBack: false
   favouritable: true
-- name: GetAccount
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-deliverability-dashboard-options
   arguments:
   - --output
   - json
@@ -103,156 +123,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetBlacklistReports
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getblackreport
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfigurationSet
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfigurationSetEventDestinations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDedicatedIp
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDedicatedIps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeliverabilityDashboardOptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeliverabilityTestReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDomainDeliverabilityCampaign
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetDomainStatisticsReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
-  rerunOnBack: false
-  favouritable: true
-- name: GetEmailIdentity
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint-Email
+    attributeName: ActiveSubscribedDomains
   rerunOnBack: false
   favouritable: true

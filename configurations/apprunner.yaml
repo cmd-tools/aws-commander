@@ -1,7 +1,7 @@
 name: apprunner
-defaultCommand: ''
+defaultCommand: list-auto-scaling-configurations
 commands:
-- name: ListAutoScalingConfigurations
+- name: list-auto-scaling-configurations
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: autoscalingconfiguration
+    attributeName: AutoScalingConfigurationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListConnections
+- name: list-connections
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connection
+    attributeName: ConnectionSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListObservabilityConfigurations
+- name: list-observability-configurations
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: observabilityconfiguration
+    attributeName: ObservabilityConfigurationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListOperations
+- name: list-services
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: operation
+    attributeName: ServiceSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListServices
+- name: list-vpc-connectors
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: service
+    attributeName: VpcConnectors
   rerunOnBack: false
   favouritable: true
-- name: ListServicesForAutoScalingConfiguration
+- name: list-vpc-ingress-connections
   arguments:
   - --output
   - json
@@ -88,156 +88,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: servicesforautoscalingconfigurations
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcConnectors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcconnector
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcIngressConnections
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcingressconnection
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAutoScalingConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomDomains
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeObservabilityConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeService
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVpcConnector
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVpcIngressConnection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Apprunner
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateCustomDomain
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: VpcIngressConnectionSummaryList
   rerunOnBack: false
   favouritable: true

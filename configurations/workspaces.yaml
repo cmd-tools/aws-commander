@@ -1,7 +1,7 @@
 name: workspaces
-defaultCommand: ''
+defaultCommand: list-account-links
 commands:
-- name: ListAccountLinks
+- name: list-account-links
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountlink
+    attributeName: AccountLinks
   rerunOnBack: false
   favouritable: true
-- name: ListAvailableManagementCidrRanges
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-account-modifications
   arguments:
   - --output
   - json
@@ -28,10 +32,120 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: availablemanagementcidrrange
+    attributeName: AccountModifications
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccount
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-applications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Applications
+  rerunOnBack: false
+  favouritable: true
+- name: describe-connection-aliases
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ConnectionAliases
+  rerunOnBack: false
+  favouritable: true
+- name: describe-ip-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Result
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspace-bundles
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Bundles
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspace-directories
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Directories
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspace-images
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Images
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspaces
   arguments:
   - --output
   - json
@@ -46,7 +160,11 @@ commands:
     attributeName: Workspaces
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountModifications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspaces-connection-status
   arguments:
   - --output
   - json
@@ -58,10 +176,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workspaces
+    attributeName: WorkspacesConnectionStatus
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplicationAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-workspaces-pools
   arguments:
   - --output
   - json
@@ -73,10 +195,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workspaces
+    attributeName: WorkspacesPools
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplications
+- name: get-account-link
   arguments:
   - --output
   - json
@@ -88,216 +210,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeBundleAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeClientBranding
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeClientProperties
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConnectClientAddIns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConnectionAliasPermissions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConnectionAliases
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomWorkspaceImageImport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeImageAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeIpGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeWorkspaceAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeWorkspaceBundles
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeWorkspaceDirectories
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeWorkspaceImagePermissions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces
+    attributeName: AccountLink
   rerunOnBack: false
   favouritable: true

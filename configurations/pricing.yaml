@@ -1,7 +1,7 @@
 name: pricing
-defaultCommand: ''
+defaultCommand: describe-services
 commands:
-- name: ListPriceLists
+- name: describe-services
   arguments:
   - --output
   - json
@@ -13,66 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: price
+    attributeName: Services
   rerunOnBack: false
   favouritable: true
-- name: DescribeServices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pricing
-  rerunOnBack: false
-  favouritable: true
-- name: GetAttributeValues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pricing
-  rerunOnBack: false
-  favouritable: true
-- name: GetPriceListFileUrl
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getpricefileurls
-  rerunOnBack: false
-  favouritable: true
-- name: GetProducts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pricing
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

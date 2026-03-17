@@ -1,7 +1,7 @@
 name: bedrock
-defaultCommand: ''
+defaultCommand: list-automated-reasoning-policies
 commands:
-- name: ListAutomatedReasoningPolicies
+- name: list-automated-reasoning-policies
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automatedreasoningpolicie
+    attributeName: automatedReasoningPolicySummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAutomatedReasoningPolicyBuildWorkflows
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-custom-model-deployments
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automatedreasoningpolicybuildworkflow
+    attributeName: modelDeploymentSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAutomatedReasoningPolicyTestCases
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-custom-models
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automatedreasoningpolicytestcase
+    attributeName: modelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAutomatedReasoningPolicyTestResults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-enforced-guardrails-configuration
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automatedreasoningpolicytestresult
+    attributeName: guardrailsConfig
   rerunOnBack: false
   favouritable: true
-- name: ListCustomModelDeployments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-evaluation-jobs
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: custommodeldeployment
+    attributeName: jobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCustomModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-foundation-models
   arguments:
   - --output
   - json
@@ -88,10 +108,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: custommodel
+    attributeName: modelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListEnforcedGuardrailsConfiguration
+- name: list-guardrails
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: enforcedguardrailsconfigurations
+    attributeName: guardrails
   rerunOnBack: false
   favouritable: true
-- name: ListEvaluationJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-imported-models
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: evaluationjob
+    attributeName: modelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListFoundationModelAgreementOffers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-inference-profiles
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: foundationmodelagreementoffer
+    attributeName: inferenceProfileSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListFoundationModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-marketplace-model-endpoints
   arguments:
   - --output
   - json
@@ -148,10 +180,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: foundationmodel
+    attributeName: marketplaceModelEndpoints
   rerunOnBack: false
   favouritable: true
-- name: ListGuardrails
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-model-copy-jobs
   arguments:
   - --output
   - json
@@ -163,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: guardrail
+    attributeName: modelCopyJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListImportedModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-model-customization-jobs
   arguments:
   - --output
   - json
@@ -178,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importedmodel
+    attributeName: modelCustomizationJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListInferenceProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-model-import-jobs
   arguments:
   - --output
   - json
@@ -193,10 +237,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inferenceprofile
+    attributeName: modelImportJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMarketplaceModelEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-model-invocation-jobs
   arguments:
   - --output
   - json
@@ -208,10 +256,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: marketplacemodelendpoint
+    attributeName: invocationJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListModelCopyJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-prompt-routers
   arguments:
   - --output
   - json
@@ -223,10 +275,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: modelcopyjob
+    attributeName: promptRouterSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListModelCustomizationJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-provisioned-model-throughputs
   arguments:
   - --output
   - json
@@ -238,10 +294,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: modelcustomizationjob
+    attributeName: provisionedModelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListModelImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-model-invocation-logging-configuration
   arguments:
   - --output
   - json
@@ -253,51 +313,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: modelimportjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListModelInvocationJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: modelinvocationjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListPromptRouters
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: promptrouter
-  rerunOnBack: false
-  favouritable: true
-- name: ListProvisionedModelThroughputs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: provisionedmodelthroughput
+    attributeName: loggingConfig
   rerunOnBack: false
   favouritable: true

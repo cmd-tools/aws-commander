@@ -1,7 +1,7 @@
 name: service-quotas
-defaultCommand: ''
+defaultCommand: list-requested-service-quota-change-history
 commands:
-- name: ListAWSDefaultServiceQuotas
+- name: list-requested-service-quota-change-history
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: awsdefaultservicequota
+    attributeName: RequestedQuotas
   rerunOnBack: false
   favouritable: true
-- name: ListRequestedServiceQuotaChangeHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-service-quota-increase-requests-in-template
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: requestedservicequotachangehistorys
+    attributeName: ServiceQuotaIncreaseRequestInTemplateList
   rerunOnBack: false
   favouritable: true
-- name: ListRequestedServiceQuotaChangeHistoryByQuota
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-services
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: requestedservicequotachangehistorybyquotas
+    attributeName: Services
   rerunOnBack: false
   favouritable: true
-- name: ListServiceQuotaIncreaseRequestsInTemplate
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-auto-management-configuration
   arguments:
   - --output
   - json
@@ -58,201 +70,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: servicequotaincreaserequestsintemplates
-  rerunOnBack: false
-  favouritable: true
-- name: ListServiceQuotas
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: servicequota
-  rerunOnBack: false
-  favouritable: true
-- name: ListServices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: service
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetAWSDefaultServiceQuota
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssociationForServiceQuotaTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetAutoManagementConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetQuotaUtilizationReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetRequestedServiceQuotaChange
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetServiceQuota
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: GetServiceQuotaIncreaseRequestFromTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Service-Quotas
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateServiceQuotaTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisassociateServiceQuotaTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: RequestServiceQuotaIncrease
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: ExclusionList
   rerunOnBack: false
   favouritable: true

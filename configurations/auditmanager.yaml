@@ -1,7 +1,7 @@
 name: auditmanager
-defaultCommand: ''
+defaultCommand: list-assessment-reports
 commands:
-- name: ListAssessmentControlInsightsByControlDomain
+- name: list-assessment-reports
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessmentcontrolinsightsbycontroldomains
+    attributeName: assessmentReports
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentFrameworkShareRequests
+- name: list-assessments
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessmentframeworksharerequest
+    attributeName: assessmentMetadata
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentFrameworks
+- name: list-control-domain-insights
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessmentframework
+    attributeName: controlDomainInsights
   rerunOnBack: false
   favouritable: true
-- name: ListAssessmentReports
+- name: list-notifications
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessmentreport
+    attributeName: notifications
   rerunOnBack: false
   favouritable: true
-- name: ListAssessments
+- name: get-delegations
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assessment
+    attributeName: delegations
   rerunOnBack: false
   favouritable: true
-- name: ListControlDomainInsights
+- name: get-insights
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: controldomaininsight
+    attributeName: insights
   rerunOnBack: false
   favouritable: true
-- name: ListControlDomainInsightsByAssessment
+- name: get-services-in-scope
   arguments:
   - --output
   - json
@@ -103,201 +103,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: controldomaininsightsbyassessments
-  rerunOnBack: false
-  favouritable: true
-- name: ListControlInsightsByControlDomain
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: controlinsightsbycontroldomains
-  rerunOnBack: false
-  favouritable: true
-- name: ListControls
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: control
-  rerunOnBack: false
-  favouritable: true
-- name: ListKeywordsForDataSource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: keywordsfordatasources
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotifications
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notification
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssessment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssessmentFramework
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssessmentReportUrl
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetChangeLogs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetControl
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetDelegations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
-  rerunOnBack: false
-  favouritable: true
-- name: GetEvidence
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Auditmanager
+    attributeName: serviceMetadata
   rerunOnBack: false
   favouritable: true

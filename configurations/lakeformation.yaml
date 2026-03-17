@@ -1,7 +1,7 @@
 name: lakeformation
-defaultCommand: ''
+defaultCommand: list-data-cells-filter
 commands:
-- name: ListDataCellsFilter
+- name: list-data-cells-filter
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datacellsfilters
+    attributeName: DataCellsFilters
   rerunOnBack: false
   favouritable: true
-- name: ListLFTagExpressions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-lf-tag-expressions
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lftagexpression
+    attributeName: LFTagExpressions
   rerunOnBack: false
   favouritable: true
-- name: ListLFTags
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-lf-tags
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lftag
+    attributeName: LFTags
   rerunOnBack: false
   favouritable: true
-- name: ListLakeFormationOptIns
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-lake-formation-opt-ins
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lakeformationoptin
+    attributeName: LakeFormationOptInsInfoList
   rerunOnBack: false
   favouritable: true
-- name: ListPermissions
+- name: list-permissions
   arguments:
   - --output
   - json
@@ -73,10 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: permission
+    attributeName: PrincipalResourcePermissions
   rerunOnBack: false
   favouritable: true
-- name: ListResources
+- name: list-resources
   arguments:
   - --output
   - json
@@ -88,10 +100,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resource
+    attributeName: ResourceInfoList
   rerunOnBack: false
   favouritable: true
-- name: ListTableStorageOptimizers
+- name: list-transactions
   arguments:
   - --output
   - json
@@ -103,10 +115,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tablestorageoptimizer
+    attributeName: Transactions
   rerunOnBack: false
   favouritable: true
-- name: ListTransactions
+- name: describe-lake-formation-identity-center-configuration
   arguments:
   - --output
   - json
@@ -118,10 +130,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: transaction
+    attributeName: ShareRecipients
   rerunOnBack: false
   favouritable: true
-- name: DescribeLakeFormationIdentityCenterConfiguration
+- name: get-data-lake-settings
   arguments:
   - --output
   - json
@@ -133,10 +145,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lakeformation
+    attributeName: DataLakeSettings
   rerunOnBack: false
   favouritable: true
-- name: DescribeResource
+- name: get-temporary-data-location-credentials
   arguments:
   - --output
   - json
@@ -147,157 +159,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTransaction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetDataCellsFilter
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetDataLakePrincipal
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetDataLakeSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetEffectivePermissionsForPath
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetLFTag
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetLFTagExpression
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetQueryState
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetQueryStatistics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourceLFTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lakeformation
+    type: list
+    attributeName: AccessibleDataLocations
   rerunOnBack: false
   favouritable: true

@@ -1,7 +1,7 @@
 name: nova-act
-defaultCommand: ''
+defaultCommand: list-workflow-definitions
 commands:
-- name: ListActs
+- name: list-workflow-definitions
   arguments:
   - --output
   - json
@@ -13,111 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: act
+    attributeName: workflowDefinitionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: model
-  rerunOnBack: false
-  favouritable: true
-- name: ListSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: session
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowdefinition
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowRuns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowrun
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkflowDefinition
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Nova-Act
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkflowRun
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Nova-Act
-  rerunOnBack: false
-  favouritable: true
-- name: InvokeActStep
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

@@ -1,7 +1,7 @@
 name: chime
-defaultCommand: ''
+defaultCommand: list-accounts
 commands:
-- name: ListAccounts
+- name: list-accounts
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: account
+    attributeName: Accounts
   rerunOnBack: false
   favouritable: true
-- name: ListBots
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-phone-number-orders
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: bot
+    attributeName: PhoneNumberOrders
   rerunOnBack: false
   favouritable: true
-- name: ListPhoneNumberOrders
+- name: list-phone-numbers
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: phonenumberorder
+    attributeName: PhoneNumbers
   rerunOnBack: false
   favouritable: true
-- name: ListPhoneNumbers
+- name: get-global-settings
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: phonenumber
+    attributeName: BusinessCalling
   rerunOnBack: false
   favouritable: true
-- name: ListRoomMemberships
+- name: search-available-phone-numbers
   arguments:
   - --output
   - json
@@ -72,232 +76,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: roommembership
-  rerunOnBack: false
-  favouritable: true
-- name: ListRooms
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: room
-  rerunOnBack: false
-  favouritable: true
-- name: ListSupportedPhoneNumberCountries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: supportedphonenumbercountrie
-  rerunOnBack: false
-  favouritable: true
-- name: ListUsers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: user
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccount
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetBot
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventsConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetGlobalSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetPhoneNumber
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetPhoneNumberOrder
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetPhoneNumberSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetRetentionSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetRoom
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetUser
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
-  rerunOnBack: false
-  favouritable: true
-- name: GetUserSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Chime
+    type: list
+    attributeName: E164PhoneNumbers
   rerunOnBack: false
   favouritable: true

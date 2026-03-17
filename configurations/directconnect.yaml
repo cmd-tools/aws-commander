@@ -1,7 +1,7 @@
 name: directconnect
-defaultCommand: ''
+defaultCommand: list-virtual-interface-test-history
 commands:
-- name: ListVirtualInterfaceTestHistory
+- name: list-virtual-interface-test-history
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: virtualinterfacetesthistorys
+    attributeName: virtualInterfaceTestHistory
   rerunOnBack: false
   favouritable: true
-- name: DescribeConnectionLoa
+- name: describe-connections
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: connections
   rerunOnBack: false
   favouritable: true
-- name: DescribeConnections
+- name: describe-customer-metadata
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: agreements
   rerunOnBack: false
   favouritable: true
-- name: DescribeConnectionsOnInterconnect
+- name: describe-direct-connect-gateway-association-proposals
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: directConnectGatewayAssociationProposals
   rerunOnBack: false
   favouritable: true
-- name: DescribeCustomerMetadata
+- name: describe-direct-connect-gateway-associations
   arguments:
   - --output
   - json
@@ -73,10 +73,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: directConnectGatewayAssociations
   rerunOnBack: false
   favouritable: true
-- name: DescribeDirectConnectGatewayAssociationProposals
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-direct-connect-gateway-attachments
   arguments:
   - --output
   - json
@@ -88,10 +92,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: directConnectGatewayAttachments
   rerunOnBack: false
   favouritable: true
-- name: DescribeDirectConnectGatewayAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-direct-connect-gateways
   arguments:
   - --output
   - json
@@ -103,10 +111,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: directConnectGateways
   rerunOnBack: false
   favouritable: true
-- name: DescribeDirectConnectGatewayAttachments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-interconnects
   arguments:
   - --output
   - json
@@ -118,10 +130,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: interconnects
   rerunOnBack: false
   favouritable: true
-- name: DescribeDirectConnectGateways
+- name: describe-lags
   arguments:
   - --output
   - json
@@ -133,10 +145,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: lags
   rerunOnBack: false
   favouritable: true
-- name: DescribeHostedConnections
+- name: describe-locations
   arguments:
   - --output
   - json
@@ -148,10 +160,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: locations
   rerunOnBack: false
   favouritable: true
-- name: DescribeInterconnectLoa
+- name: describe-virtual-gateways
   arguments:
   - --output
   - json
@@ -163,10 +175,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
+    attributeName: virtualGateways
   rerunOnBack: false
   favouritable: true
-- name: DescribeInterconnects
+- name: describe-virtual-interfaces
   arguments:
   - --output
   - json
@@ -178,126 +190,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLoa
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLocations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRouterConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVirtualGateways
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVirtualInterfaces
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Directconnect
-  rerunOnBack: false
-  favouritable: true
-- name: AcceptDirectConnectGatewayAssociationProposal
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: virtualInterfaces
   rerunOnBack: false
   favouritable: true

@@ -1,7 +1,7 @@
 name: comprehendmedical
-defaultCommand: ''
+defaultCommand: list-entities-detection-v2-jobs
 commands:
-- name: ListEntitiesDetectionV2Jobs
+- name: list-entities-detection-v2-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: entitiesdetectionv2job
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListICD10CMInferenceJobs
+- name: list-icd10-cm-inference-jobs
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: icd10cminferencejob
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListPHIDetectionJobs
+- name: list-phi-detection-jobs
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: phidetectionjob
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListRxNormInferenceJobs
+- name: list-rx-norm-inference-jobs
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: rxnorminferencejob
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
   rerunOnBack: false
   favouritable: true
-- name: ListSNOMEDCTInferenceJobs
+- name: list-snomedct-inference-jobs
   arguments:
   - --output
   - json
@@ -73,231 +73,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: snomedctinferencejob
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEntitiesDetectionV2Job
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehendmedical
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeICD10CMInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehendmedical
-  rerunOnBack: false
-  favouritable: true
-- name: DescribePHIDetectionJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehendmedical
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRxNormInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehendmedical
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSNOMEDCTInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Comprehendmedical
-  rerunOnBack: false
-  favouritable: true
-- name: DetectEntities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DetectEntitiesV2
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DetectPHI
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: InferICD10CM
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: InferRxNorm
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: InferSNOMEDCT
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartEntitiesDetectionV2Job
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartICD10CMInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartPHIDetectionJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartRxNormInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
   rerunOnBack: false
   favouritable: true

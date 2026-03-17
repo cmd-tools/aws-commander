@@ -1,7 +1,7 @@
 name: license-manager
-defaultCommand: ''
+defaultCommand: list-distributed-grants
 commands:
-- name: ListAssetsForLicenseAssetGroup
+- name: list-distributed-grants
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetsforlicenseassetgroups
+    attributeName: Grants
   rerunOnBack: false
   favouritable: true
-- name: ListAssociationsForLicenseConfiguration
+- name: list-license-asset-groups
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associationsforlicenseconfigurations
+    attributeName: LicenseAssetGroups
   rerunOnBack: false
   favouritable: true
-- name: ListDistributedGrants
+- name: list-license-asset-rulesets
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributedgrant
+    attributeName: LicenseAssetRulesets
   rerunOnBack: false
   favouritable: true
-- name: ListFailuresForLicenseConfigurationOperations
+- name: list-license-configurations
   arguments:
   - --output
   - json
@@ -58,10 +58,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: failuresforlicenseconfigurationoperation
+    attributeName: LicenseConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseAssetGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-license-configurations-for-organization
   arguments:
   - --output
   - json
@@ -73,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseassetgroup
+    attributeName: LicenseConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseAssetRulesets
+- name: list-license-conversion-tasks
   arguments:
   - --output
   - json
@@ -88,10 +92,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseassetruleset
+    attributeName: LicenseConversionTasks
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseConfigurations
+- name: list-license-manager-report-generators
   arguments:
   - --output
   - json
@@ -103,10 +107,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseconfiguration
+    attributeName: ReportGenerators
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseConfigurationsForOrganization
+- name: list-licenses
   arguments:
   - --output
   - json
@@ -118,10 +122,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseconfigurationsfororganizations
+    attributeName: Licenses
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseConversionTasks
+- name: list-received-grants
   arguments:
   - --output
   - json
@@ -133,10 +137,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseconversiontask
+    attributeName: Grants
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseManagerReportGenerators
+- name: list-received-licenses
   arguments:
   - --output
   - json
@@ -148,10 +152,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licensemanagerreportgenerator
+    attributeName: Licenses
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseSpecificationsForResource
+- name: list-received-licenses-for-organization
   arguments:
   - --output
   - json
@@ -163,10 +167,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licensespecificationsforresources
+    attributeName: Licenses
   rerunOnBack: false
   favouritable: true
-- name: ListLicenseVersions
+- name: list-resource-inventory
   arguments:
   - --output
   - json
@@ -178,10 +182,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: licenseversion
+    attributeName: ResourceInventoryList
   rerunOnBack: false
   favouritable: true
-- name: ListLicenses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tokens
   arguments:
   - --output
   - json
@@ -193,10 +201,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: license
+    attributeName: Tokens
   rerunOnBack: false
   favouritable: true
-- name: ListReceivedGrants
+- name: get-service-settings
   arguments:
   - --output
   - json
@@ -207,97 +215,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: receivedgrant
-  rerunOnBack: false
-  favouritable: true
-- name: ListReceivedGrantsForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: receivedgrantsfororganizations
-  rerunOnBack: false
-  favouritable: true
-- name: ListReceivedLicenses
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: receivedlicense
-  rerunOnBack: false
-  favouritable: true
-- name: ListReceivedLicensesForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: receivedlicensesfororganizations
-  rerunOnBack: false
-  favouritable: true
-- name: ListResourceInventory
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resourceinventorys
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTokens
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: token
+    type: list
+    attributeName: CrossRegionDiscoverySourceRegions
   rerunOnBack: false
   favouritable: true

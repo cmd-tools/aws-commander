@@ -1,7 +1,7 @@
 name: network-firewall
-defaultCommand: ''
+defaultCommand: list-analysis-reports
 commands:
-- name: ListAnalysisReports
+- name: list-analysis-reports
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: analysisreport
+    attributeName: AnalysisReports
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallPolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-firewall-policies
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewallpolicie
+    attributeName: FirewallPolicies
   rerunOnBack: false
   favouritable: true
-- name: ListFirewalls
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-firewalls
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewall
+    attributeName: Firewalls
   rerunOnBack: false
   favouritable: true
-- name: ListFlowOperationResults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-proxies
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: flowoperationresult
+    attributeName: Proxies
   rerunOnBack: false
   favouritable: true
-- name: ListFlowOperations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-proxy-configurations
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: flowoperation
+    attributeName: ProxyConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListProxies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-proxy-rule-groups
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: proxie
+    attributeName: ProxyRuleGroups
   rerunOnBack: false
   favouritable: true
-- name: ListProxyConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-rule-groups
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: proxyconfiguration
+    attributeName: RuleGroups
   rerunOnBack: false
   favouritable: true
-- name: ListProxyRuleGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tls-inspection-configurations
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: proxyrulegroup
+    attributeName: TLSInspectionConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListRuleGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-vpc-endpoint-associations
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: rulegroup
+    attributeName: VpcEndpointAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListTLSInspectionConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-firewall
   arguments:
   - --output
   - json
@@ -148,10 +184,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tlsinspectionconfiguration
+    attributeName: Firewall
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-firewall-metadata
   arguments:
   - --output
   - json
@@ -163,10 +199,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: SupportedAvailabilityZones
   rerunOnBack: false
   favouritable: true
-- name: ListVpcEndpointAssociations
+- name: describe-firewall-policy
   arguments:
   - --output
   - json
@@ -178,10 +214,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: vpcendpointassociation
+    attributeName: FirewallPolicyResponse
   rerunOnBack: false
   favouritable: true
-- name: DescribeFirewall
+- name: describe-logging-configuration
   arguments:
   - --output
   - json
@@ -193,10 +229,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: LoggingConfiguration
   rerunOnBack: false
   favouritable: true
-- name: DescribeFirewallMetadata
+- name: describe-proxy
   arguments:
   - --output
   - json
@@ -208,10 +244,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: Proxy
   rerunOnBack: false
   favouritable: true
-- name: DescribeFirewallPolicy
+- name: describe-proxy-configuration
   arguments:
   - --output
   - json
@@ -223,10 +259,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: ProxyConfiguration
   rerunOnBack: false
   favouritable: true
-- name: DescribeFlowOperation
+- name: describe-proxy-rule-group
   arguments:
   - --output
   - json
@@ -238,10 +274,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: ProxyRuleGroup
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoggingConfiguration
+- name: describe-rule-group
   arguments:
   - --output
   - json
@@ -253,10 +289,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: RuleGroup
   rerunOnBack: false
   favouritable: true
-- name: DescribeProxy
+- name: describe-rule-group-metadata
   arguments:
   - --output
   - json
@@ -268,10 +304,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: StatefulRuleOptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeProxyConfiguration
+- name: describe-rule-group-summary
   arguments:
   - --output
   - json
@@ -283,10 +319,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: Summary
   rerunOnBack: false
   favouritable: true
-- name: DescribeProxyRule
+- name: describe-tls-inspection-configuration
   arguments:
   - --output
   - json
@@ -298,6 +334,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Network-Firewall
+    attributeName: TLSInspectionConfiguration
   rerunOnBack: false
   favouritable: true

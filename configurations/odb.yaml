@@ -1,7 +1,7 @@
 name: odb
-defaultCommand: ''
+defaultCommand: list-cloud-autonomous-vm-clusters
 commands:
-- name: ListAutonomousVirtualMachines
+- name: list-cloud-autonomous-vm-clusters
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: autonomousvirtualmachine
+    attributeName: cloudAutonomousVmClusters
   rerunOnBack: false
   favouritable: true
-- name: ListCloudAutonomousVmClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-cloud-exadata-infrastructures
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudautonomousvmcluster
+    attributeName: cloudExadataInfrastructures
   rerunOnBack: false
   favouritable: true
-- name: ListCloudExadataInfrastructures
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-cloud-vm-clusters
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudexadatainfrastructure
+    attributeName: cloudVmClusters
   rerunOnBack: false
   favouritable: true
-- name: ListCloudVmClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-db-system-shapes
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudvmcluster
+    attributeName: dbSystemShapes
   rerunOnBack: false
   favouritable: true
-- name: ListDbNodes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-gi-versions
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dbnode
+    attributeName: giVersions
   rerunOnBack: false
   favouritable: true
-- name: ListDbServers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-odb-networks
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dbserver
+    attributeName: odbNetworks
   rerunOnBack: false
   favouritable: true
-- name: ListDbSystemShapes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-odb-peering-connections
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dbsystemshape
+    attributeName: odbPeeringConnections
   rerunOnBack: false
   favouritable: true
-- name: ListGiVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-oci-onboarding-status
   arguments:
   - --output
   - json
@@ -118,186 +146,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: giversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListOdbNetworks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: odbnetwork
-  rerunOnBack: false
-  favouritable: true
-- name: ListOdbPeeringConnections
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: odbpeeringconnection
-  rerunOnBack: false
-  favouritable: true
-- name: ListSystemVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: systemversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetCloudAutonomousVmCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetCloudExadataInfrastructure
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetCloudExadataInfrastructureUnallocatedResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetCloudVmCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetDbNode
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetDbServer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetOciOnboardingStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
-  rerunOnBack: false
-  favouritable: true
-- name: GetOdbNetwork
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Odb
+    attributeName: ociIdentityDomain
   rerunOnBack: false
   favouritable: true

@@ -1,7 +1,7 @@
 name: iotwireless
-defaultCommand: ''
+defaultCommand: list-destinations
 commands:
-- name: ListDestinations
+- name: list-destinations
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: destination
+    attributeName: DestinationList
   rerunOnBack: false
   favouritable: true
-- name: ListDeviceProfiles
+- name: list-device-profiles
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: deviceprofile
+    attributeName: DeviceProfileList
   rerunOnBack: false
   favouritable: true
-- name: ListDevicesForWirelessDeviceImportTask
+- name: list-fuota-tasks
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: devicesforwirelessdeviceimporttasks
+    attributeName: FuotaTaskList
   rerunOnBack: false
   favouritable: true
-- name: ListEventConfigurations
+- name: list-multicast-groups
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventconfiguration
+    attributeName: MulticastGroupList
   rerunOnBack: false
   favouritable: true
-- name: ListFuotaTasks
+- name: list-network-analyzer-configurations
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fuotatask
+    attributeName: NetworkAnalyzerConfigurationList
   rerunOnBack: false
   favouritable: true
-- name: ListMulticastGroups
+- name: list-partner-accounts
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multicastgroup
+    attributeName: Sidewalk
   rerunOnBack: false
   favouritable: true
-- name: ListMulticastGroupsByFuotaTask
+- name: list-position-configurations
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multicastgroupsbyfuotatasks
+    attributeName: PositionConfigurationList
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkAnalyzerConfigurations
+- name: list-service-profiles
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networkanalyzerconfiguration
+    attributeName: ServiceProfileList
   rerunOnBack: false
   favouritable: true
-- name: ListPartnerAccounts
+- name: list-wireless-device-import-tasks
   arguments:
   - --output
   - json
@@ -133,10 +133,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: partneraccount
+    attributeName: WirelessDeviceImportTaskList
   rerunOnBack: false
   favouritable: true
-- name: ListPositionConfigurations
+- name: list-wireless-devices
   arguments:
   - --output
   - json
@@ -148,10 +148,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: positionconfiguration
+    attributeName: WirelessDeviceList
   rerunOnBack: false
   favouritable: true
-- name: ListQueuedMessages
+- name: list-wireless-gateway-task-definitions
   arguments:
   - --output
   - json
@@ -163,10 +163,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: queuedmessage
+    attributeName: TaskDefinitions
   rerunOnBack: false
   favouritable: true
-- name: ListServiceProfiles
+- name: list-wireless-gateways
   arguments:
   - --output
   - json
@@ -178,10 +178,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: serviceprofile
+    attributeName: WirelessGatewayList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-event-configuration-by-resource-types
   arguments:
   - --output
   - json
@@ -193,10 +193,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: DeviceRegistrationState
   rerunOnBack: false
   favouritable: true
-- name: ListWirelessDeviceImportTasks
+- name: get-log-levels-by-resource-types
   arguments:
   - --output
   - json
@@ -208,10 +208,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: wirelessdeviceimporttask
+    attributeName: WirelessGatewayLogOptions
   rerunOnBack: false
   favouritable: true
-- name: ListWirelessDevices
+- name: get-metric-configuration
   arguments:
   - --output
   - json
@@ -223,10 +223,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: wirelessdevice
+    attributeName: SummaryMetric
   rerunOnBack: false
   favouritable: true
-- name: ListWirelessGatewayTaskDefinitions
+- name: get-metrics
   arguments:
   - --output
   - json
@@ -238,66 +238,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: wirelessgatewaytaskdefinition
-  rerunOnBack: false
-  favouritable: true
-- name: ListWirelessGateways
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: wirelessgateway
-  rerunOnBack: false
-  favouritable: true
-- name: GetDestination
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Iotwireless
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeviceProfile
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Iotwireless
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventConfigurationByResourceTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Iotwireless
+    attributeName: SummaryMetricQueryResults
   rerunOnBack: false
   favouritable: true

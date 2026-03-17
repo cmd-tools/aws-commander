@@ -1,7 +1,7 @@
 name: ssm
-defaultCommand: ''
+defaultCommand: list-associations
 commands:
-- name: ListAssociationVersions
+- name: list-associations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associationversion
+    attributeName: Associations
   rerunOnBack: false
   favouritable: true
-- name: ListAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-command-invocations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: association
+    attributeName: CommandInvocations
   rerunOnBack: false
   favouritable: true
-- name: ListCommandInvocations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-commands
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: commandinvocation
+    attributeName: Commands
   rerunOnBack: false
   favouritable: true
-- name: ListCommands
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-compliance-items
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: command
+    attributeName: ComplianceItems
   rerunOnBack: false
   favouritable: true
-- name: ListComplianceItems
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-compliance-summaries
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: complianceitem
+    attributeName: ComplianceSummaryItems
   rerunOnBack: false
   favouritable: true
-- name: ListComplianceSummaries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-documents
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: compliancesummarie
+    attributeName: DocumentIdentifiers
   rerunOnBack: false
   favouritable: true
-- name: ListDocumentMetadataHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-nodes
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: documentmetadatahistorys
+    attributeName: Nodes
   rerunOnBack: false
   favouritable: true
-- name: ListDocumentVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ops-item-events
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: documentversion
+    attributeName: Summaries
   rerunOnBack: false
   favouritable: true
-- name: ListDocuments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ops-item-related-items
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: document
+    attributeName: Summaries
   rerunOnBack: false
   favouritable: true
-- name: ListInventoryEntries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ops-metadata
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inventoryentrie
+    attributeName: OpsMetadataList
   rerunOnBack: false
   favouritable: true
-- name: ListNodes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-compliance-summaries
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: node
+    attributeName: ResourceComplianceSummaryItems
   rerunOnBack: false
   favouritable: true
-- name: ListNodesSummary
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-data-sync
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: nodessummarys
+    attributeName: ResourceDataSyncItems
   rerunOnBack: false
   favouritable: true
-- name: ListOpsItemEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-activations
   arguments:
   - --output
   - json
@@ -193,10 +241,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: opsitemevent
+    attributeName: ActivationList
   rerunOnBack: false
   favouritable: true
-- name: ListOpsItemRelatedItems
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-association
   arguments:
   - --output
   - json
@@ -208,10 +260,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: opsitemrelateditem
+    attributeName: AssociationDescription
   rerunOnBack: false
   favouritable: true
-- name: ListOpsMetadata
+- name: describe-automation-executions
   arguments:
   - --output
   - json
@@ -223,10 +275,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: opsmetadatas
+    attributeName: AutomationExecutionMetadataList
   rerunOnBack: false
   favouritable: true
-- name: ListResourceComplianceSummaries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-available-patches
   arguments:
   - --output
   - json
@@ -238,10 +294,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcecompliancesummarie
+    attributeName: Patches
   rerunOnBack: false
   favouritable: true
-- name: ListResourceDataSync
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-instance-information
   arguments:
   - --output
   - json
@@ -253,10 +313,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcedatasyncs
+    attributeName: InstanceInformationList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-instance-properties
   arguments:
   - --output
   - json
@@ -268,10 +332,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: InstanceProperties
   rerunOnBack: false
   favouritable: true
-- name: DescribeActivations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-inventory-deletions
   arguments:
   - --output
   - json
@@ -283,10 +351,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ssm
+    attributeName: InventoryDeletions
   rerunOnBack: false
   favouritable: true
-- name: DescribeAssociation
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-maintenance-window-schedule
   arguments:
   - --output
   - json
@@ -298,6 +370,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ssm
+    attributeName: ScheduledWindowExecutions
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

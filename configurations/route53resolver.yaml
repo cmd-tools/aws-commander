@@ -1,7 +1,7 @@
 name: route53resolver
-defaultCommand: ''
+defaultCommand: list-firewall-configs
 commands:
-- name: ListFirewallConfigs
+- name: list-firewall-configs
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewallconfig
+    attributeName: FirewallConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallDomainLists
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-firewall-domain-lists
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewalldomain
+    attributeName: FirewallDomainLists
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallDomains
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-firewall-rule-group-associations
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewalldomain
+    attributeName: FirewallRuleGroupAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallRuleGroupAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-firewall-rule-groups
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewallrulegroupassociation
+    attributeName: FirewallRuleGroups
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallRuleGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-outpost-resolvers
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewallrulegroup
+    attributeName: OutpostResolvers
   rerunOnBack: false
   favouritable: true
-- name: ListFirewallRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-configs
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: firewallrule
+    attributeName: ResolverConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListOutpostResolvers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-dnssec-configs
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: outpostresolver
+    attributeName: ResolverDnssecConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListResolverConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-endpoints
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resolverconfig
+    attributeName: ResolverEndpoints
   rerunOnBack: false
   favouritable: true
-- name: ListResolverDnssecConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-query-log-config-associations
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resolverdnssecconfig
+    attributeName: ResolverQueryLogConfigAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListResolverEndpointIpAddresses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-query-log-configs
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resolverendpointipaddresse
+    attributeName: ResolverQueryLogConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListResolverEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-rule-associations
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resolverendpoint
+    attributeName: ResolverRuleAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListResolverQueryLogConfigAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resolver-rules
   arguments:
   - --output
   - json
@@ -178,126 +222,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resolverquerylogconfigassociation
+    attributeName: ResolverRules
   rerunOnBack: false
   favouritable: true
-- name: ListResolverQueryLogConfigs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resolverquerylogconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListResolverRuleAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resolverruleassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListResolverRules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resolverrule
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetFirewallConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53Resolver
-  rerunOnBack: false
-  favouritable: true
-- name: GetFirewallDomainList
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getfirewalldomains
-  rerunOnBack: false
-  favouritable: true
-- name: GetFirewallRuleGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53Resolver
-  rerunOnBack: false
-  favouritable: true
-- name: GetFirewallRuleGroupAssociation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53Resolver
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

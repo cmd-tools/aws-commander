@@ -1,7 +1,7 @@
 name: ivs-realtime
-defaultCommand: ''
+defaultCommand: list-compositions
 commands:
-- name: ListCompositions
+- name: list-compositions
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: composition
+    attributeName: compositions
   rerunOnBack: false
   favouritable: true
-- name: ListEncoderConfigurations
+- name: list-encoder-configurations
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: encoderconfiguration
+    attributeName: encoderConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListIngestConfigurations
+- name: list-ingest-configurations
   arguments:
   - --output
   - json
@@ -43,10 +43,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: ingestconfiguration
+    attributeName: ingestConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListParticipantEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-public-keys
   arguments:
   - --output
   - json
@@ -58,10 +62,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: participantevent
+    attributeName: publicKeys
   rerunOnBack: false
   favouritable: true
-- name: ListParticipantReplicas
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-stages
   arguments:
   - --output
   - json
@@ -73,10 +81,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: participantreplica
+    attributeName: stages
   rerunOnBack: false
   favouritable: true
-- name: ListParticipants
+- name: list-storage-configurations
   arguments:
   - --output
   - json
@@ -88,201 +96,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: participant
-  rerunOnBack: false
-  favouritable: true
-- name: ListPublicKeys
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: publickey
-  rerunOnBack: false
-  favouritable: true
-- name: ListStageSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: stagesession
-  rerunOnBack: false
-  favouritable: true
-- name: ListStages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: stage
-  rerunOnBack: false
-  favouritable: true
-- name: ListStorageConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: storageconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetComposition
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetEncoderConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetIngestConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetParticipant
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetPublicKey
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetStage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetStageSession
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
-  rerunOnBack: false
-  favouritable: true
-- name: GetStorageConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs-Realtime
+    attributeName: storageConfigurations
   rerunOnBack: false
   favouritable: true

@@ -1,5 +1,5 @@
 name: ec2
-defaultCommand: ''
+defaultCommand: list-images-in-recycle-bin
 commands:
 - name: describe-instances
   rerunOnBack: false
@@ -86,7 +86,7 @@ commands:
   parse:
     type: object
     attributeName: Volumes
-- name: ListImagesInRecycleBin
+- name: list-images-in-recycle-bin
   arguments:
   - --output
   - json
@@ -98,10 +98,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: imagesinrecyclebins
+    attributeName: Images
   rerunOnBack: false
   favouritable: true
-- name: ListSnapshotsInRecycleBin
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-snapshots-in-recycle-bin
   arguments:
   - --output
   - json
@@ -113,10 +117,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: snapshotsinrecyclebins
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: ListVolumesInRecycleBin
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-volumes-in-recycle-bin
   arguments:
   - --output
   - json
@@ -128,10 +136,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: volumesinrecyclebins
+    attributeName: Volumes
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -143,10 +151,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: AccountAttributes
   rerunOnBack: false
   favouritable: true
-- name: DescribeAddressTransfers
+- name: describe-address-transfers
   arguments:
   - --output
   - json
@@ -158,10 +166,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: AddressTransfers
   rerunOnBack: false
   favouritable: true
-- name: DescribeAddresses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-addresses
   arguments:
   - --output
   - json
@@ -173,10 +185,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: Addresses
   rerunOnBack: false
   favouritable: true
-- name: DescribeAddressesAttribute
+- name: describe-addresses-attribute
   arguments:
   - --output
   - json
@@ -188,10 +200,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: Addresses
   rerunOnBack: false
   favouritable: true
-- name: DescribeAggregateIdFormat
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-aggregate-id-format
   arguments:
   - --output
   - json
@@ -203,10 +219,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: Statuses
   rerunOnBack: false
   favouritable: true
-- name: DescribeAvailabilityZones
+- name: describe-availability-zones
   arguments:
   - --output
   - json
@@ -218,10 +234,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: AvailabilityZones
   rerunOnBack: false
   favouritable: true
-- name: DescribeAwsNetworkPerformanceMetricSubscriptions
+- name: describe-aws-network-performance-metric-subscriptions
   arguments:
   - --output
   - json
@@ -233,10 +249,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: Subscriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeBundleTasks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-bundle-tasks
   arguments:
   - --output
   - json
@@ -248,10 +268,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: BundleTasks
   rerunOnBack: false
   favouritable: true
-- name: DescribeByoipCidrs
+- name: describe-capacity-block-extension-history
   arguments:
   - --output
   - json
@@ -263,10 +283,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityBlockExtensions
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityBlockExtensionHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-capacity-block-status
   arguments:
   - --output
   - json
@@ -278,10 +302,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityBlockStatuses
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityBlockExtensionOfferings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-capacity-blocks
   arguments:
   - --output
   - json
@@ -293,10 +321,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityBlocks
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityBlockOfferings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-capacity-manager-data-exports
   arguments:
   - --output
   - json
@@ -308,10 +340,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityManagerDataExports
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityBlockStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-capacity-reservation-fleets
   arguments:
   - --output
   - json
@@ -323,10 +359,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityReservationFleets
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityBlocks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-capacity-reservation-topology
   arguments:
   - --output
   - json
@@ -338,10 +378,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityReservations
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityManagerDataExports
+- name: describe-capacity-reservations
   arguments:
   - --output
   - json
@@ -353,10 +393,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CapacityReservations
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityReservationBillingRequests
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-carrier-gateways
   arguments:
   - --output
   - json
@@ -368,10 +412,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: CarrierGateways
   rerunOnBack: false
   favouritable: true
-- name: DescribeCapacityReservationFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-classic-link-instances
   arguments:
   - --output
   - json
@@ -383,6 +431,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ec2
+    attributeName: Instances
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

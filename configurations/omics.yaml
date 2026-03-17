@@ -1,7 +1,7 @@
 name: omics
-defaultCommand: ''
+defaultCommand: list-annotation-import-jobs
 commands:
-- name: ListAnnotationImportJobs
+- name: list-annotation-import-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: annotationimportjob
+    attributeName: annotationImportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListAnnotationStoreVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-annotation-stores
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: annotationstoreversion
+    attributeName: annotationStores
   rerunOnBack: false
   favouritable: true
-- name: ListAnnotationStores
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-reference-stores
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: annotationstore
+    attributeName: referenceStores
   rerunOnBack: false
   favouritable: true
-- name: ListMultipartReadSetUploads
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-run-caches
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multipartreadsetupload
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListReadSetActivationJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: nextToken
+- name: list-run-groups
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readsetactivationjob
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListReadSetExportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: nextToken
+- name: list-runs
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readsetexportjob
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListReadSetImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: nextToken
+- name: list-sequence-stores
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readsetimportjob
+    attributeName: sequenceStores
   rerunOnBack: false
   favouritable: true
-- name: ListReadSetUploadParts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-variant-import-jobs
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readsetuploadpart
+    attributeName: variantImportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListReadSets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-variant-stores
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: readset
+    attributeName: variantStores
   rerunOnBack: false
   favouritable: true
-- name: ListReferenceImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workflows
   arguments:
   - --output
   - json
@@ -148,156 +184,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: referenceimportjob
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListReferenceStores
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: referencestore
-  rerunOnBack: false
-  favouritable: true
-- name: ListReferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reference
-  rerunOnBack: false
-  favouritable: true
-- name: ListRunCaches
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: runcache
-  rerunOnBack: false
-  favouritable: true
-- name: ListRunGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: rungroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListRunTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: runtask
-  rerunOnBack: false
-  favouritable: true
-- name: ListRuns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: run
-  rerunOnBack: false
-  favouritable: true
-- name: ListSequenceStores
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sequencestore
-  rerunOnBack: false
-  favouritable: true
-- name: ListShares
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: share
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListVariantImportJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: variantimportjob
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: nextToken

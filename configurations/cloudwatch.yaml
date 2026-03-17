@@ -1,7 +1,7 @@
 name: cloudwatch
-defaultCommand: ''
+defaultCommand: list-alarm-mute-rules
 commands:
-- name: ListAlarmMuteRules
+- name: list-alarm-mute-rules
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: alarmmuterule
+    attributeName: AlarmMuteRuleSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListDashboards
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-dashboards
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dashboard
+    attributeName: DashboardEntries
   rerunOnBack: false
   favouritable: true
-- name: ListManagedInsightRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-metric-streams
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedinsightrule
+    attributeName: Entries
   rerunOnBack: false
   favouritable: true
-- name: ListMetricStreams
+- name: list-metrics
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: metricstream
+    attributeName: Metrics
   rerunOnBack: false
   favouritable: true
-- name: ListMetrics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-alarm-history
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: metric
+    attributeName: AlarmHistoryItems
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-alarms
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: MetricAlarms
   rerunOnBack: false
   favouritable: true
-- name: DescribeAlarmContributors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-anomaly-detectors
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudwatch
+    attributeName: AnomalyDetectors
   rerunOnBack: false
   favouritable: true
-- name: DescribeAlarmHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-insight-rules
   arguments:
   - --output
   - json
@@ -118,171 +142,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAlarms
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAlarmsForMetric
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAnomalyDetectors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeInsightRules
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetAlarmMuteRule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetDashboard
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetInsightRuleReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetMetricData
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetMetricStatistics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetMetricStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
-  rerunOnBack: false
-  favouritable: true
-- name: GetMetricWidgetImage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudwatch
+    attributeName: InsightRules
   rerunOnBack: false
   favouritable: true

@@ -1,7 +1,22 @@
 name: elasticache
-defaultCommand: ''
+defaultCommand: list-allowed-node-type-modifications
 commands:
-- name: ListAllowedNodeTypeModifications
+- name: list-allowed-node-type-modifications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ScaleUpModifications
+  rerunOnBack: false
+  favouritable: true
+- name: describe-cache-clusters
   arguments:
   - --output
   - json
@@ -13,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: allowednodetypemodification
+    attributeName: CacheClusters
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cache-engine-versions
   arguments:
   - --output
   - json
@@ -28,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: CacheEngineVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cache-parameter-groups
   arguments:
   - --output
   - json
@@ -43,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: CacheParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheEngineVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cache-security-groups
   arguments:
   - --output
   - json
@@ -58,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: CacheSecurityGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cache-subnet-groups
   arguments:
   - --output
   - json
@@ -73,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: CacheSubnetGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-events
   arguments:
   - --output
   - json
@@ -88,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: Events
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheSecurityGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-global-replication-groups
   arguments:
   - --output
   - json
@@ -103,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: GlobalReplicationGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeCacheSubnetGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-replication-groups
   arguments:
   - --output
   - json
@@ -118,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ReplicationGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeEngineDefaultParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-reserved-cache-nodes
   arguments:
   - --output
   - json
@@ -133,10 +180,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ReservedCacheNodes
   rerunOnBack: false
   favouritable: true
-- name: DescribeEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-reserved-cache-nodes-offerings
   arguments:
   - --output
   - json
@@ -148,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ReservedCacheNodesOfferings
   rerunOnBack: false
   favouritable: true
-- name: DescribeGlobalReplicationGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-serverless-cache-snapshots
   arguments:
   - --output
   - json
@@ -163,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ServerlessCacheSnapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeReplicationGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-serverless-caches
   arguments:
   - --output
   - json
@@ -178,10 +237,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ServerlessCaches
   rerunOnBack: false
   favouritable: true
-- name: DescribeReservedCacheNodes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-service-updates
   arguments:
   - --output
   - json
@@ -193,10 +256,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: ServiceUpdates
   rerunOnBack: false
   favouritable: true
-- name: DescribeReservedCacheNodesOfferings
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-snapshots
   arguments:
   - --output
   - json
@@ -208,10 +275,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeServerlessCacheSnapshots
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-update-actions
   arguments:
   - --output
   - json
@@ -223,10 +294,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: UpdateActions
   rerunOnBack: false
   favouritable: true
-- name: DescribeServerlessCaches
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-user-groups
   arguments:
   - --output
   - json
@@ -238,10 +313,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: UserGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeServiceUpdates
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-users
   arguments:
   - --output
   - json
@@ -253,51 +332,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticache
+    attributeName: Users
   rerunOnBack: false
   favouritable: true
-- name: DescribeSnapshots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elasticache
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeUpdateActions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elasticache
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeUserGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elasticache
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker

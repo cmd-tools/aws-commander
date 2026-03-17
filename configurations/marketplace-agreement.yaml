@@ -1,7 +1,7 @@
 name: marketplace-agreement
 defaultCommand: ''
 commands:
-- name: DescribeAgreement
+- name: search-agreements
   arguments:
   - --output
   - json
@@ -13,36 +13,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Marketplace-Agreement
-  rerunOnBack: false
-  favouritable: true
-- name: GetAgreementTerms
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Marketplace-Agreement
-  rerunOnBack: false
-  favouritable: true
-- name: SearchAgreements
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: agreementViewSummaries
   rerunOnBack: false
   favouritable: true

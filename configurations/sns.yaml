@@ -76,7 +76,7 @@ commands:
   parse:
     type: keys
     attributeName: Attributes
-- name: ListEndpointsByPlatformApplication
+- name: list-origination-numbers
   arguments:
   - --output
   - json
@@ -88,10 +88,33 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: endpointsbyplatformapplications
+    attributeName: PhoneNumbers
   rerunOnBack: false
   favouritable: true
-- name: ListOriginationNumbers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-phone-numbers-opted-out
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: phoneNumbers
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-platform-applications
   arguments:
   - --output
   - json
@@ -103,10 +126,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: originationnumber
+    attributeName: PlatformApplications
   rerunOnBack: false
   favouritable: true
-- name: ListPhoneNumbersOptedOut
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-sms-sandbox-phone-numbers
   arguments:
   - --output
   - json
@@ -118,10 +145,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: phonenumbersoptedouts
+    attributeName: PhoneNumbers
   rerunOnBack: false
   favouritable: true
-- name: ListPlatformApplications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-subscriptions
   arguments:
   - --output
   - json
@@ -133,69 +164,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: platformapplication
+    attributeName: Subscriptions
   rerunOnBack: false
   favouritable: true
-- name: ListSMSSandboxPhoneNumbers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: smssandboxphonenumber
-  rerunOnBack: false
-  favouritable: true
-- name: ListSubscriptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: subscription
-  rerunOnBack: false
-  favouritable: true
-- name: ListSubscriptionsByTopic
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: subscriptionsbytopics
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
 - name: ListTopics
   arguments:
   - --output
@@ -211,7 +186,7 @@ commands:
     attributeName: topic
   rerunOnBack: false
   favouritable: true
-- name: GetDataProtectionPolicy
+- name: get-sms-attributes
   arguments:
   - --output
   - json
@@ -223,126 +198,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetEndpointAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetPlatformApplicationAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetSMSAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetSMSSandboxAccountStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetSubscriptionAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: GetTopicAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sns
-  rerunOnBack: false
-  favouritable: true
-- name: CheckIfPhoneNumberIsOptedOut
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ConfirmSubscription
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: attributes
   rerunOnBack: false
   favouritable: true

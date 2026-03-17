@@ -1,7 +1,7 @@
 name: iot-managed-integrations
-defaultCommand: ''
+defaultCommand: list-account-associations
 commands:
-- name: ListAccountAssociations
+- name: list-account-associations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountassociation
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListCloudConnectors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cloud-connectors
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudconnector
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListConnectorDestinations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-connector-destinations
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connectordestination
+    attributeName: ConnectorDestinationList
   rerunOnBack: false
   favouritable: true
-- name: ListCredentialLockers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-credential-lockers
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: credentiallocker
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListDestinations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-destinations
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: destination
+    attributeName: DestinationList
   rerunOnBack: false
   favouritable: true
-- name: ListDeviceDiscoveries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-device-discoveries
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: devicediscoverie
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListDiscoveredDevices
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-event-log-configurations
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: discovereddevice
+    attributeName: EventLogConfigurationList
   rerunOnBack: false
   favouritable: true
-- name: ListEventLogConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-managed-thing-account-associations
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventlogconfiguration
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListManagedThingAccountAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-managed-things
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedthingaccountassociation
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListManagedThingSchemas
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-notification-configurations
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedthingschema
+    attributeName: NotificationConfigurationList
   rerunOnBack: false
   favouritable: true
-- name: ListManagedThings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ota-task-configurations
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedthing
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListNotificationConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ota-tasks
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: notificationconfiguration
+    attributeName: Tasks
   rerunOnBack: false
   favouritable: true
-- name: ListOtaTaskConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-provisioning-profiles
   arguments:
   - --output
   - json
@@ -193,10 +241,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: otataskconfiguration
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListOtaTaskExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-default-encryption-configuration
   arguments:
   - --output
   - json
@@ -208,96 +260,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: otataskexecution
-  rerunOnBack: false
-  favouritable: true
-- name: ListOtaTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: otatask
-  rerunOnBack: false
-  favouritable: true
-- name: ListProvisioningProfiles
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: provisioningprofile
-  rerunOnBack: false
-  favouritable: true
-- name: ListSchemaVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: schemaversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountAssociation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Iot-Managed-Integrations
-  rerunOnBack: false
-  favouritable: true
-- name: GetCloudConnector
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Iot-Managed-Integrations
+    attributeName: configurationStatus
   rerunOnBack: false
   favouritable: true

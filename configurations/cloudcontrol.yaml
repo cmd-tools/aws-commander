@@ -1,7 +1,7 @@
 name: cloudcontrol
-defaultCommand: ''
+defaultCommand: list-resource-requests
 commands:
-- name: ListResourceRequests
+- name: list-resource-requests
   arguments:
   - --output
   - json
@@ -13,66 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcerequest
+    attributeName: ResourceRequestStatusSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resource
-  rerunOnBack: false
-  favouritable: true
-- name: GetResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudcontrol
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourceRequestStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudcontrol
-  rerunOnBack: false
-  favouritable: true
-- name: CancelResourceRequest
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

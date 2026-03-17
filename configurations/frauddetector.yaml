@@ -1,7 +1,7 @@
 name: frauddetector
-defaultCommand: ''
+defaultCommand: list-event-predictions
 commands:
-- name: ListEventPredictions
+- name: list-event-predictions
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventprediction
+    attributeName: eventPredictionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-model-versions
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: modelVersionDetails
   rerunOnBack: false
   favouritable: true
-- name: DescribeDetector
+- name: get-batch-import-jobs
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: batchImports
   rerunOnBack: false
   favouritable: true
-- name: DescribeModelVersions
+- name: get-batch-prediction-jobs
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: batchPredictions
   rerunOnBack: false
   favouritable: true
-- name: GetBatchImportJobs
+- name: get-detectors
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: detectors
   rerunOnBack: false
   favouritable: true
-- name: GetBatchPredictionJobs
+- name: get-entity-types
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: entityTypes
   rerunOnBack: false
   favouritable: true
-- name: GetDeleteEventsByEventTypeStatus
+- name: get-event-types
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: eventTypes
   rerunOnBack: false
   favouritable: true
-- name: GetDetectorVersion
+- name: get-external-models
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: externalModels
   rerunOnBack: false
   favouritable: true
-- name: GetDetectors
+- name: get-kms-encryption-key
   arguments:
   - --output
   - json
@@ -133,10 +133,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: kmsKey
   rerunOnBack: false
   favouritable: true
-- name: GetEntityTypes
+- name: get-labels
   arguments:
   - --output
   - json
@@ -148,10 +148,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: labels
   rerunOnBack: false
   favouritable: true
-- name: GetEvent
+- name: get-lists-metadata
   arguments:
   - --output
   - json
@@ -163,10 +163,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: lists
   rerunOnBack: false
   favouritable: true
-- name: GetEventPrediction
+- name: get-models
   arguments:
   - --output
   - json
@@ -178,10 +178,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: models
   rerunOnBack: false
   favouritable: true
-- name: GetEventPredictionMetadata
+- name: get-outcomes
   arguments:
   - --output
   - json
@@ -193,10 +193,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
+    attributeName: outcomes
   rerunOnBack: false
   favouritable: true
-- name: GetEventTypes
+- name: get-variables
   arguments:
   - --output
   - json
@@ -208,96 +208,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Frauddetector
-  rerunOnBack: false
-  favouritable: true
-- name: GetExternalModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Frauddetector
-  rerunOnBack: false
-  favouritable: true
-- name: GetKMSEncryptionKey
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Frauddetector
-  rerunOnBack: false
-  favouritable: true
-- name: GetLabels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Frauddetector
-  rerunOnBack: false
-  favouritable: true
-- name: GetListElements
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getelement
-  rerunOnBack: false
-  favouritable: true
-- name: GetListsMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getsmetadatas
-  rerunOnBack: false
-  favouritable: true
-- name: GetModelVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Frauddetector
+    attributeName: variables
   rerunOnBack: false
   favouritable: true

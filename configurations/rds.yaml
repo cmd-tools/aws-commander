@@ -1,7 +1,7 @@
 name: rds
-defaultCommand: ''
+defaultCommand: describe-account-attributes
 commands:
-- name: ListTagsForResource
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: AccountQuotas
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+- name: describe-blue-green-deployments
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: BlueGreenDeployments
   rerunOnBack: false
   favouritable: true
-- name: DescribeBlueGreenDeployments
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-certificates
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: Certificates
   rerunOnBack: false
   favouritable: true
-- name: DescribeCertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-cluster-automated-backups
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBClusterAutomatedBackups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterAutomatedBackups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-cluster-endpoints
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBClusterEndpoints
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterBacktracks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-cluster-parameter-groups
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBClusterParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-cluster-snapshots
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBClusterSnapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-clusters
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBClusters
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-engine-versions
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBEngineVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterSnapshotAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-instance-automated-backups
   arguments:
   - --output
   - json
@@ -148,10 +180,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBInstanceAutomatedBackups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusterSnapshots
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-instances
   arguments:
   - --output
   - json
@@ -163,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBInstances
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-major-engine-versions
   arguments:
   - --output
   - json
@@ -178,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBMajorEngineVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBEngineVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-parameter-groups
   arguments:
   - --output
   - json
@@ -193,10 +237,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBInstanceAutomatedBackups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-proxies
   arguments:
   - --output
   - json
@@ -208,10 +256,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBProxies
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-proxy-endpoints
   arguments:
   - --output
   - json
@@ -223,10 +275,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBProxyEndpoints
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBLogFiles
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-recommendations
   arguments:
   - --output
   - json
@@ -238,10 +294,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBRecommendations
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBMajorEngineVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-security-groups
   arguments:
   - --output
   - json
@@ -253,10 +313,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBSecurityGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-shard-groups
   arguments:
   - --output
   - json
@@ -268,10 +332,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBShardGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBParameters
+- name: describe-db-snapshot-tenant-databases
   arguments:
   - --output
   - json
@@ -283,10 +347,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBSnapshotTenantDatabases
   rerunOnBack: false
   favouritable: true
-- name: DescribeDBProxies
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-db-snapshots
   arguments:
   - --output
   - json
@@ -298,6 +366,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Rds
+    attributeName: DBSnapshots
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker

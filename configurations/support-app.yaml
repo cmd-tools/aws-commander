@@ -1,7 +1,7 @@
 name: support-app
-defaultCommand: ''
+defaultCommand: list-slack-channel-configurations
 commands:
-- name: ListSlackChannelConfigurations
+- name: list-slack-channel-configurations
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: slackchannelconfiguration
+    attributeName: slackChannelConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListSlackWorkspaceConfigurations
+- name: list-slack-workspace-configurations
   arguments:
   - --output
   - json
@@ -28,36 +28,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: slackworkspaceconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountAlias
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Support-App
-  rerunOnBack: false
-  favouritable: true
-- name: RegisterSlackWorkspaceForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: slackWorkspaceConfigurations
   rerunOnBack: false
   favouritable: true

@@ -68,7 +68,7 @@ commands:
     enabled: true
     nextTokenParam: --next-token
     nextTokenJsonPath: nextForwardToken
-- name: ListAggregateLogGroupSummaries
+- name: list-anomalies
   arguments:
   - --output
   - json
@@ -80,10 +80,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aggregateloggroupsummarie
+    attributeName: anomalies
   rerunOnBack: false
   favouritable: true
-- name: ListAnomalies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-integrations
   arguments:
   - --output
   - json
@@ -95,10 +99,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: anomalie
+    attributeName: integrationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListIntegrations
+- name: list-log-anomaly-detectors
   arguments:
   - --output
   - json
@@ -110,10 +114,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: integration
+    attributeName: anomalyDetectors
   rerunOnBack: false
   favouritable: true
-- name: ListLogAnomalyDetectors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-log-groups
   arguments:
   - --output
   - json
@@ -125,10 +133,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: loganomalydetector
+    attributeName: logGroups
   rerunOnBack: false
   favouritable: true
-- name: ListLogGroups
+- name: list-scheduled-queries
   arguments:
   - --output
   - json
@@ -140,10 +148,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: loggroup
+    attributeName: scheduledQueries
   rerunOnBack: false
   favouritable: true
-- name: ListLogGroupsForQuery
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-configuration-templates
   arguments:
   - --output
   - json
@@ -155,10 +167,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: loggroupsforquerys
+    attributeName: configurationTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListScheduledQueries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-deliveries
   arguments:
   - --output
   - json
@@ -170,10 +186,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: scheduledquerie
+    attributeName: deliveries
   rerunOnBack: false
   favouritable: true
-- name: ListSourcesForS3TableIntegration
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-delivery-destinations
   arguments:
   - --output
   - json
@@ -185,10 +205,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: sourcesfors3tableintegrations
+    attributeName: deliveryDestinations
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-delivery-sources
   arguments:
   - --output
   - json
@@ -200,10 +224,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: deliverySources
   rerunOnBack: false
   favouritable: true
-- name: ListTagsLogGroup
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-destinations
   arguments:
   - --output
   - json
@@ -215,10 +243,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsloggroups
+    attributeName: destinations
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountPolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-export-tasks
   arguments:
   - --output
   - json
@@ -230,10 +262,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: exportTasks
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-import-tasks
   arguments:
   - --output
   - json
@@ -245,10 +281,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: imports
   rerunOnBack: false
   favouritable: true
-- name: DescribeDeliveries
+- name: describe-metric-filters
   arguments:
   - --output
   - json
@@ -260,10 +296,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: metricFilters
   rerunOnBack: false
   favouritable: true
-- name: DescribeDeliveryDestinations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-queries
   arguments:
   - --output
   - json
@@ -275,10 +315,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: queries
   rerunOnBack: false
   favouritable: true
-- name: DescribeDeliverySources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-query-definitions
   arguments:
   - --output
   - json
@@ -290,10 +334,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: queryDefinitions
   rerunOnBack: false
   favouritable: true
-- name: DescribeDestinations
+- name: describe-resource-policies
   arguments:
   - --output
   - json
@@ -305,10 +349,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: resourcePolicies
   rerunOnBack: false
   favouritable: true
-- name: DescribeExportTasks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-log-group-fields
   arguments:
   - --output
   - json
@@ -320,10 +368,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: logGroupFields
   rerunOnBack: false
   favouritable: true
-- name: DescribeFieldIndexes
+- name: filter-log-events
   arguments:
   - --output
   - json
@@ -335,36 +383,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Logs
+    attributeName: events
   rerunOnBack: false
   favouritable: true
-- name: DescribeImportTaskBatches
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Logs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeImportTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Logs
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

@@ -1,7 +1,7 @@
 name: route53
-defaultCommand: ''
+defaultCommand: list-cidr-collections
 commands:
-- name: ListCidrBlocks
+- name: list-cidr-collections
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cidrblock
+    attributeName: CidrCollections
   rerunOnBack: false
   favouritable: true
-- name: ListCidrCollections
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-geo-locations
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cidrcollection
+    attributeName: GeoLocationDetailsList
   rerunOnBack: false
   favouritable: true
-- name: ListCidrLocations
+- name: list-health-checks
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cidrlocation
+    attributeName: HealthChecks
   rerunOnBack: false
   favouritable: true
-- name: ListGeoLocations
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-hosted-zones
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: geolocation
+    attributeName: HostedZones
   rerunOnBack: false
   favouritable: true
-- name: ListHealthChecks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-hosted-zones-by-name
   arguments:
   - --output
   - json
@@ -73,10 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: healthcheck
+    attributeName: HostedZones
   rerunOnBack: false
   favouritable: true
-- name: ListHostedZones
+- name: list-query-logging-configs
   arguments:
   - --output
   - json
@@ -88,10 +100,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hostedzone
+    attributeName: QueryLoggingConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListHostedZonesByName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-reusable-delegation-sets
   arguments:
   - --output
   - json
@@ -103,10 +119,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hostedzonesbynames
+    attributeName: DelegationSets
   rerunOnBack: false
   favouritable: true
-- name: ListHostedZonesByVPC
+- name: list-traffic-policies
   arguments:
   - --output
   - json
@@ -118,10 +134,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hostedzonesbyvpcs
+    attributeName: TrafficPolicySummaries
   rerunOnBack: false
   favouritable: true
-- name: ListQueryLoggingConfigs
+- name: list-traffic-policy-instances
   arguments:
   - --output
   - json
@@ -133,10 +149,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: queryloggingconfig
+    attributeName: TrafficPolicyInstances
   rerunOnBack: false
   favouritable: true
-- name: ListResourceRecordSets
+- name: get-checker-ip-ranges
   arguments:
   - --output
   - json
@@ -147,11 +163,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: resourcerecordset
+    type: list
+    attributeName: CheckerIpRanges
   rerunOnBack: false
   favouritable: true
-- name: ListReusableDelegationSets
+- name: get-geo-location
   arguments:
   - --output
   - json
@@ -163,141 +179,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reusabledelegationset
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrafficPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trafficpolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrafficPolicyInstances
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trafficpolicyinstance
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrafficPolicyInstancesByHostedZone
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trafficpolicyinstancesbyhostedzones
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrafficPolicyInstancesByPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trafficpolicyinstancesbypolicys
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrafficPolicyVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: trafficpolicyversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListVPCAssociationAuthorizations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcassociationauthorization
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountLimit
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53
+    attributeName: GeoLocationDetails
   rerunOnBack: false
   favouritable: true

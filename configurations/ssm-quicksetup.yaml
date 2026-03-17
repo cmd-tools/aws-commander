@@ -1,7 +1,7 @@
 name: ssm-quicksetup
-defaultCommand: ''
+defaultCommand: list-configuration-managers
 commands:
-- name: ListConfigurationManagers
+- name: list-configuration-managers
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationmanager
+    attributeName: ConfigurationManagersList
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: NextToken
+- name: list-configurations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configuration
+    attributeName: ConfigurationsList
   rerunOnBack: false
   favouritable: true
-- name: ListQuickSetupTypes
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: NextToken
+- name: list-quick-setup-types
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: quicksetuptype
+    attributeName: QuickSetupTypeList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-service-settings
   arguments:
   - --output
   - json
@@ -58,81 +66,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Quicksetup
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfigurationManager
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Quicksetup
-  rerunOnBack: false
-  favouritable: true
-- name: GetServiceSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Quicksetup
-  rerunOnBack: false
-  favouritable: true
-- name: TagResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: UntagResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: ServiceSettings
   rerunOnBack: false
   favouritable: true

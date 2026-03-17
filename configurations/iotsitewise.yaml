@@ -1,7 +1,7 @@
 name: iotsitewise
-defaultCommand: ''
+defaultCommand: list-access-policies
 commands:
-- name: ListAccessPolicies
+- name: list-access-policies
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accesspolicie
+    attributeName: accessPolicySummaries
   rerunOnBack: false
   favouritable: true
-- name: ListActions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-asset-models
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: action
+    attributeName: assetModelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssetModelCompositeModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-assets
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetmodelcompositemodel
+    attributeName: assetSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssetModelProperties
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-bulk-import-jobs
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetmodelpropertie
+    attributeName: jobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssetModels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-computation-models
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetmodel
+    attributeName: computationModelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssetProperties
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-gateways
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetpropertie
+    attributeName: gatewaySummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssetRelationships
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-portals
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetrelationship
+    attributeName: portalSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-time-series
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: asset
+    attributeName: TimeSeriesSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssociatedAssets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-default-encryption-configuration
   arguments:
   - --output
   - json
@@ -133,10 +165,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associatedasset
+    attributeName: configurationStatus
   rerunOnBack: false
   favouritable: true
-- name: ListBulkImportJobs
+- name: describe-logging-options
   arguments:
   - --output
   - json
@@ -148,10 +180,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: bulkimportjob
+    attributeName: loggingOptions
   rerunOnBack: false
   favouritable: true
-- name: ListCompositionRelationships
+- name: describe-storage-configuration
   arguments:
   - --output
   - json
@@ -163,10 +195,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: compositionrelationship
+    attributeName: multiLayerStorage
   rerunOnBack: false
   favouritable: true
-- name: ListComputationModelDataBindingUsages
+- name: get-asset-property-value
   arguments:
   - --output
   - json
@@ -178,10 +210,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: computationmodeldatabindingusage
+    attributeName: propertyValue
   rerunOnBack: false
   favouritable: true
-- name: ListComputationModelResolveToResources
+- name: get-asset-property-value-history
   arguments:
   - --output
   - json
@@ -193,111 +225,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: computationmodelresolvetoresource
+    attributeName: assetPropertyValueHistory
   rerunOnBack: false
   favouritable: true
-- name: ListComputationModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: computationmodel
-  rerunOnBack: false
-  favouritable: true
-- name: ListDashboards
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: dashboard
-  rerunOnBack: false
-  favouritable: true
-- name: ListDatasets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: dataset
-  rerunOnBack: false
-  favouritable: true
-- name: ListExecutions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: execution
-  rerunOnBack: false
-  favouritable: true
-- name: ListGateways
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: gateway
-  rerunOnBack: false
-  favouritable: true
-- name: ListInterfaceRelationships
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: interfacerelationship
-  rerunOnBack: false
-  favouritable: true
-- name: ListPortals
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: portal
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

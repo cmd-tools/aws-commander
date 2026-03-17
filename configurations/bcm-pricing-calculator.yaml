@@ -1,7 +1,7 @@
 name: bcm-pricing-calculator
-defaultCommand: ''
+defaultCommand: list-bill-estimates
 commands:
-- name: ListBillEstimateCommitments
+- name: list-bill-estimates
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: billestimatecommitment
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListBillEstimateInputCommitmentModifications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-bill-scenarios
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: billestimateinputcommitmentmodification
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListBillEstimateInputUsageModifications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workload-estimates
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: billestimateinputusagemodification
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListBillEstimateLineItems
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-preferences
   arguments:
   - --output
   - json
@@ -57,247 +69,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: billestimatelineitem
-  rerunOnBack: false
-  favouritable: true
-- name: ListBillEstimates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: billestimate
-  rerunOnBack: false
-  favouritable: true
-- name: ListBillScenarioCommitmentModifications
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: billscenariocommitmentmodification
-  rerunOnBack: false
-  favouritable: true
-- name: ListBillScenarioUsageModifications
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: billscenariousagemodification
-  rerunOnBack: false
-  favouritable: true
-- name: ListBillScenarios
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: billscenario
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkloadEstimateUsage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workloadestimateusages
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkloadEstimates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workloadestimate
-  rerunOnBack: false
-  favouritable: true
-- name: GetBillEstimate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Bcm-Pricing-Calculator
-  rerunOnBack: false
-  favouritable: true
-- name: GetBillScenario
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Bcm-Pricing-Calculator
-  rerunOnBack: false
-  favouritable: true
-- name: GetPreferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Bcm-Pricing-Calculator
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkloadEstimate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Bcm-Pricing-Calculator
-  rerunOnBack: false
-  favouritable: true
-- name: BatchCreateBillScenarioCommitmentModification
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchCreateBillScenarioUsageModification
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchCreateWorkloadEstimateUsage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchDeleteBillScenarioCommitmentModification
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchDeleteBillScenarioUsageModification
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    type: list
+    attributeName: managementAccountRateTypeSelections
   rerunOnBack: false
   favouritable: true

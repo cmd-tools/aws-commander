@@ -1,7 +1,7 @@
 name: ssm-sap
-defaultCommand: ''
+defaultCommand: list-applications
 commands:
-- name: ListApplications
+- name: list-applications
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: application
+    attributeName: Applications
   rerunOnBack: false
   favouritable: true
-- name: ListComponents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-components
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: component
+    attributeName: Components
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurationCheckDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-configuration-check-definitions
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationcheckdefinition
+    attributeName: ConfigurationChecks
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurationCheckOperations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-databases
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationcheckoperation
+    attributeName: Databases
   rerunOnBack: false
   favouritable: true
-- name: ListDatabases
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-application
   arguments:
   - --output
   - json
@@ -73,10 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: database
+    attributeName: Application
   rerunOnBack: false
   favouritable: true
-- name: ListOperationEvents
+- name: get-database
   arguments:
   - --output
   - json
@@ -88,186 +104,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: operationevent
-  rerunOnBack: false
-  favouritable: true
-- name: ListOperations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: operation
-  rerunOnBack: false
-  favouritable: true
-- name: ListSubCheckResults
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: subcheckresult
-  rerunOnBack: false
-  favouritable: true
-- name: ListSubCheckRuleResults
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: subcheckruleresult
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetApplication
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: GetComponent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfigurationCheckOperation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: GetDatabase
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: GetOperation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourcePermission
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ssm-Sap
-  rerunOnBack: false
-  favouritable: true
-- name: DeregisterApplication
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: RegisterApplication
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: Database
   rerunOnBack: false
   favouritable: true

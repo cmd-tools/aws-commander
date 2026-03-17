@@ -1,7 +1,7 @@
 name: ivs
-defaultCommand: ''
+defaultCommand: list-channels
 commands:
-- name: ListChannels
+- name: list-channels
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channel
+    attributeName: channels
   rerunOnBack: false
   favouritable: true
-- name: ListPlaybackKeyPairs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-playback-key-pairs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: playbackkeypair
+    attributeName: keyPairs
   rerunOnBack: false
   favouritable: true
-- name: ListPlaybackRestrictionPolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-playback-restriction-policies
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: playbackrestrictionpolicie
+    attributeName: playbackRestrictionPolicies
   rerunOnBack: false
   favouritable: true
-- name: ListRecordingConfigurations
+- name: list-recording-configurations
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recordingconfiguration
+    attributeName: recordingConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListStreamKeys
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-streams
   arguments:
   - --output
   - json
@@ -73,201 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: streamkey
+    attributeName: streams
   rerunOnBack: false
   favouritable: true
-- name: ListStreamSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: streamsession
-  rerunOnBack: false
-  favouritable: true
-- name: ListStreams
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: stream
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetPlaybackKeyPair
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetPlaybackRestrictionPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecordingConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetStreamKey
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: GetStreamSession
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetStreamKey
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ivs
-  rerunOnBack: false
-  favouritable: true
-- name: BatchStartViewerSessionRevocation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

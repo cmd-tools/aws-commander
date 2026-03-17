@@ -1,7 +1,7 @@
 name: personalize
-defaultCommand: ''
+defaultCommand: list-batch-inference-jobs
 commands:
-- name: ListBatchInferenceJobs
+- name: list-batch-inference-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: batchinferencejob
+    attributeName: batchInferenceJobs
   rerunOnBack: false
   favouritable: true
-- name: ListBatchSegmentJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-batch-segment-jobs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: batchsegmentjob
+    attributeName: batchSegmentJobs
   rerunOnBack: false
   favouritable: true
-- name: ListCampaigns
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-campaigns
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: campaign
+    attributeName: campaigns
   rerunOnBack: false
   favouritable: true
-- name: ListDataDeletionJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-data-deletion-jobs
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datadeletionjob
+    attributeName: dataDeletionJobs
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetExportJobs
+- name: list-dataset-export-jobs
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetexportjob
+    attributeName: datasetExportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-dataset-groups
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetgroup
+    attributeName: datasetGroups
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-dataset-import-jobs
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetimportjob
+    attributeName: datasetImportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListDatasets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-datasets
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataset
+    attributeName: datasets
   rerunOnBack: false
   favouritable: true
-- name: ListEventTrackers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-event-trackers
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventtracker
+    attributeName: eventTrackers
   rerunOnBack: false
   favouritable: true
-- name: ListFilters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-filters
   arguments:
   - --output
   - json
@@ -148,10 +180,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: filter
+    attributeName: Filters
   rerunOnBack: false
   favouritable: true
-- name: ListMetricAttributionMetrics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-metric-attribution-metrics
   arguments:
   - --output
   - json
@@ -163,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: metricattributionmetric
+    attributeName: metrics
   rerunOnBack: false
   favouritable: true
-- name: ListMetricAttributions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-metric-attributions
   arguments:
   - --output
   - json
@@ -178,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: metricattribution
+    attributeName: metricAttributions
   rerunOnBack: false
   favouritable: true
-- name: ListRecipes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-recipes
   arguments:
   - --output
   - json
@@ -193,10 +237,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recipe
+    attributeName: recipes
   rerunOnBack: false
   favouritable: true
-- name: ListRecommenders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-recommenders
   arguments:
   - --output
   - json
@@ -208,10 +256,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recommender
+    attributeName: recommenders
   rerunOnBack: false
   favouritable: true
-- name: ListSchemas
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-schemas
   arguments:
   - --output
   - json
@@ -223,10 +275,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: schema
+    attributeName: schemas
   rerunOnBack: false
   favouritable: true
-- name: ListSolutionVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-solution-versions
   arguments:
   - --output
   - json
@@ -238,10 +294,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solutionversion
+    attributeName: solutionVersions
   rerunOnBack: false
   favouritable: true
-- name: ListSolutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-solutions
   arguments:
   - --output
   - json
@@ -253,51 +313,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: solution
+    attributeName: solutions
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAlgorithm
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Personalize
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeBatchInferenceJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Personalize
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

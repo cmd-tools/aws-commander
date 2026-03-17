@@ -1,7 +1,7 @@
 name: artifact
-defaultCommand: ''
+defaultCommand: list-customer-agreements
 commands:
-- name: ListCustomerAgreements
+- name: list-customer-agreements
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: customeragreement
+    attributeName: customerAgreements
   rerunOnBack: false
   favouritable: true
-- name: ListReportVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-reports
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reportversion
+    attributeName: reports
   rerunOnBack: false
   favouritable: true
-- name: ListReports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-account-settings
   arguments:
   - --output
   - json
@@ -43,66 +51,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: report
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Artifact
-  rerunOnBack: false
-  favouritable: true
-- name: GetReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Artifact
-  rerunOnBack: false
-  favouritable: true
-- name: GetReportMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Artifact
-  rerunOnBack: false
-  favouritable: true
-- name: GetTermForReport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Artifact
+    attributeName: accountSettings
   rerunOnBack: false
   favouritable: true

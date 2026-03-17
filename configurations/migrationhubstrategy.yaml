@@ -1,7 +1,7 @@
 name: migrationhubstrategy
-defaultCommand: ''
+defaultCommand: list-analyzable-servers
 commands:
-- name: ListAnalyzableServers
+- name: list-analyzable-servers
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: analyzableserver
+    attributeName: analyzableServers
   rerunOnBack: false
   favouritable: true
-- name: ListApplicationComponents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-application-components
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: applicationcomponent
+    attributeName: applicationComponentInfos
   rerunOnBack: false
   favouritable: true
-- name: ListCollectors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-collectors
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collector
+    attributeName: Collectors
   rerunOnBack: false
   favouritable: true
-- name: ListImportFileTask
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-import-file-task
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importfiletasks
+    attributeName: taskInfos
   rerunOnBack: false
   favouritable: true
-- name: ListServers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-servers
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: server
+    attributeName: serverInfos
   rerunOnBack: false
   favouritable: true
-- name: GetApplicationComponentDetails
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-portfolio-preferences
   arguments:
   - --output
   - json
@@ -88,10 +108,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Migrationhubstrategy
+    attributeName: applicationPreferences
   rerunOnBack: false
   favouritable: true
-- name: GetApplicationComponentStrategies
+- name: get-portfolio-summary
   arguments:
   - --output
   - json
@@ -103,186 +123,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssessment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetImportFileTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetLatestAssessmentId
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetPortfolioPreferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetPortfolioSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecommendationReportDetails
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetServerDetails
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: GetServerStrategies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhubstrategy
-  rerunOnBack: false
-  favouritable: true
-- name: StartAssessment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartImportFileTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartRecommendationReportGeneration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StopAssessment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: assessmentSummary
   rerunOnBack: false
   favouritable: true

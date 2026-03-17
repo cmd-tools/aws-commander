@@ -1,7 +1,7 @@
 name: outposts
-defaultCommand: ''
+defaultCommand: list-capacity-tasks
 commands:
-- name: ListAssetInstances
+- name: list-capacity-tasks
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assetinstance
+    attributeName: CapacityTasks
   rerunOnBack: false
   favouritable: true
-- name: ListAssets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-catalog-items
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: asset
+    attributeName: CatalogItems
   rerunOnBack: false
   favouritable: true
-- name: ListBlockingInstancesForCapacityTask
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-orders
   arguments:
   - --output
   - json
@@ -43,100 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: blockinginstancesforcapacitytasks
+    attributeName: Orders
   rerunOnBack: false
   favouritable: true
-- name: ListCapacityTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: capacitytask
-  rerunOnBack: false
-  favouritable: true
-- name: ListCatalogItems
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: catalogitem
-  rerunOnBack: false
-  favouritable: true
-- name: ListOrders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: order
-  rerunOnBack: false
-  favouritable: true
-- name: ListOutposts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: outpost
-  rerunOnBack: false
-  favouritable: true
-- name: ListSites
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: site
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetCapacityTask
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-outposts
   arguments:
   - --output
   - json
@@ -151,7 +73,11 @@ commands:
     attributeName: Outposts
   rerunOnBack: false
   favouritable: true
-- name: GetCatalogItem
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-sites
   arguments:
   - --output
   - json
@@ -163,141 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Outposts
+    attributeName: Sites
   rerunOnBack: false
   favouritable: true
-- name: GetConnection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetOrder
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetOutpost
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetOutpostBillingInformation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetOutpostInstanceTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetOutpostSupportedInstanceTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetSite
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: GetSiteAddress
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Outposts
-  rerunOnBack: false
-  favouritable: true
-- name: CancelCapacityTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

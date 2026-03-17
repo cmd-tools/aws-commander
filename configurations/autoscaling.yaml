@@ -1,7 +1,7 @@
 name: autoscaling
-defaultCommand: ''
+defaultCommand: describe-adjustment-types
 commands:
-- name: DescribeAccountLimits
+- name: describe-adjustment-types
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: AdjustmentTypes
   rerunOnBack: false
   favouritable: true
-- name: DescribeAdjustmentTypes
+- name: describe-auto-scaling-groups
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: AutoScalingGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeAutoScalingGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-auto-scaling-instances
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: AutoScalingInstances
   rerunOnBack: false
   favouritable: true
-- name: DescribeAutoScalingInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-auto-scaling-notification-types
   arguments:
   - --output
   - json
@@ -57,11 +65,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: Autoscaling
+    type: list
+    attributeName: AutoScalingNotificationTypes
   rerunOnBack: false
   favouritable: true
-- name: DescribeAutoScalingNotificationTypes
+- name: describe-launch-configurations
   arguments:
   - --output
   - json
@@ -73,10 +81,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: LaunchConfigurations
   rerunOnBack: false
   favouritable: true
-- name: DescribeInstanceRefreshes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-lifecycle-hook-types
   arguments:
   - --output
   - json
@@ -87,11 +99,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: Autoscaling
+    type: list
+    attributeName: LifecycleHookTypes
   rerunOnBack: false
   favouritable: true
-- name: DescribeLaunchConfigurations
+- name: describe-metric-collection-types
   arguments:
   - --output
   - json
@@ -103,10 +115,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: Metrics
   rerunOnBack: false
   favouritable: true
-- name: DescribeLifecycleHookTypes
+- name: describe-notification-configurations
   arguments:
   - --output
   - json
@@ -118,10 +130,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: NotificationConfigurations
   rerunOnBack: false
   favouritable: true
-- name: DescribeLifecycleHooks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-policies
   arguments:
   - --output
   - json
@@ -133,10 +149,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: ScalingPolicies
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancerTargetGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-scaling-activities
   arguments:
   - --output
   - json
@@ -148,10 +168,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: Activities
   rerunOnBack: false
   favouritable: true
-- name: DescribeLoadBalancers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-scaling-process-types
   arguments:
   - --output
   - json
@@ -163,10 +187,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: Processes
   rerunOnBack: false
   favouritable: true
-- name: DescribeMetricCollectionTypes
+- name: describe-scheduled-actions
   arguments:
   - --output
   - json
@@ -178,10 +202,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: ScheduledUpdateGroupActions
   rerunOnBack: false
   favouritable: true
-- name: DescribeNotificationConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-tags
   arguments:
   - --output
   - json
@@ -193,10 +221,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Autoscaling
+    attributeName: Tags
   rerunOnBack: false
   favouritable: true
-- name: DescribePolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-termination-policy-types
   arguments:
   - --output
   - json
@@ -207,97 +239,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeScalingActivities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeScalingProcessTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeScheduledActions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTerminationPolicyTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeTrafficSources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Autoscaling
+    type: list
+    attributeName: TerminationPolicyTypes
   rerunOnBack: false
   favouritable: true

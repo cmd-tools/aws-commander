@@ -1,7 +1,7 @@
 name: route53-recovery-cluster
-defaultCommand: ''
+defaultCommand: list-routing-controls
 commands:
-- name: ListRoutingControls
+- name: list-routing-controls
   arguments:
   - --output
   - json
@@ -13,21 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: routingcontrol
+    attributeName: RoutingControls
   rerunOnBack: false
   favouritable: true
-- name: GetRoutingControlState
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Route53-Recovery-Cluster
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

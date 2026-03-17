@@ -1,7 +1,7 @@
 name: geo-places
 defaultCommand: ''
 commands:
-- name: GetPlace
+- name: geocode
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Geo-Places
+    attributeName: ResultItems
   rerunOnBack: false
   favouritable: true
-- name: Autocomplete
+- name: search-text
   arguments:
   - --output
   - json
@@ -24,85 +24,10 @@ commands:
   - '10'
   - --cli-connect-timeout
   - '5'
-  view: contentView
+  view: tableView
   showJsonViewer: true
   parse:
     type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: Geocode
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ReverseGeocode
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: SearchNearby
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: SearchText
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: Suggest
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: ResultItems
   rerunOnBack: false
   favouritable: true

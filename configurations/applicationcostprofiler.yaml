@@ -1,7 +1,7 @@
 name: applicationcostprofiler
-defaultCommand: ''
+defaultCommand: list-report-definitions
 commands:
-- name: ListReportDefinitions
+- name: list-report-definitions
   arguments:
   - --output
   - json
@@ -13,36 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reportdefinition
+    attributeName: reportDefinitions
   rerunOnBack: false
   favouritable: true
-- name: GetReportDefinition
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Applicationcostprofiler
-  rerunOnBack: false
-  favouritable: true
-- name: ImportApplicationUsage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

@@ -1,7 +1,7 @@
 name: bedrock-agentcore-control
-defaultCommand: ''
+defaultCommand: list-agent-runtimes
 commands:
-- name: ListAgentRuntimeEndpoints
+- name: list-agent-runtimes
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: agentruntimeendpoint
+    attributeName: agentRuntimes
   rerunOnBack: false
   favouritable: true
-- name: ListAgentRuntimeVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-api-key-credential-providers
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: agentruntimeversion
+    attributeName: credentialProviders
   rerunOnBack: false
   favouritable: true
-- name: ListAgentRuntimes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-browser-profiles
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: agentruntime
+    attributeName: profileSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListApiKeyCredentialProviders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-browsers
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: apikeycredentialprovider
+    attributeName: browserSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBrowserProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-code-interpreters
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: browserprofile
+    attributeName: codeInterpreterSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListBrowsers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-evaluators
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: browser
+    attributeName: evaluators
   rerunOnBack: false
   favouritable: true
-- name: ListCodeInterpreters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-gateways
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: codeinterpreter
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListEvaluators
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-memories
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: evaluator
+    attributeName: memories
   rerunOnBack: false
   favouritable: true
-- name: ListGatewayTargets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-oauth2-credential-providers
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gatewaytarget
+    attributeName: credentialProviders
   rerunOnBack: false
   favouritable: true
-- name: ListGateways
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-online-evaluation-configs
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gateway
+    attributeName: onlineEvaluationConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListMemories
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-policy-engines
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: memorie
+    attributeName: policyEngines
   rerunOnBack: false
   favouritable: true
-- name: ListOauth2CredentialProviders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workload-identities
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: oauth2credentialprovider
+    attributeName: workloadIdentities
   rerunOnBack: false
   favouritable: true
-- name: ListOnlineEvaluationConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-token-vault
   arguments:
   - --output
   - json
@@ -193,111 +241,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: onlineevaluationconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policie
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicyEngines
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policyengine
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicyGenerationAssets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policygenerationasset
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicyGenerations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policygeneration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkloadIdentities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workloadidentitie
-  rerunOnBack: false
-  favouritable: true
-- name: GetAgentRuntime
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Bedrock-Agentcore-Control
+    attributeName: kmsConfiguration
   rerunOnBack: false
   favouritable: true

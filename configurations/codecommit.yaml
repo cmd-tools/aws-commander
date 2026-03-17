@@ -1,7 +1,7 @@
 name: codecommit
-defaultCommand: ''
+defaultCommand: list-approval-rule-templates
 commands:
-- name: ListApprovalRuleTemplates
+- name: list-approval-rule-templates
   arguments:
   - --output
   - json
@@ -12,11 +12,12 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: approvalruletemplate
+    type: list
+    attributeName: approvalRuleTemplateNames
   rerunOnBack: false
   favouritable: true
-- name: ListAssociatedApprovalRuleTemplatesForRepository
+  resourceName: approvalRuleTemplateName
+- name: list-repositories
   arguments:
   - --output
   - json
@@ -28,10 +29,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: associatedapprovalruletemplatesforrepositorys
+    attributeName: repositories
   rerunOnBack: false
   favouritable: true
-- name: ListBranches
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-branch
   arguments:
   - --output
   - json
@@ -43,261 +48,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: branche
-  rerunOnBack: false
-  favouritable: true
-- name: ListFileCommitHistory
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: filecommithistorys
-  rerunOnBack: false
-  favouritable: true
-- name: ListPullRequests
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: pullrequest
-  rerunOnBack: false
-  favouritable: true
-- name: ListRepositories
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: repositorie
-  rerunOnBack: false
-  favouritable: true
-- name: ListRepositoriesForApprovalRuleTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: repositoriesforapprovalruletemplates
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeMergeConflicts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: DescribePullRequestEvents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetApprovalRuleTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetBlob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetBranch
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetComment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetCommentReactions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetCommentsForComparedCommit
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetCommentsForPullRequest
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetCommit
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetDifferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
-  rerunOnBack: false
-  favouritable: true
-- name: GetFile
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codecommit
+    attributeName: branch
   rerunOnBack: false
   favouritable: true

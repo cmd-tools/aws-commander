@@ -1,7 +1,7 @@
 name: lex-models
-defaultCommand: ''
+defaultCommand: get-bots
 commands:
-- name: ListTagsForResource
+- name: get-bots
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: bots
   rerunOnBack: false
   favouritable: true
-- name: GetBot
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-builtin-intents
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lex-Models
+    attributeName: intents
   rerunOnBack: false
   favouritable: true
-- name: GetBotAlias
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-builtin-slot-types
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lex-Models
+    attributeName: slotTypes
   rerunOnBack: false
   favouritable: true
-- name: GetBotAliases
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-intents
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lex-Models
+    attributeName: intents
   rerunOnBack: false
   favouritable: true
-- name: GetBotChannelAssociation
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-migrations
   arguments:
   - --output
   - json
@@ -73,10 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lex-Models
+    attributeName: migrationSummaries
   rerunOnBack: false
   favouritable: true
-- name: GetBotChannelAssociations
+- name: get-slot-types
   arguments:
   - --output
   - json
@@ -88,216 +104,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Lex-Models
+    attributeName: slotTypes
   rerunOnBack: false
   favouritable: true
-- name: GetBotVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetBots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetBuiltinIntent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetBuiltinIntents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetBuiltinSlotTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetExport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetImport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetIntent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetIntentVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetIntents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetMigration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetMigrations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetSlotType
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
-- name: GetSlotTypeVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lex-Models
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

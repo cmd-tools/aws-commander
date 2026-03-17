@@ -1,7 +1,7 @@
 name: codedeploy
-defaultCommand: ''
+defaultCommand: list-applications
 commands:
-- name: ListApplicationRevisions
+- name: list-applications
   arguments:
   - --output
   - json
@@ -12,11 +12,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: applicationrevision
+    type: list
+    attributeName: applications
   rerunOnBack: false
   favouritable: true
-- name: ListApplications
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-deployment-configs
   arguments:
   - --output
   - json
@@ -27,11 +31,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: application
+    type: list
+    attributeName: deploymentConfigsList
   rerunOnBack: false
   favouritable: true
-- name: ListDeploymentConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-deployments
   arguments:
   - --output
   - json
@@ -42,11 +50,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: deploymentconfig
+    type: list
+    attributeName: deployments
   rerunOnBack: false
   favouritable: true
-- name: ListDeploymentGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-git-hub-account-token-names
   arguments:
   - --output
   - json
@@ -57,11 +69,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: deploymentgroup
+    type: list
+    attributeName: tokenNameList
   rerunOnBack: false
   favouritable: true
-- name: ListDeploymentInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-on-premises-instances
   arguments:
   - --output
   - json
@@ -72,217 +88,12 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: deploymentinstance
+    type: list
+    attributeName: instanceNames
   rerunOnBack: false
   favouritable: true
-- name: ListDeploymentTargets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: deploymenttarget
-  rerunOnBack: false
-  favouritable: true
-- name: ListDeployments
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: deployment
-  rerunOnBack: false
-  favouritable: true
-- name: ListGitHubAccountTokenNames
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: githubaccounttokenname
-  rerunOnBack: false
-  favouritable: true
-- name: ListOnPremisesInstances
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: onpremisesinstance
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetApplication
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetApplicationRevision
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeployment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeploymentConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeploymentGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeploymentInstance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetDeploymentTarget
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: GetOnPremisesInstance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetApplicationRevisions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codedeploy
-  rerunOnBack: false
-  favouritable: true
+  resourceName: instanceName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

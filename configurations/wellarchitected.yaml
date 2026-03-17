@@ -1,7 +1,7 @@
 name: wellarchitected
-defaultCommand: ''
+defaultCommand: list-lenses
 commands:
-- name: ListAnswers
+- name: list-lenses
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: answer
+    attributeName: LensSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCheckDetails
+- name: list-notifications
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: checkdetail
+    attributeName: NotificationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCheckSummaries
+- name: list-profile-notifications
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: checksummarie
+    attributeName: NotificationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLensReviewImprovements
+- name: list-profiles
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lensreviewimprovement
+    attributeName: ProfileSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLensReviews
+- name: list-review-templates
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lensreview
+    attributeName: ReviewTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListLensShares
+- name: list-share-invitations
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lensshare
+    attributeName: ShareInvitationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLenses
+- name: list-workloads
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lense
+    attributeName: WorkloadSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMilestones
+- name: get-global-settings
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: milestone
+    attributeName: JiraConfiguration
   rerunOnBack: false
   favouritable: true
-- name: ListNotifications
+- name: get-profile-template
   arguments:
   - --output
   - json
@@ -133,171 +133,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: notification
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileNotifications
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profilenotification
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileShares
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profileshare
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfiles
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profile
-  rerunOnBack: false
-  favouritable: true
-- name: ListReviewTemplateAnswers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reviewtemplateanswer
-  rerunOnBack: false
-  favouritable: true
-- name: ListReviewTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reviewtemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListShareInvitations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: shareinvitation
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTemplateShares
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: templateshare
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkloadShares
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workloadshare
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkloads
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workload
-  rerunOnBack: false
-  favouritable: true
-- name: GetAnswer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Wellarchitected
+    attributeName: ProfileTemplate
   rerunOnBack: false
   favouritable: true

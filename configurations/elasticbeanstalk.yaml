@@ -1,7 +1,22 @@
 name: elasticbeanstalk
-defaultCommand: ''
+defaultCommand: list-available-solution-stacks
 commands:
-- name: ListAvailableSolutionStacks
+- name: list-available-solution-stacks
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: SolutionStacks
+  rerunOnBack: false
+  favouritable: true
+- name: list-platform-branches
   arguments:
   - --output
   - json
@@ -13,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: availablesolutionstack
+    attributeName: PlatformBranchSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListPlatformBranches
+- name: list-platform-versions
   arguments:
   - --output
   - json
@@ -28,10 +43,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: platformbranche
+    attributeName: PlatformSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListPlatformVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -43,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: platformversion
+    attributeName: ResourceQuotas
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-application-versions
   arguments:
   - --output
   - json
@@ -58,10 +77,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: ApplicationVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-applications
   arguments:
   - --output
   - json
@@ -73,10 +96,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: Applications
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplicationVersions
+- name: describe-configuration-options
   arguments:
   - --output
   - json
@@ -88,10 +111,25 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: Options
   rerunOnBack: false
   favouritable: true
-- name: DescribeApplications
+- name: describe-environment-health
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: Causes
+  rerunOnBack: false
+  favouritable: true
+- name: describe-environment-managed-action-history
   arguments:
   - --output
   - json
@@ -103,10 +141,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: ManagedActionHistoryItems
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationOptions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-environment-managed-actions
   arguments:
   - --output
   - json
@@ -118,10 +160,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: ManagedActions
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationSettings
+- name: describe-environment-resources
   arguments:
   - --output
   - json
@@ -133,10 +175,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: EnvironmentResources
   rerunOnBack: false
   favouritable: true
-- name: DescribeEnvironmentHealth
+- name: describe-environments
   arguments:
   - --output
   - json
@@ -148,10 +190,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: Environments
   rerunOnBack: false
   favouritable: true
-- name: DescribeEnvironmentManagedActionHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-events
   arguments:
   - --output
   - json
@@ -163,10 +209,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: Events
   rerunOnBack: false
   favouritable: true
-- name: DescribeEnvironmentManagedActions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-instances-health
   arguments:
   - --output
   - json
@@ -178,10 +228,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: InstanceHealthList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEnvironmentResources
+- name: describe-platform-version
   arguments:
   - --output
   - json
@@ -193,10 +243,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: PlatformDescription
   rerunOnBack: false
   favouritable: true
-- name: DescribeEnvironments
+- name: compose-environments
   arguments:
   - --output
   - json
@@ -208,10 +258,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
+    attributeName: Environments
   rerunOnBack: false
   favouritable: true
-- name: DescribeEvents
+- name: terminate-environment
   arguments:
   - --output
   - json
@@ -223,81 +273,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Elasticbeanstalk
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeInstancesHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elasticbeanstalk
-  rerunOnBack: false
-  favouritable: true
-- name: DescribePlatformVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Elasticbeanstalk
-  rerunOnBack: false
-  favouritable: true
-- name: AbortEnvironmentUpdate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ApplyEnvironmentManagedAction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateEnvironmentOperationsRole
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: EnvironmentLinks
   rerunOnBack: false
   favouritable: true

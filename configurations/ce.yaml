@@ -1,7 +1,7 @@
 name: ce
-defaultCommand: ''
+defaultCommand: list-commitment-purchase-analyses
 commands:
-- name: ListCommitmentPurchaseAnalyses
+- name: list-commitment-purchase-analyses
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: commitmentpurchaseanalyse
+    attributeName: AnalysisSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListCostAllocationTagBackfillHistory
+  pagination:
+    enabled: true
+    nextTokenParam: --next-page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-cost-allocation-tag-backfill-history
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: costallocationtagbackfillhistorys
+    attributeName: BackfillRequests
   rerunOnBack: false
   favouritable: true
-- name: ListCostAllocationTags
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cost-allocation-tags
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: costallocationtag
+    attributeName: CostAllocationTags
   rerunOnBack: false
   favouritable: true
-- name: ListCostCategoryDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cost-category-definitions
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: costcategorydefinition
+    attributeName: CostCategoryReferences
   rerunOnBack: false
   favouritable: true
-- name: ListCostCategoryResourceAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cost-category-resource-associations
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: costcategoryresourceassociation
+    attributeName: CostCategoryResourceAssociations
   rerunOnBack: false
   favouritable: true
-- name: ListSavingsPlansPurchaseRecommendationGeneration
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-savings-plans-purchase-recommendation-generation
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: savingsplanspurchaserecommendationgenerations
+    attributeName: GenerationSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-page-token
+    nextTokenJsonPath: NextPageToken
+- name: get-anomaly-monitors
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: AnomalyMonitors
   rerunOnBack: false
   favouritable: true
-- name: DescribeCostCategoryDefinition
+  pagination:
+    enabled: true
+    nextTokenParam: --next-page-token
+    nextTokenJsonPath: NextPageToken
+- name: get-anomaly-subscriptions
   arguments:
   - --output
   - json
@@ -118,186 +146,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ce
+    attributeName: AnomalySubscriptions
   rerunOnBack: false
   favouritable: true
-- name: GetAnomalies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetAnomalyMonitors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetAnomalySubscriptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetApproximateUsageRecords
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCommitmentPurchaseAnalysis
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostAndUsage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostAndUsageComparisons
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostAndUsageWithResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostCategories
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostComparisonDrivers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetCostForecast
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
-- name: GetDimensionValues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ce
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-page-token
+    nextTokenJsonPath: NextPageToken

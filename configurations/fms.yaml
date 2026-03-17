@@ -1,7 +1,7 @@
 name: fms
-defaultCommand: ''
+defaultCommand: list-admin-accounts-for-organization
 commands:
-- name: ListAdminAccountsForOrganization
+- name: list-admin-accounts-for-organization
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: adminaccountsfororganizations
+    attributeName: AdminAccounts
   rerunOnBack: false
   favouritable: true
-- name: ListAdminsManagingAccount
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-admins-managing-account
   arguments:
   - --output
   - json
@@ -27,11 +31,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: adminsmanagingaccounts
+    type: list
+    attributeName: AdminAccounts
   rerunOnBack: false
   favouritable: true
-- name: ListAppsLists
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-member-accounts
   arguments:
   - --output
   - json
@@ -42,11 +50,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: apps
+    type: list
+    attributeName: MemberAccounts
   rerunOnBack: false
   favouritable: true
-- name: ListComplianceStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-policies
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: compliancestatu
+    attributeName: PolicyList
   rerunOnBack: false
   favouritable: true
-- name: ListDiscoveredResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-resource-sets
   arguments:
   - --output
   - json
@@ -73,231 +89,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: discoveredresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListMemberAccounts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: memberaccount
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policie
-  rerunOnBack: false
-  favouritable: true
-- name: ListProtocolsLists
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: protocols
-  rerunOnBack: false
-  favouritable: true
-- name: ListResourceSetResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resourcesetresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListResourceSets
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resourceset
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListThirdPartyFirewallFirewallPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: thirdpartyfirewallfirewallpolicie
-  rerunOnBack: false
-  favouritable: true
-- name: GetAdminAccount
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetAdminScope
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetAppsList
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getapp
-  rerunOnBack: false
-  favouritable: true
-- name: GetComplianceDetail
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetNotificationChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetProtectionStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Fms
-  rerunOnBack: false
-  favouritable: true
-- name: GetProtocolsList
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getprotocol
+    attributeName: ResourceSets
   rerunOnBack: false
   favouritable: true

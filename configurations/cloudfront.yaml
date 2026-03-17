@@ -38,7 +38,7 @@ commands:
   parse:
     type: object
     attributeName: Items
-- name: ListAnycastIpLists
+- name: list-anycast-ip-lists
   arguments:
   - --output
   - json
@@ -50,10 +50,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: anycastip
+    attributeName: AnycastIpLists
   rerunOnBack: false
   favouritable: true
-- name: ListCachePolicies
+- name: list-cache-policies
   arguments:
   - --output
   - json
@@ -65,10 +65,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cachepolicie
+    attributeName: CachePolicyList
   rerunOnBack: false
   favouritable: true
-- name: ListCloudFrontOriginAccessIdentities
+- name: list-cloud-front-origin-access-identities
   arguments:
   - --output
   - json
@@ -80,10 +80,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cloudfrontoriginaccessidentitie
+    attributeName: CloudFrontOriginAccessIdentityList
   rerunOnBack: false
   favouritable: true
-- name: ListConflictingAliases
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: CloudFrontOriginAccessIdentityList.NextMarker
+- name: list-connection-functions
   arguments:
   - --output
   - json
@@ -95,10 +99,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: conflictingaliase
+    attributeName: ConnectionFunctions
   rerunOnBack: false
   favouritable: true
-- name: ListConnectionFunctions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-connection-groups
   arguments:
   - --output
   - json
@@ -110,10 +118,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connectionfunction
+    attributeName: ConnectionGroups
   rerunOnBack: false
   favouritable: true
-- name: ListConnectionGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-continuous-deployment-policies
   arguments:
   - --output
   - json
@@ -125,10 +137,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connectiongroup
+    attributeName: ContinuousDeploymentPolicyList
   rerunOnBack: false
   favouritable: true
-- name: ListContinuousDeploymentPolicies
+- name: list-distribution-tenants
   arguments:
   - --output
   - json
@@ -140,10 +152,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: continuousdeploymentpolicie
+    attributeName: DistributionTenantList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionTenants
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-distribution-tenants-by-customization
   arguments:
   - --output
   - json
@@ -155,24 +171,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributiontenant
+    attributeName: DistributionTenantList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionTenantsByCustomization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: distributiontenantsbycustomizations
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
 - name: ListDistributions
   arguments:
   - --output
@@ -188,7 +193,7 @@ commands:
     attributeName: distribution
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByAnycastIpListId
+- name: list-distributions-by-realtime-log-config
   arguments:
   - --output
   - json
@@ -200,10 +205,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyanycastipids
+    attributeName: DistributionList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByCachePolicyId
+- name: list-field-level-encryption-configs
   arguments:
   - --output
   - json
@@ -215,10 +220,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbycachepolicyids
+    attributeName: FieldLevelEncryptionList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByConnectionFunction
+- name: list-field-level-encryption-profiles
   arguments:
   - --output
   - json
@@ -230,10 +235,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyconnectionfunctions
+    attributeName: FieldLevelEncryptionProfileList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByConnectionMode
+- name: list-functions
   arguments:
   - --output
   - json
@@ -245,10 +250,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyconnectionmodes
+    attributeName: FunctionList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByKeyGroup
+- name: list-key-groups
   arguments:
   - --output
   - json
@@ -260,10 +265,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbykeygroups
+    attributeName: KeyGroupList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByOriginRequestPolicyId
+- name: list-key-value-stores
   arguments:
   - --output
   - json
@@ -275,10 +280,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyoriginrequestpolicyids
+    attributeName: KeyValueStoreList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByOwnedResource
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: KeyValueStoreList.NextMarker
+- name: list-origin-access-controls
   arguments:
   - --output
   - json
@@ -290,10 +299,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyownedresources
+    attributeName: OriginAccessControlList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByRealtimeLogConfig
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: OriginAccessControlList.NextMarker
+- name: list-origin-request-policies
   arguments:
   - --output
   - json
@@ -305,10 +318,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyrealtimelogconfigs
+    attributeName: OriginRequestPolicyList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByResponseHeadersPolicyId
+- name: list-public-keys
   arguments:
   - --output
   - json
@@ -320,10 +333,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbyresponseheaderspolicyids
+    attributeName: PublicKeyList
   rerunOnBack: false
   favouritable: true
-- name: ListDistributionsByTrustStore
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: PublicKeyList.NextMarker
+- name: list-realtime-log-configs
   arguments:
   - --output
   - json
@@ -335,6 +352,21 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: distributionsbytruststores
+    attributeName: RealtimeLogConfigs
+  rerunOnBack: false
+  favouritable: true
+- name: list-response-headers-policies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ResponseHeadersPolicyList
   rerunOnBack: false
   favouritable: true

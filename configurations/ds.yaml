@@ -1,7 +1,7 @@
 name: ds
-defaultCommand: ''
+defaultCommand: list-ad-assessments
 commands:
-- name: ListADAssessments
+- name: list-ad-assessments
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: adassessment
+    attributeName: Assessments
   rerunOnBack: false
   favouritable: true
-- name: ListCertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-log-subscriptions
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: certificate
+    attributeName: LogSubscriptions
   rerunOnBack: false
   favouritable: true
-- name: ListIpRoutes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-directories
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: iproute
+    attributeName: DirectoryDescriptions
   rerunOnBack: false
   favouritable: true
-- name: ListLogSubscriptions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-event-topics
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: logsubscription
+    attributeName: EventTopics
   rerunOnBack: false
   favouritable: true
-- name: ListSchemaExtensions
+- name: describe-snapshots
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: schemaextension
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-trusts
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: Trusts
   rerunOnBack: false
   favouritable: true
-- name: DescribeADAssessment
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-directory-limits
   arguments:
   - --output
   - json
@@ -103,201 +123,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCAEnrollmentPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCertificate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeClientAuthenticationSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConditionalForwarders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDirectories
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDirectoryDataAccess
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainControllers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventTopics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeHybridADUpdate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLDAPSSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRegions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSharedDirectories
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Ds
+    attributeName: DirectoryLimits
   rerunOnBack: false
   favouritable: true

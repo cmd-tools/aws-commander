@@ -1,7 +1,7 @@
 name: keyspacesstreams
-defaultCommand: ''
+defaultCommand: list-streams
 commands:
-- name: ListStreams
+- name: list-streams
   arguments:
   - --output
   - json
@@ -13,51 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stream
+    attributeName: streams
   rerunOnBack: false
   favouritable: true
-- name: GetRecords
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Keyspacesstreams
-  rerunOnBack: false
-  favouritable: true
-- name: GetShardIterator
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Keyspacesstreams
-  rerunOnBack: false
-  favouritable: true
-- name: GetStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Keyspacesstreams
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

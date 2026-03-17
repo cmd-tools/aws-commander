@@ -1,7 +1,7 @@
 name: codeconnections
-defaultCommand: ''
+defaultCommand: list-connections
 commands:
-- name: ListConnections
+- name: list-connections
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connection
+    attributeName: Connections
   rerunOnBack: false
   favouritable: true
-- name: ListHosts
+- name: list-hosts
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: host
+    attributeName: Hosts
   rerunOnBack: false
   favouritable: true
-- name: ListRepositoryLinks
+- name: list-repository-links
   arguments:
   - --output
   - json
@@ -43,156 +43,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: repositorylink
-  rerunOnBack: false
-  favouritable: true
-- name: ListRepositorySyncDefinitions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: repositorysyncdefinition
-  rerunOnBack: false
-  favouritable: true
-- name: ListSyncConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: syncconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetConnection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetHost
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetRepositoryLink
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetRepositorySyncStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourceSyncStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetSyncBlockerSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
-  rerunOnBack: false
-  favouritable: true
-- name: GetSyncConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Codeconnections
+    attributeName: RepositoryLinks
   rerunOnBack: false
   favouritable: true

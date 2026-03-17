@@ -1,7 +1,7 @@
 name: cloudformation
-defaultCommand: ''
+defaultCommand: list-exports
 commands:
-- name: ListChangeSets
+- name: list-exports
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: changeset
+    attributeName: Exports
   rerunOnBack: false
   favouritable: true
-- name: ListExports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-generated-templates
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: export
+    attributeName: Summaries
   rerunOnBack: false
   favouritable: true
-- name: ListGeneratedTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-hook-results
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: generatedtemplate
+    attributeName: HookResults
   rerunOnBack: false
   favouritable: true
-- name: ListHookResults
+- name: list-resource-scans
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hookresult
+    attributeName: ResourceScanSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListImports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-stack-refactors
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: import
+    attributeName: StackRefactorSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListResourceScanRelatedResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-stack-sets
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcescanrelatedresource
+    attributeName: Summaries
   rerunOnBack: false
   favouritable: true
-- name: ListResourceScanResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-stacks
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcescanresource
+    attributeName: StackSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListResourceScans
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-type-registrations
   arguments:
   - --output
   - json
@@ -117,11 +141,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: resourcescan
+    type: list
+    attributeName: RegistrationTokenList
   rerunOnBack: false
   favouritable: true
-- name: ListStackInstanceResourceDrifts
+- name: list-type-versions
   arguments:
   - --output
   - json
@@ -133,10 +157,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stackinstanceresourcedrift
+    attributeName: TypeVersionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListStackInstances
+- name: list-types
   arguments:
   - --output
   - json
@@ -148,10 +172,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stackinstance
+    attributeName: TypeSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListStackRefactorActions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-account-limits
   arguments:
   - --output
   - json
@@ -163,10 +191,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stackrefactoraction
+    attributeName: AccountLimits
   rerunOnBack: false
   favouritable: true
-- name: ListStackRefactors
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-events
   arguments:
   - --output
   - json
@@ -178,10 +210,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stackrefactor
+    attributeName: OperationEvents
   rerunOnBack: false
   favouritable: true
-- name: ListStackResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-stack-resources
   arguments:
   - --output
   - json
@@ -193,10 +229,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stackresource
+    attributeName: StackResources
   rerunOnBack: false
   favouritable: true
-- name: ListStackSetAutoDeploymentTargets
+- name: describe-stacks
   arguments:
   - --output
   - json
@@ -208,10 +244,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stacksetautodeploymenttarget
+    attributeName: Stacks
   rerunOnBack: false
   favouritable: true
-- name: ListStackSetOperationResults
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-type
   arguments:
   - --output
   - json
@@ -223,10 +263,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stacksetoperationresult
+    attributeName: RequiredActivatedTypes
   rerunOnBack: false
   favouritable: true
-- name: ListStackSetOperations
+- name: get-hook-result
   arguments:
   - --output
   - json
@@ -238,10 +278,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stacksetoperation
+    attributeName: Annotations
   rerunOnBack: false
   favouritable: true
-- name: ListStackSets
+- name: get-template
   arguments:
   - --output
   - json
@@ -252,11 +292,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: stackset
+    type: list
+    attributeName: StagesAvailable
   rerunOnBack: false
   favouritable: true
-- name: ListStacks
+- name: get-template-summary
   arguments:
   - --output
   - json
@@ -268,10 +308,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stack
+    attributeName: Parameters
   rerunOnBack: false
   favouritable: true
-- name: ListTypeRegistrations
+- name: validate-template
   arguments:
   - --output
   - json
@@ -283,21 +323,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: typeregistration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTypeVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: typeversion
+    attributeName: Parameters
   rerunOnBack: false
   favouritable: true

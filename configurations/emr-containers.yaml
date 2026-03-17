@@ -1,7 +1,7 @@
 name: emr-containers
-defaultCommand: ''
+defaultCommand: list-job-templates
 commands:
-- name: ListJobRuns
+- name: list-job-templates
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: jobrun
+    attributeName: templates
   rerunOnBack: false
   favouritable: true
-- name: ListJobTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-security-configurations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: jobtemplate
+    attributeName: securityConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListManagedEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-virtual-clusters
   arguments:
   - --output
   - json
@@ -43,156 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managedendpoint
+    attributeName: virtualClusters
   rerunOnBack: false
   favouritable: true
-- name: ListSecurityConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: securityconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListVirtualClusters
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: virtualcluster
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeJobRun
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeJobTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeManagedEndpoint
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSecurityConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeVirtualCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: GetManagedEndpointSessionCredentials
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr-Containers
-  rerunOnBack: false
-  favouritable: true
-- name: CancelJobRun
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

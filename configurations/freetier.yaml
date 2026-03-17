@@ -1,7 +1,7 @@
 name: freetier
-defaultCommand: ''
+defaultCommand: list-account-activities
 commands:
-- name: ListAccountActivities
+- name: list-account-activities
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountactivitie
+    attributeName: activities
   rerunOnBack: false
   favouritable: true
-- name: GetAccountActivity
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-account-plan-state
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Freetier
+    attributeName: accountPlanRemainingCredits
   rerunOnBack: false
   favouritable: true
-- name: GetAccountPlanState
+- name: get-free-tier-usage
   arguments:
   - --output
   - json
@@ -43,36 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Freetier
+    attributeName: freeTierUsages
   rerunOnBack: false
   favouritable: true
-- name: GetFreeTierUsage
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Freetier
-  rerunOnBack: false
-  favouritable: true
-- name: UpgradeAccountPlan
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

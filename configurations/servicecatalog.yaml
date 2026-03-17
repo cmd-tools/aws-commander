@@ -1,7 +1,7 @@
 name: servicecatalog
-defaultCommand: ''
+defaultCommand: list-accepted-portfolio-shares
 commands:
-- name: ListAcceptedPortfolioShares
+- name: list-accepted-portfolio-shares
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: acceptedportfolioshare
+    attributeName: PortfolioDetails
   rerunOnBack: false
   favouritable: true
-- name: ListBudgetsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-portfolios
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: budgetsforresources
+    attributeName: PortfolioDetails
   rerunOnBack: false
   favouritable: true
-- name: ListConstraintsForPortfolio
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-provisioned-product-plans
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: constraintsforportfolios
+    attributeName: ProvisionedProductPlans
   rerunOnBack: false
   favouritable: true
-- name: ListLaunchPaths
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-record-history
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: launchpath
+    attributeName: RecordDetails
   rerunOnBack: false
   favouritable: true
-- name: ListOrganizationPortfolioAccess
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-service-actions
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: organizationportfolioacces
+    attributeName: ServiceActionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListPortfolioAccess
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: list-tag-options
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: portfolioacces
+    attributeName: TagOptionDetails
   rerunOnBack: false
   favouritable: true
-- name: ListPortfolios
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: PageToken
+- name: describe-product
   arguments:
   - --output
   - json
@@ -103,10 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: portfolio
+    attributeName: ProvisioningArtifacts
   rerunOnBack: false
   favouritable: true
-- name: ListPortfoliosForProduct
+- name: describe-product-as-admin
   arguments:
   - --output
   - json
@@ -118,10 +142,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: portfoliosforproducts
+    attributeName: ProvisioningArtifactSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListPrincipalsForPortfolio
+- name: describe-provisioned-product
   arguments:
   - --output
   - json
@@ -133,10 +157,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: principalsforportfolios
+    attributeName: CloudWatchDashboards
   rerunOnBack: false
   favouritable: true
-- name: ListProvisionedProductPlans
+- name: describe-provisioning-artifact
   arguments:
   - --output
   - json
@@ -148,10 +172,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: provisionedproductplan
+    attributeName: ProvisioningArtifactParameters
   rerunOnBack: false
   favouritable: true
-- name: ListProvisioningArtifacts
+- name: describe-provisioning-parameters
   arguments:
   - --output
   - json
@@ -163,10 +187,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: provisioningartifact
+    attributeName: ProvisioningArtifactParameters
   rerunOnBack: false
   favouritable: true
-- name: ListProvisioningArtifactsForServiceAction
+- name: get-provisioned-product-outputs
   arguments:
   - --output
   - json
@@ -178,10 +202,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: provisioningartifactsforserviceactions
+    attributeName: Outputs
   rerunOnBack: false
   favouritable: true
-- name: ListRecordHistory
+- name: scan-provisioned-products
   arguments:
   - --output
   - json
@@ -193,10 +217,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recordhistorys
+    attributeName: ProvisionedProducts
   rerunOnBack: false
   favouritable: true
-- name: ListResourcesForTagOption
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: search-products
   arguments:
   - --output
   - json
@@ -208,10 +236,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcesfortagoptions
+    attributeName: ProductViewSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListServiceActions
+- name: search-products-as-admin
   arguments:
   - --output
   - json
@@ -223,10 +251,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: serviceaction
+    attributeName: ProductViewDetails
   rerunOnBack: false
   favouritable: true
-- name: ListServiceActionsForProvisioningArtifact
+  pagination:
+    enabled: true
+    nextTokenParam: --page-token
+    nextTokenJsonPath: NextPageToken
+- name: search-provisioned-products
   arguments:
   - --output
   - json
@@ -238,66 +270,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: serviceactionsforprovisioningartifacts
-  rerunOnBack: false
-  favouritable: true
-- name: ListStackInstancesForProvisionedProduct
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: stackinstancesforprovisionedproducts
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagOptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagoption
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeConstraint
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Servicecatalog
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCopyProductStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Servicecatalog
+    attributeName: ProvisionedProducts
   rerunOnBack: false
   favouritable: true

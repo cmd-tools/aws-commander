@@ -1,7 +1,7 @@
 name: globalaccelerator
-defaultCommand: ''
+defaultCommand: list-accelerators
 commands:
-- name: ListAccelerators
+- name: list-accelerators
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accelerator
+    attributeName: Accelerators
   rerunOnBack: false
   favouritable: true
-- name: ListByoipCidrs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-byoip-cidrs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: byoipcidr
+    attributeName: ByoipCidrs
   rerunOnBack: false
   favouritable: true
-- name: ListCrossAccountAttachments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cross-account-attachments
   arguments:
   - --output
   - json
@@ -43,10 +51,30 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: crossaccountattachment
+    attributeName: CrossAccountAttachments
   rerunOnBack: false
   favouritable: true
-- name: ListCrossAccountResourceAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cross-account-resource-accounts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ResourceOwnerAwsAccountIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: ResourceOwnerAwsAccountId
+- name: list-custom-routing-accelerators
   arguments:
   - --output
   - json
@@ -58,246 +86,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: crossaccountresourceaccount
+    attributeName: Accelerators
   rerunOnBack: false
   favouritable: true
-- name: ListCrossAccountResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: crossaccountresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomRoutingAccelerators
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customroutingaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomRoutingEndpointGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customroutingendpointgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomRoutingListeners
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customroutingener
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomRoutingPortMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customroutingportmapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListCustomRoutingPortMappingsByDestination
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: customroutingportmappingsbydestinations
-  rerunOnBack: false
-  favouritable: true
-- name: ListEndpointGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: endpointgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListListeners
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ener
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAccelerator
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAcceleratorAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCrossAccountAttachment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomRoutingAccelerator
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomRoutingAcceleratorAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomRoutingEndpointGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Globalaccelerator
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCustomRoutingListener
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: describecustomroutingeners
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

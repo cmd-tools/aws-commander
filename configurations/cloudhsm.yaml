@@ -1,7 +1,7 @@
 name: cloudhsm
-defaultCommand: ''
+defaultCommand: list-available-zones
 commands:
-- name: ListAvailableZones
+- name: list-available-zones
   arguments:
   - --output
   - json
@@ -12,11 +12,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: availablezone
+    type: list
+    attributeName: AZList
   rerunOnBack: false
   favouritable: true
-- name: ListHapgs
+- name: list-hapgs
   arguments:
   - --output
   - json
@@ -27,11 +27,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: hapg
+    type: list
+    attributeName: HapgList
   rerunOnBack: false
   favouritable: true
-- name: ListHsms
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-hsms
   arguments:
   - --output
   - json
@@ -42,11 +46,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: hsm
+    type: list
+    attributeName: HsmList
   rerunOnBack: false
   favouritable: true
-- name: ListLunaClients
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-luna-clients
   arguments:
   - --output
   - json
@@ -57,11 +65,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: lunaclient
+    type: list
+    attributeName: ClientList
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-hsm
   arguments:
   - --output
   - json
@@ -72,112 +84,7 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeHapg
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudhsm
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeHsm
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudhsm
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLunaClient
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudhsm
-  rerunOnBack: false
-  favouritable: true
-- name: GetConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudhsm
-  rerunOnBack: false
-  favouritable: true
-- name: ModifyHapg
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ModifyHsm
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ModifyLunaClient
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    type: list
+    attributeName: Partitions
   rerunOnBack: false
   favouritable: true

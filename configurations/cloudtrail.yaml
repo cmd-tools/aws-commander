@@ -1,5 +1,5 @@
 name: cloudtrail
-defaultCommand: ''
+defaultCommand: list-channels
 commands:
 - name: list-trails
   rerunOnBack: false
@@ -35,7 +35,7 @@ commands:
     enabled: true
     nextTokenParam: --starting-token
     nextTokenJsonPath: NextToken
-- name: ListChannels
+- name: list-channels
   arguments:
   - --output
   - json
@@ -47,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channel
+    attributeName: Channels
   rerunOnBack: false
   favouritable: true
-- name: ListDashboards
+- name: list-dashboards
   arguments:
   - --output
   - json
@@ -62,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dashboard
+    attributeName: Dashboards
   rerunOnBack: false
   favouritable: true
-- name: ListEventDataStores
+- name: list-event-data-stores
   arguments:
   - --output
   - json
@@ -77,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventdatastore
+    attributeName: EventDataStores
   rerunOnBack: false
   favouritable: true
-- name: ListImportFailures
+- name: list-imports
   arguments:
   - --output
   - json
@@ -92,10 +92,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importfailure
+    attributeName: Imports
   rerunOnBack: false
   favouritable: true
-- name: ListImports
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-public-keys
   arguments:
   - --output
   - json
@@ -107,84 +111,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: import
+    attributeName: PublicKeyList
   rerunOnBack: false
   favouritable: true
-- name: ListInsightsData
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: insightsdatas
-  rerunOnBack: false
-  favouritable: true
-- name: ListInsightsMetricData
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: insightsmetricdatas
-  rerunOnBack: false
-  favouritable: true
-- name: ListPublicKeys
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: publickey
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: querie
-  rerunOnBack: false
-  favouritable: true
-- name: ListTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tag
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
 - name: ListTrails
   arguments:
   - --output
@@ -200,7 +133,7 @@ commands:
     attributeName: trail
   rerunOnBack: false
   favouritable: true
-- name: DescribeQuery
+- name: describe-query
   arguments:
   - --output
   - json
@@ -212,10 +145,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudtrail
+    attributeName: QueryStatistics
   rerunOnBack: false
   favouritable: true
-- name: DescribeTrails
+- name: describe-trails
   arguments:
   - --output
   - json
@@ -227,10 +160,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudtrail
+    attributeName: trailList
   rerunOnBack: false
   favouritable: true
-- name: GetChannel
+- name: get-event-configuration
   arguments:
   - --output
   - json
@@ -242,10 +175,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudtrail
+    attributeName: ContextKeySelectors
   rerunOnBack: false
   favouritable: true
-- name: GetDashboard
+- name: get-insight-selectors
   arguments:
   - --output
   - json
@@ -257,81 +190,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Cloudtrail
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudtrail
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventDataStore
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudtrail
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventSelectors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudtrail
-  rerunOnBack: false
-  favouritable: true
-- name: GetImport
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudtrail
-  rerunOnBack: false
-  favouritable: true
-- name: GetInsightSelectors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Cloudtrail
+    attributeName: InsightSelectors
   rerunOnBack: false
   favouritable: true

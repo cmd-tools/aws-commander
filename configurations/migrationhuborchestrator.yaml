@@ -1,7 +1,7 @@
 name: migrationhuborchestrator
-defaultCommand: ''
+defaultCommand: list-plugins
 commands:
-- name: ListPlugins
+- name: list-plugins
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: plugin
+    attributeName: plugins
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-templates
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: templateSummary
   rerunOnBack: false
   favouritable: true
-- name: ListTemplateStepGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-workflows
   arguments:
   - --output
   - json
@@ -43,171 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: templatestepgroup
+    attributeName: migrationWorkflowSummary
   rerunOnBack: false
   favouritable: true
-- name: ListTemplateSteps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: templatestep
-  rerunOnBack: false
-  favouritable: true
-- name: ListTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: template
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowStepGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowstepgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflowSteps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflowstep
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkflows
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workflow
-  rerunOnBack: false
-  favouritable: true
-- name: GetTemplate
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
-- name: GetTemplateStep
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
-- name: GetTemplateStepGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkflow
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkflowStep
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
-- name: GetWorkflowStepGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Migrationhuborchestrator
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

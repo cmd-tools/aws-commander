@@ -1,7 +1,7 @@
 name: kinesis-video-archived-media
-defaultCommand: ''
+defaultCommand: list-fragments
 commands:
-- name: ListFragments
+- name: list-fragments
   arguments:
   - --output
   - json
@@ -13,81 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fragment
+    attributeName: Fragments
   rerunOnBack: false
   favouritable: true
-- name: GetClip
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis-Video-Archived-Media
-  rerunOnBack: false
-  favouritable: true
-- name: GetDASHStreamingSessionURL
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis-Video-Archived-Media
-  rerunOnBack: false
-  favouritable: true
-- name: GetHLSStreamingSessionURL
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis-Video-Archived-Media
-  rerunOnBack: false
-  favouritable: true
-- name: GetImages
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis-Video-Archived-Media
-  rerunOnBack: false
-  favouritable: true
-- name: GetMediaForFragmentList
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: getmediaforfragments
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

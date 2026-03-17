@@ -1,7 +1,7 @@
 name: memorydb
-defaultCommand: ''
+defaultCommand: describe-acls
 commands:
-- name: ListAllowedMultiRegionClusterUpdates
+- name: describe-acls
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: allowedmultiregionclusterupdate
+    attributeName: ACLs
   rerunOnBack: false
   favouritable: true
-- name: ListAllowedNodeTypeUpdates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-clusters
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: allowednodetypeupdate
+    attributeName: Clusters
   rerunOnBack: false
   favouritable: true
-- name: ListTags
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-engine-versions
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tag
+    attributeName: EngineVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeACLs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-events
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: Events
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-multi-region-clusters
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: MultiRegionClusters
   rerunOnBack: false
   favouritable: true
-- name: DescribeEngineVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-multi-region-parameter-groups
   arguments:
   - --output
   - json
@@ -88,10 +108,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: MultiRegionParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeEvents
+- name: describe-parameter-groups
   arguments:
   - --output
   - json
@@ -103,10 +123,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: ParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeMultiRegionClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-reserved-nodes
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: ReservedNodes
   rerunOnBack: false
   favouritable: true
-- name: DescribeMultiRegionParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-reserved-nodes-offerings
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: ReservedNodesOfferings
   rerunOnBack: false
   favouritable: true
-- name: DescribeMultiRegionParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-service-updates
   arguments:
   - --output
   - json
@@ -148,10 +180,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: ServiceUpdates
   rerunOnBack: false
   favouritable: true
-- name: DescribeParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-snapshots
   arguments:
   - --output
   - json
@@ -163,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-subnet-groups
   arguments:
   - --output
   - json
@@ -178,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: SubnetGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeReservedNodes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-users
   arguments:
   - --output
   - json
@@ -193,111 +237,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Memorydb
+    attributeName: Users
   rerunOnBack: false
   favouritable: true
-- name: DescribeReservedNodesOfferings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Memorydb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeServiceUpdates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Memorydb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSnapshots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Memorydb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSubnetGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Memorydb
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeUsers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Memorydb
-  rerunOnBack: false
-  favouritable: true
-- name: BatchUpdateCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: CopySnapshot
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

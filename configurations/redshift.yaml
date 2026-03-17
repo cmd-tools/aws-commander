@@ -1,7 +1,7 @@
 name: redshift
-defaultCommand: ''
+defaultCommand: list-recommendations
 commands:
-- name: ListRecommendations
+- name: list-recommendations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recommendation
+    attributeName: Recommendations
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountAttributes
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-account-attributes
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: AccountAttributes
   rerunOnBack: false
   favouritable: true
-- name: DescribeAuthenticationProfiles
+- name: describe-authentication-profiles
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: AuthenticationProfiles
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterDbRevisions
+- name: describe-cluster-db-revisions
   arguments:
   - --output
   - json
@@ -58,10 +62,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: ClusterDbRevisions
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterParameterGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-parameter-groups
   arguments:
   - --output
   - json
@@ -73,10 +81,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: ParameterGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-security-groups
   arguments:
   - --output
   - json
@@ -88,10 +100,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: ClusterSecurityGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterSecurityGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-snapshots
   arguments:
   - --output
   - json
@@ -103,10 +119,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: Snapshots
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterSnapshots
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-subnet-groups
   arguments:
   - --output
   - json
@@ -118,10 +138,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: ClusterSubnetGroups
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterSubnetGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-tracks
   arguments:
   - --output
   - json
@@ -133,10 +157,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: MaintenanceTracks
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterTracks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-cluster-versions
   arguments:
   - --output
   - json
@@ -148,10 +176,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: ClusterVersions
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusterVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-clusters
   arguments:
   - --output
   - json
@@ -163,10 +195,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: Clusters
   rerunOnBack: false
   favouritable: true
-- name: DescribeClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-custom-domain-associations
   arguments:
   - --output
   - json
@@ -178,10 +214,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: Associations
   rerunOnBack: false
   favouritable: true
-- name: DescribeCustomDomainAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-data-shares
   arguments:
   - --output
   - json
@@ -193,10 +233,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: DataShares
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataShares
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-data-shares-for-consumer
   arguments:
   - --output
   - json
@@ -208,10 +252,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: DataShares
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataSharesForConsumer
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-data-shares-for-producer
   arguments:
   - --output
   - json
@@ -223,10 +271,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: DataShares
   rerunOnBack: false
   favouritable: true
-- name: DescribeDataSharesForProducer
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-endpoint-access
   arguments:
   - --output
   - json
@@ -238,10 +290,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: EndpointAccessList
   rerunOnBack: false
   favouritable: true
-- name: DescribeDefaultClusterParameters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-endpoint-authorization
   arguments:
   - --output
   - json
@@ -253,10 +309,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: EndpointAuthorizationList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpointAccess
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-event-categories
   arguments:
   - --output
   - json
@@ -268,10 +328,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: EventCategoriesMapList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEndpointAuthorization
+- name: describe-event-subscriptions
   arguments:
   - --output
   - json
@@ -283,10 +343,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: EventSubscriptionsList
   rerunOnBack: false
   favouritable: true
-- name: DescribeEventCategories
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-events
   arguments:
   - --output
   - json
@@ -298,6 +362,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Redshift
+    attributeName: Events
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker

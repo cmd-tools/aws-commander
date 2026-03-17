@@ -1,7 +1,7 @@
 name: iot
-defaultCommand: ''
+defaultCommand: list-active-violations
 commands:
-- name: ListActiveViolations
+- name: list-active-violations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: activeviolation
+    attributeName: activeViolations
   rerunOnBack: false
   favouritable: true
-- name: ListAttachedPolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-audit-findings
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: attachedpolicie
+    attributeName: findings
   rerunOnBack: false
   favouritable: true
-- name: ListAuditFindings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-audit-suppressions
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: auditfinding
+    attributeName: suppressions
   rerunOnBack: false
   favouritable: true
-- name: ListAuditMitigationActionsExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-authorizers
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: auditmitigationactionsexecution
+    attributeName: authorizers
   rerunOnBack: false
   favouritable: true
-- name: ListAuditMitigationActionsTasks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: nextMarker
+- name: list-billing-groups
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: auditmitigationactionstask
+    attributeName: billingGroups
   rerunOnBack: false
   favouritable: true
-- name: ListAuditSuppressions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-ca-certificates
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: auditsuppression
+    attributeName: certificates
   rerunOnBack: false
   favouritable: true
-- name: ListAuditTasks
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: nextMarker
+- name: list-certificate-providers
   arguments:
   - --output
   - json
@@ -103,10 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: audittask
+    attributeName: certificateProviders
   rerunOnBack: false
   favouritable: true
-- name: ListAuthorizers
+- name: list-certificates
   arguments:
   - --output
   - json
@@ -118,10 +142,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: authorizer
+    attributeName: certificates
   rerunOnBack: false
   favouritable: true
-- name: ListBillingGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: nextMarker
+- name: list-command-executions
   arguments:
   - --output
   - json
@@ -133,10 +161,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: billinggroup
+    attributeName: commandExecutions
   rerunOnBack: false
   favouritable: true
-- name: ListCACertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-commands
   arguments:
   - --output
   - json
@@ -148,10 +180,34 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cacertificate
+    attributeName: commands
   rerunOnBack: false
   favouritable: true
-- name: ListCertificateProviders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-custom-metrics
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: metricNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: metricName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-detect-mitigation-actions-executions
   arguments:
   - --output
   - json
@@ -163,10 +219,34 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: certificateprovider
+    attributeName: actionsExecutions
   rerunOnBack: false
   favouritable: true
-- name: ListCertificates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-dimensions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: dimensionNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: dimensionName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-domain-configurations
   arguments:
   - --output
   - json
@@ -178,10 +258,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: certificate
+    attributeName: domainConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListCertificatesByCA
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: nextMarker
+- name: list-fleet-metrics
   arguments:
   - --output
   - json
@@ -193,10 +277,34 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: certificatesbycas
+    attributeName: fleetMetrics
   rerunOnBack: false
   favouritable: true
-- name: ListCommandExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-indices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: indexNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: indexName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-job-templates
   arguments:
   - --output
   - json
@@ -208,10 +316,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: commandexecution
+    attributeName: jobTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListCommands
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-jobs
   arguments:
   - --output
   - json
@@ -223,10 +335,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: command
+    attributeName: jobs
   rerunOnBack: false
   favouritable: true
-- name: ListCustomMetrics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-managed-job-templates
   arguments:
   - --output
   - json
@@ -238,10 +354,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: custommetric
+    attributeName: managedJobTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListDetectMitigationActionsExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-mitigation-actions
   arguments:
   - --output
   - json
@@ -253,51 +373,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: detectmitigationactionsexecution
+    attributeName: actionIdentifiers
   rerunOnBack: false
   favouritable: true
-- name: ListDetectMitigationActionsTasks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: detectmitigationactionstask
-  rerunOnBack: false
-  favouritable: true
-- name: ListDimensions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: dimension
-  rerunOnBack: false
-  favouritable: true
-- name: ListDomainConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: domainconfiguration
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

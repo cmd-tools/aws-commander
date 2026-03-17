@@ -1,7 +1,7 @@
 name: opensearch
-defaultCommand: ''
+defaultCommand: list-applications
 commands:
-- name: ListApplications
+- name: list-applications
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: application
+    attributeName: ApplicationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListDataSources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-direct-query-data-sources
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasource
+    attributeName: DirectQueryDataSources
   rerunOnBack: false
   favouritable: true
-- name: ListDirectQueryDataSources
+- name: list-domain-names
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: directquerydatasource
+    attributeName: DomainNames
   rerunOnBack: false
   favouritable: true
-- name: ListDomainMaintenances
+- name: list-versions
   arguments:
   - --output
   - json
@@ -57,11 +61,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: domainmaintenance
+    type: list
+    attributeName: Versions
   rerunOnBack: false
   favouritable: true
-- name: ListDomainNames
+- name: list-vpc-endpoints
   arguments:
   - --output
   - json
@@ -73,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domainname
+    attributeName: VpcEndpointSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListDomainsForPackage
+- name: describe-inbound-connections
   arguments:
   - --output
   - json
@@ -88,10 +92,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domainsforpackages
+    attributeName: Connections
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceTypeDetails
+- name: describe-outbound-connections
   arguments:
   - --output
   - json
@@ -103,10 +107,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instancetypedetail
+    attributeName: Connections
   rerunOnBack: false
   favouritable: true
-- name: ListPackagesForDomain
+- name: describe-packages
   arguments:
   - --output
   - json
@@ -118,10 +122,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: packagesfordomains
+    attributeName: PackageDetailsList
   rerunOnBack: false
   favouritable: true
-- name: ListScheduledActions
+- name: describe-reserved-instance-offerings
   arguments:
   - --output
   - json
@@ -133,10 +137,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: scheduledaction
+    attributeName: ReservedInstanceOfferings
   rerunOnBack: false
   favouritable: true
-- name: ListTags
+- name: describe-reserved-instances
   arguments:
   - --output
   - json
@@ -148,10 +152,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tag
+    attributeName: ReservedInstances
   rerunOnBack: false
   favouritable: true
-- name: ListVersions
+- name: get-compatible-versions
   arguments:
   - --output
   - json
@@ -163,141 +167,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: version
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcEndpointAccess
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcendpointacces
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcEndpoints
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcendpoint
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcEndpointsForDomain
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcendpointsfordomains
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomain
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainAutoTunes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainChangeProgress
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainHealth
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDomainNodes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearch
+    attributeName: CompatibleVersions
   rerunOnBack: false
   favouritable: true

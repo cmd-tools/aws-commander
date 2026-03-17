@@ -1,7 +1,7 @@
 name: opensearchserverless
-defaultCommand: ''
+defaultCommand: list-collection-groups
 commands:
-- name: ListAccessPolicies
+- name: list-collection-groups
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accesspolicie
+    attributeName: collectionGroupSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCollectionGroups
+- name: list-collections
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collectiongroup
+    attributeName: collectionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCollections
+- name: list-vpc-endpoints
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collection
+    attributeName: vpcEndpointSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLifecyclePolicies
+- name: get-account-settings
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: lifecyclepolicie
+    attributeName: accountSettingsDetail
   rerunOnBack: false
   favouritable: true
-- name: ListSecurityConfigs
+- name: get-policies-stats
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: securityconfig
+    attributeName: AccessPolicyStats
   rerunOnBack: false
   favouritable: true
-- name: ListSecurityPolicies
+- name: batch-get-collection
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: securitypolicie
+    attributeName: collectionDetails
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: batch-get-collection-group
   arguments:
   - --output
   - json
@@ -103,186 +103,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListVpcEndpoints
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: vpcendpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccessPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: GetIndex
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: GetPoliciesStats
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: GetSecurityConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: GetSecurityPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetCollection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetCollectionGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetEffectiveLifecyclePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetLifecyclePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetVpcEndpoint
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Opensearchserverless
+    attributeName: collectionGroupDetails
   rerunOnBack: false
   favouritable: true

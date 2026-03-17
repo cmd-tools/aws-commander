@@ -1,7 +1,7 @@
 name: kinesisanalyticsv2
-defaultCommand: ''
+defaultCommand: list-applications
 commands:
-- name: ListApplicationOperations
+- name: list-applications
   arguments:
   - --output
   - json
@@ -13,126 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: applicationoperation
+    attributeName: ApplicationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListApplicationSnapshots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: applicationsnapshot
-  rerunOnBack: false
-  favouritable: true
-- name: ListApplicationVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: applicationversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListApplications
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: application
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeApplication
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisanalyticsv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeApplicationOperation
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisanalyticsv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeApplicationSnapshot
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisanalyticsv2
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeApplicationVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisanalyticsv2
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

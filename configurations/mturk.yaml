@@ -1,7 +1,7 @@
 name: mturk
-defaultCommand: ''
+defaultCommand: list-bonus-payments
 commands:
-- name: ListAssignmentsForHIT
+- name: list-bonus-payments
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: assignmentsforhits
+    attributeName: BonusPayments
   rerunOnBack: false
   favouritable: true
-- name: ListBonusPayments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-hits
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: bonuspayment
+    attributeName: HITs
   rerunOnBack: false
   favouritable: true
-- name: ListHITs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-qualification-requests
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hit
+    attributeName: QualificationRequests
   rerunOnBack: false
   favouritable: true
-- name: ListHITsForQualificationType
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-reviewable-hits
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: hitsforqualificationtypes
+    attributeName: HITs
   rerunOnBack: false
   favouritable: true
-- name: ListQualificationRequests
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-worker-blocks
   arguments:
   - --output
   - json
@@ -73,216 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: qualificationrequest
+    attributeName: WorkerBlocks
   rerunOnBack: false
   favouritable: true
-- name: ListQualificationTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: qualificationtype
-  rerunOnBack: false
-  favouritable: true
-- name: ListReviewPolicyResultsForHIT
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reviewpolicyresultsforhits
-  rerunOnBack: false
-  favouritable: true
-- name: ListReviewableHITs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: reviewablehit
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkerBlocks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workerblock
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkersWithQualificationType
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workerswithqualificationtypes
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountBalance
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: GetAssignment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: GetFileUploadURL
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: GetHIT
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: GetQualificationScore
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: GetQualificationType
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Mturk
-  rerunOnBack: false
-  favouritable: true
-- name: AcceptQualificationRequest
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ApproveAssignment
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateQualificationWithWorker
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

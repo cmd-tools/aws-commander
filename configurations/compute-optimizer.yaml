@@ -1,7 +1,7 @@
 name: compute-optimizer
-defaultCommand: ''
+defaultCommand: describe-recommendation-export-jobs
 commands:
-- name: DescribeRecommendationExportJobs
+- name: describe-recommendation-export-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: recommendationExportJobs
   rerunOnBack: false
   favouritable: true
-- name: GetAutoScalingGroupRecommendations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-auto-scaling-group-recommendations
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: autoScalingGroupRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEBSVolumeRecommendations
+- name: get-ebs-volume-recommendations
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: volumeRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEC2InstanceRecommendations
+- name: get-ec2-instance-recommendations
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: instanceRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEC2RecommendationProjectedMetrics
+- name: get-ecs-service-recommendations
   arguments:
   - --output
   - json
@@ -73,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: ecsServiceRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetECSServiceRecommendationProjectedMetrics
+- name: get-enrollment-statuses-for-organization
   arguments:
   - --output
   - json
@@ -88,10 +92,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: accountEnrollmentStatuses
   rerunOnBack: false
   favouritable: true
-- name: GetECSServiceRecommendations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-idle-recommendations
   arguments:
   - --output
   - json
@@ -103,10 +111,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: idleRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEffectiveRecommendationPreferences
+- name: get-lambda-function-recommendations
   arguments:
   - --output
   - json
@@ -118,10 +126,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: lambdaFunctionRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEnrollmentStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-license-recommendations
   arguments:
   - --output
   - json
@@ -133,10 +145,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: licenseRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetEnrollmentStatusesForOrganization
+- name: get-rds-database-recommendations
   arguments:
   - --output
   - json
@@ -148,10 +160,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: rdsDBRecommendations
   rerunOnBack: false
   favouritable: true
-- name: GetIdleRecommendations
+- name: get-recommendation-summaries
   arguments:
   - --output
   - json
@@ -163,126 +175,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Compute-Optimizer
+    attributeName: recommendationSummaries
   rerunOnBack: false
   favouritable: true
-- name: GetLambdaFunctionRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: GetLicenseRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: GetRDSDatabaseRecommendationProjectedMetrics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: GetRDSDatabaseRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecommendationPreferences
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecommendationSummaries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Compute-Optimizer
-  rerunOnBack: false
-  favouritable: true
-- name: ExportAutoScalingGroupRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: ExportEBSVolumeRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

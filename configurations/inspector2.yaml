@@ -1,7 +1,7 @@
 name: inspector2
-defaultCommand: ''
+defaultCommand: list-account-permissions
 commands:
-- name: ListAccountPermissions
+- name: list-account-permissions
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountpermission
+    attributeName: permissions
   rerunOnBack: false
   favouritable: true
-- name: ListCisScanConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-cis-scan-configurations
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cisscanconfiguration
+    attributeName: scanConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListCisScanResultsAggregatedByChecks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-cis-scans
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cisscanresultsaggregatedbycheck
+    attributeName: scans
   rerunOnBack: false
   favouritable: true
-- name: ListCisScanResultsAggregatedByTargetResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-code-security-integrations
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cisscanresultsaggregatedbytargetresources
+    attributeName: integrations
   rerunOnBack: false
   favouritable: true
-- name: ListCisScans
+- name: list-code-security-scan-configurations
   arguments:
   - --output
   - json
@@ -73,10 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cisscan
+    attributeName: configurations
   rerunOnBack: false
   favouritable: true
-- name: ListCodeSecurityIntegrations
+- name: list-coverage
   arguments:
   - --output
   - json
@@ -88,10 +100,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: codesecurityintegration
+    attributeName: coveredResources
   rerunOnBack: false
   favouritable: true
-- name: ListCodeSecurityScanConfigurationAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-coverage-statistics
   arguments:
   - --output
   - json
@@ -103,10 +119,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: codesecurityscanconfigurationassociation
+    attributeName: countsByGroup
   rerunOnBack: false
   favouritable: true
-- name: ListCodeSecurityScanConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-delegated-admin-accounts
   arguments:
   - --output
   - json
@@ -118,10 +138,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: codesecurityscanconfiguration
+    attributeName: delegatedAdminAccounts
   rerunOnBack: false
   favouritable: true
-- name: ListCoverage
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-filters
   arguments:
   - --output
   - json
@@ -133,10 +157,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: coverages
+    attributeName: filters
   rerunOnBack: false
   favouritable: true
-- name: ListCoverageStatistics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-findings
   arguments:
   - --output
   - json
@@ -148,10 +176,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: coveragestatistic
+    attributeName: findings
   rerunOnBack: false
   favouritable: true
-- name: ListDelegatedAdminAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-members
   arguments:
   - --output
   - json
@@ -163,10 +195,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: delegatedadminaccount
+    attributeName: members
   rerunOnBack: false
   favouritable: true
-- name: ListFilters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-usage-totals
   arguments:
   - --output
   - json
@@ -178,10 +214,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: filter
+    attributeName: totals
   rerunOnBack: false
   favouritable: true
-- name: ListFindingAggregations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-organization-configuration
   arguments:
   - --output
   - json
@@ -193,10 +233,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: findingaggregation
+    attributeName: autoEnable
   rerunOnBack: false
   favouritable: true
-- name: ListFindings
+- name: get-configuration
   arguments:
   - --output
   - json
@@ -208,10 +248,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: finding
+    attributeName: ecrConfiguration
   rerunOnBack: false
   favouritable: true
-- name: ListMembers
+- name: get-delegated-admin-account
   arguments:
   - --output
   - json
@@ -223,10 +263,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: member
+    attributeName: delegatedAdmin
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-ec2-deep-inspection-configuration
   arguments:
   - --output
   - json
@@ -237,11 +277,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: tagsforresources
+    type: list
+    attributeName: packagePaths
   rerunOnBack: false
   favouritable: true
-- name: ListUsageTotals
+- name: get-findings-report-status
   arguments:
   - --output
   - json
@@ -253,10 +293,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: usagetotal
+    attributeName: destination
   rerunOnBack: false
   favouritable: true
-- name: DescribeOrganizationConfiguration
+- name: batch-get-account-status
   arguments:
   - --output
   - json
@@ -268,10 +308,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Inspector2
+    attributeName: accounts
   rerunOnBack: false
   favouritable: true
-- name: GetCisScanReport
+- name: batch-get-member-ec2-deep-inspection-status
   arguments:
   - --output
   - json
@@ -283,10 +323,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Inspector2
+    attributeName: accountIds
   rerunOnBack: false
   favouritable: true
-- name: GetCisScanResultDetails
+- name: disable
   arguments:
   - --output
   - json
@@ -298,6 +338,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Inspector2
+    attributeName: accounts
   rerunOnBack: false
   favouritable: true

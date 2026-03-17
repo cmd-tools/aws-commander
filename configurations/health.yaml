@@ -1,7 +1,7 @@
 name: health
-defaultCommand: ''
+defaultCommand: describe-affected-entities-for-organization
 commands:
-- name: DescribeAffectedAccountsForOrganization
+- name: describe-affected-entities-for-organization
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Health
+    attributeName: entities
   rerunOnBack: false
   favouritable: true
-- name: DescribeAffectedEntities
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-entity-aggregates
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Health
+    attributeName: entityAggregates
   rerunOnBack: false
   favouritable: true
-- name: DescribeAffectedEntitiesForOrganization
+- name: describe-event-types
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Health
+    attributeName: eventTypes
   rerunOnBack: false
   favouritable: true
-- name: DescribeEntityAggregates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-events
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Health
+    attributeName: events
   rerunOnBack: false
   favouritable: true
-- name: DescribeEntityAggregatesForOrganization
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-events-for-organization
   arguments:
   - --output
   - json
@@ -73,141 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Health
+    attributeName: events
   rerunOnBack: false
   favouritable: true
-- name: DescribeEventAggregates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventDetails
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventDetailsForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEvents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeEventsForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeHealthServiceStatusForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Health
-  rerunOnBack: false
-  favouritable: true
-- name: DisableHealthServiceAccessForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: EnableHealthServiceAccessForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

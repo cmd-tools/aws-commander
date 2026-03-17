@@ -1,7 +1,7 @@
 name: config
-defaultCommand: ''
+defaultCommand: list-configuration-recorders
 commands:
-- name: ListAggregateDiscoveredResources
+- name: list-configuration-recorders
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aggregatediscoveredresource
+    attributeName: ConfigurationRecorderSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurationRecorders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-conformance-pack-compliance-scores
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationrecorder
+    attributeName: ConformancePackComplianceScores
   rerunOnBack: false
   favouritable: true
-- name: ListConformancePackComplianceScores
+- name: list-resource-evaluations
   arguments:
   - --output
   - json
@@ -43,10 +47,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: conformancepackcompliancescore
+    attributeName: ResourceEvaluations
   rerunOnBack: false
   favouritable: true
-- name: ListDiscoveredResources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-stored-queries
   arguments:
   - --output
   - json
@@ -58,10 +66,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: discoveredresource
+    attributeName: StoredQueryMetadata
   rerunOnBack: false
   favouritable: true
-- name: ListResourceEvaluations
+- name: describe-aggregation-authorizations
   arguments:
   - --output
   - json
@@ -73,10 +81,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourceevaluation
+    attributeName: AggregationAuthorizations
   rerunOnBack: false
   favouritable: true
-- name: ListStoredQueries
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-compliance-by-config-rule
   arguments:
   - --output
   - json
@@ -88,10 +100,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: storedquerie
+    attributeName: ComplianceByConfigRules
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-compliance-by-resource
   arguments:
   - --output
   - json
@@ -103,10 +119,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: ComplianceByResources
   rerunOnBack: false
   favouritable: true
-- name: DescribeAggregateComplianceByConfigRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-config-rule-evaluation-status
   arguments:
   - --output
   - json
@@ -118,10 +138,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConfigRulesEvaluationStatus
   rerunOnBack: false
   favouritable: true
-- name: DescribeAggregateComplianceByConformancePacks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-config-rules
   arguments:
   - --output
   - json
@@ -133,10 +157,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConfigRules
   rerunOnBack: false
   favouritable: true
-- name: DescribeAggregationAuthorizations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-configuration-aggregators
   arguments:
   - --output
   - json
@@ -148,10 +176,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConfigurationAggregators
   rerunOnBack: false
   favouritable: true
-- name: DescribeComplianceByConfigRule
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-configuration-recorder-status
   arguments:
   - --output
   - json
@@ -163,10 +195,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConfigurationRecordersStatus
   rerunOnBack: false
   favouritable: true
-- name: DescribeComplianceByResource
+- name: describe-configuration-recorders
   arguments:
   - --output
   - json
@@ -178,10 +210,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConfigurationRecorders
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigRuleEvaluationStatus
+- name: describe-conformance-pack-status
   arguments:
   - --output
   - json
@@ -193,10 +225,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConformancePackStatusDetails
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-conformance-packs
   arguments:
   - --output
   - json
@@ -208,10 +244,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: ConformancePackDetails
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationAggregatorSourcesStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-delivery-channel-status
   arguments:
   - --output
   - json
@@ -223,10 +263,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: DeliveryChannelsStatus
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationAggregators
+- name: describe-delivery-channels
   arguments:
   - --output
   - json
@@ -238,10 +278,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: DeliveryChannels
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationRecorderStatus
+- name: describe-organization-config-rule-statuses
   arguments:
   - --output
   - json
@@ -253,10 +293,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: OrganizationConfigRuleStatuses
   rerunOnBack: false
   favouritable: true
-- name: DescribeConfigurationRecorders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-organization-config-rules
   arguments:
   - --output
   - json
@@ -268,10 +312,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: OrganizationConfigRules
   rerunOnBack: false
   favouritable: true
-- name: DescribeConformancePackCompliance
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-organization-conformance-pack-statuses
   arguments:
   - --output
   - json
@@ -283,10 +331,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: OrganizationConformancePackStatuses
   rerunOnBack: false
   favouritable: true
-- name: DescribeConformancePackStatus
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-organization-conformance-packs
   arguments:
   - --output
   - json
@@ -298,6 +350,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Config
+    attributeName: OrganizationConformancePacks
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

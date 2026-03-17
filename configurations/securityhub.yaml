@@ -1,7 +1,7 @@
 name: securityhub
-defaultCommand: ''
+defaultCommand: list-aggregators-v2
 commands:
-- name: ListAggregatorsV2
+- name: list-aggregators-v2
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aggregatorsv2s
+    attributeName: AggregatorsV2
   rerunOnBack: false
   favouritable: true
-- name: ListAutomationRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-automation-rules
   arguments:
   - --output
   - json
@@ -28,10 +32,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automationrule
+    attributeName: AutomationRulesMetadata
   rerunOnBack: false
   favouritable: true
-- name: ListAutomationRulesV2
+- name: list-automation-rules-v2
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automationrulesv2s
+    attributeName: Rules
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurationPolicies
+- name: list-configuration-policies
   arguments:
   - --output
   - json
@@ -58,10 +62,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationpolicie
+    attributeName: ConfigurationPolicySummaries
   rerunOnBack: false
   favouritable: true
-- name: ListConfigurationPolicyAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-configuration-policy-associations
   arguments:
   - --output
   - json
@@ -73,10 +81,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: configurationpolicyassociation
+    attributeName: ConfigurationPolicyAssociationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListConnectorsV2
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-connectors-v2
   arguments:
   - --output
   - json
@@ -88,10 +100,29 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connectorsv2s
+    attributeName: Connectors
   rerunOnBack: false
   favouritable: true
-- name: ListEnabledProductsForImport
+- name: list-enabled-products-for-import
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ProductSubscriptions
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-finding-aggregators
   arguments:
   - --output
   - json
@@ -103,10 +134,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: enabledproductsforimports
+    attributeName: FindingAggregators
   rerunOnBack: false
   favouritable: true
-- name: ListFindingAggregators
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-invitations
   arguments:
   - --output
   - json
@@ -118,10 +153,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: findingaggregator
+    attributeName: Invitations
   rerunOnBack: false
   favouritable: true
-- name: ListInvitations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-members
   arguments:
   - --output
   - json
@@ -133,10 +172,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: invitation
+    attributeName: Members
   rerunOnBack: false
   favouritable: true
-- name: ListMembers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-organization-admin-accounts
   arguments:
   - --output
   - json
@@ -148,10 +191,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: member
+    attributeName: AdminAccounts
   rerunOnBack: false
   favouritable: true
-- name: ListOrganizationAdminAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-security-control-definitions
   arguments:
   - --output
   - json
@@ -163,10 +210,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: organizationadminaccount
+    attributeName: SecurityControlDefinitions
   rerunOnBack: false
   favouritable: true
-- name: ListSecurityControlDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-action-targets
   arguments:
   - --output
   - json
@@ -178,10 +229,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: securitycontroldefinition
+    attributeName: ActionTargets
   rerunOnBack: false
   favouritable: true
-- name: ListStandardsControlAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-organization-configuration
   arguments:
   - --output
   - json
@@ -193,10 +248,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: standardscontrolassociation
+    attributeName: OrganizationConfiguration
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-products
   arguments:
   - --output
   - json
@@ -208,10 +263,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: Products
   rerunOnBack: false
   favouritable: true
-- name: DescribeActionTargets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-products-v2
   arguments:
   - --output
   - json
@@ -223,10 +282,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Securityhub
+    attributeName: ProductsV2
   rerunOnBack: false
   favouritable: true
-- name: DescribeHub
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-standards
   arguments:
   - --output
   - json
@@ -238,10 +301,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Securityhub
+    attributeName: Standards
   rerunOnBack: false
   favouritable: true
-- name: DescribeOrganizationConfiguration
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-administrator-account
   arguments:
   - --output
   - json
@@ -253,10 +320,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Securityhub
+    attributeName: Administrator
   rerunOnBack: false
   favouritable: true
-- name: DescribeProducts
+- name: get-enabled-standards
   arguments:
   - --output
   - json
@@ -268,10 +335,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Securityhub
+    attributeName: StandardsSubscriptions
   rerunOnBack: false
   favouritable: true
-- name: DescribeProductsV2
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-findings
   arguments:
   - --output
   - json
@@ -283,21 +354,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Securityhub
+    attributeName: Findings
   rerunOnBack: false
   favouritable: true
-- name: DescribeSecurityHubV2
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Securityhub
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

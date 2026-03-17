@@ -68,7 +68,7 @@ commands:
   parse:
     type: list
     attributeName: addons
-- name: ListAccessEntries
+- name: list-access-policies
   arguments:
   - --output
   - json
@@ -80,69 +80,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accessentrie
+    attributeName: accessPolicies
   rerunOnBack: false
   favouritable: true
-- name: ListAccessPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: accesspolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListAddons
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: addon
-  rerunOnBack: false
-  favouritable: true
-- name: ListAssociatedAccessPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: associatedaccesspolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListCapabilities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: capabilitie
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
 - name: ListClusters
   arguments:
   - --output
@@ -158,7 +102,7 @@ commands:
     attributeName: cluster
   rerunOnBack: false
   favouritable: true
-- name: ListEksAnywhereSubscriptions
+- name: list-eks-anywhere-subscriptions
   arguments:
   - --output
   - json
@@ -170,10 +114,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eksanywheresubscription
+    attributeName: subscriptions
   rerunOnBack: false
   favouritable: true
-- name: ListFargateProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-addon-versions
   arguments:
   - --output
   - json
@@ -185,10 +133,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: fargateprofile
+    attributeName: addons
   rerunOnBack: false
   favouritable: true
-- name: ListIdentityProviderConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-cluster-versions
   arguments:
   - --output
   - json
@@ -200,171 +152,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: identityproviderconfig
+    attributeName: clusterVersions
   rerunOnBack: false
   favouritable: true
-- name: ListInsights
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: insight
-  rerunOnBack: false
-  favouritable: true
-- name: ListNodegroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: nodegroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListPodIdentityAssociations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: podidentityassociation
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListUpdates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: update
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAccessEntry
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAddon
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAddonConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeAddonVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCapability
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Eks
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

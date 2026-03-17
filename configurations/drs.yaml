@@ -1,7 +1,7 @@
 name: drs
-defaultCommand: ''
+defaultCommand: list-staging-accounts
 commands:
-- name: ListExtensibleSourceServers
+- name: list-staging-accounts
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: extensiblesourceserver
+    attributeName: accounts
   rerunOnBack: false
   favouritable: true
-- name: ListLaunchActions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-jobs
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: launchaction
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListStagingAccounts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-launch-configuration-templates
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stagingaccount
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-recovery-instances
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: DescribeJobLogItems
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-replication-configuration-templates
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Drs
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: DescribeJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-source-networks
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Drs
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: DescribeLaunchConfigurationTemplates
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: describe-source-servers
   arguments:
   - --output
   - json
@@ -103,141 +127,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Drs
+    attributeName: items
   rerunOnBack: false
   favouritable: true
-- name: DescribeRecoveryInstances
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeRecoverySnapshots
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeReplicationConfigurationTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSourceNetworks
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSourceServers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: GetFailbackReplicationConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: GetLaunchConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: GetReplicationConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Drs
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateSourceNetworkStack
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

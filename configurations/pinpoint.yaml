@@ -1,7 +1,7 @@
 name: pinpoint
-defaultCommand: ''
+defaultCommand: list-templates
 commands:
-- name: ListJourneys
+- name: list-templates
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: journey
+    attributeName: TemplatesResponse
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-apps
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: ApplicationsResponse
   rerunOnBack: false
   favouritable: true
-- name: ListTemplateVersions
+- name: get-recommender-configurations
   arguments:
   - --output
   - json
@@ -43,261 +43,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: templateversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: template
-  rerunOnBack: false
-  favouritable: true
-- name: GetAdmChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApnsChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApnsSandboxChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApnsVoipChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApnsVoipSandboxChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApp
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApplicationDateRangeKpi
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApplicationSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetApps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetBaiduChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaign
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaignActivities
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaignDateRangeKpi
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaignVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaignVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
-  rerunOnBack: false
-  favouritable: true
-- name: GetCampaigns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Pinpoint
+    attributeName: ListRecommenderConfigurationsResponse
   rerunOnBack: false
   favouritable: true

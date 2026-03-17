@@ -1,7 +1,7 @@
 name: kinesis
-defaultCommand: ''
+defaultCommand: list-shards
 commands:
-- name: ListShards
+- name: list-shards
   arguments:
   - --output
   - json
@@ -13,10 +13,34 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: shard
+    attributeName: Shards
   rerunOnBack: false
   favouritable: true
-- name: ListStreamConsumers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-streams
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: StreamNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: StreamName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tags-for-stream
   arguments:
   - --output
   - json
@@ -28,10 +52,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: streamconsumer
+    attributeName: Tags
   rerunOnBack: false
   favouritable: true
-- name: ListStreams
+- name: describe-account-settings
   arguments:
   - --output
   - json
@@ -43,10 +67,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stream
+    attributeName: MinimumThroughputBillingCommitment
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-stream
   arguments:
   - --output
   - json
@@ -58,10 +82,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: StreamDescription
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForStream
+  pagination:
+    enabled: true
+    nextTokenParam: --exclusive-start-shard-id
+    nextTokenJsonPath: StreamDescription.Shards[-1].ShardId
+- name: describe-stream-consumer
   arguments:
   - --output
   - json
@@ -73,10 +101,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforstreams
+    attributeName: ConsumerDescription
   rerunOnBack: false
   favouritable: true
-- name: DescribeAccountSettings
+- name: describe-stream-summary
   arguments:
   - --output
   - json
@@ -88,156 +116,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLimits
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStreamConsumer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStreamSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: GetRecords
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: GetResourcePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: GetShardIterator
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesis
-  rerunOnBack: false
-  favouritable: true
-- name: DecreaseStreamRetentionPeriod
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DeregisterStreamConsumer
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: DisableEnhancedMonitoring
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: StreamDescriptionSummary
   rerunOnBack: false
   favouritable: true

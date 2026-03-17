@@ -1,7 +1,7 @@
 name: sesv2
-defaultCommand: ''
+defaultCommand: list-configuration-sets
 commands:
-- name: ListConfigurationSets
+- name: list-configuration-sets
   arguments:
   - --output
   - json
@@ -12,11 +12,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: configurationset
+    type: list
+    attributeName: ConfigurationSets
   rerunOnBack: false
   favouritable: true
-- name: ListContactLists
+- name: list-contact-lists
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: contact
+    attributeName: ContactLists
   rerunOnBack: false
   favouritable: true
-- name: ListContacts
+- name: list-custom-verification-email-templates
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: contact
+    attributeName: CustomVerificationEmailTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListCustomVerificationEmailTemplates
+- name: list-dedicated-ip-pools
   arguments:
   - --output
   - json
@@ -57,11 +57,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: customverificationemailtemplate
+    type: list
+    attributeName: DedicatedIpPools
   rerunOnBack: false
   favouritable: true
-- name: ListDedicatedIpPools
+- name: list-deliverability-test-reports
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dedicatedippool
+    attributeName: DeliverabilityTestReports
   rerunOnBack: false
   favouritable: true
-- name: ListDeliverabilityTestReports
+- name: list-email-identities
   arguments:
   - --output
   - json
@@ -88,10 +88,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: deliverabilitytestreport
+    attributeName: EmailIdentities
   rerunOnBack: false
   favouritable: true
-- name: ListDomainDeliverabilityCampaigns
+- name: list-email-templates
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domaindeliverabilitycampaign
+    attributeName: TemplatesMetadata
   rerunOnBack: false
   favouritable: true
-- name: ListEmailIdentities
+- name: list-export-jobs
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: emailidentitie
+    attributeName: ExportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListEmailTemplates
+- name: list-import-jobs
   arguments:
   - --output
   - json
@@ -133,10 +133,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: emailtemplate
+    attributeName: ImportJobs
   rerunOnBack: false
   favouritable: true
-- name: ListExportJobs
+- name: list-multi-region-endpoints
   arguments:
   - --output
   - json
@@ -148,10 +148,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: exportjob
+    attributeName: MultiRegionEndpoints
   rerunOnBack: false
   favouritable: true
-- name: ListImportJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-recommendations
   arguments:
   - --output
   - json
@@ -163,10 +167,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: importjob
+    attributeName: Recommendations
   rerunOnBack: false
   favouritable: true
-- name: ListMultiRegionEndpoints
+- name: list-reputation-entities
   arguments:
   - --output
   - json
@@ -178,10 +182,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: multiregionendpoint
+    attributeName: ReputationEntities
   rerunOnBack: false
   favouritable: true
-- name: ListRecommendations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-suppressed-destinations
   arguments:
   - --output
   - json
@@ -193,10 +201,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recommendation
+    attributeName: SuppressedDestinationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListReputationEntities
+- name: list-tenants
   arguments:
   - --output
   - json
@@ -208,10 +216,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: reputationentitie
+    attributeName: Tenants
   rerunOnBack: false
   favouritable: true
-- name: ListResourceTenants
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-account
   arguments:
   - --output
   - json
@@ -223,10 +235,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: resourcetenant
+    attributeName: SendQuota
   rerunOnBack: false
   favouritable: true
-- name: ListSuppressedDestinations
+- name: get-dedicated-ips
   arguments:
   - --output
   - json
@@ -238,10 +250,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: suppresseddestination
+    attributeName: DedicatedIps
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: get-deliverability-dashboard-options
   arguments:
   - --output
   - json
@@ -253,51 +265,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTenantResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tenantresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListTenants
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tenant
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccount
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Sesv2
+    attributeName: ActiveSubscribedDomains
   rerunOnBack: false
   favouritable: true

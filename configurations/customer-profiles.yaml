@@ -1,7 +1,7 @@
 name: customer-profiles
-defaultCommand: ''
+defaultCommand: list-domains
 commands:
-- name: ListAccountIntegrations
+- name: list-domains
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accountintegration
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListCalculatedAttributeDefinitions
+- name: list-profile-object-type-templates
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: calculatedattributedefinition
+    attributeName: Items
   rerunOnBack: false
   favouritable: true
-- name: ListCalculatedAttributesForProfile
+- name: list-recommender-recipes
   arguments:
   - --output
   - json
@@ -43,261 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: calculatedattributesforprofiles
+    attributeName: RecommenderRecipes
   rerunOnBack: false
   favouritable: true
-- name: ListDomainLayouts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: domainlayout
-  rerunOnBack: false
-  favouritable: true
-- name: ListDomainObjectTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: domainobjecttype
-  rerunOnBack: false
-  favouritable: true
-- name: ListDomains
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: domain
-  rerunOnBack: false
-  favouritable: true
-- name: ListEventStreams
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: eventstream
-  rerunOnBack: false
-  favouritable: true
-- name: ListEventTriggers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: eventtrigger
-  rerunOnBack: false
-  favouritable: true
-- name: ListIdentityResolutionJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: identityresolutionjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListIntegrations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: integration
-  rerunOnBack: false
-  favouritable: true
-- name: ListObjectTypeAttributeValues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: objecttypeattributevalue
-  rerunOnBack: false
-  favouritable: true
-- name: ListObjectTypeAttributes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: objecttypeattribute
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileAttributeValues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profileattributevalue
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileHistoryRecords
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profilehistoryrecord
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileObjectTypeTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profileobjecttypetemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileObjectTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profileobjecttype
-  rerunOnBack: false
-  favouritable: true
-- name: ListProfileObjects
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: profileobject
-  rerunOnBack: false
-  favouritable: true
-- name: ListRecommenderFilters
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: recommenderfilter
-  rerunOnBack: false
-  favouritable: true
-- name: ListRecommenderRecipes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: recommenderrecipe
-  rerunOnBack: false
-  favouritable: true
-- name: ListRecommenders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: recommender
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

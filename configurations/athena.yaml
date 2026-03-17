@@ -1,7 +1,7 @@
 name: athena
-defaultCommand: ''
+defaultCommand: list-application-dpu-sizes
 commands:
-- name: ListApplicationDPUSizes
+- name: list-application-dpu-sizes
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: applicationdpusize
+    attributeName: ApplicationDPUSizes
   rerunOnBack: false
   favouritable: true
-- name: ListCalculationExecutions
+- name: list-capacity-reservations
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: calculationexecution
+    attributeName: CapacityReservations
   rerunOnBack: false
   favouritable: true
-- name: ListCapacityReservations
+- name: list-data-catalogs
   arguments:
   - --output
   - json
@@ -43,10 +43,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: capacityreservation
+    attributeName: DataCatalogsSummary
   rerunOnBack: false
   favouritable: true
-- name: ListDataCatalogs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-engine-versions
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datacatalog
+    attributeName: EngineVersions
   rerunOnBack: false
   favouritable: true
-- name: ListDatabases
+- name: list-named-queries
   arguments:
   - --output
   - json
@@ -72,11 +76,16 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: database
+    type: list
+    attributeName: NamedQueryIds
   rerunOnBack: false
   favouritable: true
-- name: ListEngineVersions
+  resourceName: NamedQueryId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-query-executions
   arguments:
   - --output
   - json
@@ -87,11 +96,16 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: engineversion
+    type: list
+    attributeName: QueryExecutionIds
   rerunOnBack: false
   favouritable: true
-- name: ListExecutors
+  resourceName: QueryExecutionId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-work-groups
   arguments:
   - --output
   - json
@@ -103,201 +117,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: executor
-  rerunOnBack: false
-  favouritable: true
-- name: ListNamedQueries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: namedquerie
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotebookMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notebookmetadatas
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotebookSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notebooksession
-  rerunOnBack: false
-  favouritable: true
-- name: ListPreparedStatements
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: preparedstatement
-  rerunOnBack: false
-  favouritable: true
-- name: ListQueryExecutions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queryexecution
-  rerunOnBack: false
-  favouritable: true
-- name: ListSessions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: session
-  rerunOnBack: false
-  favouritable: true
-- name: ListTableMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tablemetadatas
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListWorkGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: workgroup
-  rerunOnBack: false
-  favouritable: true
-- name: GetCalculationExecution
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Athena
-  rerunOnBack: false
-  favouritable: true
-- name: GetCalculationExecutionCode
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Athena
-  rerunOnBack: false
-  favouritable: true
-- name: GetCalculationExecutionStatus
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Athena
-  rerunOnBack: false
-  favouritable: true
-- name: GetCapacityAssignmentConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Athena
+    attributeName: WorkGroups
   rerunOnBack: false
   favouritable: true

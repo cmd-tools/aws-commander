@@ -1,7 +1,7 @@
 name: resource-groups
-defaultCommand: ''
+defaultCommand: list-group-resources
 commands:
-- name: ListGroupResources
+- name: list-group-resources
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: groupresource
+    attributeName: ResourceIdentifiers
   rerunOnBack: false
   favouritable: true
-- name: ListGroupingStatuses
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-groups
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: groupingstatuse
+    attributeName: GroupIdentifiers
   rerunOnBack: false
   favouritable: true
-- name: ListGroups
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tag-sync-tasks
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: group
+    attributeName: TagSyncTasks
   rerunOnBack: false
   favouritable: true
-- name: ListTagSyncTasks
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: get-account-settings
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsynctask
+    attributeName: AccountSettings
   rerunOnBack: false
   favouritable: true
-- name: GetAccountSettings
+- name: get-group
   arguments:
   - --output
   - json
@@ -73,10 +85,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Resource-Groups
+    attributeName: Group
   rerunOnBack: false
   favouritable: true
-- name: GetGroup
+- name: get-group-configuration
   arguments:
   - --output
   - json
@@ -88,10 +100,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Resource-Groups
+    attributeName: GroupConfiguration
   rerunOnBack: false
   favouritable: true
-- name: GetGroupConfiguration
+- name: get-group-query
   arguments:
   - --output
   - json
@@ -103,156 +115,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Resource-Groups
-  rerunOnBack: false
-  favouritable: true
-- name: GetGroupQuery
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Resource-Groups
-  rerunOnBack: false
-  favouritable: true
-- name: GetTagSyncTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Resource-Groups
-  rerunOnBack: false
-  favouritable: true
-- name: GetTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Resource-Groups
-  rerunOnBack: false
-  favouritable: true
-- name: CancelTagSyncTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: GroupResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: SearchResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: StartTagSyncTask
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: Tag
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: UngroupResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: Untag
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: GroupQuery
   rerunOnBack: false
   favouritable: true

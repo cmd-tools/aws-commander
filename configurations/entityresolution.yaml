@@ -1,7 +1,7 @@
 name: entityresolution
-defaultCommand: ''
+defaultCommand: list-id-mapping-workflows
 commands:
-- name: ListIdMappingJobs
+- name: list-id-mapping-workflows
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: idmappingjob
+    attributeName: workflowSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListIdMappingWorkflows
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-id-namespaces
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: idmappingworkflow
+    attributeName: idNamespaceSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListIdNamespaces
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-matching-workflows
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: idnamespace
+    attributeName: workflowSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMatchingJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-provider-services
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: matchingjob
+    attributeName: providerServiceSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListMatchingWorkflows
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-schema-mappings
   arguments:
   - --output
   - json
@@ -73,201 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: matchingworkflow
+    attributeName: schemaList
   rerunOnBack: false
   favouritable: true
-- name: ListProviderServices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: providerservice
-  rerunOnBack: false
-  favouritable: true
-- name: ListSchemaMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: schemamapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetIdMappingJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetIdMappingWorkflow
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetIdNamespace
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetMatchId
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetMatchingJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetMatchingWorkflow
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetProviderService
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: GetSchemaMapping
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Entityresolution
-  rerunOnBack: false
-  favouritable: true
-- name: BatchDeleteUniqueId
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

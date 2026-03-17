@@ -1,7 +1,7 @@
 name: taxsettings
-defaultCommand: ''
+defaultCommand: list-supplemental-tax-registrations
 commands:
-- name: ListSupplementalTaxRegistrations
+- name: list-supplemental-tax-registrations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: supplementaltaxregistration
+    attributeName: taxRegistrations
   rerunOnBack: false
   favouritable: true
-- name: ListTaxExemptions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-tax-exemptions
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: taxexemption
+    attributeName: taxExemptionDetailsMap
   rerunOnBack: false
   favouritable: true
-- name: ListTaxRegistrations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-tax-registrations
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: taxregistration
+    attributeName: accountDetails
   rerunOnBack: false
   favouritable: true
-- name: GetTaxExemptionTypes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-tax-exemption-types
   arguments:
   - --output
   - json
@@ -58,10 +70,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Taxsettings
+    attributeName: taxExemptionTypes
   rerunOnBack: false
   favouritable: true
-- name: GetTaxInheritance
+- name: get-tax-registration
   arguments:
   - --output
   - json
@@ -73,81 +85,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Taxsettings
-  rerunOnBack: false
-  favouritable: true
-- name: GetTaxRegistration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Taxsettings
-  rerunOnBack: false
-  favouritable: true
-- name: GetTaxRegistrationDocument
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Taxsettings
-  rerunOnBack: false
-  favouritable: true
-- name: BatchDeleteTaxRegistration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
-  rerunOnBack: false
-  favouritable: true
-- name: BatchGetTaxExemptions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Taxsettings
-  rerunOnBack: false
-  favouritable: true
-- name: BatchPutTaxRegistration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: taxRegistration
   rerunOnBack: false
   favouritable: true

@@ -59,7 +59,7 @@ commands:
     enabled: true
     nextTokenParam: --starting-token
     nextTokenJsonPath: NextMarker
-- name: ListAliases
+- name: list-capacity-providers
   arguments:
   - --output
   - json
@@ -71,10 +71,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aliase
+    attributeName: CapacityProviders
   rerunOnBack: false
   favouritable: true
-- name: ListCapacityProviders
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-code-signing-configs
   arguments:
   - --output
   - json
@@ -86,39 +90,13 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: capacityprovider
+    attributeName: CodeSigningConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListCodeSigningConfigs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: codesigningconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListDurableExecutionsByFunction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: durableexecutionsbyfunctions
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
 - name: ListEventSourceMappings
   arguments:
   - --output
@@ -132,51 +110,6 @@ commands:
   parse:
     type: object
     attributeName: eventsourcemapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListFunctionEventInvokeConfigs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: functioneventinvokeconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListFunctionUrlConfigs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: functionurlconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListFunctionVersionsByCapacityProvider
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: functionversionsbycapacityproviders
   rerunOnBack: false
   favouritable: true
 - name: ListFunctions
@@ -194,7 +127,7 @@ commands:
     attributeName: function
   rerunOnBack: false
   favouritable: true
-- name: ListFunctionsByCodeSigningConfig
+- name: list-layers
   arguments:
   - --output
   - json
@@ -206,10 +139,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: functionsbycodesigningconfigs
+    attributeName: Layers
   rerunOnBack: false
   favouritable: true
-- name: ListLayerVersions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: get-account-settings
   arguments:
   - --output
   - json
@@ -221,141 +158,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: layerversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListLayers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: layer
-  rerunOnBack: false
-  favouritable: true
-- name: ListProvisionedConcurrencyConfigs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: provisionedconcurrencyconfig
-  rerunOnBack: false
-  favouritable: true
-- name: ListTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tag
-  rerunOnBack: false
-  favouritable: true
-- name: ListVersionsByFunction
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: versionsbyfunctions
-  rerunOnBack: false
-  favouritable: true
-- name: GetAccountSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lambda
-  rerunOnBack: false
-  favouritable: true
-- name: GetAlias
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lambda
-  rerunOnBack: false
-  favouritable: true
-- name: GetCapacityProvider
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lambda
-  rerunOnBack: false
-  favouritable: true
-- name: GetCodeSigningConfig
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lambda
-  rerunOnBack: false
-  favouritable: true
-- name: GetDurableExecution
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lambda
+    attributeName: AccountLimit
   rerunOnBack: false
   favouritable: true

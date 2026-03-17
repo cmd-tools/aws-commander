@@ -1,7 +1,7 @@
 name: sagemaker
-defaultCommand: ''
+defaultCommand: list-actions
 commands:
-- name: ListActions
+- name: list-actions
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: action
+    attributeName: ActionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAlgorithms
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-algorithms
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: algorithm
+    attributeName: AlgorithmSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListAliases
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-app-image-configs
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: aliase
+    attributeName: AppImageConfigs
   rerunOnBack: false
   favouritable: true
-- name: ListAppImageConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-apps
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appimageconfig
+    attributeName: Apps
   rerunOnBack: false
   favouritable: true
-- name: ListApps
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-artifacts
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: app
+    attributeName: ArtifactSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListArtifacts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-associations
   arguments:
   - --output
   - json
@@ -88,10 +108,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: artifact
+    attributeName: AssociationSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-auto-ml-jobs
   arguments:
   - --output
   - json
@@ -103,10 +127,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: association
+    attributeName: AutoMLJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAutoMLJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-cluster-scheduler-configs
   arguments:
   - --output
   - json
@@ -118,10 +146,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: automljob
+    attributeName: ClusterSchedulerConfigSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCandidatesForAutoMLJob
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-clusters
   arguments:
   - --output
   - json
@@ -133,10 +165,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: candidatesforautomljobs
+    attributeName: ClusterSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListClusterEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-code-repositories
   arguments:
   - --output
   - json
@@ -148,10 +184,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: clusterevent
+    attributeName: CodeRepositorySummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListClusterNodes
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-compilation-jobs
   arguments:
   - --output
   - json
@@ -163,10 +203,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: clusternode
+    attributeName: CompilationJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListClusterSchedulerConfigs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-compute-quotas
   arguments:
   - --output
   - json
@@ -178,10 +222,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: clusterschedulerconfig
+    attributeName: ComputeQuotaSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-contexts
   arguments:
   - --output
   - json
@@ -193,10 +241,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cluster
+    attributeName: ContextSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCodeRepositories
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-data-quality-job-definitions
   arguments:
   - --output
   - json
@@ -208,10 +260,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: coderepositorie
+    attributeName: JobDefinitionSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListCompilationJobs
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-device-fleets
   arguments:
   - --output
   - json
@@ -223,10 +279,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: compilationjob
+    attributeName: DeviceFleetSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListComputeQuotas
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-devices
   arguments:
   - --output
   - json
@@ -238,10 +298,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: computequota
+    attributeName: DeviceSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListContexts
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-domains
   arguments:
   - --output
   - json
@@ -253,10 +317,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: context
+    attributeName: Domains
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityJobDefinitions
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-edge-deployment-plans
   arguments:
   - --output
   - json
@@ -268,10 +336,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualityjobdefinition
+    attributeName: EdgeDeploymentPlanSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListDeviceFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-edge-packaging-jobs
   arguments:
   - --output
   - json
@@ -283,10 +355,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: devicefleet
+    attributeName: EdgePackagingJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListDevices
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-endpoint-configs
   arguments:
   - --output
   - json
@@ -298,6 +374,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: device
+    attributeName: EndpointConfigs
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

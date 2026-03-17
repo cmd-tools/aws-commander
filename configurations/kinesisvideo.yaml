@@ -1,7 +1,7 @@
 name: kinesisvideo
-defaultCommand: ''
+defaultCommand: list-signaling-channels
 commands:
-- name: ListEdgeAgentConfigurations
+- name: list-signaling-channels
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: edgeagentconfiguration
+    attributeName: ChannelInfoList
   rerunOnBack: false
   favouritable: true
-- name: ListSignalingChannels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-streams
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: signalingchannel
+    attributeName: StreamInfoList
   rerunOnBack: false
   favouritable: true
-- name: ListStreams
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-tags-for-stream
   arguments:
   - --output
   - json
@@ -43,10 +51,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: stream
+    attributeName: Tags
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: describe-edge-configuration
   arguments:
   - --output
   - json
@@ -58,10 +66,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
+    attributeName: EdgeConfig
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForStream
+- name: describe-image-generation-configuration
   arguments:
   - --output
   - json
@@ -73,10 +81,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforstreams
+    attributeName: ImageGenerationConfiguration
   rerunOnBack: false
   favouritable: true
-- name: DescribeEdgeConfiguration
+- name: describe-mapped-resource-configuration
   arguments:
   - --output
   - json
@@ -88,10 +96,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
+    attributeName: MappedResourceConfigurationList
   rerunOnBack: false
   favouritable: true
-- name: DescribeImageGenerationConfiguration
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-media-storage-configuration
   arguments:
   - --output
   - json
@@ -103,10 +115,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
+    attributeName: MediaStorageConfiguration
   rerunOnBack: false
   favouritable: true
-- name: DescribeMappedResourceConfiguration
+- name: describe-notification-configuration
   arguments:
   - --output
   - json
@@ -118,10 +130,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
+    attributeName: NotificationConfiguration
   rerunOnBack: false
   favouritable: true
-- name: DescribeMediaStorageConfiguration
+- name: describe-signaling-channel
   arguments:
   - --output
   - json
@@ -133,10 +145,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
+    attributeName: ChannelInfo
   rerunOnBack: false
   favouritable: true
-- name: DescribeNotificationConfiguration
+- name: describe-stream
   arguments:
   - --output
   - json
@@ -148,10 +160,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
+    attributeName: StreamInfo
   rerunOnBack: false
   favouritable: true
-- name: DescribeSignalingChannel
+- name: describe-stream-storage-configuration
   arguments:
   - --output
   - json
@@ -163,66 +175,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Kinesisvideo
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisvideo
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStreamStorageConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisvideo
-  rerunOnBack: false
-  favouritable: true
-- name: GetDataEndpoint
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisvideo
-  rerunOnBack: false
-  favouritable: true
-- name: GetSignalingChannelEndpoint
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Kinesisvideo
+    attributeName: StreamStorageConfiguration
   rerunOnBack: false
   favouritable: true

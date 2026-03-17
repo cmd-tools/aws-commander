@@ -1,7 +1,7 @@
 name: emr
-defaultCommand: ''
+defaultCommand: list-clusters
 commands:
-- name: ListBootstrapActions
+- name: list-clusters
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: bootstrapaction
+    attributeName: Clusters
   rerunOnBack: false
   favouritable: true
-- name: ListClusters
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-notebook-executions
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: cluster
+    attributeName: NotebookExecutions
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceFleets
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-release-labels
   arguments:
   - --output
   - json
@@ -42,11 +50,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: instancefleet
+    type: list
+    attributeName: ReleaseLabels
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceGroups
+- name: list-security-configurations
   arguments:
   - --output
   - json
@@ -58,10 +66,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instancegroup
+    attributeName: SecurityConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListInstances
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-studio-session-mappings
   arguments:
   - --output
   - json
@@ -73,10 +85,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instance
+    attributeName: SessionMappings
   rerunOnBack: false
   favouritable: true
-- name: ListNotebookExecutions
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-studios
   arguments:
   - --output
   - json
@@ -88,10 +104,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: notebookexecution
+    attributeName: Studios
   rerunOnBack: false
   favouritable: true
-- name: ListReleaseLabels
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: describe-job-flows
   arguments:
   - --output
   - json
@@ -103,10 +123,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: releaselabel
+    attributeName: JobFlows
   rerunOnBack: false
   favouritable: true
-- name: ListSecurityConfigurations
+- name: describe-release-label
   arguments:
   - --output
   - json
@@ -118,10 +138,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: securityconfiguration
+    attributeName: Applications
   rerunOnBack: false
   favouritable: true
-- name: ListSteps
+- name: get-block-public-access-configuration
   arguments:
   - --output
   - json
@@ -133,171 +153,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: step
-  rerunOnBack: false
-  favouritable: true
-- name: ListStudioSessionMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: studiosessionmapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListStudios
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: studio
-  rerunOnBack: false
-  favouritable: true
-- name: ListSupportedInstanceTypes
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: supportedinstancetype
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCluster
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeJobFlows
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeNotebookExecution
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribePersistentAppUI
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeReleaseLabel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeSecurityConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStep
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStudio
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Emr
+    attributeName: BlockPublicAccessConfiguration
   rerunOnBack: false
   favouritable: true

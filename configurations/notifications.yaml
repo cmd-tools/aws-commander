@@ -1,7 +1,7 @@
 name: notifications
-defaultCommand: ''
+defaultCommand: list-managed-notification-configurations
 commands:
-- name: ListChannels
+- name: list-managed-notification-configurations
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: channel
+    attributeName: managedNotificationConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListEventRules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-managed-notification-events
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: eventrule
+    attributeName: managedNotificationEvents
   rerunOnBack: false
   favouritable: true
-- name: ListManagedNotificationChannelAssociations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-notification-configurations
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managednotificationchannelassociation
+    attributeName: notificationConfigurations
   rerunOnBack: false
   favouritable: true
-- name: ListManagedNotificationChildEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-notification-events
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managednotificationchildevent
+    attributeName: notificationEvents
   rerunOnBack: false
   favouritable: true
-- name: ListManagedNotificationConfigurations
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-notification-hubs
   arguments:
   - --output
   - json
@@ -73,10 +89,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managednotificationconfiguration
+    attributeName: notificationHubs
   rerunOnBack: false
   favouritable: true
-- name: ListManagedNotificationEvents
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: get-notifications-access-for-organization
   arguments:
   - --output
   - json
@@ -88,216 +108,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: managednotificationevent
-  rerunOnBack: false
-  favouritable: true
-- name: ListMemberAccounts
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: memberaccount
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotificationConfigurations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notificationconfiguration
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotificationEvents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notificationevent
-  rerunOnBack: false
-  favouritable: true
-- name: ListNotificationHubs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: notificationhub
-  rerunOnBack: false
-  favouritable: true
-- name: ListOrganizationalUnits
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: organizationalunit
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: GetEventRule
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetManagedNotificationChildEvent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetManagedNotificationConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetManagedNotificationEvent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetNotificationConfiguration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetNotificationEvent
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: GetNotificationsAccessForOrganization
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Notifications
-  rerunOnBack: false
-  favouritable: true
-- name: AssociateChannel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: contentView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: ''
+    attributeName: notificationsAccessForOrganization
   rerunOnBack: false
   favouritable: true

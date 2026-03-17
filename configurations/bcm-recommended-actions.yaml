@@ -1,7 +1,7 @@
 name: bcm-recommended-actions
-defaultCommand: ''
+defaultCommand: list-recommended-actions
 commands:
-- name: ListRecommendedActions
+- name: list-recommended-actions
   arguments:
   - --output
   - json
@@ -13,6 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: recommendedaction
+    attributeName: recommendedActions
   rerunOnBack: false
   favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

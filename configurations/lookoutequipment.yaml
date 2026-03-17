@@ -1,7 +1,7 @@
 name: lookoutequipment
-defaultCommand: ''
+defaultCommand: list-data-ingestion-jobs
 commands:
-- name: ListDataIngestionJobs
+- name: list-data-ingestion-jobs
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataingestionjob
+    attributeName: DataIngestionJobSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListDatasets
+- name: list-datasets
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataset
+    attributeName: DatasetSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListInferenceEvents
+- name: list-inference-schedulers
   arguments:
   - --output
   - json
@@ -43,10 +43,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inferenceevent
+    attributeName: InferenceSchedulerSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListInferenceExecutions
+- name: list-label-groups
   arguments:
   - --output
   - json
@@ -58,10 +58,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inferenceexecution
+    attributeName: LabelGroupSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListInferenceSchedulers
+- name: list-models
   arguments:
   - --output
   - json
@@ -73,10 +73,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: inferencescheduler
+    attributeName: ModelSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListLabelGroups
+- name: list-retraining-schedulers
   arguments:
   - --output
   - json
@@ -88,216 +88,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: labelgroup
-  rerunOnBack: false
-  favouritable: true
-- name: ListLabels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: label
-  rerunOnBack: false
-  favouritable: true
-- name: ListModelVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: modelversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListModels
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: model
-  rerunOnBack: false
-  favouritable: true
-- name: ListRetrainingSchedulers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: retrainingscheduler
-  rerunOnBack: false
-  favouritable: true
-- name: ListSensorStatistics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: sensorstatistic
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDataIngestionJob
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDataset
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeInferenceScheduler
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLabel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeLabelGroup
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeModel
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeModelVersion
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeResourcePolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Lookoutequipment
+    attributeName: RetrainingSchedulerSummaries
   rerunOnBack: false
   favouritable: true

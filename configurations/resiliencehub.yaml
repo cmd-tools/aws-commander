@@ -1,7 +1,7 @@
 name: resiliencehub
-defaultCommand: ''
+defaultCommand: list-app-assessments
 commands:
-- name: ListAlarmRecommendations
+- name: list-app-assessments
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: alarmrecommendation
+    attributeName: assessmentSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAppAssessmentComplianceDrifts
+- name: list-apps
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appassessmentcompliancedrift
+    attributeName: appSummaries
   rerunOnBack: false
   favouritable: true
-- name: ListAppAssessmentResourceDrifts
+- name: list-metrics
   arguments:
   - --output
   - json
@@ -43,10 +43,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appassessmentresourcedrift
+    attributeName: rows
   rerunOnBack: false
   favouritable: true
-- name: ListAppAssessments
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-recommendation-templates
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appassessment
+    attributeName: recommendationTemplates
   rerunOnBack: false
   favouritable: true
-- name: ListAppComponentCompliances
+- name: list-resiliency-policies
   arguments:
   - --output
   - json
@@ -73,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appcomponentcompliance
+    attributeName: resiliencyPolicies
   rerunOnBack: false
   favouritable: true
-- name: ListAppComponentRecommendations
+- name: list-resource-grouping-recommendations
   arguments:
   - --output
   - json
@@ -88,10 +92,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appcomponentrecommendation
+    attributeName: groupingRecommendations
   rerunOnBack: false
   favouritable: true
-- name: ListAppInputSources
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-suggested-resiliency-policies
   arguments:
   - --output
   - json
@@ -103,201 +111,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: appinputsource
-  rerunOnBack: false
-  favouritable: true
-- name: ListAppVersionAppComponents
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: appversionappcomponent
-  rerunOnBack: false
-  favouritable: true
-- name: ListAppVersionResourceMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: appversionresourcemapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListAppVersionResources
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: appversionresource
-  rerunOnBack: false
-  favouritable: true
-- name: ListAppVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: appversion
-  rerunOnBack: false
-  favouritable: true
-- name: ListApps
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: app
-  rerunOnBack: false
-  favouritable: true
-- name: ListMetrics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: metric
-  rerunOnBack: false
-  favouritable: true
-- name: ListRecommendationTemplates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: recommendationtemplate
-  rerunOnBack: false
-  favouritable: true
-- name: ListResiliencyPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resiliencypolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListResourceGroupingRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: resourcegroupingrecommendation
-  rerunOnBack: false
-  favouritable: true
-- name: ListSopRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: soprecommendation
-  rerunOnBack: false
-  favouritable: true
-- name: ListSuggestedResiliencyPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: suggestedresiliencypolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTestRecommendations
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: testrecommendation
+    attributeName: resiliencyPolicies
   rerunOnBack: false
   favouritable: true

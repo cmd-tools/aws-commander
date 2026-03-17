@@ -1,7 +1,27 @@
 name: rekognition
-defaultCommand: ''
+defaultCommand: list-collections
 commands:
-- name: ListCollections
+- name: list-collections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: CollectionIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: CollectionId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-media-analysis-jobs
   arguments:
   - --output
   - json
@@ -13,10 +33,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: collection
+    attributeName: MediaAnalysisJobs
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetEntries
+- name: list-stream-processors
   arguments:
   - --output
   - json
@@ -28,10 +48,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetentrie
+    attributeName: StreamProcessors
   rerunOnBack: false
   favouritable: true
-- name: ListDatasetLabels
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: describe-projects
   arguments:
   - --output
   - json
@@ -43,261 +67,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: datasetlabel
+    attributeName: ProjectDescriptions
   rerunOnBack: false
   favouritable: true
-- name: ListFaces
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: face
-  rerunOnBack: false
-  favouritable: true
-- name: ListMediaAnalysisJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: mediaanalysisjob
-  rerunOnBack: false
-  favouritable: true
-- name: ListProjectPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: projectpolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListStreamProcessors
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: streamprocessor
-  rerunOnBack: false
-  favouritable: true
-- name: ListTagsForResource
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListUsers
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: user
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeCollection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeDataset
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeProjectVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeProjects
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: DescribeStreamProcessor
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetCelebrityInfo
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetCelebrityRecognition
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetContentModeration
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetFaceDetection
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetFaceLivenessSessionResults
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
-- name: GetFaceSearch
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Rekognition
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

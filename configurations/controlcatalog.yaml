@@ -1,7 +1,7 @@
 name: controlcatalog
-defaultCommand: ''
+defaultCommand: list-common-controls
 commands:
-- name: ListCommonControls
+- name: list-common-controls
   arguments:
   - --output
   - json
@@ -13,10 +13,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: commoncontrol
+    attributeName: CommonControls
   rerunOnBack: false
   favouritable: true
-- name: ListControlMappings
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-control-mappings
   arguments:
   - --output
   - json
@@ -28,10 +32,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: controlmapping
+    attributeName: ControlMappings
   rerunOnBack: false
   favouritable: true
-- name: ListControls
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-controls
   arguments:
   - --output
   - json
@@ -43,10 +51,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: control
+    attributeName: Controls
   rerunOnBack: false
   favouritable: true
-- name: ListDomains
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-domains
   arguments:
   - --output
   - json
@@ -58,10 +70,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: domain
+    attributeName: Domains
   rerunOnBack: false
   favouritable: true
-- name: ListObjectives
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-objectives
   arguments:
   - --output
   - json
@@ -73,21 +89,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: objective
+    attributeName: Objectives
   rerunOnBack: false
   favouritable: true
-- name: GetControl
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Controlcatalog
-  rerunOnBack: false
-  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

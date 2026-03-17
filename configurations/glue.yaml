@@ -1,7 +1,42 @@
 name: glue
-defaultCommand: ''
+defaultCommand: list-blueprints
 commands:
-- name: ListBlueprints
+- name: list-blueprints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: Blueprints
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-column-statistics-task-runs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: ColumnStatisticsTaskRunIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: ColumnStatisticsTaskRunId
+- name: list-connection-types
   arguments:
   - --output
   - json
@@ -13,10 +48,30 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: blueprint
+    attributeName: ConnectionTypes
   rerunOnBack: false
   favouritable: true
-- name: ListColumnStatisticsTaskRuns
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-crawlers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: CrawlerNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: CrawlerName
+- name: list-custom-entity-types
   arguments:
   - --output
   - json
@@ -28,10 +83,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: columnstatisticstaskrun
+    attributeName: CustomEntityTypes
   rerunOnBack: false
   favouritable: true
-- name: ListConnectionTypes
+- name: list-data-quality-results
   arguments:
   - --output
   - json
@@ -43,10 +98,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: connectiontype
+    attributeName: Results
   rerunOnBack: false
   favouritable: true
-- name: ListCrawlers
+- name: list-data-quality-rule-recommendation-runs
   arguments:
   - --output
   - json
@@ -58,10 +113,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: crawler
+    attributeName: Runs
   rerunOnBack: false
   favouritable: true
-- name: ListCrawls
+- name: list-data-quality-ruleset-evaluation-runs
   arguments:
   - --output
   - json
@@ -73,10 +128,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: crawl
+    attributeName: Runs
   rerunOnBack: false
   favouritable: true
-- name: ListCustomEntityTypes
+- name: list-data-quality-rulesets
   arguments:
   - --output
   - json
@@ -88,10 +143,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: customentitytype
+    attributeName: Rulesets
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityResults
+- name: list-data-quality-statistic-annotations
   arguments:
   - --output
   - json
@@ -103,10 +158,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualityresult
+    attributeName: Annotations
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityRuleRecommendationRuns
+- name: list-data-quality-statistics
   arguments:
   - --output
   - json
@@ -118,10 +173,26 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualityrulerecommendationrun
+    attributeName: Statistics
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityRulesetEvaluationRuns
+- name: list-dev-endpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: DevEndpointNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: DevEndpointName
+- name: list-entities
   arguments:
   - --output
   - json
@@ -133,10 +204,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualityrulesetevaluationrun
+    attributeName: Entities
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityRulesets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-integration-resource-properties
   arguments:
   - --output
   - json
@@ -148,10 +223,46 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualityruleset
+    attributeName: IntegrationResourcePropertyList
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityStatisticAnnotations
+- name: list-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: JobNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: JobName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-ml-transforms
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: TransformIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: TransformId
+- name: list-registries
   arguments:
   - --output
   - json
@@ -163,10 +274,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualitystatisticannotation
+    attributeName: Registries
   rerunOnBack: false
   favouritable: true
-- name: ListDataQualityStatistics
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-schemas
   arguments:
   - --output
   - json
@@ -178,10 +293,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataqualitystatistic
+    attributeName: Schemas
   rerunOnBack: false
   favouritable: true
-- name: ListDevEndpoints
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-sessions
   arguments:
   - --output
   - json
@@ -192,11 +311,12 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: devendpoint
+    type: list
+    attributeName: Ids
   rerunOnBack: false
   favouritable: true
-- name: ListEntities
+  resourceName: Id
+- name: list-triggers
   arguments:
   - --output
   - json
@@ -207,97 +327,12 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: entitie
+    type: list
+    attributeName: TriggerNames
   rerunOnBack: false
   favouritable: true
-- name: ListIntegrationResourceProperties
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: integrationresourcepropertie
-  rerunOnBack: false
-  favouritable: true
-- name: ListJobs
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: job
-  rerunOnBack: false
-  favouritable: true
-- name: ListMLTransforms
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: mltransform
-  rerunOnBack: false
-  favouritable: true
-- name: ListMaterializedViewRefreshTaskRuns
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: materializedviewrefreshtaskrun
-  rerunOnBack: false
-  favouritable: true
-- name: ListRegistries
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: registrie
-  rerunOnBack: false
-  favouritable: true
-- name: ListSchemaVersions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: schemaversion
-  rerunOnBack: false
-  favouritable: true
+  resourceName: TriggerName
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken

@@ -1,7 +1,7 @@
 name: neptunedata
-defaultCommand: ''
+defaultCommand: list-gremlin-queries
 commands:
-- name: ListGremlinQueries
+- name: list-gremlin-queries
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: gremlinquerie
+    attributeName: queries
   rerunOnBack: false
   favouritable: true
-- name: ListLoaderJobs
+- name: list-loader-jobs
   arguments:
   - --output
   - json
@@ -28,10 +28,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: loaderjob
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: ListMLDataProcessingJobs
+- name: list-ml-data-processing-jobs
   arguments:
   - --output
   - json
@@ -42,11 +42,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: mldataprocessingjob
+    type: list
+    attributeName: ids
   rerunOnBack: false
   favouritable: true
-- name: ListMLEndpoints
+- name: list-ml-endpoints
   arguments:
   - --output
   - json
@@ -57,11 +57,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: mlendpoint
+    type: list
+    attributeName: ids
   rerunOnBack: false
   favouritable: true
-- name: ListMLModelTrainingJobs
+- name: list-ml-model-training-jobs
   arguments:
   - --output
   - json
@@ -72,11 +72,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: mlmodeltrainingjob
+    type: list
+    attributeName: ids
   rerunOnBack: false
   favouritable: true
-- name: ListMLModelTransformJobs
+- name: list-ml-model-transform-jobs
   arguments:
   - --output
   - json
@@ -87,11 +87,11 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: mlmodeltransformjob
+    type: list
+    attributeName: ids
   rerunOnBack: false
   favouritable: true
-- name: ListOpenCypherQueries
+- name: list-open-cypher-queries
   arguments:
   - --output
   - json
@@ -103,10 +103,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: opencypherquerie
+    attributeName: queries
   rerunOnBack: false
   favouritable: true
-- name: GetEngineStatus
+- name: get-engine-status
   arguments:
   - --output
   - json
@@ -118,10 +118,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: gremlin
   rerunOnBack: false
   favouritable: true
-- name: GetGremlinQueryStatus
+- name: get-propertygraph-statistics
   arguments:
   - --output
   - json
@@ -133,10 +133,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: GetLoaderJobStatus
+- name: get-propertygraph-stream
   arguments:
   - --output
   - json
@@ -148,10 +148,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: records
   rerunOnBack: false
   favouritable: true
-- name: GetMLDataProcessingJob
+- name: get-propertygraph-summary
   arguments:
   - --output
   - json
@@ -163,10 +163,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: GetMLEndpoint
+- name: get-rdf-graph-summary
   arguments:
   - --output
   - json
@@ -178,10 +178,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: GetMLModelTrainingJob
+- name: get-sparql-statistics
   arguments:
   - --output
   - json
@@ -193,10 +193,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: GetMLModelTransformJob
+- name: get-sparql-stream
   arguments:
   - --output
   - json
@@ -208,10 +208,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: records
   rerunOnBack: false
   favouritable: true
-- name: GetOpenCypherQueryStatus
+- name: manage-propertygraph-statistics
   arguments:
   - --output
   - json
@@ -223,10 +223,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true
-- name: GetPropertygraphStatistics
+- name: manage-sparql-statistics
   arguments:
   - --output
   - json
@@ -238,66 +238,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: Neptunedata
-  rerunOnBack: false
-  favouritable: true
-- name: GetPropertygraphStream
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Neptunedata
-  rerunOnBack: false
-  favouritable: true
-- name: GetPropertygraphSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Neptunedata
-  rerunOnBack: false
-  favouritable: true
-- name: GetRDFGraphSummary
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Neptunedata
-  rerunOnBack: false
-  favouritable: true
-- name: GetSparqlStatistics
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Neptunedata
+    attributeName: payload
   rerunOnBack: false
   favouritable: true

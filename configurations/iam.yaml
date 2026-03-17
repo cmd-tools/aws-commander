@@ -1,5 +1,5 @@
 name: iam
-defaultCommand: ''
+defaultCommand: list-access-keys
 commands:
 - name: list-users
   resourceName: UserName
@@ -119,7 +119,7 @@ commands:
   parse:
     type: object
     attributeName: Policies
-- name: ListAccessKeys
+- name: list-access-keys
   arguments:
   - --output
   - json
@@ -131,10 +131,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: accesskey
+    attributeName: AccessKeyMetadata
   rerunOnBack: false
   favouritable: true
-- name: ListAccountAliases
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-account-aliases
   arguments:
   - --output
   - json
@@ -145,11 +149,15 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: accountaliase
+    type: list
+    attributeName: AccountAliases
   rerunOnBack: false
   favouritable: true
-- name: ListAttachedGroupPolicies
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-delegation-requests
   arguments:
   - --output
   - json
@@ -161,82 +169,7 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: attachedgrouppolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListAttachedRolePolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: attachedrolepolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListAttachedUserPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: attacheduserpolicie
-  rerunOnBack: false
-  favouritable: true
-- name: ListDelegationRequests
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: delegationrequest
-  rerunOnBack: false
-  favouritable: true
-- name: ListEntitiesForPolicy
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: entitiesforpolicys
-  rerunOnBack: false
-  favouritable: true
-- name: ListGroupPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: grouppolicie
+    attributeName: DelegationRequests
   rerunOnBack: false
   favouritable: true
 - name: ListGroups
@@ -254,7 +187,7 @@ commands:
     attributeName: group
   rerunOnBack: false
   favouritable: true
-- name: ListGroupsForUser
+- name: list-instance-profiles
   arguments:
   - --output
   - json
@@ -266,10 +199,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: groupsforusers
+    attributeName: InstanceProfiles
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceProfileTags
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-mfa-devices
   arguments:
   - --output
   - json
@@ -281,10 +218,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instanceprofiletag
+    attributeName: MFADevices
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceProfiles
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-open-id-connect-providers
   arguments:
   - --output
   - json
@@ -296,10 +237,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: instanceprofile
+    attributeName: OpenIDConnectProviderList
   rerunOnBack: false
   favouritable: true
-- name: ListInstanceProfilesForRole
+- name: list-organizations-features
   arguments:
   - --output
   - json
@@ -310,83 +251,8 @@ commands:
   view: tableView
   showJsonViewer: true
   parse:
-    type: object
-    attributeName: instanceprofilesforroles
-  rerunOnBack: false
-  favouritable: true
-- name: ListMFADeviceTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: mfadevicetag
-  rerunOnBack: false
-  favouritable: true
-- name: ListMFADevices
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: mfadevice
-  rerunOnBack: false
-  favouritable: true
-- name: ListOpenIDConnectProviderTags
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: openidconnectprovidertag
-  rerunOnBack: false
-  favouritable: true
-- name: ListOpenIDConnectProviders
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: openidconnectprovider
-  rerunOnBack: false
-  favouritable: true
-- name: ListOrganizationsFeatures
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: organizationsfeature
+    type: list
+    attributeName: EnabledFeatures
   rerunOnBack: false
   favouritable: true
 - name: ListPolicies
@@ -404,7 +270,7 @@ commands:
     attributeName: policie
   rerunOnBack: false
   favouritable: true
-- name: ListPoliciesGrantingServiceAccess
+- name: list-saml-providers
   arguments:
   - --output
   - json
@@ -416,6 +282,146 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: policiesgrantingserviceacces
+    attributeName: SAMLProviderList
+  rerunOnBack: false
+  favouritable: true
+- name: list-server-certificates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ServerCertificateMetadataList
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-service-specific-credentials
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ServiceSpecificCredentials
+  rerunOnBack: false
+  favouritable: true
+- name: list-signing-certificates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Certificates
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-ssh-public-keys
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: SSHPublicKeys
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: list-virtual-mfa-devices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: VirtualMFADevices
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: get-account-authorization-details
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: UserDetailList
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: Marker
+- name: get-account-password-policy
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: PasswordPolicy
+  rerunOnBack: false
+  favouritable: true
+- name: get-account-summary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: SummaryMap
   rerunOnBack: false
   favouritable: true

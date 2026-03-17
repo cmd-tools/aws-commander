@@ -1,7 +1,7 @@
 name: workspaces-web
-defaultCommand: ''
+defaultCommand: list-browser-settings
 commands:
-- name: ListBrowserSettings
+- name: list-browser-settings
   arguments:
   - --output
   - json
@@ -13,10 +13,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: browsersetting
+    attributeName: browserSettings
   rerunOnBack: false
   favouritable: true
-- name: ListDataProtectionSettings
+- name: list-data-protection-settings
   arguments:
   - --output
   - json
@@ -28,10 +28,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: dataprotectionsetting
+    attributeName: dataProtectionSettings
   rerunOnBack: false
   favouritable: true
-- name: ListIdentityProviders
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-ip-access-settings
   arguments:
   - --output
   - json
@@ -43,10 +47,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: identityprovider
+    attributeName: ipAccessSettings
   rerunOnBack: false
   favouritable: true
-- name: ListIpAccessSettings
+- name: list-network-settings
   arguments:
   - --output
   - json
@@ -58,10 +62,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: ipaccesssetting
+    attributeName: networkSettings
   rerunOnBack: false
   favouritable: true
-- name: ListNetworkSettings
+- name: list-portals
   arguments:
   - --output
   - json
@@ -73,10 +77,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: networksetting
+    attributeName: portals
   rerunOnBack: false
   favouritable: true
-- name: ListPortals
+- name: list-session-loggers
   arguments:
   - --output
   - json
@@ -88,10 +92,14 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: portal
+    attributeName: sessionLoggers
   rerunOnBack: false
   favouritable: true
-- name: ListSessionLoggers
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-trust-stores
   arguments:
   - --output
   - json
@@ -103,10 +111,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: sessionlogger
+    attributeName: trustStores
   rerunOnBack: false
   favouritable: true
-- name: ListSessions
+- name: list-user-access-logging-settings
   arguments:
   - --output
   - json
@@ -118,10 +126,10 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: session
+    attributeName: userAccessLoggingSettings
   rerunOnBack: false
   favouritable: true
-- name: ListTagsForResource
+- name: list-user-settings
   arguments:
   - --output
   - json
@@ -133,171 +141,6 @@ commands:
   showJsonViewer: true
   parse:
     type: object
-    attributeName: tagsforresources
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrustStoreCertificates
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: truststorecertificate
-  rerunOnBack: false
-  favouritable: true
-- name: ListTrustStores
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: truststore
-  rerunOnBack: false
-  favouritable: true
-- name: ListUserAccessLoggingSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: useraccessloggingsetting
-  rerunOnBack: false
-  favouritable: true
-- name: ListUserSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: usersetting
-  rerunOnBack: false
-  favouritable: true
-- name: GetBrowserSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetDataProtectionSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetIdentityProvider
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetIpAccessSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetNetworkSettings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetPortal
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
-  rerunOnBack: false
-  favouritable: true
-- name: GetPortalServiceProviderMetadata
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: Workspaces-Web
+    attributeName: userSettings
   rerunOnBack: false
   favouritable: true

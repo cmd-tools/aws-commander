@@ -1,6 +1,23 @@
 name: sts
-defaultCommand: get-session-token
+defaultCommand: get-caller-identity
 commands:
+- name: get-caller-identity
+  arguments:
+  - --query
+  - '{Identity: {Account: Account, Arn: Arn, UserId: UserId}}'
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Identity
+  rerunOnBack: false
+  favouritable: true
 - name: get-session-token
   arguments:
   - --output

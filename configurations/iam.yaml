@@ -172,21 +172,6 @@ commands:
     attributeName: DelegationRequests
   rerunOnBack: false
   favouritable: true
-- name: ListGroups
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: group
-  rerunOnBack: false
-  favouritable: true
 - name: list-instance-profiles
   arguments:
   - --output
@@ -253,21 +238,6 @@ commands:
   parse:
     type: list
     attributeName: EnabledFeatures
-  rerunOnBack: false
-  favouritable: true
-- name: ListPolicies
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: policie
   rerunOnBack: false
   favouritable: true
 - name: list-saml-providers

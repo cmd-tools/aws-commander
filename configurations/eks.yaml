@@ -87,21 +87,6 @@ commands:
     enabled: true
     nextTokenParam: --next-token
     nextTokenJsonPath: nextToken
-- name: ListClusters
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: cluster
-  rerunOnBack: false
-  favouritable: true
 - name: list-eks-anywhere-subscriptions
   arguments:
   - --output

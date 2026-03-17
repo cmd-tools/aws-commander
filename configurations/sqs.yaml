@@ -83,18 +83,3 @@ commands:
   - --cli-connect-timeout
   - '5'
   view: tableView
-- name: ListQueues
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: queue
-  rerunOnBack: false
-  favouritable: true

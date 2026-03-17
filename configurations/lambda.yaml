@@ -97,36 +97,6 @@ commands:
     enabled: true
     nextTokenParam: --marker
     nextTokenJsonPath: NextMarker
-- name: ListEventSourceMappings
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: eventsourcemapping
-  rerunOnBack: false
-  favouritable: true
-- name: ListFunctions
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: function
-  rerunOnBack: false
-  favouritable: true
 - name: list-layers
   arguments:
   - --output

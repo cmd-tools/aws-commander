@@ -161,21 +161,6 @@ commands:
     attributeName: ImportSummaryList
   rerunOnBack: false
   favouritable: true
-- name: ListTables
-  arguments:
-  - --output
-  - json
-  - --cli-read-timeout
-  - '10'
-  - --cli-connect-timeout
-  - '5'
-  view: tableView
-  showJsonViewer: true
-  parse:
-    type: object
-    attributeName: table
-  rerunOnBack: false
-  favouritable: true
 - name: describe-endpoints
   arguments:
   - --output

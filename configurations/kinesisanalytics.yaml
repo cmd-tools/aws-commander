@@ -1,0 +1,33 @@
+name: kinesisanalytics
+defaultCommand: list-applications
+commands:
+- name: list-applications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ApplicationSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: discover-input-schema
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ParsedInputRecords
+  rerunOnBack: false
+  favouritable: true

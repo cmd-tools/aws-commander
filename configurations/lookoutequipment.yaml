@@ -1,0 +1,93 @@
+name: lookoutequipment
+defaultCommand: list-data-ingestion-jobs
+commands:
+- name: list-data-ingestion-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DataIngestionJobSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-datasets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DatasetSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-inference-schedulers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: InferenceSchedulerSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-label-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: LabelGroupSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-models
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ModelSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-retraining-schedulers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: RetrainingSchedulerSummaries
+  rerunOnBack: false
+  favouritable: true

@@ -1,0 +1,33 @@
+name: support-app
+defaultCommand: list-slack-channel-configurations
+commands:
+- name: list-slack-channel-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: slackChannelConfigurations
+  rerunOnBack: false
+  favouritable: true
+- name: list-slack-workspace-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: slackWorkspaceConfigurations
+  rerunOnBack: false
+  favouritable: true

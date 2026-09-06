@@ -1,0 +1,34 @@
+name: codeguruprofiler
+defaultCommand: list-profiling-groups
+commands:
+- name: list-profiling-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: profilingGroupNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: profilingGroupName
+- name: get-findings-report-account-summary
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: reportSummaries
+  rerunOnBack: false
+  favouritable: true

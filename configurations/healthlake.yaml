@@ -1,0 +1,18 @@
+name: healthlake
+defaultCommand: list-fhir-datastores
+commands:
+- name: list-fhir-datastores
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DatastorePropertiesList
+  rerunOnBack: false
+  favouritable: true

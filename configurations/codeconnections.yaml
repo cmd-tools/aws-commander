@@ -1,0 +1,48 @@
+name: codeconnections
+defaultCommand: list-connections
+commands:
+- name: list-connections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Connections
+  rerunOnBack: false
+  favouritable: true
+- name: list-hosts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Hosts
+  rerunOnBack: false
+  favouritable: true
+- name: list-repository-links
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: RepositoryLinks
+  rerunOnBack: false
+  favouritable: true

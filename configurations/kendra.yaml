@@ -1,0 +1,18 @@
+name: kendra
+defaultCommand: list-indices
+commands:
+- name: list-indices
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: IndexConfigurationSummaryItems
+  rerunOnBack: false
+  favouritable: true

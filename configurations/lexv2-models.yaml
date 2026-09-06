@@ -1,0 +1,78 @@
+name: lexv2-models
+defaultCommand: list-bots
+commands:
+- name: list-bots
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: botSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-exports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: exportSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-imports
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: importSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-test-executions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testExecutions
+  rerunOnBack: false
+  favouritable: true
+- name: list-test-sets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: testSets
+  rerunOnBack: false
+  favouritable: true

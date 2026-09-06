@@ -1,0 +1,63 @@
+name: chime-sdk-media-pipelines
+defaultCommand: list-media-capture-pipelines
+commands:
+- name: list-media-capture-pipelines
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: MediaCapturePipelines
+  rerunOnBack: false
+  favouritable: true
+- name: list-media-insights-pipeline-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: MediaInsightsPipelineConfigurations
+  rerunOnBack: false
+  favouritable: true
+- name: list-media-pipeline-kinesis-video-stream-pools
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: KinesisVideoStreamPools
+  rerunOnBack: false
+  favouritable: true
+- name: list-media-pipelines
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: MediaPipelines
+  rerunOnBack: false
+  favouritable: true

@@ -1,0 +1,33 @@
+name: iotdeviceadvisor
+defaultCommand: list-suite-definitions
+commands:
+- name: list-suite-definitions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: suiteDefinitionInformationList
+  rerunOnBack: false
+  favouritable: true
+- name: list-suite-runs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: suiteRunsList
+  rerunOnBack: false
+  favouritable: true

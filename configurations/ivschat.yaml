@@ -1,0 +1,33 @@
+name: ivschat
+defaultCommand: list-logging-configurations
+commands:
+- name: list-logging-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggingConfigurations
+  rerunOnBack: false
+  favouritable: true
+- name: list-rooms
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: rooms
+  rerunOnBack: false
+  favouritable: true

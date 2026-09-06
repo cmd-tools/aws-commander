@@ -1,0 +1,19 @@
+name: firehose
+defaultCommand: list-delivery-streams
+commands:
+- name: list-delivery-streams
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: DeliveryStreamNames
+  rerunOnBack: false
+  favouritable: true
+  resourceName: DeliveryStreamName

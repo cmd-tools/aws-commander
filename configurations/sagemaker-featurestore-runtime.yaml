@@ -1,0 +1,33 @@
+name: sagemaker-featurestore-runtime
+defaultCommand: ''
+commands:
+- name: GetRecord
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sagemaker-Featurestore-Runtime
+  rerunOnBack: false
+  favouritable: true
+- name: BatchGetRecord
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Sagemaker-Featurestore-Runtime
+  rerunOnBack: false
+  favouritable: true

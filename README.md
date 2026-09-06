@@ -196,6 +196,9 @@ go build ./...
 # Run all tests
 go test ./...
 
+# Opt-in real AWS CLI smoke tests
+AWS_COMMANDER_SMOKE=1 AWS_COMMANDER_SMOKE_PROFILE=default AWS_COMMANDER_SMOKE_REGION=us-east-1 go test ./cmd -run TestConfigurationsRunAgainstRealAWSCLI -v
+
 # Run tests with race detector
 go test -race ./...
 

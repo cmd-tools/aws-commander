@@ -1,63 +1,198 @@
-name: "events"
-defaultCommand: "list-event-buses"
+name: events
+defaultCommand: list-event-buses
 commands:
-  - name: "list-event-buses"
-    resourceName: eventBusName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "EventBuses"
-  - name: "list-rules"
-    depends_on: "list-event-buses"
-    resourceName: ruleName
-    rerunOnBack: false
-    arguments:
-      - "--event-bus-name"
-      - "$EVENTBUSNAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "Rules"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "NextToken"
-  - name: "list-targets-by-rule"
-    depends_on: "list-rules"
-    rerunOnBack: false
-    arguments:
-      - "--rule"
-      - "$RULENAME"
-      - "--event-bus-name"
-      - "$EVENTBUSNAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Targets"
-    pagination:
-      enabled: true
-      nextTokenParam: "--next-token"
-      nextTokenJsonPath: "NextToken"
+- name: list-event-buses
+  resourceName: eventBusName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: EventBuses
+- name: list-rules
+  depends_on: list-event-buses
+  resourceName: ruleName
+  rerunOnBack: false
+  arguments:
+  - --event-bus-name
+  - $EVENTBUSNAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: Rules
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-targets-by-rule
+  depends_on: list-rules
+  rerunOnBack: false
+  arguments:
+  - --rule
+  - $RULENAME
+  - --event-bus-name
+  - $EVENTBUSNAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Targets
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: NextToken
+- name: list-api-destinations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ApiDestinations
+  rerunOnBack: false
+  favouritable: true
+- name: list-archives
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Archives
+  rerunOnBack: false
+  favouritable: true
+- name: list-connections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Connections
+  rerunOnBack: false
+  favouritable: true
+- name: list-endpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Endpoints
+  rerunOnBack: false
+  favouritable: true
+- name: ListEventBuses
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: eventbuse
+  rerunOnBack: false
+  favouritable: true
+- name: list-event-sources
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: EventSources
+  rerunOnBack: false
+  favouritable: true
+- name: list-replays
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Replays
+  rerunOnBack: false
+  favouritable: true
+- name: ListRules
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: rule
+  rerunOnBack: false
+  favouritable: true
+- name: describe-event-bus
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DeadLetterConfig
+  rerunOnBack: false
+  favouritable: true

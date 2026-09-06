@@ -1,0 +1,48 @@
+name: application-insights
+defaultCommand: list-applications
+commands:
+- name: list-applications
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ApplicationInfoList
+  rerunOnBack: false
+  favouritable: true
+- name: list-configuration-history
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: EventList
+  rerunOnBack: false
+  favouritable: true
+- name: list-problems
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ProblemList
+  rerunOnBack: false
+  favouritable: true

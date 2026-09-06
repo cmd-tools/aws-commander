@@ -1,0 +1,18 @@
+name: dlm
+defaultCommand: get-lifecycle-policies
+commands:
+- name: get-lifecycle-policies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Policies
+  rerunOnBack: false
+  favouritable: true

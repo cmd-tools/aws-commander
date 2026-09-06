@@ -1,0 +1,48 @@
+name: detective
+defaultCommand: list-graphs
+commands:
+- name: list-graphs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: GraphList
+  rerunOnBack: false
+  favouritable: true
+- name: list-invitations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Invitations
+  rerunOnBack: false
+  favouritable: true
+- name: list-organization-admin-accounts
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Administrators
+  rerunOnBack: false
+  favouritable: true

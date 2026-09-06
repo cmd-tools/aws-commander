@@ -1,61 +1,133 @@
-name: "lambda"
-defaultCommand: "list-functions"
+name: lambda
+defaultCommand: list-functions
 commands:
-  - name: "list-functions"
-    resourceName: FunctionName
-    rerunOnBack: false
-    favouritable: true
-    arguments:
-      - "--no-paginate"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    parse:
-      type: "object"
-      attributeName: "Functions"
-  - name: "list-aliases"
-    depends_on: "list-functions"
-    rerunOnBack: false
-    arguments:
-      - "--function-name"
-      - "$FUNCTIONNAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "Aliases"
-    pagination:
-      enabled: true
-      nextTokenParam: "--starting-token"
-      nextTokenJsonPath: "NextMarker"
-  - name: "list-event-source-mappings"
-    depends_on: "list-functions"
-    rerunOnBack: false
-    arguments:
-      - "--function-name"
-      - "$FUNCTIONNAME"
-      - "--output"
-      - "json"
-      - "--cli-read-timeout"
-      - "10"
-      - "--cli-connect-timeout"
-      - "5"
-    view: tableView
-    showJsonViewer: true
-    parse:
-      type: "object"
-      attributeName: "EventSourceMappings"
-    pagination:
-      enabled: true
-      nextTokenParam: "--starting-token"
-      nextTokenJsonPath: "NextMarker"
+- name: list-functions
+  resourceName: FunctionName
+  rerunOnBack: false
+  favouritable: true
+  arguments:
+  - --no-paginate
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  parse:
+    type: object
+    attributeName: Functions
+- name: list-aliases
+  depends_on: list-functions
+  rerunOnBack: false
+  arguments:
+  - --function-name
+  - $FUNCTIONNAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Aliases
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: NextMarker
+- name: list-event-source-mappings
+  depends_on: list-functions
+  rerunOnBack: false
+  arguments:
+  - --function-name
+  - $FUNCTIONNAME
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: EventSourceMappings
+  pagination:
+    enabled: true
+    nextTokenParam: --starting-token
+    nextTokenJsonPath: NextMarker
+- name: list-capacity-providers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: CapacityProviders
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-code-signing-configs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: CodeSigningConfigs
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: list-layers
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Layers
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --marker
+    nextTokenJsonPath: NextMarker
+- name: get-account-settings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: AccountLimit
+  rerunOnBack: false
+  favouritable: true

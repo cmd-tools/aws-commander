@@ -1,0 +1,78 @@
+name: comprehendmedical
+defaultCommand: list-entities-detection-v2-jobs
+commands:
+- name: list-entities-detection-v2-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
+  rerunOnBack: false
+  favouritable: true
+- name: list-icd10-cm-inference-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
+  rerunOnBack: false
+  favouritable: true
+- name: list-phi-detection-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
+  rerunOnBack: false
+  favouritable: true
+- name: list-rx-norm-inference-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
+  rerunOnBack: false
+  favouritable: true
+- name: list-snomedct-inference-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ComprehendMedicalAsyncJobPropertiesList
+  rerunOnBack: false
+  favouritable: true

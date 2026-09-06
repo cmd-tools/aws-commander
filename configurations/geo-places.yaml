@@ -1,0 +1,33 @@
+name: geo-places
+defaultCommand: ''
+commands:
+- name: geocode
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ResultItems
+  rerunOnBack: false
+  favouritable: true
+- name: search-text
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ResultItems
+  rerunOnBack: false
+  favouritable: true

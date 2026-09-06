@@ -1,0 +1,48 @@
+name: cloudfront-keyvaluestore
+defaultCommand: ''
+commands:
+- name: ListKeys
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: key
+  rerunOnBack: false
+  favouritable: true
+- name: DescribeKeyValueStore
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cloudfront-Keyvaluestore
+  rerunOnBack: false
+  favouritable: true
+- name: GetKey
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Cloudfront-Keyvaluestore
+  rerunOnBack: false
+  favouritable: true

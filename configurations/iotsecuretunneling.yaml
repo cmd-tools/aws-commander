@@ -1,0 +1,18 @@
+name: iotsecuretunneling
+defaultCommand: list-tunnels
+commands:
+- name: list-tunnels
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tunnelSummaries
+  rerunOnBack: false
+  favouritable: true

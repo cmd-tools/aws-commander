@@ -1,0 +1,48 @@
+name: pinpoint
+defaultCommand: list-templates
+commands:
+- name: list-templates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: TemplatesResponse
+  rerunOnBack: false
+  favouritable: true
+- name: get-apps
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ApplicationsResponse
+  rerunOnBack: false
+  favouritable: true
+- name: get-recommender-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ListRecommenderConfigurationsResponse
+  rerunOnBack: false
+  favouritable: true

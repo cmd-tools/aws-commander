@@ -1,0 +1,63 @@
+name: synthetics
+defaultCommand: list-groups
+commands:
+- name: list-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Groups
+  rerunOnBack: false
+  favouritable: true
+- name: describe-canaries
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Canaries
+  rerunOnBack: false
+  favouritable: true
+- name: describe-canaries-last-run
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: CanariesLastRun
+  rerunOnBack: false
+  favouritable: true
+- name: describe-runtime-versions
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: RuntimeVersions
+  rerunOnBack: false
+  favouritable: true

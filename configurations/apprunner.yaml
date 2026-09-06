@@ -1,0 +1,93 @@
+name: apprunner
+defaultCommand: list-auto-scaling-configurations
+commands:
+- name: list-auto-scaling-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: AutoScalingConfigurationSummaryList
+  rerunOnBack: false
+  favouritable: true
+- name: list-connections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ConnectionSummaryList
+  rerunOnBack: false
+  favouritable: true
+- name: list-observability-configurations
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ObservabilityConfigurationSummaryList
+  rerunOnBack: false
+  favouritable: true
+- name: list-services
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ServiceSummaryList
+  rerunOnBack: false
+  favouritable: true
+- name: list-vpc-connectors
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: VpcConnectors
+  rerunOnBack: false
+  favouritable: true
+- name: list-vpc-ingress-connections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: VpcIngressConnectionSummaryList
+  rerunOnBack: false
+  favouritable: true

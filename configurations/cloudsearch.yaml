@@ -1,0 +1,33 @@
+name: cloudsearch
+defaultCommand: list-domain-names
+commands:
+- name: list-domain-names
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DomainNames
+  rerunOnBack: false
+  favouritable: true
+- name: describe-domains
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: DomainStatusList
+  rerunOnBack: false
+  favouritable: true

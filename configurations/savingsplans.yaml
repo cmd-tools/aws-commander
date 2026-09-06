@@ -1,0 +1,48 @@
+name: savingsplans
+defaultCommand: describe-savings-plans
+commands:
+- name: describe-savings-plans
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: savingsPlans
+  rerunOnBack: false
+  favouritable: true
+- name: describe-savings-plans-offering-rates
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: searchResults
+  rerunOnBack: false
+  favouritable: true
+- name: describe-savings-plans-offerings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: searchResults
+  rerunOnBack: false
+  favouritable: true

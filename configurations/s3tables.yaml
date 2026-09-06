@@ -1,0 +1,37 @@
+name: s3tables
+defaultCommand: list-table-buckets
+commands:
+- name: list-table-buckets
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: tableBuckets
+  rerunOnBack: false
+  favouritable: true
+  pagination:
+    enabled: true
+    nextTokenParam: --continuation-token
+    nextTokenJsonPath: continuationToken
+- name: get-table
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: namespace
+  rerunOnBack: false
+  favouritable: true

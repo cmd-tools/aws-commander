@@ -1,0 +1,108 @@
+name: opensearchserverless
+defaultCommand: list-collection-groups
+commands:
+- name: list-collection-groups
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collectionGroupSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-collections
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collectionSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-vpc-endpoints
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: vpcEndpointSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: get-account-settings
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: accountSettingsDetail
+  rerunOnBack: false
+  favouritable: true
+- name: get-policies-stats
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: AccessPolicyStats
+  rerunOnBack: false
+  favouritable: true
+- name: batch-get-collection
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collectionDetails
+  rerunOnBack: false
+  favouritable: true
+- name: batch-get-collection-group
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: collectionGroupDetails
+  rerunOnBack: false
+  favouritable: true

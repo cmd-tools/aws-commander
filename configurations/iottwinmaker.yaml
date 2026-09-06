@@ -1,0 +1,33 @@
+name: iottwinmaker
+defaultCommand: list-workspaces
+commands:
+- name: list-workspaces
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: workspaceSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: get-pricing-plan
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: currentPricingPlan
+  rerunOnBack: false
+  favouritable: true

@@ -1,0 +1,43 @@
+name: rtbfabric
+defaultCommand: list-requester-gateways
+commands:
+- name: list-requester-gateways
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: gatewayIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: gatewayId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken
+- name: list-responder-gateways
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: list
+    attributeName: gatewayIds
+  rerunOnBack: false
+  favouritable: true
+  resourceName: gatewayId
+  pagination:
+    enabled: true
+    nextTokenParam: --next-token
+    nextTokenJsonPath: nextToken

@@ -1,0 +1,138 @@
+name: transcribe
+defaultCommand: list-call-analytics-categories
+commands:
+- name: list-call-analytics-categories
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Categories
+  rerunOnBack: false
+  favouritable: true
+- name: list-call-analytics-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: CallAnalyticsJobSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-language-models
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Models
+  rerunOnBack: false
+  favouritable: true
+- name: list-medical-scribe-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: MedicalScribeJobSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-medical-transcription-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: MedicalTranscriptionJobSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-medical-vocabularies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Vocabularies
+  rerunOnBack: false
+  favouritable: true
+- name: list-transcription-jobs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: TranscriptionJobSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-vocabularies
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Vocabularies
+  rerunOnBack: false
+  favouritable: true
+- name: list-vocabulary-filters
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: VocabularyFilters
+  rerunOnBack: false
+  favouritable: true

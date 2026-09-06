@@ -1,0 +1,63 @@
+name: iotevents
+defaultCommand: list-alarm-models
+commands:
+- name: list-alarm-models
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: alarmModelSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-detector-models
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: detectorModelSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: list-inputs
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: inputSummaries
+  rerunOnBack: false
+  favouritable: true
+- name: describe-logging-options
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: loggingOptions
+  rerunOnBack: false
+  favouritable: true

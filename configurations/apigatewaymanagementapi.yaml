@@ -1,0 +1,33 @@
+name: apigatewaymanagementapi
+defaultCommand: ''
+commands:
+- name: GetConnection
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: tableView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: Apigatewaymanagementapi
+  rerunOnBack: false
+  favouritable: true
+- name: PostToConnection
+  arguments:
+  - --output
+  - json
+  - --cli-read-timeout
+  - '10'
+  - --cli-connect-timeout
+  - '5'
+  view: contentView
+  showJsonViewer: true
+  parse:
+    type: object
+    attributeName: ''
+  rerunOnBack: false
+  favouritable: true

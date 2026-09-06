@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/cmd-tools/aws-commander/cmd"
@@ -16,28 +15,21 @@ var awsCommandResult = `{
 	  {
 		"Name": "sample-bucket1",
 		"CreationDate": "2024-03-26T06:28:38+00:01"
-	  },
-	  {
-		"Name": "sample-bucket2",
-		"CreationDate": "2024-03-26T06:28:38+00:02"
-	  },
-	  {
-		"Name": "sample-bucket3",
-		"CreationDate": "2024-03-26T06:28:38+00:03"
 	  }
 	],
 	"Owner": {
 	  "DisplayName": "webfile",
 	  "ID": "75aa57f09aa0c8caeab4f8c24e99d10f8e7faeebf76c078efc7c6caea54ba06a"
 	}
-  }
+}
 `
 
 var awsCommandResult2 = `{
 	"TableNames": [
-	  "global01"
+	  "global01",
+	  "global02"
 	]
-  }  
+}
 `
 
 var awsCommandResult3 = `{
@@ -52,47 +44,101 @@ var awsCommandResult3 = `{
 		  "S": "foo1"
 		}
 	  }
-  	]
+	]
 }
 `
 
-func Test_ParseCommand_Object(t *testing.T) {
-	var commandTest = cmd.Command{
+func TestParseCommandObjectCollection(t *testing.T) {
+	command := cmd.Command{
 		Parse: cmd.Parse{
 			Type:          "object",
 			AttributeName: "Buckets",
 		},
 	}
 
-	var jsonResult1 = ParseCommand(commandTest, awsCommandResult)
-	fmt.Println(jsonResult1)
+	result := ParseCommand(command, awsCommandResult)
 
-	commandTest = cmd.Command{
+	if len(result.Header) != 2 {
+		t.Fatalf("expected 2 headers, got %d", len(result.Header))
+	}
+	if result.Header[0] != "Name" || result.Header[1] != "CreationDate" {
+		t.Fatalf("unexpected headers: %v", result.Header)
+	}
+	if len(result.Values) != 2 {
+		t.Fatalf("expected 2 rows, got %d", len(result.Values))
+	}
+	if result.Values[0][0] != "sample-bucket" {
+		t.Fatalf("expected first bucket name, got %q", result.Values[0][0])
+	}
+	if len(result.RawData) != 2 {
+		t.Fatalf("expected raw data for 2 rows, got %d", len(result.RawData))
+	}
+}
+
+func TestParseCommandObjectSingleObject(t *testing.T) {
+	command := cmd.Command{
 		Parse: cmd.Parse{
 			Type:          "object",
 			AttributeName: "Owner",
 		},
 	}
-	jsonResult1 = ParseCommand(commandTest, awsCommandResult)
-	fmt.Println(jsonResult1)
 
-	commandTest = cmd.Command{
+	result := ParseCommand(command, awsCommandResult)
+
+	if len(result.Values) != 1 {
+		t.Fatalf("expected 1 row, got %d", len(result.Values))
+	}
+	if len(result.Header) != 2 {
+		t.Fatalf("expected 2 headers, got %d", len(result.Header))
+	}
+	if result.Values[0][0] != "webfile" {
+		t.Fatalf("expected owner display name, got %q", result.Values[0][0])
+	}
+}
+
+func TestParseCommandListStrings(t *testing.T) {
+	command := cmd.Command{
+		Parse: cmd.Parse{
+			Type:          "list",
+			AttributeName: "TableNames",
+		},
+	}
+
+	result := ParseCommand(command, awsCommandResult2)
+
+	if len(result.Header) != 1 || result.Header[0] != "Item" {
+		t.Fatalf("unexpected headers: %v", result.Header)
+	}
+	if len(result.Values) != 2 {
+		t.Fatalf("expected 2 values, got %d", len(result.Values))
+	}
+	if result.Values[1][0] != "global02" {
+		t.Fatalf("expected second table name, got %q", result.Values[1][0])
+	}
+}
+
+func TestParseCommandObjectDynamoDBItems(t *testing.T) {
+	command := cmd.Command{
 		Parse: cmd.Parse{
 			Type:          "object",
 			AttributeName: "Items",
 		},
 	}
-	jsonResult1 = ParseCommand(commandTest, awsCommandResult3)
-	fmt.Println(jsonResult1)
+
+	result := ParseCommand(command, awsCommandResult3)
+
+	if len(result.Header) != 1 || result.Header[0] != "id" {
+		t.Fatalf("unexpected headers: %v", result.Header)
+	}
+	if len(result.Values) != 2 {
+		t.Fatalf("expected 2 rows, got %d", len(result.Values))
+	}
+	if result.Values[0][0] == "" {
+		t.Fatal("expected first row id value to be present")
+	}
 }
 
-// Test_ParseCommand_Object_HeterogeneousKeys verifies that items with different
-// sets of attributes (as is common in DynamoDB's schemaless model) produce a
-// header that is the union of all keys and rows that are correctly aligned to
-// that header, with empty strings for missing attributes.
-func Test_ParseCommand_Object_HeterogeneousKeys(t *testing.T) {
-	// Item 1 has "id" and "name"; Item 2 has "id" and "age"; Item 3 has "id", "name", and "email".
-	// Expected header (union, first-appearance order): id, name, age, email
+func TestParseCommandObjectHeterogeneousKeys(t *testing.T) {
 	heterogeneousInput := `{
 		"Items": [
 			{"id": {"S": "1"}, "name": {"S": "Alice"}},
@@ -110,58 +156,51 @@ func Test_ParseCommand_Object_HeterogeneousKeys(t *testing.T) {
 
 	result := ParseCommand(command, heterogeneousInput)
 
-	// Verify header is the union of all keys
 	expectedHeader := []string{"id", "name", "age", "email"}
 	if len(result.Header) != len(expectedHeader) {
-		t.Fatalf("header length: got %d, want %d\nheader: %v", len(result.Header), len(expectedHeader), result.Header)
+		t.Fatalf("header length: got %d, want %d; header=%v", len(result.Header), len(expectedHeader), result.Header)
 	}
-	for i, h := range expectedHeader {
-		if result.Header[i] != h {
-			t.Errorf("header[%d]: got %q, want %q", i, result.Header[i], h)
+	for index, header := range expectedHeader {
+		if result.Header[index] != header {
+			t.Errorf("header[%d]: got %q, want %q", index, result.Header[index], header)
 		}
 	}
-
-	// Verify every row has exactly len(header) columns
 	if len(result.Values) != 3 {
 		t.Fatalf("row count: got %d, want 3", len(result.Values))
 	}
-	for i, row := range result.Values {
+	for index, row := range result.Values {
 		if len(row) != len(expectedHeader) {
-			t.Errorf("row %d column count: got %d, want %d\nrow: %v", i, len(row), len(expectedHeader), row)
+			t.Errorf("row %d column count: got %d, want %d", index, len(row), len(expectedHeader))
 		}
 	}
-
-	// Verify row alignment: missing attributes should be empty strings
-	// Row 0: id={"S":"1"}, name={"S":"Alice"}, age="", email=""
-	if result.Values[0][2] != "" {
-		t.Errorf("row 0 col 2 (age): got %q, want empty string", result.Values[0][2])
+	if result.Values[0][2] != "" || result.Values[0][3] != "" {
+		t.Fatal("expected missing fields in first row to stay empty")
 	}
-	if result.Values[0][3] != "" {
-		t.Errorf("row 0 col 3 (email): got %q, want empty string", result.Values[0][3])
+	if result.Values[1][1] != "" || result.Values[1][3] != "" {
+		t.Fatal("expected missing fields in second row to stay empty")
 	}
-
-	// Row 1: id={"S":"2"}, name="", age={"N":"30"}, email=""
-	if result.Values[1][1] != "" {
-		t.Errorf("row 1 col 1 (name): got %q, want empty string", result.Values[1][1])
-	}
-	if result.Values[1][3] != "" {
-		t.Errorf("row 1 col 3 (email): got %q, want empty string", result.Values[1][3])
-	}
-
-	// Row 2: id={"S":"3"}, name={"S":"Charlie"}, age="", email={"S":"c@example.com"}
 	if result.Values[2][2] != "" {
-		t.Errorf("row 2 col 2 (age): got %q, want empty string", result.Values[2][2])
+		t.Fatal("expected missing age in third row to stay empty")
 	}
 }
 
-func Test_ParseCommand_Array(t *testing.T) {
-	var commandTest = cmd.Command{
+func TestParseCommandMissingAttributeReturnsFallbackMessage(t *testing.T) {
+	command := cmd.Command{
 		Parse: cmd.Parse{
-			Type:          "list",
-			AttributeName: "TableNames",
+			Type:          "object",
+			AttributeName: "DoesNotExist",
 		},
 	}
 
-	var jsonResult1 = ParseCommand(commandTest, awsCommandResult2)
-	fmt.Println(jsonResult1)
+	result := ParseCommand(command, awsCommandResult)
+
+	if len(result.Header) != 1 || result.Header[0] != "Info" {
+		t.Fatalf("expected fallback info header, got %v", result.Header)
+	}
+	if len(result.Values) != 1 || len(result.Values[0]) != 1 {
+		t.Fatalf("expected one fallback message row, got %v", result.Values)
+	}
+	if result.Values[0][0] != "No DoesNotExist found" {
+		t.Fatalf("unexpected fallback message: %q", result.Values[0][0])
+	}
 }
